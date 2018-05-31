@@ -1,0 +1,40 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://52.6.242.125:5432/carpark
+    username: nfo
+    password: 123
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    default-schema: public
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+security:
+  session:
+    duration: 43200
+  ignored: /ui/digest,/ui/activate
+  user:
+    password: password
+  oauth:
+    client:
+      clientId: carspark
+      secret: test
+      grantTypes: login_password
+      scope: carspark
+  validation:
+    redirectUriRegex: (.*localhost.*)
+
+logging:
+  level:
+    ROOT: INFO
+    ru.neoflex: DEBUG
+    org.springframework: INFO
