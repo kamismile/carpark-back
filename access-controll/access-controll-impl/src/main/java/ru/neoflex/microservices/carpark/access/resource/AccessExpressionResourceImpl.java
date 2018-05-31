@@ -3,7 +3,7 @@ package ru.neoflex.microservices.carpark.access.resource;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.neoflex.microservices.carpark.access.model.AccessExpresion;
+import ru.neoflex.microservices.carpark.access.model.AccessExpression;
 import ru.neoflex.microservices.carpark.access.service.AccessExpressionResource;
 import ru.neoflex.microservices.carpark.access.service.AccessExpressionService;
 
@@ -20,23 +20,23 @@ public class AccessExpressionResourceImpl implements AccessExpressionResource {
    private AccessExpressionService accessExpressionService;
 
    @RequestMapping(method = RequestMethod.GET, value = "/expression") @Override
-   public AccessExpresion getByOperation(String operation) {
+   public AccessExpression getByOperation(String operation) {
       return accessExpressionService.getByOperation(operation);
    }
 
    @Override
-   public AccessExpresion get(@RequestPart("id") Long id) {
+   public AccessExpression get(@RequestPart("id") Long id) {
       return null;
    }
 
    @Override
-   public List<AccessExpresion> getAll() {
+   public List<AccessExpression> getAll() {
       return accessExpressionService.getAll();
    }
 
    @Override
-   public AccessExpresion add(AccessExpresion expresion) {
-     return  accessExpressionService.add(expresion);
+   public AccessExpression add(AccessExpression expression) {
+     return  accessExpressionService.add(expression);
    }
 
    @Override
@@ -45,7 +45,7 @@ public class AccessExpressionResourceImpl implements AccessExpressionResource {
    }
 
    @Override
-   public void update(AccessExpresion expresion) {
-      accessExpressionService.update(expresion);
+   public void update(AccessExpression expression) {
+      accessExpressionService.update(expression);
    }
 }

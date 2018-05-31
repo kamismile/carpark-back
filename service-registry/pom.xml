@@ -133,6 +133,15 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <property>
+                    <name>spring.profiles.active</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+        </profile>
     </profiles>
 
 	<dependencies>

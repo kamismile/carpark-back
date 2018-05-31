@@ -1,8 +1,11 @@
+server:
+  port: ${PORT_TO_EXPOSE:8080}
+
 spring:
   datasource:
-    url: jdbc:postgresql://52.6.242.125:5432/carpark
-    username: nfo
-    password: 123
+    url: jdbc:postgresql://service-postgres.postgres:5432/dicts
+    username: dicts
+    password: dicts
     driver-class-name: org.postgresql.Driver
   liquibase:
     default-schema: public
@@ -16,8 +19,9 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
 
-server:
-  port: 8083
+eureka:
+  instance.preferIpAddress: true
+  client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/eureka/
 
 feign:
   oauth2.enabled: true
@@ -38,3 +42,24 @@ security:
                   1hCAp+yaQ1zvf0qJT4UWiNwddO6xZAwwQHWgIKhTpQNcaAGExB+1JE1NJqk2pim7
                   yQIDAQAB
                   -----END PUBLIC KEY-----
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://172.19.19.226:31564/dicts
+    username: dicts
+    password: dicts
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    default-schema: public
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+server:
+  port: 8081
+
+eureka:
+  instance.preferIpAddress: true
+  client.serviceUrl.defaultZone: http://localhost:8761/eureka/

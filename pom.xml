@@ -20,5 +20,6 @@
 		<module>access-controll</module>
         <module>preorders</module>
         <module>gateway</module>
+        <module>report</module>
     </modules>
 </project>

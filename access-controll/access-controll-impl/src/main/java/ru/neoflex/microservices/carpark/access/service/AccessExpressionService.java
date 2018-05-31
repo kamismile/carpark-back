@@ -1,13 +1,10 @@
 package ru.neoflex.microservices.carpark.access.service;
 
-import com.google.common.base.Optional;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import ru.neoflex.microservices.carpark.access.model.AccessExpresion;
+import ru.neoflex.microservices.carpark.access.model.AccessExpression;
 import ru.neoflex.microservices.carpark.access.repository.AccessExpressionRepository;
 
 import java.util.List;
@@ -23,29 +20,29 @@ public class AccessExpressionService {
         @Autowired
         private AccessExpressionRepository repository;
 
-        public AccessExpresion getByOperation(String operation) {
+        public AccessExpression getByOperation(String operation) {
                return repository.findByOperation(operation).stream()
-                       .findFirst().orElse(new AccessExpresion());
+                       .findFirst().orElse(new AccessExpression());
         }
 
-        public List<AccessExpresion> getAll() {
+        public List<AccessExpression> getAll() {
                 return repository.findAll();
         }
 
 
-        public AccessExpresion add(AccessExpresion expresion) {
-             return repository.save(expresion);
+        public AccessExpression add(AccessExpression expression) {
+             return repository.save(expression);
         }
 
         public void delete(Long id) {
              repository.delete(id);
         }
 
-        public void update(AccessExpresion expresion) {
-            repository.save(expresion);
+        public void update(AccessExpression expression) {
+            repository.save(expression);
         }
 
-        public AccessExpresion get(Long id) {
+        public AccessExpression get(Long id) {
                 return repository.findOne(id);
         }
 }

@@ -15,18 +15,15 @@ spring:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
-  application:
-      name: acces-controll
-
-  spring.jackson:
+  jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
       FAIL_ON_EMPTY_BEANS: false
     default-property-inclusion: non_null
     date-format: org.codehaus.jackson.map.util.ISO8601DateFormat
 
-  server:
-     port: 8084
+server:
+   port: 8084
 
 security:
   oauth2:
@@ -41,3 +38,28 @@ security:
                     1hCAp+yaQ1zvf0qJT4UWiNwddO6xZAwwQHWgIKhTpQNcaAGExB+1JE1NJqk2pim7
                     yQIDAQAB
                     -----END PUBLIC KEY-----
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  liquibase:
+    default-schema: public
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+  cloud.kubernetes.discovery.enabled: false
+
+eureka:
+    client:
+      enabled: false

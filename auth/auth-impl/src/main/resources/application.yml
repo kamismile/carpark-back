@@ -1,11 +1,11 @@
 server:
-  port: 8081
+  port: ${PORT_TO_EXPOSE:8080}
 
 spring:
   datasource:
-    url: jdbc:postgresql://52.6.242.125:5432/carpark
-    username: nfo
-    password: 123
+    url: jdbc:postgresql://service-postgres.postgres:5432/auth
+    username: auth
+    password: auth
     driver-class-name: org.postgresql.Driver
   liquibase:
     default-schema: public
@@ -18,6 +18,11 @@ spring:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
+
+eureka:
+  instance.preferIpAddress: true
+  client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/eureka/
+
 security:
   session:
     duration: 43200
@@ -38,3 +43,24 @@ logging:
     ROOT: INFO
     ru.neoflex: DEBUG
     org.springframework: INFO
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://172.19.19.226:31564/auth
+    username: auth
+    password: auth
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    default-schema: public
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+server:
+  port: 8080
+
+eureka:
+  instance.preferIpAddress: true
+  client.serviceUrl.defaultZone: http://localhost:8761/eureka/

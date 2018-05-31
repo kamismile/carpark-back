@@ -7,15 +7,13 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import ru.neoflex.microservices.carpark.access.feign.AccessExpressionFeign;
-import ru.neoflex.microservices.carpark.access.model.AccessExpresion;
+import ru.neoflex.microservices.carpark.access.model.AccessExpression;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.util.UserInfoUtil;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -78,8 +76,8 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         private void initExpressionsIfNeed() {
                 if(expressions.isEmpty()){
                   try {
-                          List<AccessExpresion> accessExpresions = accessExpressionFeign.getAll();
-                          accessExpresions.stream()
+                          List<AccessExpression> accessExpressions = accessExpressionFeign.getAll();
+                          accessExpressions.stream()
                                   .filter(e -> !StringUtils.isEmpty(e.getOperation())
                                           && !StringUtils.isEmpty(e.getExpression()))
                                   .forEach(e -> expressions.put(e.getOperation(), e.getExpression()));
