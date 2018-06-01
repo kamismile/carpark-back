@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.cars.api;
 
 import ru.neoflex.microservices.carpark.cars.model.Car;
@@ -5,6 +10,10 @@ import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 
 import java.util.List;
 
+/**
+ * Интерфейс контроллера автомашин.
+ * @author Denis_Begun
+ */
 public interface CarApi {
 
     List<Car> getCars(UserInfo userInfo);

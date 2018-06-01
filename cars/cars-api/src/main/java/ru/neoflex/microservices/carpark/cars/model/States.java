@@ -1,14 +1,17 @@
 package ru.neoflex.microservices.carpark.cars.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public enum States {
 
-    READY ("READY", "В наличии"),
-    IN_USE ("IN_USE", "В прокате"),
-    IN_SERVICE ("IN_SERVICE", "На обслуживании"),
-    DECOMMISSIONED ("DECOMMISSIONED", "Выбыл из автопарка");
+    READY ("ready", "В наличии"),
+    IN_USE ("in_use", "В прокате"),
+    IN_SERVICE ("in_service", "На обслуживании"),
+    DECOMMISSIONED ("decommissioned", "Выбыл из автопарка");
+
 
     private String statusCode;
     private String description;
