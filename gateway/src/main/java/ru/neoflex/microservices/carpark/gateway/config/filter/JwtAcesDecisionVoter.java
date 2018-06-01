@@ -33,6 +33,11 @@ public class JwtAcesDecisionVoter implements AccessDecisionVoter {
                 && ((FilterInvocation) object).getRequestUrl().contains("auth/ui/tokens")) {
             return ACCESS_GRANTED;
         }
+        if (object instanceof FilterInvocation
+                && ((FilterInvocation) object).getHttpRequest().getMethod().equals("OPTIONS")) {
+            return ACCESS_GRANTED;
+        }
+
         if (authentication.getAuthorities() == null || authentication.getAuthorities().isEmpty()) {
             return ACCESS_DENIED;
         }
