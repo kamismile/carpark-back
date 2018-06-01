@@ -9,6 +9,6 @@ import ru.neoflex.microservices.carpark.employees.model.Employee;
  * @author mirzoevnik
  */
 public interface EmployeeService {
-    @GetMapping(value = "/employee/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Employee getByUserId(@PathVariable String userId);
+
+    Employee getByUserId(String userId);
 }
