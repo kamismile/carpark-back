@@ -39,6 +39,12 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <artifactId>common-lib</artifactId>
+                <version>${common-lib.version}</version>
+            </dependency>
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -163,13 +169,6 @@
                 <version>${org.mockito.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!-- h2 for test -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.177</version>
-            </dependency>
-
             <!-- kafka -->
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
