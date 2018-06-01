@@ -24,5 +24,7 @@ CREATE TABLE car_event (
   USER_NAME VARCHAR(300) NULL
 
  );
+ --changeset rmorenko:create-table-report3
+ CREATE SEQUENCE hibernate_sequence INCREMENT BY 1;
 
 
