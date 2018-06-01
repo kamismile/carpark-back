@@ -7,5 +7,5 @@ import ru.neoflex.microservices.carpark.employees.model.Employee;
  */
 public interface EmployeeApi {
 
-    Employee getByUserId(Long userId);
+    Employee getByUserId(String userId);
 }

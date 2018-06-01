@@ -24,7 +24,7 @@ public class EmployeeController implements EmployeeApi {
 
     @Override
     @GetMapping(value = "/employee/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Employee getByUserId(@PathVariable Long userId) {
+    public Employee getByUserId(@PathVariable String userId) {
         return employeeService.getByUserId(userId);
     }
 }
