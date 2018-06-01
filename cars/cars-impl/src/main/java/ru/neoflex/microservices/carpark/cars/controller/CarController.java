@@ -31,7 +31,7 @@ public class CarController implements CarApi {
 
     @Override
     @GetMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
-    //@PostFilter("hasPermission(filterObject, {'getCars_filter', {}})")
+    @PostFilter("hasPermission(filterObject, {'getCars_filter', {}})")
     public List<Car> getCars(UserInfo userInfo) {
         List<Car> list = carService.getAllCars();
         list.stream().forEach(car -> {
@@ -42,7 +42,7 @@ public class CarController implements CarApi {
 
     @Override
     @GetMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    //@PreAuthorize("hasPermission({{'id', #id}} ,{'getCar'})")
+    @PreAuthorize("hasPermission({{'id', #id}} ,{'getCar'})")
     public Car getCar(UserInfo userInfo, @PathVariable Long id) {
         System.out.println(userInfo);
         Car car = carService.getCar(id);
