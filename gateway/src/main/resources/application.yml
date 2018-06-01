@@ -7,10 +7,38 @@ eureka:
 
 zuul:
   sensitiveHeaders:
+  include-debug-header: true
+  zuul.debug.request: true
+  stripPrefix: false
   routes:
     auth:
       serviceId: auth
       sensitiveHeaders:
+    dicts:
+      serviceId: dicts
+      sensitiveHeaders:
+    cars:
+      serviceId: cars
+      sensitiveHeaders:
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  eureka:
+    enabled: true
+    ReadTimeout: 20000
+    ConnectTimeout: 20000
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: DEBUG
 
 ---
 spring:
