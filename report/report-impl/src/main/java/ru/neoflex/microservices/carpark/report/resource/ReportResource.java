@@ -1,6 +1,5 @@
 package ru.neoflex.microservices.carpark.report.resource;
 
-import javassist.bytecode.ByteArray;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
@@ -9,6 +8,7 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +17,11 @@ import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.model.States;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
+import ru.neoflex.microservices.carpark.dicts.model.Reference;
+import ru.neoflex.microservices.carpark.dicts.model.Rubric;
 import ru.neoflex.microservices.carpark.report.model.CarCommand;
-import ru.neoflex.microservices.carpark.report.reciver.CarsMessageReceiver;
+import ru.neoflex.microservices.carpark.report.model.ReferenceCommand;
+import ru.neoflex.microservices.carpark.report.reciver.Receiver;
 import ru.neoflex.microservices.carpark.report.reciver.Sender;
 
 import javax.sql.DataSource;
@@ -33,7 +36,7 @@ import java.util.*;
 @RestController
 @AllArgsConstructor
 @Slf4j
-public class ReportRexource {
+public class ReportResource {
 
         public static final String RENTAL_MANAGER = "rental_manager";
         public static final String DEFAULT_REPORT = "/car.jrxml";
@@ -44,12 +47,18 @@ public class ReportRexource {
         @Autowired
         private DataSource dataSource;
 
+        @Value("${kafka.topic.car}")
+         String carTopic;
+
+        @Value("${kafka.topic.reference}")
+        String referenceTopic;
+
 
         @Autowired
-        private CarsMessageReceiver receiver;
+        private Receiver receiver;
 
-        @GetMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
-        public void test() {
+        @GetMapping(value = "/sendCar", produces = MediaType.APPLICATION_JSON_VALUE)
+        public void senCar() {
                 Car car = new Car();
                 car.setId(1L);
                 car.setMark("Рыдван");
@@ -73,7 +82,25 @@ public class ReportRexource {
                 car.setNumber("123AO6");
                 car.setCurrentStatus(States.IN_USE.toString());
                 car.setPrevMaintenanceDate(new Date());
-                sender.send(command);
+                sender.send(carTopic,command);
+
+        }
+
+        @GetMapping(value = "/sendRef", produces = MediaType.APPLICATION_JSON_VALUE)
+        public void sendRef() {
+                Reference reference = new Reference();
+                reference.setCode("code");
+                reference.setTitle("title");
+                Rubric rubric = new Rubric();
+                reference.setSystem(true);
+                rubric.setCode("code");
+                rubric.setTitle("title");
+                ReferenceCommand command = new ReferenceCommand();
+                command.setEntity(reference);
+                reference.setRubric(rubric);
+                command.setMessageDate(new Date());
+                command.setCommand(Command.ADD);
+                sender.send(referenceTopic,command);
 
         }
 
