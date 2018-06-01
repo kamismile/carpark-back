@@ -29,10 +29,10 @@ public class CarEvent extends Car {
     private String markDesc;
 
     @Column(name = "CURENT_STATUS_DESC")
-    private String curent_status_desc;
+    private String curentStatusDesc;
 
     @Column (name= "NEXT_STATUS_DESC")
-    private String next_status_desc;
+    private String nextStatusDesc;
 
     @Column(name="MESSAGE_DATE")
     private Date messageDate;

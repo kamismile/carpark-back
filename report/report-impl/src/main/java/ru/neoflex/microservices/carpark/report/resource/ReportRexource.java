@@ -44,6 +44,7 @@ public class ReportRexource {
         @Autowired
         private DataSource dataSource;
 
+
         @Autowired
         private CarsMessageReceiver receiver;
 

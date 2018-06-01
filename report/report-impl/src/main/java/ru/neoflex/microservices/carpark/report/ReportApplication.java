@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableAsync;
 import ru.neoflex.microservices.carpark.commons.config.*;
 
 /**
@@ -12,7 +13,7 @@ import ru.neoflex.microservices.carpark.commons.config.*;
  */
 @EnableEurekaClient
 @SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients(basePackages = "ru.neoflex.microservices.carpark.dicts.feign")
 @Import({OAuth2FeignAutoConfiguration.class, FeignConfig.class, MethodSecurityConfig.class,
 	SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class })
 public class ReportApplication {
