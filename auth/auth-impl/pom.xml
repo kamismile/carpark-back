@@ -20,8 +20,8 @@
                 <LABEL_GROUP>${project.parent.groupId}</LABEL_GROUP>
                 <LABEL_ID>${project.artifactId}</LABEL_ID>
 
-                <discovery-host>service-registry</discovery-host>
-                <discovery-port>8761</discovery-port>
+                <discovery-host>service-registry.netflix</discovery-host>
+                <discovery-port>8080</discovery-port>
             </properties>
             <build>
                 <plugins>

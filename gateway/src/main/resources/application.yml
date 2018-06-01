@@ -3,7 +3,7 @@ server:
 
 eureka:
   instance.preferIpAddress: true
-  client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/eureka/
+  client.serviceUrl.defaultZone: http://service-registry.netflix:8080/
 
 zuul:
   sensitiveHeaders:

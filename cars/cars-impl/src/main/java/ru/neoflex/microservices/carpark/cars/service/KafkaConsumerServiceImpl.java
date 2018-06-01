@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.neoflex.microservices.carpark.cars.model.CarCommand;
 
 @Service
-@EnableKafka
-public class KafkaServiceImpl implements KafkaService {
+public class KafkaConsumerServiceImpl implements KafkaConsumerService {
 
     @Autowired
     private KafkaTemplate<String, CarCommand> kafkaTemplate;
@@ -19,11 +18,6 @@ public class KafkaServiceImpl implements KafkaService {
     @Override
     public void listen(ConsumerRecord<String, CarCommand> cr) throws Exception {
         System.out.println("---------------> we have got a message: " + cr.value());
-    }
-
-    @Override
-    public void sendMessage(CarCommand carCommand) {
-        kafkaTemplate.send("bookings2", "carCommand", carCommand);
     }
 
 }
