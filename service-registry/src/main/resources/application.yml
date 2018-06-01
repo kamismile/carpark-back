@@ -3,7 +3,8 @@ server:
 
 eureka:
   instance:
-    hostname: service-registry
+    hostname: service-registry.netflix
+    prefer-ip-address: true
   client:
     register-with-eureka: false
     fetch-registry: false
