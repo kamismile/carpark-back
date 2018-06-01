@@ -2,20 +2,17 @@ package ru.neoflex.microservices.carpark.cars.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.neoflex.microservices.carpark.access.feign.AccessExpressionFeign;
 import ru.neoflex.microservices.carpark.cars.api.CarApi;
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.model.CarCommand;
 import ru.neoflex.microservices.carpark.cars.model.Events;
 import ru.neoflex.microservices.carpark.cars.model.States;
 import ru.neoflex.microservices.carpark.cars.service.CarService;
-import ru.neoflex.microservices.carpark.cars.service.KafkaService;
-import ru.neoflex.microservices.carpark.cars.service.KafkaServiceImpl;
+import ru.neoflex.microservices.carpark.cars.service.KafkaProducerService;
 import ru.neoflex.microservices.carpark.cars.service.LifecycleService;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
@@ -30,7 +27,7 @@ public class CarController implements CarApi {
 
     private CarService carService;
     private LifecycleService lifecycleService;
-    private KafkaService kafkaService;
+    private KafkaProducerService kafkaProducerService;
 
     @Override
     @GetMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -94,11 +91,11 @@ public class CarController implements CarApi {
 
     private void sendCommand (UserInfo userInfo, Car car, Command command) {
         CarCommand cc = new CarCommand();
-        cc.setCommand(Command.UPDATE);
+        cc.setCommand(command);
         cc.setEntity(car);
         cc.setMessageDate(new Date());
         cc.setUserInfo(userInfo);
-        kafkaService.sendMessage(cc);
+        kafkaProducerService.sendMessage(cc);
     }
 
 }

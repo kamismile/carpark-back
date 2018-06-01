@@ -34,7 +34,7 @@ public class KafkaProducerConfig {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "54.165.221.66:9092");
+                "54.158.77.53:9092");
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
@@ -50,7 +50,7 @@ public class KafkaProducerConfig {
     @Bean
     public KafkaAdmin admin() {
         Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "54.165.221.66:9092");
+        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "54.158.77.53:9092");
         return new KafkaAdmin(configs);
     }
 
