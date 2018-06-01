@@ -2,9 +2,12 @@ package ru.neoflex.microservices.carpark.report.model;
 
 import lombok.Data;
 import ru.neoflex.microservices.carpark.cars.model.Car;
+import ru.neoflex.microservices.carpark.cars.model.Events;
+import ru.neoflex.microservices.carpark.cars.model.States;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author rmorenko
@@ -12,32 +15,68 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "car_event")
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
-public class CarEvent extends Car {
+public class CarEvent {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "FIO")
-    private String fio;
+    private String mark;
 
-    @Column(name = "ADDRESS")
-    private String address;
+    private Integer year;
 
-    @Column(name = "MARK_DESC")
-    private String markDesc;
+    private Double mileage;
 
-    @Column(name = "CURENT_STATUS_DESC")
-    private String curentStatusDesc;
+    @Column(name = "PREV_MAINTENANCE_DATE")
+    private Date prevMaintenanceDate;
 
-    @Column (name= "NEXT_STATUS_DESC")
-    private String nextStatusDesc;
+    @Column(name = "NEXT_MAINTENANCE_DATE")
+    private Date nextMaintenanceDate;
+
+    @Column(name = "CURRENT_STATUS")
+    private String currentStatus;
+
+    @Column(name = "CURRENT_STATUS_DATE")
+    private Date currentStatusDate;
+
+    @Column(name = "NEXT_STATUS")
+    private String nextStatus;
+
+    @Column(name = "NEXT_STATUS_DATE")
+    private Date nextStatusDate;
+
+    private String state;
+
+    @Column (name = "LOCATION_ID")
+    private Long locationId;
+
+    @Column (name = "CURRENT_LOCATION_ID")
+    private Long currentLocationId;
+
+    @Column (name = "REG_NUMBER")
+    private String number;
 
     @Column(name="MESSAGE_DATE")
     private Date messageDate;
 
     @Column(name="USER_NAME")
     private String userName;
+
+    @Column(name="CAR_ID")
+    private Long carId;
+
+    @Column(name="MESSAGE_TYPE")
+    private String messageType;
+
+    @Transient
+    private List<Events> availableEvents;
+
+    public States getState() {
+        return States.valueOf(state);
+    }
+
+    public void setState(States stateEnumVal) {
+        state = stateEnumVal.name();
+    }
 
 }

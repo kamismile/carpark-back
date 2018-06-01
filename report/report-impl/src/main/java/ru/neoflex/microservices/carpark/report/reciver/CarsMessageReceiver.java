@@ -36,51 +36,15 @@ public class CarsMessageReceiver {
                 return latch;
         }
 
-        @Autowired private CarEventResourceService carEventResourceService;
-
-        @Autowired private DictsFeign dictsFeign;
-
-        @Autowired private EmployeeFeign employeeFeign;
+        @Autowired
+        private CarEventResourceService carEventResourceService;
 
         @KafkaListener(topics = "${kafka.topic.json}") public void receive(CarCommand command) {
                 log.info("received command='{}'", command.toString());
                 latch.countDown();
-                Car car = command.getEntity();
-                CarEvent carEvent = new CarEvent();
-                carEvent.setMessageDate(command.getMessageDate());
-                carEvent.setUserName(command.getUserInfo().getName());
-                BeanUtils.copyProperties(car, carEvent);
-                CompletableFuture<String> statusText = getCarStatus(car);
-                CompletableFuture<String> statusTextNext = getNextCarStatus(car);
-                CompletableFuture<String> markDesc = getCarMark(car);
-                CompletableFuture.allOf(statusText, statusTextNext, markDesc).join();
-                try {
-                        carEvent.setCurentStatusDesc(statusText.get());
-                        carEvent.setNextStatusDesc(statusTextNext.get());
-                        carEvent.setMarkDesc(markDesc.get());
-                } catch (InterruptedException | ExecutionException ex) {
-                        log.trace("Get titles error", ex);
-                }
-                employeeFeign.getByUserId(carEvent.getUserName());
-                carEventResourceService.add(carEvent);
+                carEventResourceService.save(command);
         }
 
-        @Async
-        private CompletableFuture<String> getCarMark(Car car) {
-                return CompletableFuture.completedFuture(dictsFeign.getReferencesByRubric("car_mark").stream()
-                        .filter(v -> v.getCode().equals(car.getMark().toLowerCase())).collect(Collectors.toList()).get(0).getTitle());
-        }
 
-        @Async
-        private CompletableFuture<String> getNextCarStatus(Car car) {
-                return CompletableFuture.completedFuture(dictsFeign.getReferencesByRubric("car_status").stream()
-                        .filter(v -> v.getCode().equals(car.getNextStatus().toLowerCase())).collect(Collectors.toList())
-                        .get(0).getTitle());
-        }
-
-        @Async private CompletableFuture<String> getCarStatus(Car car) {
-                return CompletableFuture.completedFuture(dictsFeign.getReferencesByRubric("car_status").stream()
-                        .filter(v -> v.getCode().equals(car.getCurrentStatus().toLowerCase())).collect(Collectors.toList()).get(0).getTitle());
-        }
 
 }
