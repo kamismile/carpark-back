@@ -13,10 +13,11 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "car")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String mark;

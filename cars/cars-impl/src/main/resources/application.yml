@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://service-postgres.postgres:5432/auth
-    username: auth
-    password: auth
+    url: jdbc:postgresql://service-postgres.postgres:5432/cars
+    username: cars
+    password: cars
     driver-class-name: org.postgresql.Driver
   liquibase:
     default-schema: public

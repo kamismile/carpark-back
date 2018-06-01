@@ -16,7 +16,7 @@ import ru.neoflex.microservices.carpark.report.model.CarCommand;
 @Configuration
 public class Sender {
 
-        @Value("car.t")
+        @Value("${kafka.topic.json}")
         private String jsonTopic;
 
         @Autowired

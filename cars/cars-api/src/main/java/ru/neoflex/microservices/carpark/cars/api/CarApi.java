@@ -1,20 +1,21 @@
 package ru.neoflex.microservices.carpark.cars.api;
 
 import ru.neoflex.microservices.carpark.cars.model.Car;
+import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 
 import java.util.List;
 
 public interface CarApi {
 
-    List<Car> getCars();
+    List<Car> getCars(UserInfo userInfo);
 
-    Car getCar(Long id);
+    Car getCar(UserInfo userInfo, Long id);
 
-    Car updateCar(Long id, Car car);
+    Car updateCar(UserInfo userInfo, Long id, Car car);
 
-    Car createCar(Car car);
+    Car createCar(UserInfo userInfo, Car car);
 
-    void deleteCar(Long id);
+    void deleteCar(UserInfo userInfo, Long id);
 
-    Car changeCarState(Long id, String stringEvent);
+    Car changeCarState(UserInfo userInfo, Long id, String stringEvent);
 }

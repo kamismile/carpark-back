@@ -22,7 +22,7 @@ import java.util.Map;
 @Configuration
 public class SenderConfig {
 
-        @Value("localhost:9092")
+        @Value("${kafka.bootstrap-servers}")
         private String bootstrapServers;
 
         @Bean

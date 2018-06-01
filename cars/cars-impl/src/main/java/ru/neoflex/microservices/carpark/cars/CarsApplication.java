@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.commons.config.FeignConfig;
 import ru.neoflex.microservices.carpark.commons.config.JwtConfig;
@@ -18,6 +19,7 @@ import ru.neoflex.microservices.carpark.commons.config.SecurityConfig;
 @EntityScan(basePackageClasses = Car.class)
 @Import({OAuth2FeignAutoConfiguration.class, FeignConfig.class, MethodSecurityConfig.class,
 	SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class })
+@EnableScheduling
 public class CarsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CarsApplication.class, args);

@@ -1,0 +1,8 @@
+docker run --name postgres -p 5432:5432 -e POSTGRES_USER=nfo -e POSTGRES_PASSWORD=123 -e POSTGRES_DB=carpark -d postgres
+docker run --name pgadmin -p 5050:5050 --link postgres:postgres  -d fenglc/pgadmin4
+
+vm-ip:192.168.59.103
+
+Default admin in pgadmin:
+user: pgadmin4@pgadmin.org
+password: admin
