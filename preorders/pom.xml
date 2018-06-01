@@ -48,12 +48,12 @@
             <dependency>
                 <groupId>ru.neoflex.microservices.carpark</groupId>
                 <artifactId>preorders-api</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>ru.neoflex.microservices.carpark</groupId>
                 <artifactId>preorders-db</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- Spring -->

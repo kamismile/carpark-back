@@ -17,7 +17,7 @@
         <dependency>
             <groupId>ru.neoflex.microservices.carpark</groupId>
             <artifactId>report-api</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
 
 
