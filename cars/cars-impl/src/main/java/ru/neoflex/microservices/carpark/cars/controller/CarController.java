@@ -42,11 +42,12 @@ public class CarController implements CarApi {
 
     @Override
     @GetMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasPermission({{'id', #id}} ,{'getCar'})")
+    //@PreAuthorize("hasPermission({{'id', #id}} ,{'getCar'})")
     public Car getCar(UserInfo userInfo, @PathVariable Long id) {
         System.out.println(userInfo);
         Car car = carService.getCar(id);
         car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
+        sendCommand(userInfo, car, Command.UPDATE);
         return carService.getCar(id);
     }
 
