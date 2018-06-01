@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Сущность автомобиля.
@@ -54,6 +55,9 @@ public class Car {
 
     @Column (name = "REG_NUMBER")
     private String number;
+
+    @Transient
+    private List<Events> availableEvents;
 
     public States getState() {
         return States.valueOf(state);
