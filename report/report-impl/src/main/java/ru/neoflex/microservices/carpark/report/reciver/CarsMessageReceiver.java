@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.scheduling.annotation.Async;
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.commons.model.KafkaCommand;
 import ru.neoflex.microservices.carpark.dicts.feign.DictsFeign;
@@ -14,7 +15,9 @@ import ru.neoflex.microservices.carpark.report.model.CarEvent;
 import ru.neoflex.microservices.carpark.report.service.CarEventResourceService;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 /**
@@ -45,12 +48,40 @@ public class CarsMessageReceiver {
                 Car car = command.getEntity();
                 CarEvent carEvent = new CarEvent();
                 carEvent.setMessageDate(command.getMessageDate());
-                carEvent.setFio(command.getUserInfo().getName());
                 carEvent.setUserName(command.getUserInfo().getName());
                 BeanUtils.copyProperties(car, carEvent);
-                String statusText = dictsFeign.getReferencesByRubric("car_status").stream().filter(v -> v.getCode().equals(car.getCurrentStatus().toLowerCase())).collect(
-                        Collectors.toList()).get(0).getTitle();
-                carEvent.setCurentStatusDesc(statusText);
+                CompletableFuture<String> statusText = getCarStatus(car);
+                CompletableFuture<String> statusTextNext = getNextCarStatus(car);
+                CompletableFuture<String> markDesc = getCarMark(car);
+                CompletableFuture.allOf(statusText, statusTextNext, markDesc).join();
+                try {
+                        carEvent.setCurentStatusDesc(statusText.get());
+                        carEvent.setNextStatusDesc(statusTextNext.get());
+                        carEvent.setMarkDesc(markDesc.get());
+                } catch (InterruptedException | ExecutionException ex){
+                   log.trace("Get titles error", ex);
+                }
                 carEventResourceService.add(carEvent);
         }
+
+        @Async
+        private CompletableFuture<String> getCarMark(Car car) {
+                return CompletableFuture.completedFuture(dictsFeign.getReferencesByRubric("car_mark").stream()
+                        .filter(v -> v.getCode().equals(car.getMark().toLowerCase())).collect(
+                        Collectors.toList()).get(0).getTitle());
+        }
+        @Async
+        private CompletableFuture<String> getNextCarStatus(Car car) {
+                return CompletableFuture.completedFuture(dictsFeign.getReferencesByRubric("car_status")
+                        .stream().filter(v -> v.getCode().equals(car.getNextStatus().toLowerCase())).collect(
+                        Collectors.toList()).get(0).getTitle());
+        }
+        @Async
+        private CompletableFuture<String> getCarStatus(Car car) {
+                return CompletableFuture.completedFuture(dictsFeign.getReferencesByRubric("car_status")
+                        .stream().filter(v -> v.getCode().equals(car.getCurrentStatus().toLowerCase())).collect(
+                        Collectors.toList()).get(0).getTitle());
+        }
+
+
 }
