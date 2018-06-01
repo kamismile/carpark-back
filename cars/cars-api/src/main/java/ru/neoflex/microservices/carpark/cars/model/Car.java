@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Сущность автомобиля.
- * @author mirzoevnik
+ * @author Mirzoev_Nikita
  */
 @Data
 @Entity

@@ -23,10 +23,10 @@ import java.util.Map;
 @EnableKafka
 public class KafkaConsumerConfig {
 
-    @Value("${kafka:bootstrap}")
+    @Value("${kafka.bootstrap}")
     private String kafkaBootstrap;
 
-    @Value("${kafka:group-id}")
+    @Value("${kafka.orders.group-id}")
     private String kafkaGroupId;
 
     @Bean
@@ -34,10 +34,10 @@ public class KafkaConsumerConfig {
         Map<String, Object> props = new HashMap<>();
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "54.158.77.53:9092");
+                kafkaBootstrap);
         props.put(
                 ConsumerConfig.GROUP_ID_CONFIG,
-                "1");
+                kafkaGroupId);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
