@@ -16,7 +16,7 @@ import java.util.concurrent.Executor;
  */
 @EnableEurekaClient
 @SpringBootApplication
-@EnableFeignClients(basePackages = "ru.neoflex.microservices.carpark.dicts.feign")
+@EnableFeignClients(basePackages = {"ru.neoflex.microservices.carpark.dicts.feign", "ru.neoflex.microservices.carpark.employees.feign"})
 @Import({OAuth2FeignAutoConfiguration.class, FeignConfig.class, MethodSecurityConfig.class,
 	SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class })
 @EnableAsync
