@@ -4,11 +4,12 @@ server:
 eureka:
   instance:
     hostname: service-registry
+    prefer-ip-address: true
   client:
     register-with-eureka: false
     fetch-registry: false
     serviceUrl:
-      defaultZone: http://service-registry.netflix:8080/eureka
+      defaultZone: http://service-registry:8080/eureka
 
 ---
 spring:
