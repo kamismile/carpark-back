@@ -51,12 +51,28 @@ public class Preorder {
     @Column(name = "CAR_ID")
     private Long carId;
 
-    @Column (name = "CREATED_BY_USER")
+    @Column(name = "CREATED_BY_USER")
     private String createdByUser;
 
-    public boolean overlaps (Preorder other) {
+    @Column(name ="PREORDER_TYPE")
+    private String type;
+
+    public void setType (PreorderType type) {
+        this.type = type.name();
+    }
+
+    public PreorderType getType() {
+        return PreorderType.valueOf(this.type);
+    }
+
+    public boolean overlaps(Preorder other) {
         //TODO overlaps implementation
         return false;
+    }
+
+    public boolean isInFuture() {
+        //TODO implement check
+        return true;
     }
 
 

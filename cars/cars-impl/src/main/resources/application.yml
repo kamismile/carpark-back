@@ -39,7 +39,7 @@ kafka:
   cars:
     topic: car.t
   orders:
-    topic: orders
+    topic: next.status
     group-id: 1
 
 security:
@@ -85,5 +85,5 @@ kafka:
   cars:
     topic: car.t
   orders:
-    topic: orders
+    topic: next.status
     group-id: 1

@@ -18,10 +18,9 @@ import ru.neoflex.microservices.carpark.commons.config.SecurityConfig;
 @SpringBootApplication
 @EntityScan(basePackageClasses = Car.class)
 @Import({OAuth2FeignAutoConfiguration.class, FeignConfig.class, MethodSecurityConfig.class,
-	SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class })
-@EnableScheduling
+        SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class})
 public class CarsApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(CarsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CarsApplication.class, args);
+    }
 }

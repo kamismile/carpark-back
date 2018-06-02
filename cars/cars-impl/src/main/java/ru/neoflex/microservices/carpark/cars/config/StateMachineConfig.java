@@ -85,14 +85,14 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<String, St
 //    }
 
 
-        @Override
+    @Override
     public void configure(StateMachineStateConfigurer<String, String> states)
             throws Exception {
-            states
-                    .withStates()
-                    .initial(States.READY.name())
-                    .states(new HashSet<String>(Arrays.asList(States.READY.name(), States.IN_USE.name(), States.IN_SERVICE.name(), States.DECOMMISSIONED.name())));
-        }
+        states
+                .withStates()
+                .initial(States.READY.name())
+                .states(new HashSet<String>(Arrays.asList(States.READY.name(), States.IN_USE.name(), States.IN_SERVICE.name(), States.DECOMMISSIONED.name())));
+    }
 
     @Override
     public void configure(StateMachineTransitionConfigurer<String, String> transitions)

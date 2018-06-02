@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.cars.config;
+package ru.neoflex.microservices.carpark.preorders.config;
 
 
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -8,9 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
-import org.springframework.kafka.core.*;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
-import ru.neoflex.microservices.carpark.cars.model.CarEvent;
+import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +26,7 @@ public class KafkaProducerConfig {
     private String kafkaBootstrap;
 
     @Bean
-    public ProducerFactory<String, CarEvent> producerFactory() {
+    public ProducerFactory<String, NextStatusEvent> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -37,20 +39,8 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, CarEvent> kafkaTemplate() {
+    public KafkaTemplate<String, NextStatusEvent> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
-
-//    @Bean
-//    public KafkaAdmin admin() {
-//        Map<String, Object> configs = new HashMap<>();
-//        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "54.158.77.53:9092");
-//        return new KafkaAdmin(configs);
-//    }
-//
-//    @Bean
-//    public NewTopic topic1() {
-//        return new NewTopic("bookings", 1, (short) 1);
-//    }
 
 }

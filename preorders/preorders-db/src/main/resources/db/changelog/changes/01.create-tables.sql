@@ -16,3 +16,4 @@ CREATE TABLE preorder (
 --changeset dbegun:alter-table-preorder
 alter table preorder add column creates_by_user VARCHAR(100) NOT NULL;
 alter table preorder add column car_id INTEGER NOT NULL;
+alter table preorder add column preorder_type VARCHAR(10) NOT NULL;
