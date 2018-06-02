@@ -23,4 +23,7 @@ public class Location implements Serializable {
 
     @Column(name = "LOCATION_TYPE")
     private String locationType;
+
+    private boolean active;
+
 }

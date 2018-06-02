@@ -19,4 +19,5 @@ public class KafkaCommand<T> implements Serializable{
      private UserInfo userInfo;
      private Date messageDate;
      private T entity;
+     private T oldEntity;
 }

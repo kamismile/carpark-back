@@ -43,4 +43,6 @@ public class Employee implements Serializable {
 
     @Column(name = "USER_ID")
     private String userId;
+
+    private boolean active;
 }

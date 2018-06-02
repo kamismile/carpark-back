@@ -14,7 +14,9 @@ import ru.neoflex.microservices.carpark.dicts.feign.DictsFeign;
 import ru.neoflex.microservices.carpark.employees.feign.EmployeeFeign;
 import ru.neoflex.microservices.carpark.report.model.CarCommand;
 import ru.neoflex.microservices.carpark.report.model.CarEvent;
+import ru.neoflex.microservices.carpark.report.model.ReferenceCommand;
 import ru.neoflex.microservices.carpark.report.service.CarEventResourceService;
+import ru.neoflex.microservices.carpark.report.service.ReferenceService;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -39,12 +41,21 @@ public class Receiver {
         @Autowired
         private CarEventResourceService carEventResourceService;
 
-        @KafkaListener(topics = "${kafka.topic.json}") public void receive(CarCommand command) {
+        @Autowired
+        ReferenceService referenceService;
+
+        @KafkaListener(topics = "${kafka.topic.car}")
+        public void receiveCar(CarCommand command) {
                 log.info("received command='{}'", command.toString());
                 latch.countDown();
                 carEventResourceService.save(command);
         }
 
-
+        @KafkaListener(topics = "${kafka.topic.reference}")
+        public void receiveReference(ReferenceCommand referenceCommand) {
+                log.info("received command='{}'", referenceCommand.toString());
+                latch.countDown();
+                referenceService.save(referenceCommand);
+        }
 
 }

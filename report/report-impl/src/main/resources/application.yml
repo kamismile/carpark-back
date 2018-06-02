@@ -4,7 +4,8 @@ server:
 kafka:
   bootstrap-servers: localhost:9092
   topic:
-    json: car.t
+    car: car.t
+    reference: reference.t
 
 spring:
   datasource:

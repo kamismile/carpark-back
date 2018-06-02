@@ -34,7 +34,6 @@ import java.util.*;
  * @author rmorenko
  */
 @RestController
-@AllArgsConstructor
 @Slf4j
 public class ReportResource {
 
@@ -93,8 +92,8 @@ public class ReportResource {
                 reference.setTitle("title");
                 Rubric rubric = new Rubric();
                 reference.setSystem(true);
-                rubric.setCode("code");
-                rubric.setTitle("title");
+                rubric.setCode("position");
+                rubric.setTitle("Должность");
                 ReferenceCommand command = new ReferenceCommand();
                 command.setEntity(reference);
                 reference.setRubric(rubric);

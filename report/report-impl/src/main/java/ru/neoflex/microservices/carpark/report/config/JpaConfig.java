@@ -19,7 +19,7 @@ import javax.sql.DataSource;
  * @author Roman_Morenko
  */
 @Configuration
-@EntityScan(basePackages = {"ru.neoflex.microservices.carpark.cars.model","ru.neoflex.microservices.carpark.report.model"})
+@EntityScan(basePackages = {"ru.neoflex.microservices.carpark.dicts.model","ru.neoflex.microservices.carpark.report.model"})
 @EnableJpaRepositories(basePackages = "ru.neoflex.microservices.carpark.report.repository")
 public class JpaConfig {
 

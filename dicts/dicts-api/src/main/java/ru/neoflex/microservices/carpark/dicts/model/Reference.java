@@ -20,6 +20,8 @@ public class Reference implements Serializable {
 
     private boolean system;
 
+    private boolean active;
+
     @ManyToOne
     @JoinColumn(name = "RUBRIC_CODE")
     private Rubric rubric;

@@ -41,3 +41,14 @@ VALUES ('Прокатный', 'Дмитрий', 'Анатольевич','6578',
 
 INSERT INTO  employee (name, surname, patronymic, passport_series, passport_number, birthday, position, appointment_date, location_id, user_id)
 VALUES ('Сервис', 'Аркадий', 'Петрович','7578', '136456', '12.05.1974', 4,'01.01.2012', 1, 'service_managerr');
+
+--changeset rmorenko:2018-06-02
+ALTER TABLE  employee
+ADD COLUMN active BOOLEAN NOT NULL DEFAULT true;
+
+UPDATE employee set active = true;
+
+ALTER TABLE  location
+ADD COLUMN active BOOLEAN NOT NULL DEFAULT true;
+
+UPDATE location set active = true;

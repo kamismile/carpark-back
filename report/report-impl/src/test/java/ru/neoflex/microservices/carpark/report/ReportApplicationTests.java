@@ -14,15 +14,9 @@ import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.access.feign.AccessExpressionFeign;
-import ru.neoflex.microservices.carpark.report.model.CarCommand;
-import ru.neoflex.microservices.carpark.report.reciver.CarsMessageReceiver;
+import ru.neoflex.microservices.carpark.report.reciver.Receiver;
 import ru.neoflex.microservices.carpark.report.reciver.Sender;
-
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,7 +31,7 @@ public class ReportApplicationTests {
     private Sender sender;
 
     @Autowired
-    private CarsMessageReceiver receiver;
+    private Receiver receiver;
 
     @Autowired
     private KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
