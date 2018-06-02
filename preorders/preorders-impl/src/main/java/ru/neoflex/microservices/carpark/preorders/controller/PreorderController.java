@@ -2,7 +2,8 @@ package ru.neoflex.microservices.carpark.preorders.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.preorders.api.PreorderApi;
@@ -27,20 +28,25 @@ public class PreorderController implements PreorderApi {
     private final KafkaProducerService kafkaService;
 
     @Override
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Preorder> getAllPreorders(UserInfo userInfo) {
         return preorderService.findAll();
     }
 
     @Override
-    public Preorder getPreorder(UserInfo userInfo, Long id) {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Preorder getPreorder(UserInfo userInfo, @PathVariable Long id) {
         return preorderService.getPreorder(id);
     }
 
     @Override
-    public Preorder addPreorder(UserInfo userInfo, Preorder preorder) {
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Preorder addPreorder(UserInfo userInfo, @RequestBody Preorder preorder) {
         preorder.setCreatedByUser(userInfo.getName());
+        preorder = preorderService.addPreorder(preorder);
         makeNotification (userInfo, preorder.getCarId());
-        return preorderService.addPreorder(preorder);
+        preorder.setCreatedByUser(userInfo.getName());
+        return preorder;
     }
 
     @Override
@@ -48,6 +54,7 @@ public class PreorderController implements PreorderApi {
         Long carId = preorderService.getPreorder(id).getCarId();
         makeNotification (userInfo, carId);
         preorderService.deletePreoder(id);
+
     }
 
     @Override

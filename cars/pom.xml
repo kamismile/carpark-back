@@ -35,6 +35,7 @@
         <postgresql.version>42.1.4</postgresql.version>
         <spring-boot-maven-plugin.version>${spring-boot.version}</spring-boot-maven-plugin.version>
         <spring-statemachine.version>1.2.11.RELEASE</spring-statemachine.version>
+        <preorders.version>0.0.1-SNAPSHOT</preorders.version>
     </properties>
 
     <dependencyManagement>
@@ -45,6 +46,12 @@
                 <artifactId>common-lib</artifactId>
                 <version>${common-lib.version}</version>
             </dependency>
+            <dependency>
+                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <artifactId>preorders-api</artifactId>
+                <version>${preorders.version}</version>
+            </dependency>
+
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

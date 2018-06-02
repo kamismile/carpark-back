@@ -82,6 +82,11 @@
         <!-- bro modules -->
         <dependency>
             <groupId>ru.neoflex.microservices.carpark</groupId>
+            <artifactId>preorders-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.neoflex.microservices.carpark</groupId>
             <artifactId>cars-api</artifactId>
             <version>${project.version}</version>
         </dependency>

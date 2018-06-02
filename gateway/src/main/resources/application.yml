@@ -20,6 +20,9 @@ zuul:
     cars:
       serviceId: cars
       sensitiveHeaders:
+    preorders:
+      serviceId: preorders
+      sensitiveHeaders:
 
 hystrix:
   command:

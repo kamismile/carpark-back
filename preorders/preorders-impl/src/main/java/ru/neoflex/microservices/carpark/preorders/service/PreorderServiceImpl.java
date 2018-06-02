@@ -67,7 +67,7 @@ public class PreorderServiceImpl implements PreorderService {
 
         Date nextStatusDate = earliestPreorder.getLeaseStartDate();
         String nextStatus = earliestPreorder.getType().getNextStatus();
-        return new NextStatus(nextStatus, nextStatusDate);
+        return new NextStatus(carId, nextStatus, nextStatusDate);
     }
 
     /**
