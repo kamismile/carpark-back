@@ -24,7 +24,7 @@ eureka:
     preferIpAddress: false
   client:
     serviceUrl:
-      defaultZone: http://service.namespace.svc.cluster.local:8080/eureka
+      defaultZone: http://10.244.1.84:8080/eureka
 
 security:
   session:
@@ -43,9 +43,9 @@ security:
 
 logging:
   level:
-    ROOT: INFO
+    ROOT: DEBUG
     ru.neoflex: DEBUG
-    org.springframework: INFO
+    org.springframework: DEBUG
 
 ---
 spring:
