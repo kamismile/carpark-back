@@ -1,43 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="1300" pageHeight="595" orientation="Landscape" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="1300" pageHeight="595" orientation="Landscape" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5019d28c-70fa-46a5-9623-57c78bebd1c4">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="197"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="792"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgr"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="report_date" class="java.util.Date">
 		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from car_event e
+		<![CDATA[select e.*, ref1.title mark_desc, ref2.title current_status_desc,
+ref3.title next_status_desc  from car_event e
+left join dict_reference ref1 on ref1.code = e.mark
+left join dict_reference ref2 on ref2.code=lower(e.current_status)
+left join dict_reference ref3 on ref2.code=lower(e.next_status)
 inner join ( select max(message_date) md, reg_number num from car_event group by reg_number) tm on e.message_date = tm.md and e.reg_number = tm.num
-where message_date <= $P{report_date}]]>
+]]>
 	</queryString>
-	<field name="id" class="java.lang.Integer"/>
-	<field name="year" class="java.lang.Integer"/>
-	<field name="mark" class="java.lang.String"/>
-	<field name="mileage" class="java.math.BigDecimal"/>
-	<field name="prev_maintenance_date" class="java.sql.Date"/>
-	<field name="next_maintenance_date" class="java.sql.Date"/>
-	<field name="current_status" class="java.lang.String"/>
-	<field name="current_status_date" class="java.sql.Date"/>
-	<field name="next_status" class="java.lang.String"/>
-	<field name="next_status_date" class="java.sql.Date"/>
-	<field name="state" class="java.lang.String"/>
-	<field name="location_id" class="java.lang.Integer"/>
-	<field name="current_location_id" class="java.lang.Integer"/>
-	<field name="reg_number" class="java.lang.String"/>
-	<field name="message_date" class="java.sql.Date"/>
-	<field name="fio" class="java.lang.String"/>
-	<field name="address" class="java.lang.String"/>
-	<field name="mark_desc" class="java.lang.String"/>
-	<field name="curent_status_desc" class="java.lang.String"/>
-	<field name="next_status_desc" class="java.lang.String"/>
-	<field name="user_name" class="java.lang.String"/>
-	<field name="md" class="java.sql.Date"/>
-	<field name="num" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+	</field>
+	<field name="year" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="year"/>
+	</field>
+	<field name="mark" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mark"/>
+	</field>
+	<field name="mileage" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="mileage"/>
+	</field>
+	<field name="prev_maintenance_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="prev_maintenance_date"/>
+	</field>
+	<field name="next_maintenance_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="next_maintenance_date"/>
+	</field>
+	<field name="current_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="current_status"/>
+	</field>
+	<field name="current_status_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="current_status_date"/>
+	</field>
+	<field name="next_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="next_status"/>
+	</field>
+	<field name="next_status_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="next_status_date"/>
+	</field>
+	<field name="state" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="state"/>
+	</field>
+	<field name="location_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="location_id"/>
+	</field>
+	<field name="current_location_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="current_location_id"/>
+	</field>
+	<field name="reg_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="reg_number"/>
+	</field>
+	<field name="message_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="message_date"/>
+	</field>
+	<field name="message_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="message_type"/>
+	</field>
+	<field name="user_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="user_name"/>
+	</field>
+	<field name="car_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="car_id"/>
+	</field>
+	<field name="mark_desc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mark_desc"/>
+	</field>
+	<field name="current_status_desc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="current_status_desc"/>
+	</field>
+	<field name="next_status_desc" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="next_status_desc"/>
+	</field>
 	<columnHeader>
 		<band height="32" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="163" y="1" width="129" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="163" y="1" width="129" height="31" backcolor="#CCCCCC" uuid="52c02603-19e5-482b-bab6-16a247ba0b60"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -48,7 +97,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[Гос. номер]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="292" y="1" width="100" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="292" y="1" width="100" height="31" backcolor="#CCCCCC" uuid="ad0c794f-4cb8-42f5-ad89-245bc70f7c7d"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -59,7 +108,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[Год выпуска]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="392" y="1" width="100" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="392" y="1" width="100" height="31" backcolor="#CCCCCC" uuid="ce1e5896-ed5c-48eb-8251-cfb8b455b0d7"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -70,7 +119,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[Пробег]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="492" y="1" width="100" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="492" y="1" width="100" height="31" backcolor="#CCCCCC" uuid="ada9d27c-b181-4aa3-892d-8e5946c30f4c"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -81,7 +130,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[ Дата последнего ТО]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="592" y="1" width="100" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="592" y="1" width="100" height="31" backcolor="#CCCCCC" uuid="025f9971-7042-4388-81ab-f67d989923ff"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -92,7 +141,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[ Дата следующего ТО]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="692" y="1" width="100" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="692" y="1" width="100" height="31" backcolor="#CCCCCC" uuid="734ba859-933d-415c-acab-e5e732353b54"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -103,7 +152,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[ Текущий статус]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1091" y="1" width="169" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="1091" y="1" width="169" height="31" backcolor="#CCCCCC" uuid="ce12e40e-8cb9-481f-b0bf-8c3b72f63d3d"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -114,7 +163,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[Плановая дата следующего статуса]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="957" y="1" width="134" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="957" y="1" width="134" height="31" backcolor="#CCCCCC" uuid="fe2d4e4d-e286-4ea5-948d-c65ee2958077"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -125,7 +174,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[Следующий статус]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="792" y="1" width="165" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="792" y="1" width="165" height="31" backcolor="#CCCCCC" uuid="a14fa791-53b3-401d-83c2-b1ac988891cd"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -136,7 +185,7 @@ where message_date <= $P{report_date}]]>
 				<text><![CDATA[Дата перехода в текущий статус]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="1" width="163" height="31" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="0" y="1" width="163" height="31" backcolor="#CCCCCC" uuid="9c74a238-aea6-44f4-b7d2-2090b8bdf381"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -146,12 +195,18 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Марка авто]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="746" y="0" width="100" height="30" uuid="410e9858-baa6-4640-b6ee-a62faa9ef7ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b81934d-bb55-47a0-b303-673b706cd5bc"/>
+				</reportElement>
+				<text><![CDATA[current_status_desc]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="163" height="30"/>
+				<reportElement x="0" y="0" width="163" height="30" uuid="9471889e-c26b-4746-991c-36667d1361d0"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -162,7 +217,7 @@ where message_date <= $P{report_date}]]>
 				<textFieldExpression><![CDATA[$F{mark_desc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="163" y="0" width="129" height="30"/>
+				<reportElement x="163" y="0" width="129" height="30" uuid="0e53b363-d706-4861-aa76-993f9eca00c1"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -173,7 +228,7 @@ where message_date <= $P{report_date}]]>
 				<textFieldExpression><![CDATA[$F{reg_number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="292" y="0" width="100" height="30"/>
+				<reportElement x="292" y="0" width="100" height="30" uuid="4f2ac659-8ddc-48d3-84b4-9a75b9e6d30d"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -184,7 +239,7 @@ where message_date <= $P{report_date}]]>
 				<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="392" y="0" width="100" height="30"/>
+				<reportElement x="392" y="0" width="100" height="30" uuid="6426f7cd-57b5-4eff-95b3-c8f732c9107e"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -195,7 +250,7 @@ where message_date <= $P{report_date}]]>
 				<textFieldExpression><![CDATA[$F{mileage}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="492" y="0" width="100" height="30"/>
+				<reportElement x="492" y="0" width="100" height="30" uuid="b0dd635f-6a5c-441f-ac80-7155d7160f16"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -206,7 +261,7 @@ where message_date <= $P{report_date}]]>
 				<textFieldExpression><![CDATA[$F{prev_maintenance_date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="592" y="0" width="100" height="30"/>
+				<reportElement x="592" y="0" width="100" height="30" uuid="490b9556-fd4e-4bfa-a255-76f02073f430"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -217,18 +272,7 @@ where message_date <= $P{report_date}]]>
 				<textFieldExpression><![CDATA[$F{next_maintenance_date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="692" y="0" width="100" height="30"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{curent_status_desc}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="1091" y="0" width="169" height="30"/>
+				<reportElement x="1091" y="0" width="169" height="30" uuid="622bcaa0-af8c-40d8-bf58-f8ed2460051b"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -239,7 +283,7 @@ where message_date <= $P{report_date}]]>
 				<textFieldExpression><![CDATA[$F{next_status_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="957" y="0" width="134" height="30"/>
+				<reportElement x="957" y="0" width="134" height="30" uuid="963b6211-281c-49e0-9f48-c6d0df1d8883"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -250,7 +294,7 @@ where message_date <= $P{report_date}]]>
 				<textFieldExpression><![CDATA[$F{next_status_desc}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="792" y="0" width="165" height="30"/>
+				<reportElement x="792" y="0" width="165" height="30" uuid="cf012561-9468-449f-9328-f8b2e3d3fc73"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -259,6 +303,17 @@ where message_date <= $P{report_date}]]>
 				</box>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{message_date}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="692" y="0" width="100" height="30" uuid="cc5c16a5-6db2-4542-8aa1-b50297e368bd"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{current_status_desc}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
