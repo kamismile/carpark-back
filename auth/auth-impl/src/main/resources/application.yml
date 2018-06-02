@@ -24,7 +24,7 @@ eureka:
     preferIpAddress: false
   client:
     serviceUrl:
-      defaultZone: http://service-registry.netflix:8080
+      defaultZone: http://10.105.237.79:8080/eureka
 
 security:
   session:
