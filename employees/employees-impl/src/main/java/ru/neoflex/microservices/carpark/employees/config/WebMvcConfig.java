@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.employees.util;
+package ru.neoflex.microservices.carpark.employees.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;

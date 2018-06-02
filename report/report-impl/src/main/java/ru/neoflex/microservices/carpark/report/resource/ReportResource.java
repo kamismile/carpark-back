@@ -47,7 +47,7 @@ public class ReportResource {
         private DataSource dataSource;
 
         @Value("${kafka.topic.car}")
-         String carTopic;
+        String carTopic;
 
         @Value("${kafka.topic.reference}")
         String referenceTopic;

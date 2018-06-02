@@ -1,10 +1,13 @@
 package ru.neoflex.microservices.carpark.employees.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.neoflex.microservices.carpark.employees.api.LocationApi;
 import ru.neoflex.microservices.carpark.employees.model.Location;
 import ru.neoflex.microservices.carpark.employees.service.LocationService;
+
+import java.util.List;
 
 /**
  * @author mirzoevnik
@@ -24,8 +27,25 @@ public class LocationController implements LocationApi {
         return locationService.getById(id);
     }
 
+    @Override
+    public void deactivate(@PathVariable("locationId") String locationId) {
 
+    }
 
+    @Override
+    public void add(Location location) {
+
+    }
+
+    @Override
+    public void update(Location location) {
+
+    }
+
+    @Override
+    public List<Location> getAll() {
+        return null;
+    }
 
 
 }

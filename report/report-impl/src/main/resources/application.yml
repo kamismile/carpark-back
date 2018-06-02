@@ -88,3 +88,5 @@ kafka:
   topic:
     json: car.t
     reference: reference.t
+    employee: employee.t
+    location: location.t
