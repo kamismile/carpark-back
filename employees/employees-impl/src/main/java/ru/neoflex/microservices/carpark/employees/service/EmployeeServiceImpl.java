@@ -24,8 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void delete(String userId) {
+    public void deactivate(String userId) {
         Employee employee = employeeRepository.getByUserId(userId);
+        employee.setActive(false);
         employeeRepository.delete(employee);
     }
 

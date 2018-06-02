@@ -12,7 +12,7 @@ public interface EmployeeService {
 
     Employee getByUserId(String userId);
 
-    void delete(String userId);
+    void deactivate(String userId);
 
     void addUpdate(Employee employee);
 

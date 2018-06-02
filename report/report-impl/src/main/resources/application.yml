@@ -6,6 +6,8 @@ kafka:
   topic:
     car: car.t
     reference: reference.t
+    employee: employee.t
+    location: location.t
 
 spring:
   datasource:
