@@ -21,7 +21,8 @@ spring:
 
 eureka:
   instance.preferIpAddress: true
-  client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/
+  client.serviceUrl.defaultZone: http://service-registry:8080/eureka
+
 
 feign:
   oauth2.enabled: true
