@@ -5,21 +5,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import ru.neoflex.microservices.carpark.cars.model.CarCommand;
+import ru.neoflex.microservices.carpark.cars.model.CarEvent;
 
 @Service
 @EnableKafka
 public class KafkaProducerServiceImpl implements KafkaProducerService {
 
     @Autowired
-    private KafkaTemplate<String, CarCommand> kafkaTemplate;
+    private KafkaTemplate<String, CarEvent> kafkaTemplate;
 
     @Value("${kafka.cars.topic}")
     private String topic;
 
     @Override
-    public void sendMessage(CarCommand carCommand) {
-        kafkaTemplate.send(topic, "carCommand", carCommand);
+    public void sendMessage(CarEvent carEvent) {
+        kafkaTemplate.send(topic, carEvent);
     }
 
 }

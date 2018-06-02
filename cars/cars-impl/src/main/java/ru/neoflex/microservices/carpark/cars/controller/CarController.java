@@ -8,7 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.cars.api.CarApi;
 import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.cars.model.CarCommand;
+import ru.neoflex.microservices.carpark.cars.model.CarEvent;
 import ru.neoflex.microservices.carpark.cars.model.Events;
 import ru.neoflex.microservices.carpark.cars.model.States;
 import ru.neoflex.microservices.carpark.cars.service.CarService;
@@ -47,7 +47,7 @@ public class CarController implements CarApi {
         System.out.println(userInfo);
         Car car = carService.getCar(id);
         car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
-        sendCommand(userInfo, car, Command.UPDATE);
+        sendNotification(userInfo, car, Command.UPDATE);
         return carService.getCar(id);
     }
 
@@ -57,7 +57,7 @@ public class CarController implements CarApi {
     public Car updateCar(UserInfo userInfo, @PathVariable Long id, @RequestBody Car car) {
         car.setId(id);
         Car mergedCar = carService.updateCar(car);
-        sendCommand(userInfo, mergedCar, Command.UPDATE);
+        sendNotification(userInfo, mergedCar, Command.UPDATE);
         return mergedCar;
     }
 
@@ -66,7 +66,7 @@ public class CarController implements CarApi {
     @PreAuthorize("hasPermission({{'car', #car}} , {'createCar'})")
     public Car createCar(UserInfo userInfo, @RequestBody Car car) {
         Car persistedCar = carService.createCar(car);
-        sendCommand(userInfo, persistedCar, Command.ADD);
+        sendNotification(userInfo, persistedCar, Command.ADD);
         return persistedCar;
     }
 
@@ -76,7 +76,7 @@ public class CarController implements CarApi {
     public void deleteCar(UserInfo userInfo, @PathVariable Long id) {
         Car car = carService.getCar(id);
         carService.deleteById(id);
-        sendCommand(userInfo, car, Command.DELETE);
+        sendNotification(userInfo, car, Command.DELETE);
     }
 
     @Override
@@ -90,12 +90,12 @@ public class CarController implements CarApi {
         car.setCurrentStatus(result.getStatusCode());
         car.setCurrentStatusDate(new Date());
         car = carService.updateCar(car);
-        sendCommand(userInfo, car, Command.ADD);
+        sendNotification(userInfo, car, Command.ADD);
         return car;
     }
 
-    private void sendCommand (UserInfo userInfo, Car car, Command command) {
-        CarCommand cc = new CarCommand();
+    private void sendNotification(UserInfo userInfo, Car car, Command command) {
+        CarEvent cc = new CarEvent();
         cc.setCommand(command);
         cc.setEntity(car);
         cc.setMessageDate(new Date());

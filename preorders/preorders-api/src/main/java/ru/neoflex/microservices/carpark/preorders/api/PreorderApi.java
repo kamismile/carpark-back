@@ -12,6 +12,8 @@ public interface PreorderApi {
 
     List<Preorder> getAllPreorders(UserInfo userInfo);
 
+    Preorder getPreorder(UserInfo userInfo, Long id);
+
     Preorder addPreorder(UserInfo userInfo, Preorder preorder);
 
     void deletePreoder(UserInfo userInfo, Long id);

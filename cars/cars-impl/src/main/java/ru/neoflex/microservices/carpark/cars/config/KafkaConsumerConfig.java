@@ -13,7 +13,7 @@ import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-import ru.neoflex.microservices.carpark.cars.model.CarCommand;
+import ru.neoflex.microservices.carpark.cars.model.CarEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ public class KafkaConsumerConfig {
     private String kafkaGroupId;
 
     @Bean
-    public ConsumerFactory<String, CarCommand> consumerFactory() {
+    public ConsumerFactory<String, CarEvent> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -43,13 +43,13 @@ public class KafkaConsumerConfig {
                 StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 JsonDeserializer.class);
-        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(CarCommand.class));
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(CarEvent.class));
     }
 
     @Bean
-    KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, CarCommand>>
+    KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, CarEvent>>
     kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, CarCommand> factory =
+        ConcurrentKafkaListenerContainerFactory<String, CarEvent> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(3);

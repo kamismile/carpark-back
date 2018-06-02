@@ -169,6 +169,7 @@
                 <version>${org.mockito.version}</version>
                 <scope>test</scope>
             </dependency>
+
             <!-- kafka -->
             <dependency>
                 <groupId>org.springframework.kafka</groupId>

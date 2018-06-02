@@ -24,6 +24,12 @@ eureka:
   instance.preferIpAddress: true
   client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/
 
+kafka:
+  bootstrap: 54.158.77.53:9092
+  orders:
+    topic: next.status
+
+
 ---
 spring:
   profiles: dev
@@ -44,3 +50,8 @@ server:
 eureka:
   instance.preferIpAddress: true
   client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+
+kafka:
+  bootstrap: 54.158.77.53:9092
+  orders:
+    topic: next.status
