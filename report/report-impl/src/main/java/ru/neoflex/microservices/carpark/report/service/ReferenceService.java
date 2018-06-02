@@ -15,16 +15,14 @@ import ru.neoflex.microservices.carpark.report.repository.ReferenceRepository;
 @Data
 @Transactional
 public class ReferenceService {
-        @Autowired ReferenceRepository repository;
+        @Autowired
+        ReferenceRepository repository;
 
         public void save(ReferenceCommand cmd) {
                 if (Command.DELETE.equals(cmd.getCommand())) {
                         cmd.getEntity().setActive(false);
                         repository.save(cmd.getEntity());
-                } else if (Command.ADD.equals(cmd.getCommand())) {
-                        repository.save(cmd.getEntity());
                 } else {
-                        repository.save(cmd.getOldEntity());
                         repository.save(cmd.getEntity());
                 }
         }

@@ -8,5 +8,5 @@ import ru.neoflex.microservices.carpark.dicts.model.Reference;
  * @author rmorenko
  */
 @Repository
-public interface ReferenceRepository extends JpaRepository<Reference, Long> {
+public interface ReferenceRepository extends JpaRepository<Reference, String> {
 }

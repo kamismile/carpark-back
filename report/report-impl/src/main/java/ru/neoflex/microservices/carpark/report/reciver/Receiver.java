@@ -12,10 +12,10 @@ import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.KafkaCommand;
 import ru.neoflex.microservices.carpark.dicts.feign.DictsFeign;
 import ru.neoflex.microservices.carpark.employees.feign.EmployeeFeign;
-import ru.neoflex.microservices.carpark.report.model.CarCommand;
-import ru.neoflex.microservices.carpark.report.model.CarEvent;
-import ru.neoflex.microservices.carpark.report.model.ReferenceCommand;
+import ru.neoflex.microservices.carpark.report.model.*;
 import ru.neoflex.microservices.carpark.report.service.CarEventResourceService;
+import ru.neoflex.microservices.carpark.report.service.EmployeeService;
+import ru.neoflex.microservices.carpark.report.service.LocationService;
 import ru.neoflex.microservices.carpark.report.service.ReferenceService;
 
 import java.util.List;
@@ -44,6 +44,12 @@ public class Receiver {
         @Autowired
         ReferenceService referenceService;
 
+        @Autowired
+        EmployeeService employeeService;
+
+        @Autowired
+        LocationService locationService;
+
         @KafkaListener(topics = "${kafka.topic.car}")
         public void receiveCar(CarCommand command) {
                 log.info("received command='{}'", command.toString());
@@ -57,5 +63,22 @@ public class Receiver {
                 latch.countDown();
                 referenceService.save(referenceCommand);
         }
+
+        @KafkaListener(topics = "${kafka.topic.employee}")
+        public void receiveEmployee(EmployeeCommand employeeCommand) {
+                log.info("received command='{}'", employeeCommand.toString());
+                latch.countDown();
+                employeeService.save(employeeCommand);
+
+        }
+
+        @KafkaListener(topics = "${kafka.topic.employee}")
+        public void receiveLocation(LocationCommand locationCommand) {
+                log.info("received command='{}'", locationCommand.toString());
+                latch.countDown();
+                locationService.save(locationCommand);
+        }
+
+
 
 }
