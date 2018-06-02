@@ -22,4 +22,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getByUserId(String userId) {
         return employeeRepository.getByUserId(userId);
     }
+
+    @Override
+    public void delete(String userId) {
+        Employee employee = employeeRepository.getByUserId(userId);
+        employeeRepository.delete(employee);
+    }
+
+    @Override
+    public void addUpdate(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+
 }
