@@ -20,11 +20,8 @@ spring:
           use_jdbc_metadata_defaults: false
 
 eureka:
-  instance:
-    preferIpAddress: false
-  client:
-    serviceUrl:
-      defaultZone: http://10.244.1.84:8080/eureka
+  instance.preferIpAddress: true
+  client.serviceUrl.defaultZone: http://service-registry:8080/eureka
 
 security:
   session:
@@ -43,9 +40,9 @@ security:
 
 logging:
   level:
-    ROOT: DEBUG
+    ROOT: INFO
     ru.neoflex: DEBUG
-    org.springframework: DEBUG
+    org.springframework: INFO
 
 ---
 spring:
