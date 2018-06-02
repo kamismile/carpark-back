@@ -24,7 +24,7 @@ eureka:
     preferIpAddress: false
   client:
     serviceUrl:
-      defaultZone: http://10.105.237.79:8080/eureka
+      defaultZone: http://service.namespace.svc.cluster.local:8080/eureka
 
 security:
   session:
