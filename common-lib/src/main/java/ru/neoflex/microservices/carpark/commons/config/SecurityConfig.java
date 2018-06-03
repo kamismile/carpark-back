@@ -29,7 +29,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
         // @formatter:on
     }
 
-    @Bean
+   /* @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
@@ -40,5 +40,5 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
         source.registerCorsConfiguration("/**", config);
         CorsFilter bean = new org.springframework.web.filter.CorsFilter(source);
         return bean;
-    }
+    }*/
 }
