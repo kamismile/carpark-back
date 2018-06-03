@@ -41,6 +41,9 @@ public class JwtAcesDecisionVoter implements AccessDecisionVoter {
         if (authentication.getAuthorities() == null || authentication.getAuthorities().isEmpty()) {
             return ACCESS_DENIED;
         }
+        if (!(authentication.getDetails() instanceof OAuth2AuthenticationDetails)){
+            return ACCESS_DENIED;
+        }
         OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails)authentication.getDetails();
         Object details = oAuth2AuthenticationDetails.getDecodedDetails();
         if (details == null) {
