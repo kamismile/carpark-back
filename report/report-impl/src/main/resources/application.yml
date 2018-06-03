@@ -2,10 +2,12 @@ server:
   port: ${PORT_TO_EXPOSE:8080}
 
 kafka:
-  bootstrap-servers: localhost:9092
+  bootstrap-servers: kafka01.kafka:9092
   topic:
     car: car.t
     reference: reference.t
+    employee: employee.t
+    location: location.t
 
 spring:
   datasource:
@@ -34,6 +36,7 @@ spring:
       FAIL_ON_EMPTY_BEANS: false
     default-property-inclusion: non_null
     date-format: org.codehaus.jackson.map.util.ISO8601DateFormat
+    time-zone: GMT
 
 eureka:
   instance.preferIpAddress: true
@@ -85,3 +88,5 @@ kafka:
   topic:
     json: car.t
     reference: reference.t
+    employee: employee.t
+    location: location.t
