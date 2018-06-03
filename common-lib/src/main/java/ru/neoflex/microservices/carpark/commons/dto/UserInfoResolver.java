@@ -18,7 +18,7 @@ import java.util.Map;
 
 
 /**
- * Created by rmorenko on 28.05.2018.
+ * @author rmorenko
  */
 public class UserInfoResolver implements HandlerMethodArgumentResolver {
 
@@ -32,7 +32,7 @@ public class UserInfoResolver implements HandlerMethodArgumentResolver {
 
         @Override
         public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+                                      NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
                 final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
                 return UserInfoUtil.getInstance(authentication);
 

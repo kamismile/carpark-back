@@ -1,13 +1,13 @@
 package ru.neoflex.microservices.carpark.employees.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.neoflex.microservices.carpark.employees.api.LocationApi;
 import ru.neoflex.microservices.carpark.employees.model.Location;
 import ru.neoflex.microservices.carpark.employees.service.LocationService;
+
+import java.util.List;
 
 /**
  * @author mirzoevnik
@@ -23,8 +23,29 @@ public class LocationController implements LocationApi {
     }
 
     @Override
-    @GetMapping(value = "/location/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Location getById(@PathVariable Long id) {
+    public Location getById(Long id) {
         return locationService.getById(id);
     }
+
+    @Override
+    public void deactivate(@PathVariable("locationId") String locationId) {
+
+    }
+
+    @Override
+    public void add(Location location) {
+
+    }
+
+    @Override
+    public void update(Location location) {
+
+    }
+
+    @Override
+    public List<Location> getAll() {
+        return null;
+    }
+
+
 }
