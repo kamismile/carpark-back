@@ -43,6 +43,11 @@ security:
                   yQIDAQAB
                   -----END PUBLIC KEY-----
 
+kafka:
+  bootstrap-servers: kafka01.kafka:9092
+  topic:
+    reference: reference.t
+
 ---
 spring:
   profiles: dev
@@ -63,3 +68,8 @@ server:
 eureka:
   instance.preferIpAddress: true
   client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+
+kafka:
+  bootstrap-servers: localhost:9092
+  topic:
+    reference: reference.t

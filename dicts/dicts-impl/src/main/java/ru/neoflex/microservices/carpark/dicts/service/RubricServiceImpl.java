@@ -31,4 +31,14 @@ public class RubricServiceImpl implements RubricService {
     public Rubric findByCode(String code) {
         return rubricRepository.findByCode(code);
     }
+
+    @Override
+    public void createRubric(Rubric rubric) {
+        rubricRepository.save(rubric);
+    }
+
+    @Override
+    public void updateRubric(Rubric rubric) {
+        rubricRepository.save(rubric);
+    }
 }

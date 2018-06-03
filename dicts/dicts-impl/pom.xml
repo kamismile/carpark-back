@@ -83,7 +83,6 @@
             <groupId>ru.neoflex.microservices.carpark</groupId>
             <artifactId>common-lib</artifactId>
         </dependency>
-
         <!-- bro modules -->
         <dependency>
             <groupId>ru.neoflex.microservices.carpark</groupId>
@@ -152,6 +151,17 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Kafka -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
             <scope>test</scope>
         </dependency>
 

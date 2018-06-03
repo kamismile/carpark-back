@@ -14,4 +14,5 @@ import java.util.List;
 public interface ReferenceRepository extends JpaRepository<Reference, String> {
 
     List<Reference> findByRubric(Rubric rubric);
+    Reference findByCode(String code);
 }

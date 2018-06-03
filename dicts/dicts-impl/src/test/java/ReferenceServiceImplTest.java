@@ -10,6 +10,7 @@ import ru.neoflex.microservices.carpark.dicts.DictsApplication;
 import ru.neoflex.microservices.carpark.dicts.model.Reference;
 import ru.neoflex.microservices.carpark.dicts.model.Rubric;
 import ru.neoflex.microservices.carpark.dicts.repository.ReferenceRepository;
+import ru.neoflex.microservices.carpark.dicts.sender.DictSender;
 import ru.neoflex.microservices.carpark.dicts.service.ReferenceService;
 import ru.neoflex.microservices.carpark.dicts.service.ReferenceServiceImpl;
 
@@ -21,12 +22,15 @@ public class ReferenceServiceImplTest {
     private ReferenceRepository referenceRepository = mock(ReferenceRepository.class);
 
     @Autowired
+    DictSender sender;
+
+    @Autowired
     private ReferenceService referenceService;
 
     @BeforeClass
     public void setupMock(){
         reset(referenceRepository);
-        referenceService = new ReferenceServiceImpl(referenceRepository);
+        referenceService = new ReferenceServiceImpl(referenceRepository, sender);
     }
 
     @Test
