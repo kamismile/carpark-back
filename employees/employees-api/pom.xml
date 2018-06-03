@@ -41,6 +41,10 @@
             <artifactId>spring-cloud-netflix-core</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <artifactId>common-lib</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

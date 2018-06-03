@@ -3,6 +3,7 @@ package ru.neoflex.microservices.carpark.employees.api;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
+import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface EmployeeApi {
     void update(Employee employee);
 
     @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Employee> getAll();
+    List<Employee> getAll(EmployeeFilter filter);
 
 
 

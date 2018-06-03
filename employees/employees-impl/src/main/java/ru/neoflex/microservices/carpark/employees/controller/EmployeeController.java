@@ -7,6 +7,7 @@ import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.employees.api.EmployeeApi;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
 import ru.neoflex.microservices.carpark.employees.dto.EmployeeCommand;
+import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 import ru.neoflex.microservices.carpark.employees.sender.Sender;
 import ru.neoflex.microservices.carpark.employees.service.EmployeeService;
 
@@ -47,8 +48,8 @@ public class EmployeeController implements EmployeeApi {
     }
 
     @Override
-    public List<Employee> getAll() {
-        return employeeService.getAll();
+    public List<Employee> getAll(EmployeeFilter filter) {
+        return employeeService.getAll(filter);
     }
 
 

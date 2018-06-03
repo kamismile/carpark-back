@@ -2,15 +2,22 @@ package ru.neoflex.microservices.carpark.employees.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.neoflex.microservices.carpark.commons.dto.PageResponse;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.employees.dto.EmployeeCommand;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
+import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 import ru.neoflex.microservices.carpark.employees.repository.EmployeeRepository;
 import ru.neoflex.microservices.carpark.employees.sender.Sender;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.neoflex.microservices.carpark.employees.utils.EmployeeSprecifications.*;
 
 /**
  * @author mirzoevnik
@@ -70,8 +77,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getAll() {
-        return employeeRepository.findAll();
+    public List<Employee> getAll(EmployeeFilter filter) {
+
+        return employeeRepository.findAll(where(employeeLikeName(filter))
+                .and(employeeLikeSurname(filter))
+                .and(employeeLikePatronymic(filter))
+                .and(employeeAfterAppointmentDate(filter))
+                .and(employeeBeforeAppointmentDate(filter))
+                .and(employeeIsActive(filter))
+                .and(employeeHasUserId(filter)));
+    }
+
+    @Override
+    public PageResponse<Employee> getAll(EmployeeFilter filter, PageRequest pageRequest) {
+        Page<Employee> page =  employeeRepository.findAll(where(employeeLikeName(filter))
+                .and(employeeLikeSurname(filter))
+                .and(employeeLikePatronymic(filter))
+                .and(employeeAfterAppointmentDate(filter))
+                .and(employeeBeforeAppointmentDate(filter))
+                .and(employeeIsActive(filter))
+                .and(employeeHasUserId(filter)), pageRequest);
+        return new PageResponse<Employee>(page.getContent(), page.getTotalElements());
     }
 
 
