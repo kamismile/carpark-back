@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import ru.neoflex.microservices.carpark.commons.dto.PageResolver;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfoResolver;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class JwtWebMvcConfig extends WebMvcConfigurerAdapter {
                 userInfoResolver.setObjectMapper(new ObjectMapper());
                 return  userInfoResolver;
         }
+
 
         @Override
         public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {

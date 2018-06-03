@@ -18,7 +18,7 @@ import java.util.Map;
 
 
 /**
- * Created by rmorenko on 28.05.2018.
+ * @author rmorenko
  */
 public class UserInfoResolver implements HandlerMethodArgumentResolver {
 
