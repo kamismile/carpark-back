@@ -45,7 +45,7 @@ spring:
   profiles: dev
 
 server:
-  port: 9099
+  port: 9098
 
 eureka:
   instance.preferIpAddress: true

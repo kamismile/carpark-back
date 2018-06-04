@@ -1,7 +1,9 @@
 package ru.neoflex.microservices.carpark.employees.api;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import ru.neoflex.microservices.carpark.commons.dto.PageResponse;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
 import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 
@@ -28,6 +30,6 @@ public interface EmployeeApi {
     @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Employee> getAll(EmployeeFilter filter);
 
-
-
+    @GetMapping(value = "/employees/page", produces = MediaType.APPLICATION_JSON_VALUE)
+    PageResponse<Employee> getAll(EmployeeFilter filter, PageRequest pageRequest);
 }
