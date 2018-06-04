@@ -51,11 +51,6 @@ security:
                   yQIDAQAB
                   -----END PUBLIC KEY-----
 
-kafka:
-  bootstrap-servers: kafka01.kafka:9092
-  topic:
-    reference: reference.t
-
 ---
 spring:
   profiles: dev
