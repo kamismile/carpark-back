@@ -21,8 +21,11 @@ spring:
           use_jdbc_metadata_defaults: false
 
 eureka:
-  instance.preferIpAddress: true
-  client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/
+  instance:
+    preferIpAddress: false
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry.service:8080/eureka
 
 ---
 spring:
