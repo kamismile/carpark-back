@@ -166,7 +166,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ru.neoflex.microservices.carpark.preorders.PreordersApplication</mainClass>
+                        <mainClass>ru.neoflex.microservices.carpark.dicts.PreordersApplication</mainClass>
                     </configuration>
                 </plugin>
             </plugins>
