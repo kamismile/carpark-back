@@ -42,5 +42,7 @@ public class Employee implements Serializable {
     private Location location;
 
     @Column(name = "USER_ID")
-    private Long userId;
+    private String userId;
+
+    private boolean active;
 }

@@ -33,15 +33,20 @@ public class CarController implements CarApi {
     @GetMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
     @PostFilter("hasPermission(filterObject, {'getCars_filter', {}})")
     public List<Car> getCars(UserInfo userInfo) {
-        return carService.getAllCars();
+        List<Car> list = carService.getAllCars();
+        list.stream().forEach(car -> {
+            car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
+        });
+        return list;
     }
 
     @Override
     @GetMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasPermission({{'id', #id}} ,{'getCar'})")
+    //@PreAuthorize("hasPermission({{'id', #id}} ,{'getCar'})")
     public Car getCar(UserInfo userInfo, @PathVariable Long id) {
         System.out.println(userInfo);
         Car car = carService.getCar(id);
+        car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
         sendCommand(userInfo, car, Command.UPDATE);
         return carService.getCar(id);
     }
@@ -70,8 +75,8 @@ public class CarController implements CarApi {
     @PreAuthorize("hasPermission({{'id', #id}} , {'deleteCar'})")
     public void deleteCar(UserInfo userInfo, @PathVariable Long id) {
         Car car = carService.getCar(id);
-        sendCommand(userInfo, car, Command.DELETE);
         carService.deleteById(id);
+        sendCommand(userInfo, car, Command.DELETE);
     }
 
     @Override
@@ -82,7 +87,7 @@ public class CarController implements CarApi {
         Car car = carService.getCar(id);
         States result = lifecycleService.doTransition(car, event);
         car.setState(result);
-        car.setCurrentStatus(result.name().toLowerCase());
+        car.setCurrentStatus(result.getStatusCode());
         car.setCurrentStatusDate(new Date());
         car = carService.updateCar(car);
         sendCommand(userInfo, car, Command.ADD);

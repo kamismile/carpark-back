@@ -21,11 +21,11 @@ public class JwtAcesDecisionVoter implements AccessDecisionVoter {
     }
 
     public boolean supports(ConfigAttribute attribute) {
-            return true;
+        return true;
     }
 
     public boolean supports(Class clazz) {
-            return true;
+        return true;
     }
 
     public int vote(Authentication authentication, Object object, Collection collection) {
@@ -33,7 +33,23 @@ public class JwtAcesDecisionVoter implements AccessDecisionVoter {
                 && ((FilterInvocation) object).getRequestUrl().contains("auth/ui/tokens")) {
             return ACCESS_GRANTED;
         }
+        if (object instanceof FilterInvocation
+                && ((FilterInvocation) object).getRequestUrl().contains("hystrix")) {
+            return ACCESS_GRANTED;
+        }
+        if (object instanceof FilterInvocation
+                && ((FilterInvocation) object).getRequestUrl().contains("swagger")) {
+            return ACCESS_GRANTED;
+        }
+        if (object instanceof FilterInvocation
+                && ((FilterInvocation) object).getHttpRequest().getMethod().equals("OPTIONS")) {
+            return ACCESS_GRANTED;
+        }
+
         if (authentication.getAuthorities() == null || authentication.getAuthorities().isEmpty()) {
+            return ACCESS_DENIED;
+        }
+        if (!(authentication.getDetails() instanceof OAuth2AuthenticationDetails)){
             return ACCESS_DENIED;
         }
         OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails)authentication.getDetails();

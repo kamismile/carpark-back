@@ -3,21 +3,49 @@ server:
 
 eureka:
   instance.preferIpAddress: true
-  client.serviceUrl.defaultZone: http://service-registry.netflix:8080/
+  client.serviceUrl.defaultZone: http://service-registry:8080/eureka
 
 zuul:
   sensitiveHeaders:
+  include-debug-header: true
+  zuul.debug.request: true
+  stripPrefix: false
   routes:
     auth:
       serviceId: auth
       sensitiveHeaders:
+    dicts:
+      serviceId: dicts
+      sensitiveHeaders:
+    cars:
+      serviceId: cars
+      sensitiveHeaders:
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  eureka:
+    enabled: true
+    ReadTimeout: 20000
+    ConnectTimeout: 20000
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: DEBUG
 
 ---
 spring:
   profiles: dev
 
 server:
-  port: 9099
+  port: 9098
 
 eureka:
   instance.preferIpAddress: true

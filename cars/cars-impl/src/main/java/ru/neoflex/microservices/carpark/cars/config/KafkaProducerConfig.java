@@ -22,19 +22,15 @@ import java.util.Map;
 @EnableKafka
 public class KafkaProducerConfig {
 
-    @Value("${kafka:bootstrap}")
+    @Value("${kafka.bootstrap}")
     private String kafkaBootstrap;
-
-    @Value("${kafka:group-id}")
-    private String kafkaGroupId;
-
 
     @Bean
     public ProducerFactory<String, CarCommand> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "54.158.77.53:9092");
+                kafkaBootstrap);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
@@ -47,16 +43,16 @@ public class KafkaProducerConfig {
         return new KafkaTemplate<>(producerFactory());
     }
 
-    @Bean
-    public KafkaAdmin admin() {
-        Map<String, Object> configs = new HashMap<>();
-        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "54.158.77.53:9092");
-        return new KafkaAdmin(configs);
-    }
-
-    @Bean
-    public NewTopic topic1() {
-        return new NewTopic("bookings", 1, (short) 1);
-    }
+//    @Bean
+//    public KafkaAdmin admin() {
+//        Map<String, Object> configs = new HashMap<>();
+//        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "54.158.77.53:9092");
+//        return new KafkaAdmin(configs);
+//    }
+//
+//    @Bean
+//    public NewTopic topic1() {
+//        return new NewTopic("bookings", 1, (short) 1);
+//    }
 
 }

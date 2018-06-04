@@ -6,15 +6,22 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.scheduling.annotation.Async;
 import ru.neoflex.microservices.carpark.cars.model.Car;
+import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.KafkaCommand;
 import ru.neoflex.microservices.carpark.dicts.feign.DictsFeign;
+import ru.neoflex.microservices.carpark.employees.feign.EmployeeFeign;
 import ru.neoflex.microservices.carpark.report.model.CarCommand;
 import ru.neoflex.microservices.carpark.report.model.CarEvent;
+import ru.neoflex.microservices.carpark.report.model.ReferenceCommand;
 import ru.neoflex.microservices.carpark.report.service.CarEventResourceService;
+import ru.neoflex.microservices.carpark.report.service.ReferenceService;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 /**
@@ -23,7 +30,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Configuration
 @Data
-public class CarsMessageReceiver {
+public class Receiver {
 
         private CountDownLatch latch = new CountDownLatch(1);
 
@@ -35,22 +42,20 @@ public class CarsMessageReceiver {
         private CarEventResourceService carEventResourceService;
 
         @Autowired
-        private DictsFeign dictsFeign;
+        ReferenceService referenceService;
 
-
-        @KafkaListener(topics = "${kafka.topic.json}")
-        public void receive(CarCommand command) {
+        @KafkaListener(topics = "${kafka.topic.car}")
+        public void receiveCar(CarCommand command) {
                 log.info("received command='{}'", command.toString());
                 latch.countDown();
-                Car car = command.getEntity();
-                CarEvent carEvent = new CarEvent();
-                carEvent.setMessageDate(command.getMessageDate());
-                carEvent.setFio(command.getUserInfo().getName());
-                carEvent.setUserName(command.getUserInfo().getName());
-                BeanUtils.copyProperties(car, carEvent);
-                String statusText = dictsFeign.getReferencesByRubric("car_status").stream().filter(v -> v.getCode().equals(car.getCurrentStatus().toLowerCase())).collect(
-                        Collectors.toList()).get(0).getTitle();
-                carEvent.setCurentStatusDesc(statusText);
-                carEventResourceService.add(carEvent);
+                carEventResourceService.save(command);
         }
+
+        @KafkaListener(topics = "${kafka.topic.reference}")
+        public void receiveReference(ReferenceCommand referenceCommand) {
+                log.info("received command='{}'", referenceCommand.toString());
+                latch.countDown();
+                referenceService.save(referenceCommand);
+        }
+
 }

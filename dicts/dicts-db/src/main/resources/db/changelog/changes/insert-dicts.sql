@@ -62,3 +62,9 @@ INSERT INTO dict_reference(code, title, system, rubric_code)
   VALUES ('renault', 'Renault', TRUE, 'car_mark');
 INSERT INTO dict_reference(code, title, system, rubric_code)
   VALUES ('peugeot', 'Peugeot', TRUE, 'car_mark');
+
+--changeset rmorenko:2018-06-02
+ALTER TABLE  dict_reference
+ADD COLUMN active BOOLEAN NOT NULL DEFAULT true;
+
+UPDATE dict_reference set active = true;

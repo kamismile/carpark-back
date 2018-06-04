@@ -11,4 +11,10 @@ import java.util.List;
 public interface ReferenceService {
 
     List<Reference> findByRubric(Rubric rubric);
+
+    void createReference(Reference reference);
+
+    void updateReference(Reference reference);
+
+    void disableReference(String code);
 }

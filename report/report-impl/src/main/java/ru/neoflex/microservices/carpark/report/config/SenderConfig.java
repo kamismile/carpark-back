@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.report.model.CarCommand;
@@ -30,19 +31,20 @@ public class SenderConfig {
                 Map<String, Object> props = new HashMap<>();
                 props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
                 props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-                props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-
+                props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
                 return props;
         }
 
         @Bean
-        public ProducerFactory<String, CarCommand> producerFactory() {
+        public ProducerFactory<String, String> producerFactory() {
                 return new DefaultKafkaProducerFactory<>(producerConfigs());
         }
 
         @Bean
-        public KafkaTemplate<String, CarCommand> kafkaTemplate() {
-                return new KafkaTemplate<>(producerFactory());
+        public KafkaTemplate<String, String> kafkaTemplate() {
+                KafkaTemplate<String, String> template = new KafkaTemplate<>(producerFactory());
+                template.setMessageConverter(new StringJsonMessageConverter());
+                return template;
         }
 
         @Bean

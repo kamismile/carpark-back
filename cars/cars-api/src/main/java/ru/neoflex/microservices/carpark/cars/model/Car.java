@@ -5,10 +5,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Сущность автомобиля.
- * @author mirzoevnik
+ * @author Mirzoev_Nikita
  */
 @Data
 @Entity
@@ -17,7 +18,7 @@ import java.util.Date;
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String mark;
@@ -54,6 +55,9 @@ public class Car {
 
     @Column (name = "REG_NUMBER")
     private String number;
+
+    @Transient
+    private List<Events> availableEvents;
 
     public States getState() {
         return States.valueOf(state);

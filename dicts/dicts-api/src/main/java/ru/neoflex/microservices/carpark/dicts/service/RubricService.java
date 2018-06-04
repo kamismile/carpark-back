@@ -12,4 +12,9 @@ public interface RubricService {
     List<Rubric> findAll();
 
     Rubric findByCode(String code);
+
+    void createRubric(Rubric rubric);
+
+    void updateRubric(Rubric rubric);
+
 }
