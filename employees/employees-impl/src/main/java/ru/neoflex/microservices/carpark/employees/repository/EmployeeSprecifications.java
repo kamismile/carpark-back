@@ -86,7 +86,7 @@ public class EmployeeSprecifications {
             if (ObjectUtils.isEmpty(filter.getPositions())){
                 return null;
             }
-            return  root.get("position").get("id").in(filter.getPositions());
+            return  root.get("position").in(filter.getPositions());
         };
     }
 
@@ -96,7 +96,7 @@ public class EmployeeSprecifications {
             if (ObjectUtils.isEmpty(filter.getLocations())){
                 return null;
             }
-            return  root.get("location").get("id").in(filter.getPositions());
+            return  root.get("location").get("id").in(filter.getLocations());
         };
     }
 
