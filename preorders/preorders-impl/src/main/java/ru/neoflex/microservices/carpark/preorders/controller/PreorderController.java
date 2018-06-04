@@ -50,6 +50,7 @@ public class PreorderController implements PreorderApi {
     }
 
     @Override
+    @DeleteMapping(value = "/{id}")
     public void deletePreoder(UserInfo userInfo, Long id) {
         Long carId = preorderService.getPreorder(id).getCarId();
         makeNotification (userInfo, carId);
@@ -58,6 +59,7 @@ public class PreorderController implements PreorderApi {
     }
 
     @Override
+    @PutMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Preorder updatePreorder(UserInfo userInfo, Preorder preorder) {
         preorder = preorderService.updatePreorder(preorder);
         makeNotification (userInfo, preorder.getCarId());
