@@ -49,13 +49,6 @@ security:
                   yQIDAQAB
                   -----END PUBLIC KEY-----
 
-kafka:
-  bootstrap-servers: kafka01.kafka:9092
-  topic:
-    employee: employee.t
-    location: location.t
-
-
 ---
 spring:
   profiles: dev
