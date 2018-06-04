@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.neoflex.microservices.carpark.employees.utils.EmployeeSprecifications.*;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.*;
 
 /**
  * @author mirzoevnik
@@ -85,7 +85,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .and(employeeAfterAppointmentDate(filter))
                 .and(employeeBeforeAppointmentDate(filter))
                 .and(employeeIsActive(filter))
-                .and(employeeHasUserId(filter)));
+                .and(employeeHasUserId(filter))
+                .and(employeeInLocations(filter))
+                .and(employeeInPositions(filter)));
     }
 
     @Override
