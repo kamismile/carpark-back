@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.repository.CarRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Transactional
 public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
