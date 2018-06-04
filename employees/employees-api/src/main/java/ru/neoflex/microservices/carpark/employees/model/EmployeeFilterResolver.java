@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getBooleanParameter;
+import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getDateParameter;
+
 /**
  * @author rmorenko
  */
@@ -47,27 +50,6 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
         employeeFilter.setUserId(nativeWebRequest.getParameter("useId"));
         employeeFilter.setActive(getBooleanParameter(nativeWebRequest,"active"));
         return employeeFilter;
-    }
-
-    private Date getDateParameter(NativeWebRequest nativeWebRequest, String parameterName) {
-        if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))){
-            return null;
-        }
-        Long result;
-        try {
-            result =  Long.valueOf(nativeWebRequest.getParameter(parameterName));
-        } catch (NumberFormatException ex){
-            return  null;
-        }
-        return  new Date(result);
-    }
-
-    private Boolean getBooleanParameter(NativeWebRequest nativeWebRequest, String parameterName) {
-
-        if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))){
-            return (Boolean) null;
-        }
-        return  Boolean.valueOf(nativeWebRequest.getParameter(parameterName));
     }
 
     public ObjectMapper getObjectMapper() {
