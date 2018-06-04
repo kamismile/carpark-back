@@ -33,7 +33,10 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         private AccessExpressionFeign accessExpressionFeign;
 
 
-        static {
+    public static final String USER_INFO_ROLE_ADMINISTRATOR1 = "#userInfo.role == 'administrator'";
+    public static final String USER_INFO_ROLE_ADMINISTRATOR = USER_INFO_ROLE_ADMINISTRATOR1;
+
+    static {
            expressions= new ConcurrentHashMap<>();
            defaultExpressions = new ConcurrentHashMap<>();
            defaultExpressions.put("getCars_filter",
@@ -42,9 +45,9 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
                   + " || #userInfo.role == 'management' ||  #userInfo.role == 'administrator' ");
            defaultExpressions.put("getReferencesByRubric_filter", "#userInfo.role != 'test'");
            defaultExpressions.put("changeCarState", "#userInfo.role == 'management'");
-           defaultExpressions.put("deleteCar", "#userInfo.role == 'administrator'");
-           defaultExpressions.put("createCar", "#userInfo.role == 'administrator'");
-           defaultExpressions.put("updateCar", "#userInfo.role == 'administrator'");
+           defaultExpressions.put("deleteCar", USER_INFO_ROLE_ADMINISTRATOR1);
+           defaultExpressions.put("createCar", USER_INFO_ROLE_ADMINISTRATOR1);
+           defaultExpressions.put("updateCar", USER_INFO_ROLE_ADMINISTRATOR);
 
         }
 

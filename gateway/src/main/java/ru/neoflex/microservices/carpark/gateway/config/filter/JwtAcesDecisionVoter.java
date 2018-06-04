@@ -18,6 +18,7 @@ public class JwtAcesDecisionVoter implements AccessDecisionVoter {
     private static final Logger log = LoggerFactory.getLogger(JwtAcesDecisionVoter.class);
 
     public JwtAcesDecisionVoter() {
+        super();
     }
 
     public boolean supports(ConfigAttribute attribute) {

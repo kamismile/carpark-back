@@ -15,7 +15,7 @@ public interface LocationApi {
     Location getById(@PathVariable Long id);
 
     @DeleteMapping(value = "/location/deactivate/{locationId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    void deactivate(@PathVariable("locationId") String locationId);
+    void deactivate(@PathVariable("locationId") Long locationId);
 
     @PutMapping(value = "/location/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void add(Location location);

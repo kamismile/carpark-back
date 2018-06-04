@@ -28,23 +28,23 @@ public class LocationController implements LocationApi {
     }
 
     @Override
-    public void deactivate(@PathVariable("locationId") String locationId) {
-
+    public void deactivate(@PathVariable("locationId") Long locationId) {
+         locationService.deactivate(locationId);
     }
 
     @Override
     public void add(Location location) {
-
+       locationService.add(location);
     }
 
     @Override
     public void update(Location location) {
-
+        locationService.add(location);
     }
 
     @Override
     public List<Location> getAll() {
-        return null;
+       return locationService.getAll();
     }
 
 

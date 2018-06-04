@@ -23,6 +23,7 @@ public class JwtWebMvcSecurityConfig extends ResourceServerConfigurerAdapter {
         private List<AccessDecisionVoter<? extends Object>> decisionVoters;
 
         public JwtWebMvcSecurityConfig() {
+                super();
         }
 
         public void configure(HttpSecurity http) throws Exception {

@@ -5,6 +5,7 @@
 
 package ru.neoflex.microservices.carpark.auth.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -27,6 +28,7 @@ import java.util.UUID;
  * @author rmorenko
  */
 @Configuration
+@Slf4j
 public class TokenConverterConfig {
 
     public static final String LOCATION_ID = "locationId";
@@ -57,6 +59,7 @@ public class TokenConverterConfig {
     public boolean isUuid(String uuidToCheck) {
         try {
             UUID uuid = UUID.fromString(uuidToCheck);
+            log.debug("uuid" + uuid);
             return true;
         } catch (IllegalArgumentException exception) {
             return false;
