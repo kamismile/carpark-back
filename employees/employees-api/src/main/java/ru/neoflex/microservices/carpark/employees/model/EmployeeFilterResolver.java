@@ -33,12 +33,12 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
         employeeFilter.setSurname(nativeWebRequest.getParameter("surname"));
         employeeFilter.setPatronymic(nativeWebRequest.getParameter("patronymic"));
         List<String> positions =
-                Stream.of(Optional.of(nativeWebRequest.getParameter("positions"))
+                Stream.of(Optional.ofNullable(nativeWebRequest.getParameter("positions"))
                         .orElse("").split(","))
                         .collect(Collectors.toList());
         employeeFilter.setPositions(positions);
         List<String> locations =
-                Stream.of(Optional.of(nativeWebRequest.getParameter("locations"))
+                Stream.of(Optional.ofNullable(nativeWebRequest.getParameter("locations"))
                         .orElse("").split(","))
                         .collect(Collectors.toList());
         employeeFilter.setLocations(locations);
@@ -46,7 +46,7 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
         employeeFilter.setAppointmentDateTo(getDateParameter(nativeWebRequest, "appointmentDateFrom"));
         employeeFilter.setUserId(nativeWebRequest.getParameter("useId"));
         employeeFilter.setActive(getBooleanParameter(nativeWebRequest,"active"));
-        return null;
+        return employeeFilter;
     }
 
     private Date getDateParameter(NativeWebRequest nativeWebRequest, String parameterName) {
