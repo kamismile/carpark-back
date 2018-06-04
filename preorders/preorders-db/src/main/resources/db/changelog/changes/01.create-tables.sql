@@ -12,3 +12,8 @@ CREATE TABLE preorder (
   start_location_id INTEGER NOT NULL,
   end_location_id INTEGER NOT NULL
 );
+
+--changeset dbegun:alter-table-preorder
+alter table preorder add column created_by_user VARCHAR(100) NOT NULL;
+alter table preorder add column car_id INTEGER NOT NULL;
+alter table preorder add column preorder_type VARCHAR(10) NOT NULL;

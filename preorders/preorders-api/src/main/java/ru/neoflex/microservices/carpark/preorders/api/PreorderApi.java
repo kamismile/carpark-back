@@ -1,5 +1,6 @@
 package ru.neoflex.microservices.carpark.preorders.api;
 
+import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.preorders.model.Preorder;
 
 import java.util.List;
@@ -9,5 +10,13 @@ import java.util.List;
  */
 public interface PreorderApi {
 
-    List<Preorder> getPreorders();
+    List<Preorder> getAllPreorders(UserInfo userInfo);
+
+    Preorder getPreorder(UserInfo userInfo, Long id);
+
+    Preorder addPreorder(UserInfo userInfo, Preorder preorder);
+
+    void deletePreoder(UserInfo userInfo, Long id);
+
+    Preorder updatePreorder (UserInfo userInfo, Preorder preorder);
 }
