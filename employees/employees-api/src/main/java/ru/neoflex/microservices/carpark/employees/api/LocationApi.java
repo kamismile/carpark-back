@@ -3,6 +3,7 @@ package ru.neoflex.microservices.carpark.employees.api;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.employees.model.Location;
+import ru.neoflex.microservices.carpark.employees.model.LocationFilter;
 
 import java.util.List;
 
@@ -24,6 +25,5 @@ public interface LocationApi {
     void update(Location location);
 
     @GetMapping(value = "/locations", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<Location> getAll();
-
+    List<Location> getAll(LocationFilter filter);
 }

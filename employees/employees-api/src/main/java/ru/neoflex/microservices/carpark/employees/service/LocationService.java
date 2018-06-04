@@ -2,6 +2,7 @@ package ru.neoflex.microservices.carpark.employees.service;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.neoflex.microservices.carpark.employees.model.Location;
+import ru.neoflex.microservices.carpark.employees.model.LocationFilter;
 
 import java.util.List;
 
@@ -18,5 +19,5 @@ public interface LocationService {
 
     public void update(Location location);
 
-    public List<Location> getAll();
+    List<Location> getAll(LocationFilter filter);
 }

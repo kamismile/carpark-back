@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.neoflex.microservices.carpark.employees.api.LocationApi;
 import ru.neoflex.microservices.carpark.employees.model.Location;
+import ru.neoflex.microservices.carpark.employees.model.LocationFilter;
 import ru.neoflex.microservices.carpark.employees.service.LocationService;
 
 import java.util.List;
@@ -43,8 +44,8 @@ public class LocationController implements LocationApi {
     }
 
     @Override
-    public List<Location> getAll() {
-       return locationService.getAll();
+    public List<Location> getAll(LocationFilter filter) {
+       return locationService.getAll(filter);
     }
 
 

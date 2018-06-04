@@ -6,10 +6,15 @@ import org.springframework.stereotype.Service;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.employees.dto.LocationCommand;
 import ru.neoflex.microservices.carpark.employees.model.Location;
+import ru.neoflex.microservices.carpark.employees.model.LocationFilter;
 import ru.neoflex.microservices.carpark.employees.repository.LocationRepository;
 import ru.neoflex.microservices.carpark.employees.sender.Sender;
 
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.locationIsActive;
+import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.locationLikeAddresses;
 
 /**
  * @author mirzoevnik
@@ -66,7 +71,9 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<Location> getAll() {
-        return locationRepository.findAll();
+    public List<Location> getAll(LocationFilter filter) {
+        return locationRepository.findAll(where(locationLikeAddresses(filter))
+                .and(locationIsActive(filter))
+                .and(locationLikeAddresses(filter)));
     }
 }
