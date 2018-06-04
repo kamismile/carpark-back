@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.neoflex.microservices.carpark.access.model.AccessExpression;
 import ru.neoflex.microservices.carpark.access.repository.AccessExpressionRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 @Service
 @Getter
 @Setter
+@Transactional
 public class AccessExpressionService {
 
         @Autowired
