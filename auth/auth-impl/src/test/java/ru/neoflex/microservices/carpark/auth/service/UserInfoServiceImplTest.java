@@ -67,7 +67,7 @@ public class UserInfoServiceImplTest {
         when(userInfoRepository.getByLoginAndPassword(null, eq(anyString()))).thenReturn(null);
         when(userInfoRepository.getByLoginAndPassword(eq(anyString()), null)).thenReturn(null);
 
-        UserInfo userInfoGetAny = userInfoRepository.getByLoginAndPassword(ANY, "anypass");
+        UserInfo userInfoGetAny = userInfoRepository.getByLoginAndPassword(ANY, ANYPASS);
         UserInfo userInfoOK = userInfoRepository.getByLoginAndPassword(LOGIN, PASS);
         UserInfo userInfoNullLogin = userInfoRepository.getByLoginAndPassword(null, ANYPASS);
         UserInfo userInfoNullPassword = userInfoRepository.getByLoginAndPassword(ANY, null);
