@@ -45,7 +45,8 @@ public class Car {
     @Column(name = "NEXT_STATUS_DATE")
     private Date nextStatusDate;
 
-    private String state;
+    @Enumerated(EnumType.STRING)
+    private States state;
 
     @Column (name = "LOCATION_ID")
     private Long locationId;
@@ -59,11 +60,4 @@ public class Car {
     @Transient
     private List<Events> availableEvents;
 
-    public States getState() {
-        return States.valueOf(state);
-    }
-
-    public void setState(States stateEnumVal) {
-        state = stateEnumVal.name();
-    }
 }

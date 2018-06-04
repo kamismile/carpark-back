@@ -6,6 +6,8 @@
 package ru.neoflex.microservices.carpark.cars.service;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.access.StateMachineAccess;
 import org.springframework.statemachine.state.State;
@@ -28,7 +30,7 @@ import java.util.*;
  */
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LifecycleServiceImpl implements LifecycleService {
 
 
@@ -38,7 +40,7 @@ public class LifecycleServiceImpl implements LifecycleService {
 
     @Override
     public States doTransition(Car car, Events event) {
-        StateMachine stateMachine = getRunningStateMachineForCar(car);
+        StateMachine<String,String> stateMachine = getRunningStateMachineForCar(car);
         boolean success = stateMachine.sendEvent(event.name());
         if (!success) {
             throw new TransitionUnsupportedException(event.name(), car.getState().name());
@@ -59,7 +61,7 @@ public class LifecycleServiceImpl implements LifecycleService {
     @PostConstruct
     private void initAvailableEvents() {
         Arrays.stream(States.values()).forEach(e -> {
-                    StateMachine stateMachine = getRunningStateMachineWithState(e.name());
+                    StateMachine<String, String> stateMachine = getRunningStateMachineWithState(e.name());
                     List<Events> result = new ArrayList<>();
                     Collection<Transition<String, String>> a = stateMachine.getTransitions();
                     for (Transition<String, String> t : a) {
@@ -74,13 +76,13 @@ public class LifecycleServiceImpl implements LifecycleService {
         );
     }
 
-    private StateMachine getRunningStateMachineForCar(Car car) {
+    private StateMachine<String, String> getRunningStateMachineForCar(Car car) {
         String currentState = car.getState().name();
         return getRunningStateMachineWithState(currentState);
     }
 
-    private StateMachine getRunningStateMachineWithState(String currentState) {
-        StateMachine stateMachine;
+    private StateMachine<String, String> getRunningStateMachineWithState(String currentState) {
+        StateMachine<String, String> stateMachine;
         try {
             stateMachine = stateMachinePool.borrow();
             List<StateMachineAccess<String, String>> withAllRegions = stateMachine.getStateMachineAccessor().withAllRegions();
@@ -95,7 +97,7 @@ public class LifecycleServiceImpl implements LifecycleService {
     }
 
 
-    private void stopAndReturnMachine(StateMachine stateMachine) {
+    private void stopAndReturnMachine(StateMachine<String, String> stateMachine) {
         stateMachine.stop();
         stateMachinePool.giveBack(stateMachine);
     }

@@ -12,10 +12,8 @@ import ru.neoflex.microservices.carpark.cars.exception.TransitionUnsupportedExce
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.model.Events;
 import ru.neoflex.microservices.carpark.cars.model.States;
-import ru.neoflex.microservices.carpark.cars.repository.CarRepository;
 import ru.neoflex.microservices.carpark.cars.service.LifecycleService;
 
-import java.util.Date;
 import java.util.List;
 
 @SpringBootTest(classes = {CarsApplication.class})

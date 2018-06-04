@@ -17,3 +17,14 @@ CREATE TABLE car (
   reg_number VARCHAR(10) NOT NULL
 );
 
+--changeset dbegun:create-table-transition
+CREATE TABLE transition (
+  id SERIAL PRIMARY KEY,
+  from_state VARCHAR(100) NOT NULL,
+  to_state VARCHAR(100) NOT NULL,
+  event VARCHAR(100) NOT NULL
+);
+
+
+
+

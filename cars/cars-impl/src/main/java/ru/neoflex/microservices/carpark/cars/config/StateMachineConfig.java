@@ -1,34 +1,74 @@
 package ru.neoflex.microservices.carpark.cars.config;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.UnmodifiableIterator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
-import org.springframework.statemachine.config.StateMachineFactory;
-import org.springframework.statemachine.config.builders.StateMachineModelConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
-import org.springframework.statemachine.config.model.StateMachineModelFactory;
-import org.springframework.statemachine.data.*;
-import org.springframework.statemachine.data.jpa.JpaRepositoryState;
-import org.springframework.statemachine.data.jpa.JpaRepositoryTransition;
-import org.springframework.statemachine.listener.StateMachineListener;
-import org.springframework.statemachine.listener.StateMachineListenerAdapter;
-import org.springframework.statemachine.state.State;
 import ru.neoflex.microservices.carpark.cars.model.Events;
 import ru.neoflex.microservices.carpark.cars.model.States;
+import ru.neoflex.microservices.carpark.cars.model.Transition;
+import ru.neoflex.microservices.carpark.cars.service.StateMachineService;
 
 import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableStateMachineFactory
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StateMachineConfig extends StateMachineConfigurerAdapter<String, String> {
 
+    private final StateMachineService stateMachineService;
+
+
+    @Override
+    public void configure(StateMachineStateConfigurer<String, String> states)
+            throws Exception {
+        states
+                .withStates()
+                .initial(States.READY.name())
+                .states(Arrays.stream(States.values())
+                        .map(a -> a.name())
+                        .collect(Collectors.toSet()));
+    }
+
+    @Override
+    public void configure(StateMachineTransitionConfigurer<String, String> transitions)
+            throws Exception {
+        List<Transition> transitionFromRepository = stateMachineService.getTransitions();
+        for (Transition tr : transitionFromRepository) {
+            transitions
+                    .withExternal()
+                    .source(tr.getFrom().name()).target(tr.getTo().name())
+                    .event(tr.getEvent().name())
+                    .and();
+        }
+    }
+}
+
+//transitions
+//        .withExternal()
+//        .source(States.READY.name()).target(States.IN_USE.name())
+//        .event(Events.RENT.name())
+//        .and()
+//        .withExternal()
+//        .source(States.IN_USE.name()).target(States.READY.name())
+//        .event(Events.RETURN.name())
+//        .and()
+//        .withExternal()
+//        .source(States.READY.name()).target(States.IN_SERVICE.name())
+//        .event(Events.SERVICE.name())
+//        .and()
+//        .withExternal()
+//        .source(States.IN_SERVICE.name()).target(States.READY.name())
+//        .event(Events.RETURN.name())
+//        .and()
+//        .withExternal()
+//        .source(States.IN_SERVICE.name()).target(States.DECOMMISSIONED.name())
+//        .event(Events.RETIRE.name());
 
 //    @Autowired
 //    private StateRepository<JpaRepositoryState> stateRepository;
@@ -83,40 +123,3 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<String, St
 //            }
 //        };
 //    }
-
-
-        @Override
-    public void configure(StateMachineStateConfigurer<String, String> states)
-            throws Exception {
-            states
-                    .withStates()
-                    .initial(States.READY.name())
-                    .states(new HashSet<String>(Arrays.asList(States.READY.name(), States.IN_USE.name(), States.IN_SERVICE.name(), States.DECOMMISSIONED.name())));
-        }
-
-    @Override
-    public void configure(StateMachineTransitionConfigurer<String, String> transitions)
-            throws Exception {
-        transitions
-                .withExternal()
-                .source(States.READY.name()).target(States.IN_USE.name())
-                .event(Events.RENT.name())
-                .and()
-                .withExternal()
-                .source(States.IN_USE.name()).target(States.READY.name())
-                .event(Events.RETURN.name())
-                .and()
-                .withExternal()
-                .source(States.READY.name()).target(States.IN_SERVICE.name())
-                .event(Events.SERVICE.name())
-                .and()
-                .withExternal()
-                .source(States.IN_SERVICE.name()).target(States.READY.name())
-                .event(Events.RETURN.name())
-                .and()
-                .withExternal()
-                .source(States.IN_SERVICE.name()).target(States.DECOMMISSIONED.name())
-                .event(Events.RETIRE.name());
-    }
-
-}
