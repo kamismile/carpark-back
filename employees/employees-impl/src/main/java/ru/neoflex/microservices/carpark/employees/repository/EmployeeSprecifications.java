@@ -83,7 +83,7 @@ public class EmployeeSprecifications {
     public static Specification<Employee> employeeInPositions(EmployeeFilter filter){
 
         return (root, query, cb) -> {
-            if (!ObjectUtils.isEmpty(filter.getPositions())){
+            if (ObjectUtils.isEmpty(filter.getPositions())){
                 return null;
             }
             return  root.get("position").get("id").in(filter.getPositions());
@@ -93,7 +93,7 @@ public class EmployeeSprecifications {
     public static Specification<Employee> employeeInLocations(EmployeeFilter filter){
 
         return (root, query, cb) -> {
-            if (!ObjectUtils.isEmpty(filter.getLocations())){
+            if (ObjectUtils.isEmpty(filter.getLocations())){
                 return null;
             }
             return  root.get("location").get("id").in(filter.getPositions());
