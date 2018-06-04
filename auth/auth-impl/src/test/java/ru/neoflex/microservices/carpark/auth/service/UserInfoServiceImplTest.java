@@ -11,13 +11,19 @@ import static org.testng.Assert.*;
 
 public class UserInfoServiceImplTest {
 
+    public static final String ANY = "any";
+    public static final String ANYPASS = "anypasss";
+    public static final String LOGIN = "login";
+    public static final String PASS = "password";
     @Autowired
     private UserInfoRepository userInfoRepository = mock(UserInfoRepository.class);
 
     @Autowired
     private UserInfoService userInfoService;
 
-    UserInfo userInfoAny, userInfoLogin, userInfoNull;
+    UserInfo userInfoAny;
+    UserInfo userInfoLogin;
+    UserInfo userInfoNull;
 
     @BeforeMethod
     public void setupMock() {
@@ -26,54 +32,54 @@ public class UserInfoServiceImplTest {
         userInfoAny = new UserInfo();
         userInfoLogin = new UserInfo();
 
-        userInfoAny.setLogin("any");
-        userInfoAny.setPassword("anypsss");
-        userInfoLogin.setLogin("login");
-        userInfoLogin.setPassword("password");
+        userInfoAny.setLogin(ANY);
+        userInfoAny.setPassword(ANYPASS);
+        userInfoLogin.setLogin(LOGIN);
+        userInfoLogin.setPassword(PASS);
     }
 
     @Test
     public void testGetByLogin() {
         when(userInfoRepository.getByLogin(anyString())).thenReturn(userInfoAny);
-        when(userInfoRepository.getByLogin("login")).thenReturn(userInfoLogin);
+        when(userInfoRepository.getByLogin(LOGIN)).thenReturn(userInfoLogin);
         when(userInfoRepository.getByLogin(null)).thenReturn(null);
 
-        UserInfo userInfoGetAny = userInfoService.getByLogin("any");
-        UserInfo userInfoGetLogin = userInfoService.getByLogin("login");
-        UserInfo userInfoNull = userInfoService.getByLogin(null);
+        UserInfo userInfoGetAny = userInfoService.getByLogin(ANY);
+        UserInfo userInfoGetLogin = userInfoService.getByLogin(LOGIN);
+        UserInfo userInfoGetNull = userInfoService.getByLogin(null);
 
         assertNotNull(userInfoGetAny);
         assertNotNull(userInfoGetLogin);
-        assertNull(userInfoNull);
+        assertNull(userInfoGetNull);
 
-        assertEquals(userInfoGetAny.getLogin(), "any");
-        assertEquals(userInfoGetLogin.getLogin(), "login");
+        assertEquals(userInfoGetAny.getLogin(), ANY);
+        assertEquals(userInfoGetLogin.getLogin(), LOGIN);
 
-        verify(userInfoRepository, times(1)).getByLogin(eq("any"));
-        verify(userInfoRepository, times(1)).getByLogin(eq("login"));
+        verify(userInfoRepository, times(1)).getByLogin(eq(ANY));
+        verify(userInfoRepository, times(1)).getByLogin(eq(LOGIN));
         verify(userInfoRepository, times(1)).getByLogin(eq(null));
     }
 
     @Test
     public void testAuthenticateUserByLoginAndPassword() {
         when(userInfoRepository.getByLoginAndPassword(anyString(), anyString())).thenReturn(userInfoAny);
-        when(userInfoRepository.getByLoginAndPassword("login", "password")).thenReturn(userInfoLogin);
+        when(userInfoRepository.getByLoginAndPassword(LOGIN, PASS)).thenReturn(userInfoLogin);
         when(userInfoRepository.getByLoginAndPassword(null, eq(anyString()))).thenReturn(null);
         when(userInfoRepository.getByLoginAndPassword(eq(anyString()), null)).thenReturn(null);
 
-        UserInfo userInfoGetAny = userInfoRepository.getByLoginAndPassword("any", "any");
-        UserInfo userInfoOK = userInfoRepository.getByLoginAndPassword("login", "password");
-        UserInfo userInfoNullLogin = userInfoRepository.getByLoginAndPassword(null, "any");
-        UserInfo userInfoNullPassword = userInfoRepository.getByLoginAndPassword("any", null);
+        UserInfo userInfoGetAny = userInfoRepository.getByLoginAndPassword(ANY, "anypass");
+        UserInfo userInfoOK = userInfoRepository.getByLoginAndPassword(LOGIN, PASS);
+        UserInfo userInfoNullLogin = userInfoRepository.getByLoginAndPassword(null, ANYPASS);
+        UserInfo userInfoNullPassword = userInfoRepository.getByLoginAndPassword(ANY, null);
 
         assertNotNull(userInfoGetAny);
         assertNotNull(userInfoOK);
         assertNull(userInfoNullLogin);
         assertNull(userInfoNullPassword);
 
-        verify(userInfoRepository, times(1)).getByLoginAndPassword("any", "any");
-        verify(userInfoRepository, times(1)).getByLoginAndPassword("login", "password");
-        verify(userInfoRepository, times(1)).getByLoginAndPassword(null, "any");
-        verify(userInfoRepository, times(1)).getByLoginAndPassword("any", null);
+        verify(userInfoRepository, times(1)).getByLoginAndPassword(ANY, ANYPASS);
+        verify(userInfoRepository, times(1)).getByLoginAndPassword(LOGIN, PASS);
+        verify(userInfoRepository, times(1)).getByLoginAndPassword(null, ANYPASS);
+        verify(userInfoRepository, times(1)).getByLoginAndPassword(ANY, null);
     }
 }
