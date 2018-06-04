@@ -9,25 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>auth-impl</artifactId>
-
-
-
     <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <liquibase.version>3.6.1</liquibase.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <liquibase.version>3.3.1</liquibase.version>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
         <profile>
             <id>docker</id>
             <properties>

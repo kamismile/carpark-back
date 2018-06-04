@@ -1,6 +1,11 @@
 server:
   port: ${PORT_TO_EXPOSE:8080}
 
+kafka:
+  bootstrap-servers: kafka01.kafka:9092
+  topic:
+    reference: reference.t
+
 spring:
   datasource:
     url: jdbc:postgresql://service-postgres.postgres:5432/dicts
@@ -71,8 +76,3 @@ server:
 eureka:
   instance.preferIpAddress: true
   client.serviceUrl.defaultZone: http://localhost:8761/eureka/
-
-kafka:
-  bootstrap-servers: localhost:9092
-  topic:
-    reference: reference.t

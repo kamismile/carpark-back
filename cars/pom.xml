@@ -15,32 +15,13 @@
 
     <name>cars</name>
     <description>Service of cars</description>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <liquibase.version>3.6.1</liquibase.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <liquibase.version>3.3.1</liquibase.version>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-
+        <liquibase.version>3.6.1</liquibase.version>
         <common-lib.version>0.0.1-SNAPSHOT</common-lib.version>
         <spring-boot.version>1.5.13.RELEASE</spring-boot.version>
         <spring-cloud.version>Dalston.SR3</spring-cloud.version>

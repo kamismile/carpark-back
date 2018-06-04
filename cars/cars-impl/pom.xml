@@ -21,7 +21,7 @@
                 <LABEL_DESCRIPTION>${project.name}</LABEL_DESCRIPTION>
                 <LABEL_GROUP>${project.parent.groupId}</LABEL_GROUP>
                 <LABEL_ID>${project.artifactId}</LABEL_ID>
-
+                <liquibase.version>3.3.1</liquibase.version>
                 <discovery-host>service-registry</discovery-host>
                 <discovery-port>8761</discovery-port>
             </properties>

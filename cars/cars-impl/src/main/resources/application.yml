@@ -1,6 +1,14 @@
 server:
   port: ${PORT_TO_EXPOSE:8080}
 
+kafka:
+  bootstrap: kafka01.kafka:31610
+  cars:
+    topic: car.t
+  orders:
+    topic: orders
+    group-id: 1
+
 spring:
   datasource:
     url: jdbc:postgresql://service-postgres.postgres:5432/cars

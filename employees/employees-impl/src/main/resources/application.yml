@@ -1,6 +1,12 @@
 server:
   port: ${PORT_TO_EXPOSE:8080}
 
+kafka:
+  bootstrap-servers: kafka01.kafka:9092
+  topic:
+    employee: employee.t
+    location: location.t
+
 spring:
   datasource:
     url: jdbc:postgresql://service-postgres.postgres:5432/employees
