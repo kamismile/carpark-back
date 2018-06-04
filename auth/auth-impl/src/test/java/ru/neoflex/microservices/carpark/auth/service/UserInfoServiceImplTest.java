@@ -11,19 +11,18 @@ import static org.testng.Assert.*;
 
 public class UserInfoServiceImplTest {
 
-    public static final String ANY = "any";
-    public static final String ANYPASS = "anypasss";
-    public static final String LOGIN = "login";
-    public static final String PASS = "password";
+    private static final String ANY = "any";
+    private static final String ANYPASS = "anypasss";
+    private static final String LOGIN = "login";
+    private static final String PASS = "password";
     @Autowired
     private UserInfoRepository userInfoRepository = mock(UserInfoRepository.class);
 
     @Autowired
     private UserInfoService userInfoService;
 
-    UserInfo userInfoAny;
-    UserInfo userInfoLogin;
-    UserInfo userInfoNull;
+    private UserInfo userInfoAny;
+    private UserInfo userInfoLogin;
 
     @BeforeMethod
     public void setupMock() {
