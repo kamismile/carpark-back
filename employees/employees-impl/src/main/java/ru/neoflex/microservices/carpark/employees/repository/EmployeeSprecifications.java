@@ -12,6 +12,10 @@ import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
  */
 public class EmployeeSprecifications {
 
+    private EmployeeSprecifications(){
+        super();
+    }
+
     public static Specification<Employee> employeeLikeName(EmployeeFilter filter) {
 
         return (root, query, cb) -> {

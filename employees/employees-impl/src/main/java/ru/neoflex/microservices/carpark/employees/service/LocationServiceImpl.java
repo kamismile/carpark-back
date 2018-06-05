@@ -68,7 +68,7 @@ public class LocationServiceImpl implements LocationService {
         LocationCommand locationCommand = new LocationCommand();
         locationCommand.setCommand(Command.UPDATE);
         locationCommand.setEntity(location);
-        locationCommand.setOldEntity(location);
+        locationCommand.setOldEntity(oldLocation);
         sender.send(locationTopic, locationCommand);
     }
 
