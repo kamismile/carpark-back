@@ -73,7 +73,7 @@ public class EmployeeSprecifications {
     public static Specification<Employee> employeeBeforeAppointmentDate(EmployeeFilter filter){
 
         return (root, query, cb) -> {
-            if (filter.getAppointmentDateFrom()==null){
+            if (filter.getAppointmentDateTo()==null){
                 return null;
             }
             return  cb.lessThan(root.get("appointmentDate"), filter.getAppointmentDateTo());

@@ -1,13 +1,18 @@
 package ru.neoflex.microservices.carpark.employees.model;
 
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.text.ParseException;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
  * @author rmorenko
  */
+@Slf4j
 public class ResolverUtils {
 
     private ResolverUtils(){
@@ -23,16 +28,23 @@ public class ResolverUtils {
     }
 
     public static Date getDateParameter(NativeWebRequest nativeWebRequest, String parameterName) {
-        if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))){
+
+        final String parameterValue = nativeWebRequest.getParameter(parameterName);
+        if (StringUtils.isEmpty(parameterValue)){
             return null;
         }
-        Long result;
+
         try {
-            result =  Long.valueOf(nativeWebRequest.getParameter(parameterName));
+            new Date(Long.valueOf(parameterValue));
         } catch (NumberFormatException ex){
-            return  null;
+         log.debug(ex.getMessage());
         }
-        return  new Date(result);
+
+        try {
+            return new ISO8601DateFormat().parse(parameterName);
+        } catch (ParseException e) {
+            throw new DateTimeParseException(e.getMessage(), parameterValue, 0);
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package ru.neoflex.microservices.carpark.employees.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.neoflex.microservices.carpark.employees.api.LocationApi;
 import ru.neoflex.microservices.carpark.employees.model.Location;
@@ -34,12 +35,12 @@ public class LocationController implements LocationApi {
     }
 
     @Override
-    public void add(Location location) {
+    public void add(@RequestBody Location location) {
        locationService.add(location);
     }
 
     @Override
-    public void update(Location location) {
+    public void update(@RequestBody Location location) {
         locationService.add(location);
     }
 

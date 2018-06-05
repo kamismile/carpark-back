@@ -1,5 +1,6 @@
 package ru.neoflex.microservices.carpark.employees.model;
 
+
 import lombok.Data;
 
 import java.util.Date;

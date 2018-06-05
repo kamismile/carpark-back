@@ -23,7 +23,7 @@ public class LocationFilterResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return Location.class.isAssignableFrom(parameter.getParameterType());
+        return LocationFilter.class.isAssignableFrom(parameter.getParameterType());
     }
 
     @Override

@@ -2,7 +2,7 @@ package ru.neoflex.microservices.carpark.employees.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
-import org.springframework.util.StringUtils;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -26,7 +26,7 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-        return Employee.class.isAssignableFrom(methodParameter.getParameterType());
+        return EmployeeFilter.class.isAssignableFrom(methodParameter.getParameterType());
     }
 
     @Override

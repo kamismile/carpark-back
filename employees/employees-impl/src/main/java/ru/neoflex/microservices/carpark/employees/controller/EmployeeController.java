@@ -3,6 +3,7 @@ package ru.neoflex.microservices.carpark.employees.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.neoflex.microservices.carpark.commons.dto.PageResponse;
 import ru.neoflex.microservices.carpark.commons.model.Command;
@@ -40,12 +41,12 @@ public class EmployeeController implements EmployeeApi {
     }
 
     @Override
-    public void add(Employee employee) {
+    public void add(@RequestBody  Employee employee) {
         employeeService.add(employee);
     }
 
     @Override
-    public void update(Employee employee) {
+    public void update(@RequestBody Employee employee) {
         employeeService.update(employee);
     }
 

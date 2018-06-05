@@ -35,7 +35,7 @@ public class AccessExpressionResourceImpl implements AccessExpressionResource {
    }
 
    @Override
-   public AccessExpression add(AccessExpression expression) {
+   public AccessExpression add(@RequestBody AccessExpression expression) {
      return  accessExpressionService.add(expression);
    }
 
@@ -45,7 +45,7 @@ public class AccessExpressionResourceImpl implements AccessExpressionResource {
    }
 
    @Override
-   public void update(AccessExpression expression) {
+   public void update(@RequestBody AccessExpression expression) {
       accessExpressionService.update(expression);
    }
 }
