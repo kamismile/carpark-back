@@ -1,7 +1,7 @@
 package ru.neoflex.microservices.carpark.employees.model;
 
-import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getBooleanParameter;
-import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getDateParameter;
+import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getBooleanParameter;
+import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getDateParameter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;

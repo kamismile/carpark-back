@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.employees.model;
+package ru.neoflex.microservices.carpark.commons.util;
 
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +53,16 @@ public class ResolverUtils {
             return new ISO8601DateFormat().parse(parameterName);
         } catch (ParseException e) {
             throw new DateTimeParseException(e.getMessage(), parameterValue, 0);
+        }
+    }
+
+    public static Integer getIntegerParameter(NativeWebRequest nativeWebRequest, String parameterName) {
+        String stingVal = nativeWebRequest.getParameter(parameterName);
+        try {
+            return Integer.valueOf(stingVal);
+        } catch (NumberFormatException ex) {
+          log.info(ex.getMessage());
+          return null;
         }
     }
 
