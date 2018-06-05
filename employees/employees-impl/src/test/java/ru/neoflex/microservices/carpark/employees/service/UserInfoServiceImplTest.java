@@ -57,4 +57,27 @@ public class UserInfoServiceImplTest {
         verify(userInfoRepository, times(1)).getByLogin(eq(LOGIN));
         verify(userInfoRepository, times(1)).getByLogin(eq(null));
     }
+
+   @Test
+   public void testDeactivate() {
+       when(userInfoRepository.getByLogin(anyString())).thenReturn(userInfoAny);
+       when(userInfoRepository.save(userInfoAny)).thenReturn(userInfoAny);
+
+       userInfoService.deactivate(LOGIN);
+
+       verify(userInfoRepository, atLeastOnce()).save(eq(userInfoAny));
+   }
+
+   @Test
+   public void testAddUserInfo() {
+       when(userInfoRepository.save(userInfoAny)).thenReturn(userInfoAny);
+       assertNotNull(userInfoService.addUserInfo(userInfoAny));
+   }
+   
+   @Test
+   public void testUppdateUserInfo() {
+       when(userInfoRepository.save(userInfoAny)).thenReturn(userInfoAny);
+       userInfoService.uppdateUserInfo(userInfoAny);
+       verify(userInfoRepository, atLeastOnce()).save(eq(userInfoAny));
+   }
 }
