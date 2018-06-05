@@ -1,6 +1,7 @@
-package ru.neoflex.microservices.carpark.employees.utils;
+package ru.neoflex.microservices.carpark.employees.repository;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.ObjectUtils;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
 import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 
@@ -76,6 +77,26 @@ public class EmployeeSprecifications {
                 return null;
             }
             return  cb.lessThan(root.get("appointmentDate"), filter.getAppointmentDateTo());
+        };
+    }
+
+    public static Specification<Employee> employeeInPositions(EmployeeFilter filter){
+
+        return (root, query, cb) -> {
+            if (!ObjectUtils.isEmpty(filter.getPositions())){
+                return null;
+            }
+            return  root.get("position").get("id").in(filter.getPositions());
+        };
+    }
+
+    public static Specification<Employee> employeeInLocations(EmployeeFilter filter){
+
+        return (root, query, cb) -> {
+            if (!ObjectUtils.isEmpty(filter.getLocations())){
+                return null;
+            }
+            return  root.get("location").get("id").in(filter.getPositions());
         };
     }
 

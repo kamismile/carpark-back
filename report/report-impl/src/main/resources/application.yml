@@ -39,8 +39,11 @@ spring:
     time-zone: GMT
 
 eureka:
-  instance.preferIpAddress: true
-  client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/
+  instance:
+    preferIpAddress: false
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry.service:8080/eureka
 
 feign:
   oauth2.enabled: true

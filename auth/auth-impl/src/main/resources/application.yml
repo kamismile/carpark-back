@@ -21,10 +21,10 @@ spring:
 
 eureka:
   instance:
-    preferIpAddress: false
+    preferIpAddress: true
   client:
     serviceUrl:
-      defaultZone: http://service-registry.netflix:8080/eureka
+      defaultZone: http://service-registry.service:8080/eureka
 
 security:
   session:

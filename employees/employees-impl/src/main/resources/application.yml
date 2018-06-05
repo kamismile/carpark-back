@@ -1,6 +1,12 @@
 server:
   port: ${PORT_TO_EXPOSE:8080}
 
+kafka:
+  bootstrap-servers: kafka01.kafka:9092
+  topic:
+    employee: employee.t
+    location: location.t
+
 spring:
   datasource:
     url: jdbc:postgresql://service-postgres.postgres:5432/employees
@@ -20,8 +26,11 @@ spring:
           use_jdbc_metadata_defaults: false
 
 eureka:
-  instance.preferIpAddress: true
-  client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/
+  instance:
+    preferIpAddress: false
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry.service:8080/eureka
 
 security:
   oauth2:
@@ -39,13 +48,6 @@ security:
                   1hCAp+yaQ1zvf0qJT4UWiNwddO6xZAwwQHWgIKhTpQNcaAGExB+1JE1NJqk2pim7
                   yQIDAQAB
                   -----END PUBLIC KEY-----
-
-kafka:
-  bootstrap-servers: kafka01.kafka:9092
-  topic:
-    employee: employee.t
-    location: location.t
-
 
 ---
 spring:

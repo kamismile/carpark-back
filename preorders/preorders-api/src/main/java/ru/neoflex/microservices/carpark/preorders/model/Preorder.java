@@ -3,7 +3,13 @@ package ru.neoflex.microservices.carpark.preorders.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Date;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * @author mirzoevnik
@@ -41,4 +47,33 @@ public class Preorder {
 
     @Column(name = "END_LOCATION_ID")
     private Long endLocationId;
+
+    @Column(name = "CAR_ID")
+    private Long carId;
+
+    @Column(name = "CREATED_BY_USER")
+    private String createdByUser;
+
+    @Column(name ="PREORDER_TYPE")
+    private String type;
+
+    public void setType (PreorderType type) {
+        this.type = type.name();
+    }
+
+    public PreorderType getType() {
+        return PreorderType.valueOf(this.type);
+    }
+
+    public boolean overlaps(Preorder other) {
+        //TODO overlaps implementation
+        return false;
+    }
+
+    public boolean isInFuture() {
+        //TODO implement check
+        return true;
+    }
+
+
 }

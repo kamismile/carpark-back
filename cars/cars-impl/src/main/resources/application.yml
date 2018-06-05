@@ -1,6 +1,14 @@
 server:
   port: ${PORT_TO_EXPOSE:8080}
 
+kafka:
+  bootstrap: kafka01.kafka:31610
+  cars:
+    topic: car.t
+  orders:
+    topic: orders
+    group-id: 1
+
 spring:
   datasource:
     url: jdbc:postgresql://service-postgres.postgres:5432/cars
@@ -31,16 +39,12 @@ feign:
   oauth2.enabled: true
 
 eureka:
-  instance.preferIpAddress: true
-  client.serviceUrl.defaultZone: http://${discovery-host}:${discovery-port}/
+  instance:
+    preferIpAddress: false
+  client:
+    serviceUrl:
+      defaultZone: http://service-registry.service:8080/eureka
 
-kafka:
-  bootstrap: 54.158.77.53:9092
-  cars:
-    topic: car.t
-  orders:
-    topic: orders
-    group-id: 1
 
 security:
   oauth2:

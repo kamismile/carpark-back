@@ -11,6 +11,7 @@
 
     <artifactId>cars-impl</artifactId>
 
+
     <profiles>
         <profile>
             <id>docker</id>
@@ -20,7 +21,7 @@
                 <LABEL_DESCRIPTION>${project.name}</LABEL_DESCRIPTION>
                 <LABEL_GROUP>${project.parent.groupId}</LABEL_GROUP>
                 <LABEL_ID>${project.artifactId}</LABEL_ID>
-
+                <liquibase.version>3.3.1</liquibase.version>
                 <discovery-host>service-registry</discovery-host>
                 <discovery-port>8761</discovery-port>
             </properties>
@@ -187,4 +188,17 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <addResources>false</addResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
