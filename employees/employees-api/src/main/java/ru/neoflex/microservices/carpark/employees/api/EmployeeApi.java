@@ -2,17 +2,21 @@ package ru.neoflex.microservices.carpark.employees.api;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import ru.neoflex.microservices.carpark.commons.dto.PageResponse;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
 import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 
 import java.util.List;
 
-/**
+/** Api for employee service.
  * @author mirzoevnik
  */
-
 public interface EmployeeApi {
 
     @GetMapping(value = "/employee/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)

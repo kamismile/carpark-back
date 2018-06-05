@@ -14,6 +14,7 @@ import ru.neoflex.microservices.carpark.employees.repository.EmployeeRepository;
 import ru.neoflex.microservices.carpark.employees.sender.Sender;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
@@ -52,6 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeCommand employeeCommand = new EmployeeCommand();
         employeeCommand.setCommand(Command.DELETE);
         employeeCommand.setEntity(employee);
+        employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
     }
 
@@ -61,6 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeCommand employeeCommand = new EmployeeCommand();
         employeeCommand.setCommand(Command.ADD);
         employeeCommand.setEntity(employee);
+        employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
 
     }
@@ -73,6 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeCommand.setCommand(Command.UPDATE);
         employeeCommand.setEntity(employee);
         employeeCommand.setOldEntity(oldEmployee);
+        employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
     }
 
@@ -99,7 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .and(employeeBeforeAppointmentDate(filter))
                 .and(employeeIsActive(filter))
                 .and(employeeHasUserId(filter)), pageRequest);
-        return new PageResponse<Employee>(page.getContent(), page.getTotalElements());
+        return new PageResponse<>(page.getContent(), page.getTotalElements());
     }
 
 

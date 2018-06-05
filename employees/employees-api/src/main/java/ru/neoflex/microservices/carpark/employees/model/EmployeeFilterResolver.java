@@ -1,23 +1,24 @@
 package ru.neoflex.microservices.carpark.employees.model;
 
+import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getBooleanParameter;
+import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getDateParameter;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
-import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getBooleanParameter;
-import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getDateParameter;
+
 
 /**
+ * FilterResolver for employee parameter.
  * @author rmorenko
  */
 public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
@@ -30,7 +31,8 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
     }
 
     @Override
-    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
+            NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         EmployeeFilter employeeFilter = new EmployeeFilter();
         employeeFilter.setName(nativeWebRequest.getParameter("name"));
         employeeFilter.setSurname(nativeWebRequest.getParameter("surname"));

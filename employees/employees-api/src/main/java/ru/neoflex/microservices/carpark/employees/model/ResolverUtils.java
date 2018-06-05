@@ -10,34 +10,43 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 /**
+ * Util for resolver.
+ *
  * @author rmorenko
  */
 @Slf4j
 public class ResolverUtils {
 
-    private ResolverUtils(){
+    private ResolverUtils() {
         super();
     }
 
     public static Boolean getBooleanParameter(NativeWebRequest nativeWebRequest, String parameterName) {
 
-        if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))){
+        if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))) {
             return (Boolean) null;
         }
         return  Boolean.valueOf(nativeWebRequest.getParameter(parameterName));
     }
 
+    /**
+     * Util metod for resolve date parameter
+     * @param nativeWebRequest request instance
+     * @param parameterName name of http request parameter
+     * @return Date value of parameter
+    */
+
     public static Date getDateParameter(NativeWebRequest nativeWebRequest, String parameterName) {
 
         final String parameterValue = nativeWebRequest.getParameter(parameterName);
-        if (StringUtils.isEmpty(parameterValue)){
+        if (StringUtils.isEmpty(parameterValue)) {
             return null;
         }
 
         try {
             new Date(Long.valueOf(parameterValue));
-        } catch (NumberFormatException ex){
-         log.debug(ex.getMessage());
+        } catch (NumberFormatException ex) {
+            log.debug(ex.getMessage());
         }
 
         try {

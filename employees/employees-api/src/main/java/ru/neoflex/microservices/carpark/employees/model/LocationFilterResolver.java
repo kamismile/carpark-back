@@ -1,5 +1,7 @@
 package ru.neoflex.microservices.carpark.employees.model;
 
+import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getBooleanParameter;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -12,9 +14,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getBooleanParameter;
+
 
 /**
+ * Resolver for locationFilter parameter.
+ *
  * @author rmorenko
  */
 public class LocationFilterResolver implements HandlerMethodArgumentResolver {
@@ -27,7 +31,8 @@ public class LocationFilterResolver implements HandlerMethodArgumentResolver {
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+            NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         LocationFilter locationFilter = new LocationFilter();
         locationFilter.setActive(getBooleanParameter(webRequest, "active"));
         locationFilter.setAddress(webRequest.getParameter("address"));
