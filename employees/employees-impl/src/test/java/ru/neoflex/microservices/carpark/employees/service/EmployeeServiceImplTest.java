@@ -29,13 +29,13 @@ import java.util.ArrayList;
 
 public class EmployeeServiceImplTest {
 
-	private static final String USER_ID = "userId";
-	private static Long EMPLOYEE_ID = 111l;
-	private static final String PASSPORT_SERIES = "1111";
-	private static final String PASSPORT_NUMBER = "222222";
-	private static final String USER_NAME = "Gosha";
-	private static final String USER_SURNAME = "Kucenko";
-	private static final String employeeTopic = null;
+    private static final String USER_ID = "userId";
+    private static Long EMPLOYEE_ID = 111l;
+    private static final String PASSPORT_SERIES = "1111";
+    private static final String PASSPORT_NUMBER = "222222";
+    private static final String USER_NAME = "Gosha";
+    private static final String USER_SURNAME = "Kucenko";
+    private static final String employeeTopic = null;
 
     @Autowired
     private EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
@@ -47,7 +47,7 @@ public class EmployeeServiceImplTest {
     private Employee employee;
     private EmployeeCommand employeeCommand;
     private List<Employee> employeeList;
-    EmployeeFilter filter;
+    private EmployeeFilter filter;
 
     @BeforeMethod
     public void setupMock() {
@@ -85,7 +85,7 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void testDeactivate() {
-    	when(employeeService.getByUserId(anyString())).thenReturn(employee);
+        when(employeeService.getByUserId(anyString())).thenReturn(employee);
         when(employeeService.getByUserId(null)).thenReturn(null);
         doNothing().when(employeeRepository).delete(isA(Employee.class));
         doNothing().when(sender).send(isA(String.class), isA(EmployeeCommand.class));
@@ -98,37 +98,32 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void testAdd() {
-    	when(employeeRepository.save(employee)).thenReturn(employee);
-    	doNothing().when(sender).send(isA(String.class), isA(EmployeeCommand.class));
+        when(employeeRepository.save(employee)).thenReturn(employee);
+        doNothing().when(sender).send(isA(String.class), isA(EmployeeCommand.class));
 
-    	employeeService.add(employee);
+        employeeService.add(employee);
 
-    	verify(employeeRepository, atLeastOnce()).save(eq(employee));
+        verify(employeeRepository, atLeastOnce()).save(eq(employee));
     }
 
     @Test
     public void testUpdate() {
-    	when(employeeRepository.findOne(anyLong())).thenReturn(employee);
-    	when(employeeRepository.save(employee)).thenReturn(employee);
+        when(employeeRepository.findOne(anyLong())).thenReturn(employee);
+        when(employeeRepository.save(employee)).thenReturn(employee);
 
-    	employeeService.update(employee);
+        employeeService.update(employee);
 
-    	verify(employeeRepository, atLeastOnce()).save(eq(employee));
+        verify(employeeRepository, atLeastOnce()).save(eq(employee));
     }
 
     @Test
     public void testGetAll() {
-    	when(employeeRepository.findAll(where(employeeLikeName(filter))
-                .and(employeeLikeSurname(filter))
-                .and(employeeLikePatronymic(filter))
-                .and(employeeAfterAppointmentDate(filter))
-                .and(employeeBeforeAppointmentDate(filter))
-                .and(employeeIsActive(filter))
-                .and(employeeHasUserId(filter))
-                .and(employeeInLocations(filter))
-                .and(employeeInPositions(filter)))).thenReturn(employeeList);
+        when(employeeRepository.findAll(where(employeeLikeName(filter)).and(employeeLikeSurname(filter))
+                .and(employeeLikePatronymic(filter)).and(employeeAfterAppointmentDate(filter))
+                .and(employeeBeforeAppointmentDate(filter)).and(employeeIsActive(filter)).and(employeeHasUserId(filter))
+                .and(employeeInLocations(filter)).and(employeeInPositions(filter)))).thenReturn(employeeList);
 
-    	assertNotNull(employeeService.getAll(filter));
+        assertNotNull(employeeService.getAll(filter));
     }
 
 }
