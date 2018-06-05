@@ -37,7 +37,7 @@ public class CarController implements CarApi {
     }
 
     @Override
-    public Car getCar(UserInfo userInfo, Long id) {
+    public Car getCar(UserInfo userInfo, @PathVariable(name="id") Long id) {
         System.out.println(userInfo);
         Car car = carService.getCar(id);
         car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
@@ -45,7 +45,7 @@ public class CarController implements CarApi {
     }
 
     @Override
-    public Car updateCar(UserInfo userInfo, Long id, Car car) {
+    public Car updateCar(UserInfo userInfo, @PathVariable(name="id") Long id, @RequestBody Car car) {
         car.setId(id);
         Car mergedCar = carService.updateCar(car);
         sendCommand(userInfo, mergedCar, Command.UPDATE);
@@ -53,7 +53,7 @@ public class CarController implements CarApi {
     }
 
     @Override
-    public Car createCar(UserInfo userInfo, Car car) {
+    public Car createCar(UserInfo userInfo, @RequestBody Car car) {
         Car persistedCar = carService.createCar(car);
         sendCommand(userInfo, persistedCar, Command.ADD);
         return persistedCar;
@@ -67,7 +67,7 @@ public class CarController implements CarApi {
     }
 
     @Override
-    public Car changeCarState(UserInfo userInfo, Long id, String stringEvent) {
+    public Car changeCarState(UserInfo userInfo, @PathVariable(name="id") Long id, @PathVariable(name ="stringEvent") String stringEvent) {
         Events event = Events.fromString(stringEvent);
         Car car = carService.getCar(id);
         States result = lifecycleService.doTransition(car, event);

@@ -28,7 +28,7 @@ public interface CarApi {
     List<Car> getCars(UserInfo userInfo, CarFilter carFilter);
 
     @GetMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Car getCar(UserInfo userInfo, @PathVariable Long id);
+    Car getCar(UserInfo userInfo, @PathVariable(name="id") Long id);
 
     @PutMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasPermission({{'id', #id}, {'car', #car}} , {'updateCar'})")
