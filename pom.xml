@@ -31,7 +31,7 @@
             </activation>
             <properties>
                 <sonar.host.url>
-                    http://pluto:9000
+                    http://172.19.19.226:31705
                 </sonar.host.url>
             </properties>
             <build>
