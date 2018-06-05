@@ -36,6 +36,9 @@ public class LocationSpecifications {
             if (ObjectUtils.isEmpty(filter.getLocationTypes())){
                 return null;
             }
+            if (filter.getLocationTypes().get(0).isEmpty()){
+                return null;
+            }
             return  root.get("locationType").in(filter.getLocationTypes());
         };
     }
