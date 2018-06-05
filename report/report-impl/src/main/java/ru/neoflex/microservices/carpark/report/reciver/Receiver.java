@@ -6,17 +6,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.scheduling.annotation.Async;
-import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
-import ru.neoflex.microservices.carpark.commons.model.KafkaCommand;
-import ru.neoflex.microservices.carpark.dicts.feign.DictsFeign;
-import ru.neoflex.microservices.carpark.employees.feign.EmployeeFeign;
 import ru.neoflex.microservices.carpark.report.model.*;
 import ru.neoflex.microservices.carpark.report.service.CarEventResourceService;
 import ru.neoflex.microservices.carpark.report.service.EmployeeService;
 import ru.neoflex.microservices.carpark.report.service.LocationService;
-import ru.neoflex.microservices.carpark.report.service.ReferenceService;
+
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
