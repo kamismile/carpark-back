@@ -18,5 +18,5 @@ public interface PreorderApi {
 
     void deletePreoder(UserInfo userInfo, Long id);
 
-    Preorder updatePreorder (UserInfo userInfo, Preorder preorder);
+    Preorder updatePreorder(UserInfo userInfo, Preorder preorder);
 }
