@@ -27,10 +27,11 @@ public class CarServiceImpl implements CarService {
     public List<Car> getAllCars(CarFilter filter) {
         return carRepository.findAll(where(carIsYearFrom(filter))
                 .and(carIsYearTo(filter))
-                .and(carInStatuses(filter))
+                .and(carInCurentStatuses(filter))
                 .and(carIsCurrentLocationId(filter))
                 .and(carIsMileageFrom(filter))
                 .and(carIsMileageTo(filter))
+                .and(carIsLocationId(filter))
                 .and(carInMarks(filter))
                 );
     }

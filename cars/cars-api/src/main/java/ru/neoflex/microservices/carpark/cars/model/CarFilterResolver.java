@@ -43,11 +43,11 @@ public class CarFilterResolver implements HandlerMethodArgumentResolver {
                 carFilter.setLocationId(getLongParameter(webRequest,"locationId"));
                 carFilter.setMileageFrom(getDoubleParameter(webRequest,"mileageFrom"));
                 carFilter.setMileageTo(getDoubleParameter(webRequest,"mileageTo"));
-                List<String> statuses =
-                        Stream.of(Optional.ofNullable(webRequest.getParameter("statuses"))
+                List<String> currentStatuses =
+                        Stream.of(Optional.ofNullable(webRequest.getParameter("currentStatuses"))
                                 .orElse("").split(","))
                                 .collect(Collectors.toList());
-                carFilter.setStatuses(statuses);
+                carFilter.setCurrentStatuses(currentStatuses);
                 return carFilter;
         }
 

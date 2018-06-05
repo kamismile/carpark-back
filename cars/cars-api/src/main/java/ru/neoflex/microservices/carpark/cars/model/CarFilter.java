@@ -26,5 +26,6 @@ public class CarFilter {
 
         private Long locationId;
 
-        private List<String> statuses;
+        private List<String> currentStatuses;
+
 }

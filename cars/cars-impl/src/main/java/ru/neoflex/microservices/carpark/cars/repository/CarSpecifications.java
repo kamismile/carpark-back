@@ -38,16 +38,25 @@ public class CarSpecifications {
 
     public static Specification<Car> carIsCurrentLocationId(CarFilter filter) {
         return (root, query, cb) -> {
-            if (filter.getYearFrom() == null) {
+            if (filter.getCurrentLocationId() == null) {
                 return null;
             }
             return cb.equal(root.get("currentLocationId"), filter.getCurrentLocationId());
         };
     }
 
+    public static Specification<Car> carIsLocationId(CarFilter filter) {
+        return (root, query, cb) -> {
+            if (filter.getCurrentLocationId() == null) {
+                return null;
+            }
+            return cb.equal(root.get("locationId"), filter.getLocationId());
+        };
+    }
+
     public static Specification<Car> carIsMileageFrom(CarFilter filter) {
         return (root, query, cb) -> {
-            if (filter.getYearFrom() == null) {
+            if (filter.getMileageFrom() == null) {
                 return null;
             }
             return cb.greaterThan(root.get("mileage"), filter.getMileageFrom());
@@ -56,7 +65,7 @@ public class CarSpecifications {
 
     public static Specification<Car> carIsMileageTo(CarFilter filter) {
         return (root, query, cb) -> {
-            if (filter.getYearFrom() == null) {
+            if (filter.getMileageTo() == null) {
                 return null;
             }
             return cb.lessThan(root.get("mileage"), filter.getMileageTo());
@@ -65,17 +74,18 @@ public class CarSpecifications {
 
 
 
-    public static Specification<Car> carInStatuses(CarFilter filter) {
+    public static Specification<Car> carInCurentStatuses(CarFilter filter) {
         return (root, query, cb) -> {
-            if (ObjectUtils.isEmpty(filter.getStatuses())) {
+            if (ObjectUtils.isEmpty(filter.getCurrentStatuses())) {
                 return null;
             }
-            if (filter.getStatuses().get(0).isEmpty()) {
+            if (filter.getCurrentStatuses().get(0).isEmpty()) {
                 return null;
             }
-            return  root.get("status").in(filter.getStatuses());
+            return  root.get("currentStatus").in(filter.getCurrentStatuses());
         };
     }
+
 
     public static Specification<Car> carInMarks(CarFilter filter) {
         return (root, query, cb) -> {
