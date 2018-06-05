@@ -6,7 +6,7 @@ kafka:
   cars:
     topic: car.t
   orders:
-    topic: orders
+    topic: next.status
     group-id: 1
 
 spring:
@@ -21,13 +21,11 @@ spring:
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
   jpa:
-    show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     properties:
       hibernate:
         jdbc:
           time_zone: UTC
-        default_schema: public
         temp:
           use_jdbc_metadata_defaults: false
 

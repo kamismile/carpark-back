@@ -14,12 +14,21 @@ import ru.neoflex.microservices.carpark.commons.config.MethodSecurityConfig;
 import ru.neoflex.microservices.carpark.commons.config.OAuth2FeignAutoConfiguration;
 import ru.neoflex.microservices.carpark.commons.config.SecurityConfig;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @EnableEurekaClient
 @SpringBootApplication
 @EntityScan(basePackageClasses = Car.class)
 @Import({OAuth2FeignAutoConfiguration.class, FeignConfig.class, MethodSecurityConfig.class,
 	SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class })
 public class CarsApplication {
+
+	@PostConstruct
+	void started() {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(CarsApplication.class, args);
 	}
