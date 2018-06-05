@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class UserInfoControllerTest {
+public class UserInfoControllerUnitTest {
 
     private static final String ANYLOGIN = "anylogin";
     private static final String PASS = "password";

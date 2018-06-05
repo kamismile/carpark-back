@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 @SpringBootTest(classes = {AccessApplication.class})
-public class AccessIntegrationTests extends AbstractTestNGSpringContextTests {
+public class AccessIT extends AbstractTestNGSpringContextTests {
 
     @Test
     public void injectionTest() {

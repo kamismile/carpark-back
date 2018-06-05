@@ -18,7 +18,7 @@ import java.util.List;
 
 @SpringBootTest(classes = {CarsApplication.class})
 @ActiveProfiles("development")
-public class LifecycleIntegrationTests extends AbstractTestNGSpringContextTests {
+public class LifecycleIT extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private LifecycleService lifecycleService;

@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = {CarsApplication.class})
 @ActiveProfiles("development")
 @WebAppConfiguration
-public class CarsIntegrationTest extends AbstractTestNGSpringContextTests {
+public class CarsIT extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private CarService carService;
