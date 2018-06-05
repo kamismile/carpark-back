@@ -25,25 +25,6 @@
                 <discovery-port>8761</discovery-port>
             </properties>
             <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-maven-plugin</artifactId>
-                            <version>${spring-boot-maven-plugin.version}</version>
-                            <executions>
-                                <execution>
-                                    <goals>
-                                        <goal>repackage</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                            <configuration>
-                                <mainClass>ru.neoflex.microservices.carpark.preorders.DictsApplication</mainClass>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>

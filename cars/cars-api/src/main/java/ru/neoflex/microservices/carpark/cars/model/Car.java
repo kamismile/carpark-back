@@ -4,6 +4,7 @@ import lombok.Data;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "car")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Car {
+public class Car implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +46,8 @@ public class Car {
     @Column(name = "NEXT_STATUS_DATE")
     private Date nextStatusDate;
 
-    private String state;
+    @Enumerated(EnumType.STRING)
+    private States state;
 
     @Column (name = "LOCATION_ID")
     private Long locationId;
@@ -59,11 +61,4 @@ public class Car {
     @Transient
     private List<Events> availableEvents;
 
-    public States getState() {
-        return States.valueOf(state);
-    }
-
-    public void setState(States stateEnumVal) {
-        state = stateEnumVal.name();
-    }
 }

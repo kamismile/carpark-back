@@ -2,7 +2,7 @@ package ru.neoflex.microservices.carpark.employees.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
-import org.springframework.util.StringUtils;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getBooleanParameter;
+import static ru.neoflex.microservices.carpark.employees.model.ResolverUtils.getDateParameter;
+
 /**
  * @author rmorenko
  */
@@ -23,7 +26,7 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
-        return Employee.class.isAssignableFrom(methodParameter.getParameterType());
+        return EmployeeFilter.class.isAssignableFrom(methodParameter.getParameterType());
     }
 
     @Override
@@ -33,12 +36,12 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
         employeeFilter.setSurname(nativeWebRequest.getParameter("surname"));
         employeeFilter.setPatronymic(nativeWebRequest.getParameter("patronymic"));
         List<String> positions =
-                Stream.of(Optional.of(nativeWebRequest.getParameter("positions"))
+                Stream.of(Optional.ofNullable(nativeWebRequest.getParameter("positions"))
                         .orElse("").split(","))
                         .collect(Collectors.toList());
         employeeFilter.setPositions(positions);
         List<String> locations =
-                Stream.of(Optional.of(nativeWebRequest.getParameter("locations"))
+                Stream.of(Optional.ofNullable(nativeWebRequest.getParameter("locations"))
                         .orElse("").split(","))
                         .collect(Collectors.toList());
         employeeFilter.setLocations(locations);
@@ -46,28 +49,7 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
         employeeFilter.setAppointmentDateTo(getDateParameter(nativeWebRequest, "appointmentDateFrom"));
         employeeFilter.setUserId(nativeWebRequest.getParameter("useId"));
         employeeFilter.setActive(getBooleanParameter(nativeWebRequest,"active"));
-        return null;
-    }
-
-    private Date getDateParameter(NativeWebRequest nativeWebRequest, String parameterName) {
-        if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))){
-            return null;
-        }
-        Long result;
-        try {
-            result =  Long.valueOf(nativeWebRequest.getParameter(parameterName));
-        } catch (NumberFormatException ex){
-            return  null;
-        }
-        return  new Date(result);
-    }
-
-    private Boolean getBooleanParameter(NativeWebRequest nativeWebRequest, String parameterName) {
-
-        if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))){
-            return null;
-        }
-        return  Boolean.valueOf(nativeWebRequest.getParameter(parameterName));
+        return employeeFilter;
     }
 
     public ObjectMapper getObjectMapper() {

@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * @author mirzoevnik
  */
 @Data
 @AllArgsConstructor
 @Setter
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     private String name;
 
@@ -19,5 +21,6 @@ public class UserInfo {
     private Long locationId;
 
     public UserInfo() {
+      super();
     }
 }

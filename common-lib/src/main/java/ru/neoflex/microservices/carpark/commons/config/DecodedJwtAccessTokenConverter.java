@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public class DecodedJwtAccessTokenConverter extends JwtAccessTokenConverter {
     public DecodedJwtAccessTokenConverter() {
+        super();
     }
 
     public OAuth2Authentication extractAuthentication(Map<String, ?> map) {

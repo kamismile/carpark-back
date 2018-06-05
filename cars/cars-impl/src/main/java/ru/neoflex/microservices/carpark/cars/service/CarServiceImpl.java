@@ -2,17 +2,20 @@ package ru.neoflex.microservices.carpark.cars.service;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.repository.CarRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Transactional
 public class CarServiceImpl implements CarService {
 
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
 
     @Override
     public List<Car> getAllCars() {

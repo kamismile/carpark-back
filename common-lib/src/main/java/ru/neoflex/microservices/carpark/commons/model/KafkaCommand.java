@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode
 @ToString
-public class KafkaCommand<T> implements Serializable{
+public class KafkaCommand<T extends Serializable> implements Serializable{
      private Command command;
      private UserInfo userInfo;
      private Date messageDate;

@@ -73,7 +73,7 @@ public class EmployeeSprecifications {
     public static Specification<Employee> employeeBeforeAppointmentDate(EmployeeFilter filter){
 
         return (root, query, cb) -> {
-            if (filter.getAppointmentDateFrom()==null){
+            if (filter.getAppointmentDateTo()==null){
                 return null;
             }
             return  cb.lessThan(root.get("appointmentDate"), filter.getAppointmentDateTo());
@@ -83,20 +83,26 @@ public class EmployeeSprecifications {
     public static Specification<Employee> employeeInPositions(EmployeeFilter filter){
 
         return (root, query, cb) -> {
-            if (!ObjectUtils.isEmpty(filter.getPositions())){
+            if (ObjectUtils.isEmpty(filter.getPositions())){
                 return null;
             }
-            return  root.get("position").get("id").in(filter.getPositions());
+            if (filter.getPositions().get(0).isEmpty()){
+                return null;
+            }
+            return  root.get("position").in(filter.getPositions());
         };
     }
 
     public static Specification<Employee> employeeInLocations(EmployeeFilter filter){
 
         return (root, query, cb) -> {
-            if (!ObjectUtils.isEmpty(filter.getLocations())){
+            if (ObjectUtils.isEmpty(filter.getLocations())){
                 return null;
             }
-            return  root.get("location").get("id").in(filter.getPositions());
+            if (filter.getLocations().get(0).isEmpty()){
+                return null;
+            }
+            return  root.get("location").get("id").in(filter.getLocations());
         };
     }
 

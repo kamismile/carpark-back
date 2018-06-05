@@ -27,7 +27,7 @@ spring:
 
 eureka:
   instance:
-    preferIpAddress: false
+    preferIpAddress: true
   client:
     serviceUrl:
       defaultZone: http://service-registry.service:8080/eureka
@@ -48,7 +48,12 @@ security:
                   1hCAp+yaQ1zvf0qJT4UWiNwddO6xZAwwQHWgIKhTpQNcaAGExB+1JE1NJqk2pim7
                   yQIDAQAB
                   -----END PUBLIC KEY-----
-
+spring.jackson:
+  serialization:
+    WRITE_DATES_AS_TIMESTAMPS: false
+    FAIL_ON_EMPTY_BEANS: false
+  default-property-inclusion: non_null
+  date-format: yyyy-MM-dd
 ---
 spring:
   profiles: dev
@@ -75,3 +80,8 @@ kafka:
   topic:
     employee: employee.t
     location: location.t
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: DEBUG
