@@ -1,5 +1,16 @@
 package ru.neoflex.microservices.carpark.employees.service;
 
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeAfterAppointmentDate;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeBeforeAppointmentDate;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeHasUserId;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeInLocations;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeInPositions;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeIsActive;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikePatronymic;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikeSurname;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikeName;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -17,10 +28,11 @@ import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.*;
+
 
 /**
+ * Service for employee.
+ *
  * @author mirzoevnik
  */
 @Service
@@ -73,9 +85,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee oldEmployee = employeeRepository.findOne(employee.getId());
         employeeRepository.save(employee);
         EmployeeCommand employeeCommand = new EmployeeCommand();
+        employeeCommand.setOldEntity(oldEmployee);
         employeeCommand.setCommand(Command.UPDATE);
         employeeCommand.setEntity(employee);
-        employeeCommand.setOldEntity(oldEmployee);
         employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
     }

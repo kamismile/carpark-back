@@ -2,27 +2,18 @@ package ru.neoflex.microservices.carpark.report.reciver;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.scheduling.annotation.Async;
-import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
-import ru.neoflex.microservices.carpark.commons.model.KafkaCommand;
-import ru.neoflex.microservices.carpark.dicts.feign.DictsFeign;
-import ru.neoflex.microservices.carpark.employees.feign.EmployeeFeign;
-import ru.neoflex.microservices.carpark.report.model.CarCommand;
-import ru.neoflex.microservices.carpark.report.model.CarEvent;
-import ru.neoflex.microservices.carpark.report.model.ReferenceCommand;
+import ru.neoflex.microservices.carpark.report.model.*;
 import ru.neoflex.microservices.carpark.report.service.CarEventResourceService;
-import ru.neoflex.microservices.carpark.report.service.ReferenceService;
+import ru.neoflex.microservices.carpark.report.service.EmployeeService;
+import ru.neoflex.microservices.carpark.report.service.LocationService;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+
+
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
+
 
 /**
  * @author rmorenko
@@ -42,7 +33,11 @@ public class Receiver {
         private CarEventResourceService carEventResourceService;
 
         @Autowired
-        ReferenceService referenceService;
+        private LocationService locationService;
+
+        @Autowired
+        private EmployeeService employeeService;
+
 
         @KafkaListener(topics = "${kafka.topic.car}")
         public void receiveCar(CarCommand command) {
@@ -51,11 +46,19 @@ public class Receiver {
                 carEventResourceService.save(command);
         }
 
-        @KafkaListener(topics = "${kafka.topic.reference}")
-        public void receiveReference(ReferenceCommand referenceCommand) {
-                log.info("received command='{}'", referenceCommand.toString());
+        @KafkaListener(topics = "${kafka.topic.employee}")
+        public void receiveEmployee(EmployeeCommand employeeCommand) {
+                log.info("received command='{}'", employeeCommand.toString());
                 latch.countDown();
-                referenceService.save(referenceCommand);
+                employeeService.save(employeeCommand);
+
+        }
+
+        @KafkaListener(topics = "${kafka.topic.location}")
+        public void receiveLocation(LocationCommand locationCommand) {
+                log.info("received command='{}'", locationCommand.toString());
+                latch.countDown();
+                locationService.save(locationCommand);
         }
 
 }

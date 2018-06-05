@@ -1,5 +1,9 @@
 package ru.neoflex.microservices.carpark.employees.service;
 
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.locationIsActive;
+import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.locationLikeAddresses;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,11 +16,9 @@ import ru.neoflex.microservices.carpark.employees.sender.Sender;
 
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.locationIsActive;
-import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.locationLikeAddresses;
-
 /**
+ * Service for location.
+ *
  * @author mirzoevnik
  */
 @Service
@@ -66,7 +68,7 @@ public class LocationServiceImpl implements LocationService {
         LocationCommand locationCommand = new LocationCommand();
         locationCommand.setCommand(Command.UPDATE);
         locationCommand.setEntity(location);
-        locationCommand.setOldEntity(location);
+        locationCommand.setOldEntity(oldLocation);
         sender.send(locationTopic, locationCommand);
     }
 

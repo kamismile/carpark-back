@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Config for spring-kafka.
+ *
  * @author rmorenko
  */
 @Configuration
