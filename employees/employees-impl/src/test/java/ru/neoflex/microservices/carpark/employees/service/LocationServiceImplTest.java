@@ -1,6 +1,7 @@
 package ru.neoflex.microservices.carpark.employees.service;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.employeeInLocationTypes;
 import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.locationIsActive;
 import static ru.neoflex.microservices.carpark.employees.repository.LocationSpecifications.locationLikeAddresses;
 
@@ -99,7 +100,7 @@ public class LocationServiceImplTest {
     public void testGetAll() {
         when(locationRepository.findAll(where(locationLikeAddresses(filter))
                 .and(locationIsActive(filter))
-                .and(locationLikeAddresses(filter)))).thenReturn(locationList);
+                .and(employeeInLocationTypes(filter)))).thenReturn(locationList);
 
         assertNotNull(locationService.getAll(filter));
     }
