@@ -8,4 +8,10 @@ import ru.neoflex.microservices.carpark.auth.model.UserInfo;
 public interface UserInfoApi {
 
     UserInfo getByLogin(String login);
+
+    void deactivate(String login);
+
+    void addUserInfo(UserInfo userInfo);
+
+    void updateUserInfo(UserInfo userInfo);
 }

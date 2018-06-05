@@ -25,4 +25,7 @@ public class UserInfo {
 
     @Column(name = "LOCATION_ID")
     private Long locationId;
+
+    @Column
+    private Boolean active;
 }

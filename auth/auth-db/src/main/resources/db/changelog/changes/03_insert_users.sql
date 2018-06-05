@@ -75,3 +75,9 @@ INSERT INTO user_info(
 VALUES ('rental_manager7', 'rental_manager7', 'rental_manager', '7', '14');
 
 ALTER SEQUENCE user_info_id_seq RESTART WITH 500;
+
+
+--changeset rmorenko:2018-06-05
+ALTER TABLE user_info
+ADD COLUMN active BOOLEAN NOT NULL DEFAULT true;
+

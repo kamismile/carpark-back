@@ -13,4 +13,6 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
     UserInfo getByLogin(String login);
 
     UserInfo getByLoginAndPassword(String login, String password);
+
+    UserInfo getByLoginAndPasswordAndActive(String login, String password, Boolean active);
 }

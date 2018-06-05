@@ -25,8 +25,28 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo authenticateUserByLoginAndPassword(String login, String password) {
-        return userInfoRepository.getByLoginAndPassword(login, password);
+        return userInfoRepository.getByLoginAndPasswordAndActive(login, password, true);
     }
 
+    @Override
+    public void deactivate(String login) {
+        UserInfo userInfo = userInfoRepository.getByLogin(login);
+        userInfo.setActive(false);
+        userInfoRepository.save(userInfo);
+    }
+
+    @Override
+    public void addUserInfo(UserInfo userInfo) {
+        save(userInfo);
+    }
+
+    private void save(UserInfo userInfo) {
+        userInfoRepository.save(userInfo);
+    }
+
+    @Override
+    public void uppdateUserInfo(UserInfo userInfo) {
+        userInfoRepository.save(userInfo);
+    }
 
 }
