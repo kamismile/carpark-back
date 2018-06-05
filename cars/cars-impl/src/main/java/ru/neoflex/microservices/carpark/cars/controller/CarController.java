@@ -7,10 +7,7 @@ import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.cars.api.CarApi;
-import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.cars.model.CarCommand;
-import ru.neoflex.microservices.carpark.cars.model.Events;
-import ru.neoflex.microservices.carpark.cars.model.States;
+import ru.neoflex.microservices.carpark.cars.model.*;
 import ru.neoflex.microservices.carpark.cars.service.CarService;
 import ru.neoflex.microservices.carpark.cars.service.KafkaProducerService;
 import ru.neoflex.microservices.carpark.cars.service.LifecycleService;
@@ -31,8 +28,8 @@ public class CarController implements CarApi {
     private KafkaProducerService kafkaProducerService;
 
     @Override
-    public List<Car> getCars(UserInfo userInfo) {
-        List<Car> list = carService.getAllCars();
+    public List<Car> getCars(UserInfo userInfo, CarFilter carFilter) {
+        List<Car> list = carService.getAllCars(carFilter);
         list.stream().forEach(car -> {
             car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
         });

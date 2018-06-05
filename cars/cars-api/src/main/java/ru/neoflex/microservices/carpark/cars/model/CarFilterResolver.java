@@ -1,8 +1,6 @@
 package ru.neoflex.microservices.carpark.cars.model;
 
-import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getDateParameter;
-import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getIntegerParameter;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -14,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
+import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.*;
 
 /**
  * Resolver for CarFilter
@@ -22,7 +20,11 @@ import java.util.stream.Stream;
  * @author rmorenko
  */
 public class CarFilterResolver implements HandlerMethodArgumentResolver {
-        @Override public boolean supportsParameter(MethodParameter parameter) {
+
+        private ObjectMapper objectMapper;
+
+        @Override
+        public boolean supportsParameter(MethodParameter parameter) {
                 return CarFilter.class.isAssignableFrom(parameter.getParameterType());
         }
 
@@ -37,24 +39,24 @@ public class CarFilterResolver implements HandlerMethodArgumentResolver {
                 carFilter.setMarks(marks);
                 carFilter.setYearFrom(getIntegerParameter(webRequest, "yearFrom"));
                 carFilter.setYearTo(getIntegerParameter(webRequest,"yearTo"));
+                carFilter.setCurrentLocationId(getLongParameter(webRequest,"currentLocationId"));
+                carFilter.setLocationId(getLongParameter(webRequest,"locationId"));
+                carFilter.setMileageFrom(getDoubleParameter(webRequest,"mileageFrom"));
+                carFilter.setMileageTo(getDoubleParameter(webRequest,"mileageTo"));
+                List<String> statuses =
+                        Stream.of(Optional.ofNullable(webRequest.getParameter("statuses"))
+                                .orElse("").split(","))
+                                .collect(Collectors.toList());
+                carFilter.setStatuses(statuses);
                 return carFilter;
+        }
+
+        public ObjectMapper getObjectMapper() {
+                return objectMapper;
+        }
+
+        public void setObjectMapper(ObjectMapper objectMapper) {
+                this.objectMapper = objectMapper;
         }
 }
 
-/*
- private List<String> marks;
-
-        private Integer yearFrom;
-
-        private Integer yearTo;
-
-        private Long currentLocationId;
-
-        private Double mileageFrom;
-
-        private Double mileageTo;
-
-        private Long locationId;
-
-        private List<String> statuses;
- */

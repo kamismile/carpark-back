@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.cars.model.Car;
+import ru.neoflex.microservices.carpark.cars.model.CarFilter;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface CarApi {
 
     @GetMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
     @PostFilter("hasPermission(filterObject, {'getCars_filter', {}})")
-    List<Car> getCars(UserInfo userInfo);
+    List<Car> getCars(UserInfo userInfo, CarFilter carFilter);
 
     @GetMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     Car getCar(UserInfo userInfo, @PathVariable Long id);

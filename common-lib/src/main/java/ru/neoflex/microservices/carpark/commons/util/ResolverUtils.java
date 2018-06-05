@@ -62,7 +62,27 @@ public class ResolverUtils {
             return Integer.valueOf(stingVal);
         } catch (NumberFormatException ex) {
           log.info(ex.getMessage());
-          return null;
+          return (Integer)null;
+        }
+    }
+
+    public static Long getLongParameter(NativeWebRequest nativeWebRequest, String parameterName) {
+        String stingVal = nativeWebRequest.getParameter(parameterName);
+        try {
+            return Long.valueOf(stingVal);
+        } catch (NumberFormatException ex) {
+            log.info(ex.getMessage());
+            return (Long)null;
+        }
+    }
+
+    public static Double getDoubleParameter(NativeWebRequest nativeWebRequest, String parameterName) {
+        String stingVal = nativeWebRequest.getParameter(parameterName);
+        try {
+            return Double.valueOf(stingVal);
+        } catch (NumberFormatException ex) {
+            log.info(ex.getMessage());
+            return (Double)null;
         }
     }
 
