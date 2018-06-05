@@ -54,25 +54,24 @@ public class Preorder {
     @Column(name = "CREATED_BY_USER")
     private String createdByUser;
 
-    @Column(name ="PREORDER_TYPE")
-    private String type;
-
-    public void setType (PreorderType type) {
-        this.type = type.name();
-    }
-
-    public PreorderType getType() {
-        return PreorderType.valueOf(this.type);
-    }
+    @Column(name = "PREORDER_TYPE")
+    @Enumerated(EnumType.STRING)
+    private PreorderType type;
 
     public boolean overlaps(Preorder other) {
-        //TODO overlaps implementation
-        return false;
+        Date start1 = this.getLeaseStartDate();
+        Date end1 = this.getLeaseEndDate();
+        Date start2 = other.getLeaseStartDate();
+        Date end2 = other.getLeaseEndDate();
+        return datesOverlap(start1, end1, start2, end2);
+    }
+
+    private boolean datesOverlap(Date start1, Date end1, Date start2, Date end2) {
+        return start1.getTime() <= end2.getTime() && start2.getTime() <= end1.getTime();
     }
 
     public boolean isInFuture() {
-        //TODO implement check
-        return true;
+        return this.getLeaseStartDate().getTime() > new Date().getTime();
     }
 
 

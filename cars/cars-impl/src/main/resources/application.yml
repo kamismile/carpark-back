@@ -25,15 +25,19 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     properties:
       hibernate:
+        jdbc:
+          time_zone: UTC
         default_schema: public
         temp:
           use_jdbc_metadata_defaults: false
+
 spring.jackson:
   serialization:
     WRITE_DATES_AS_TIMESTAMPS: false
     FAIL_ON_EMPTY_BEANS: false
   default-property-inclusion: non_null
-  date-format: yyyy-mm-dd
+  date-format: org.codehaus.jackson.map.util.ISO8601DateFormat
+  time-zone: UTC
 
 feign:
   oauth2.enabled: true
@@ -89,5 +93,5 @@ kafka:
   cars:
     topic: car.t
   orders:
-    topic: orders
+    topic: next.status
     group-id: 1
