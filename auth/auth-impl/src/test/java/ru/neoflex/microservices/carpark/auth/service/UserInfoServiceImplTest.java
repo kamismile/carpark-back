@@ -37,28 +37,6 @@ public class UserInfoServiceImplTest {
         userInfoLogin.setPassword(PASS);
     }
 
-   /* @Test
-    public void testGetByLogin() {
-        when(userInfoRepository.getByLogin(anyString())).thenReturn(userInfoAny);
-        when(userInfoRepository.getByLogin(LOGIN)).thenReturn(userInfoLogin);
-        when(userInfoRepository.getByLogin(null)).thenReturn(null);
-
-        UserInfo userInfoGetAny = userInfoService.getByLogin(ANY);
-        UserInfo userInfoGetLogin = userInfoService.getByLogin(LOGIN);
-        UserInfo userInfoGetNull = userInfoService.getByLogin(null);
-
-        assertNotNull(userInfoGetAny);
-        assertNotNull(userInfoGetLogin);
-        assertNull(userInfoGetNull);
-
-        assertEquals(userInfoGetAny.getLogin(), ANY);
-        assertEquals(userInfoGetLogin.getLogin(), LOGIN);
-
-        verify(userInfoRepository, times(1)).getByLogin(eq(ANY));
-        verify(userInfoRepository, times(1)).getByLogin(eq(LOGIN));
-        verify(userInfoRepository, times(1)).getByLogin(eq(null));
-    }
-
     @Test
     public void testAuthenticateUserByLoginAndPassword() {
         when(userInfoRepository.getByLoginAndPassword(anyString(), anyString())).thenReturn(userInfoAny);
@@ -80,5 +58,5 @@ public class UserInfoServiceImplTest {
         verify(userInfoRepository, times(1)).getByLoginAndPassword(LOGIN, PASS);
         verify(userInfoRepository, times(1)).getByLoginAndPassword(null, ANYPASS);
         verify(userInfoRepository, times(1)).getByLoginAndPassword(ANY, null);
-    }*/
+    }
 }
