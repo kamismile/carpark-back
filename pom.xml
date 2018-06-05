@@ -91,7 +91,7 @@
                         <configuration>
                             <includes>
                                 <include>${runSuite}</include>
-                                <argLine>-Dfile.encoding=UTF-8 ${surefireArgLine}</argLine>
+
                                 <skipTests>${skipTests}</skipTests>
                             </includes>
                         </configuration>
@@ -109,7 +109,6 @@
                                 </goals>
                                 <configuration>
                                     <classesDirectory>${project.build.outputDirectory}</classesDirectory>
-                                    <argLine>-Dfile.encoding=UTF-8 ${failsafeArgLine}</argLine>
                                     <skipTests>${skipTests}</skipTests>
                                 </configuration>
                             </execution>
