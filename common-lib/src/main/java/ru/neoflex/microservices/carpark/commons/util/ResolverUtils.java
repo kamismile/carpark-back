@@ -58,6 +58,9 @@ public class ResolverUtils {
 
     public static Integer getIntegerParameter(NativeWebRequest nativeWebRequest, String parameterName) {
         String stingVal = nativeWebRequest.getParameter(parameterName);
+        if (StringUtils.isEmpty(stingVal)){
+            return null;
+        }
         try {
             return Integer.valueOf(stingVal);
         } catch (NumberFormatException ex) {
@@ -68,6 +71,9 @@ public class ResolverUtils {
 
     public static Long getLongParameter(NativeWebRequest nativeWebRequest, String parameterName) {
         String stingVal = nativeWebRequest.getParameter(parameterName);
+        if (StringUtils.isEmpty(stingVal)){
+            return null;
+        }
         try {
             return Long.valueOf(stingVal);
         } catch (NumberFormatException ex) {
@@ -78,6 +84,9 @@ public class ResolverUtils {
 
     public static Double getDoubleParameter(NativeWebRequest nativeWebRequest, String parameterName) {
         String stingVal = nativeWebRequest.getParameter(parameterName);
+        if (StringUtils.isEmpty(stingVal)){
+            return null;
+        }
         try {
             return Double.valueOf(stingVal);
         } catch (NumberFormatException ex) {
