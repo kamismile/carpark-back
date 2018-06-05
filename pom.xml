@@ -84,6 +84,12 @@
                                     <goal>report</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
                         </executions>
                     </plugin>
                     <!-- Below plugin ensures the execution of test cases during maven build-->
