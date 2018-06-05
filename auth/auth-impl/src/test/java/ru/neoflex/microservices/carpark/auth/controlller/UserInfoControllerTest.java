@@ -13,6 +13,7 @@ import ru.neoflex.microservices.carpark.auth.service.UserInfoService;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.Matchers.is;
@@ -53,7 +54,8 @@ public class UserInfoControllerTest {
                 .andExpect(jsonPath("$.password", is(PASS)))
                 .andExpect(jsonPath("$.role", is(USER_ROLE)))
                 .andExpect(jsonPath("$.locationId", is((int) LOCATION_ID)))
-                .andExpect(jsonPath("$.id", is((int) ID)));
+                .andExpect(jsonPath("$.id", is((int) ID)))
+                .andDo(print());
         verify(userInfoService, times(1)).getByLogin(ANYLOGIN);
         verifyNoMoreInteractions(userInfoService);
 

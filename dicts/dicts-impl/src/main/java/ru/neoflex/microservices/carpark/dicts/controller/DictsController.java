@@ -65,7 +65,7 @@ public class DictsController implements DictsApi {
         rubricService.updateRubric(rubric);
     }
 
-    @PostMapping(value = "/rubrics",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/rubrics", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void createRubric(@RequestBody Rubric rubric) {
         rubricService.createRubric(rubric);
     }
