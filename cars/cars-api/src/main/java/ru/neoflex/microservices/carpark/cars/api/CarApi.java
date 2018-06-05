@@ -5,6 +5,10 @@
 
 package ru.neoflex.microservices.carpark.cars.api;
 
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 
@@ -12,19 +16,32 @@ import java.util.List;
 
 /**
  * Интерфейс контроллера автомашин.
+ *
  * @author Denis_Begun
  */
+
 public interface CarApi {
 
+    @GetMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostFilter("hasPermission(filterObject, {'getCars_filter', {}})")
     List<Car> getCars(UserInfo userInfo);
 
-    Car getCar(UserInfo userInfo, Long id);
+    @GetMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Car getCar(UserInfo userInfo, @PathVariable Long id);
 
-    Car updateCar(UserInfo userInfo, Long id, Car car);
+    @PutMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasPermission({{'id', #id}, {'car', #car}} , {'updateCar'})")
+    Car updateCar(UserInfo userInfo, @PathVariable Long id, @RequestBody Car car);
 
-    Car createCar(UserInfo userInfo, Car car);
+    @PostMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasPermission({{'car', #car}} , {'createCar'})")
+    Car createCar(UserInfo userInfo, @RequestBody Car car);
 
-    void deleteCar(UserInfo userInfo, Long id);
+    @DeleteMapping(value = "/cars/{id}")
+    @PreAuthorize("hasPermission({{'id', #id}} , {'deleteCar'})")
+    void deleteCar(UserInfo userInfo, @PathVariable Long id);
 
-    Car changeCarState(UserInfo userInfo, Long id, String stringEvent);
+    @PatchMapping(value = "/cars/{id}/{event}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasPermission({{'id', #id}, {'stringEvent', #stringEvent}}, {'changeCarState'})")
+    Car changeCarState(UserInfo userInfo, @PathVariable Long id, @PathVariable String stringEvent);
 }
