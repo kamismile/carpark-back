@@ -51,7 +51,8 @@ public class PreorderController implements PreorderApi {
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public void deletePreoder(UserInfo userInfo, Long id) {
+    public void deletePreoder(UserInfo userInfo, @PathVariable Long id) {
+
         Long carId = preorderService.getPreorder(id).getCarId();
         makeNotification (userInfo, carId);
         preorderService.deletePreoder(id);
@@ -60,13 +61,13 @@ public class PreorderController implements PreorderApi {
 
     @Override
     @PutMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Preorder updatePreorder(UserInfo userInfo, Preorder preorder) {
+    public Preorder updatePreorder(UserInfo userInfo, @RequestBody Preorder preorder) {
         preorder = preorderService.updatePreorder(preorder);
         makeNotification (userInfo, preorder.getCarId());
         return preorder;
     }
 
-    private void makeNotification(UserInfo userInfo, Long carId) {
+    private void makeNotification(UserInfo userInfo, @PathVariable Long carId) {
         NextStatus ns = preorderService.getNextStatusForCar(carId);
         NextStatusEvent nse = new NextStatusEvent();
         nse.setCommand(Command.UPDATE);
