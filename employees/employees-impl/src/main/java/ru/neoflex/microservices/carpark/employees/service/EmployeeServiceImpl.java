@@ -70,13 +70,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void add(Employee employee) {
+    public Employee add(Employee employee) {
         employeeRepository.save(employee);
         EmployeeCommand employeeCommand = new EmployeeCommand();
         employeeCommand.setCommand(Command.ADD);
         employeeCommand.setEntity(employee);
         employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
+        return employee;
 
     }
 

@@ -18,7 +18,7 @@ public interface EmployeeService {
 
     void deactivate(String userId);
 
-    void add(Employee employee);
+    Employee add(Employee employee);
 
     void update(Employee employee);
 

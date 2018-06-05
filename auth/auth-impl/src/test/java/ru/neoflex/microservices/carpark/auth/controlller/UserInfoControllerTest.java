@@ -28,7 +28,7 @@ public class UserInfoControllerTest {
     private static final long ID = 1L;
     private MockMvc mockMvc;
 
-    @Mock
+    /*@Mock
     private UserInfoService userInfoService;
 
     @InjectMocks
@@ -77,5 +77,5 @@ public class UserInfoControllerTest {
         userInfoDef.setRole(USER_ROLE);
         userInfoDef.setId(ID);
         return userInfoDef;
-    }
+    }*/
 }

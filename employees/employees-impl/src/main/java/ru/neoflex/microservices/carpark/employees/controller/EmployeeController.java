@@ -40,8 +40,8 @@ public class EmployeeController implements EmployeeApi {
     }
 
     @Override
-    public void add(@RequestBody  Employee employee) {
-        employeeService.add(employee);
+    public Employee add(@RequestBody  Employee employee) {
+        return  employeeService.add(employee);
     }
 
     @Override

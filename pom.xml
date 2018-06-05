@@ -85,8 +85,14 @@
                                     <goal>report</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>post-unit-agregate</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report-aggregate</goal>
+                                </goals>
+                            </execution>
                         </executions>
-
                     </plugin>
                 </plugins>
             </build>

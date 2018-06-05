@@ -1,11 +1,11 @@
-package ru.neoflex.microservices.carpark.auth.controlller;
+package ru.neoflex.microservices.carpark.employees.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import ru.neoflex.microservices.carpark.auth.api.UserInfoApi;
+import ru.neoflex.microservices.carpark.employees.api.UserInfoApi;
 import ru.neoflex.microservices.carpark.auth.model.UserInfo;
-import ru.neoflex.microservices.carpark.auth.service.UserInfoService;
+import ru.neoflex.microservices.carpark.employees.service.UserInfoService;
 
 /**
  * @author mirzoevnik
@@ -27,15 +27,15 @@ public class UserInfoController implements UserInfoApi {
     }
 
     @Override
-    @DeleteMapping(value = "/user/{login}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/deactivate/{login}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deactivate(@PathVariable String login) {
         userInfoService.deactivate(login);
     }
 
     @Override
     @PutMapping(value = "/user/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void addUserInfo(@RequestBody UserInfo userInfo) {
-       userInfoService.addUserInfo(userInfo);
+    public UserInfo addUserInfo(@RequestBody UserInfo userInfo) {
+      return userInfoService.addUserInfo(userInfo);
     }
 
     @Override

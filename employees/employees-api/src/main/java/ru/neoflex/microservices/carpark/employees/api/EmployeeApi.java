@@ -26,7 +26,7 @@ public interface EmployeeApi {
     void deactivate(@PathVariable("userId") String userId);
 
     @PutMapping(value = "/employee/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    void add(@RequestBody Employee employee);
+    Employee add(@RequestBody Employee employee);
 
     @PatchMapping(value = "/employee/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void update(@RequestBody Employee employee);

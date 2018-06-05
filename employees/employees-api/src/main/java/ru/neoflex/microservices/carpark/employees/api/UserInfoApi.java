@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.auth.api;
+package ru.neoflex.microservices.carpark.employees.api;
 
 import ru.neoflex.microservices.carpark.auth.model.UserInfo;
 
@@ -11,7 +11,7 @@ public interface UserInfoApi {
 
     void deactivate(String login);
 
-    void addUserInfo(UserInfo userInfo);
+    UserInfo addUserInfo(UserInfo userInfo);
 
     void updateUserInfo(UserInfo userInfo);
 }
