@@ -2,7 +2,6 @@ package ru.neoflex.microservices.carpark.report.reciver;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -12,11 +11,9 @@ import ru.neoflex.microservices.carpark.report.service.EmployeeService;
 import ru.neoflex.microservices.carpark.report.service.LocationService;
 
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
+
 
 /**
  * @author rmorenko
