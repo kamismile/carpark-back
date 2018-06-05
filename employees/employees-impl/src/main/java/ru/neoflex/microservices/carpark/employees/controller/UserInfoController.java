@@ -39,7 +39,7 @@ public class UserInfoController implements UserInfoApi {
     }
 
     @Override
-    @PatchMapping(value = "/user/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/user/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public void updateUserInfo(@RequestBody UserInfo userInfo) {
       userInfoService.uppdateUserInfo(userInfo);
     }
