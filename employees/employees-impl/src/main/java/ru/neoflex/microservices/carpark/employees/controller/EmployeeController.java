@@ -17,6 +17,8 @@ import ru.neoflex.microservices.carpark.employees.service.EmployeeService;
 import java.util.List;
 
 /**
+ * Controller for employee.
+ *
  * @author mirzoevnik
  */
 @RestController

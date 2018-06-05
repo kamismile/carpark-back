@@ -2,14 +2,18 @@ package ru.neoflex.microservices.carpark.employees.repository;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.ObjectUtils;
-import ru.neoflex.microservices.carpark.employees.model.Employee;
-import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 import ru.neoflex.microservices.carpark.employees.model.Location;
 import ru.neoflex.microservices.carpark.employees.model.LocationFilter;
 
+/**
+ * SpringData specifications for location filter.
+ *
+ * @author rmorenko
+ */
+
 public class LocationSpecifications {
 
-    private LocationSpecifications(){
+    private LocationSpecifications() {
         super();
     }
 
@@ -31,12 +35,12 @@ public class LocationSpecifications {
         };
     }
 
-    public static Specification<Location> employeeInLocationTypes(LocationFilter filter){
+    public static Specification<Location> employeeInLocationTypes(LocationFilter filter) {
         return (root, query, cb) -> {
-            if (ObjectUtils.isEmpty(filter.getLocationTypes())){
+            if (ObjectUtils.isEmpty(filter.getLocationTypes())) {
                 return null;
             }
-            if (filter.getLocationTypes().get(0).isEmpty()){
+            if (filter.getLocationTypes().get(0).isEmpty()) {
                 return null;
             }
             return  root.get("locationType").in(filter.getLocationTypes());

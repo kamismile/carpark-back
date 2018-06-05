@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
 
 /**
+ * Employee repository.
+ *
  * @author mirzoevnik
  */
 @Repository
