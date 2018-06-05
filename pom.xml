@@ -76,8 +76,9 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <append>true</append>
                                     <destFile>${sonar.jacoco.reportPath}</destFile>
+                                    <propertyName>jacoco.agent.ut.arg</propertyName>
+                                    <append>true</append>
                                 </configuration>
                             </execution>
                             <execution>
@@ -86,8 +87,9 @@
                                     <goal>prepare-agent-integration</goal>
                                 </goals>
                                 <configuration>
-                                    <append>true</append>
                                     <destFile>${sonar.jacoco.itReportPath}</destFile>
+                                    <propertyName>jacoco.agent.it.arg</propertyName>
+                                    <append>true</append>
                                 </configuration>
                             </execution>
                         </executions>
@@ -104,13 +106,16 @@
                             </dependency>
                         </dependencies>
                         <configuration>
-                            <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+                            <argLine>-Xmx1024m -XX:MaxPermSize=256m ${jacoco.agent.ut.arg}</argLine>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>2.20</version>
+                        <configuration>
+                            <argLine>-Xmx1024m -XX:MaxPermSize=256m ${jacoco.agent.it.arg}</argLine>
+                        </configuration>
                         <executions>
                             <execution>
                                 <goals>
