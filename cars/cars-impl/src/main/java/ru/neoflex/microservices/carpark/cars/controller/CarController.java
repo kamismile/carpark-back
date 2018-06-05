@@ -47,7 +47,6 @@ public class CarController implements CarApi {
         System.out.println(userInfo);
         Car car = carService.getCar(id);
         car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
-        sendCommand(userInfo, car, Command.UPDATE);
         return carService.getCar(id);
     }
 

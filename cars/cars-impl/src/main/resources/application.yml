@@ -2,7 +2,7 @@ server:
   port: ${PORT_TO_EXPOSE:8080}
 
 kafka:
-  bootstrap: kafka01.kafka:31610
+  bootstrap: kafka01.kafka:9092
   cars:
     topic: car.t
   orders:
