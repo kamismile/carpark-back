@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.cars.controller;
+package ru.neoflex.microservices.carpark.cars;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

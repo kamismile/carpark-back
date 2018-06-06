@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.cars.controller;
+package ru.neoflex.microservices.carpark.cars;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
