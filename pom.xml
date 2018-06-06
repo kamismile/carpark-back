@@ -76,7 +76,6 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <includes>**/*Test*</includes>
                                     <destFile>${sonar.jacoco.ReportPath}</destFile>
                                     <append>true</append>
                                     <propertyName>surefireArgLine</propertyName>
@@ -99,7 +98,6 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <includes>**/*IT*</includes>
                                     <destFile>${sonar.jacoco.itReportPath}</destFile>
                                     <propertyName>failsafeArgLine</propertyName>
                                     <append>true</append>
@@ -131,6 +129,7 @@
                         </dependencies>
                         <configuration>
                             <argLine>-Xmx1024m -XX:MaxPermSize=256m ${surefireArgLine}</argLine>
+                            <skipTests>${skipTests}</skipTests>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -139,6 +138,7 @@
                         <version>2.20</version>
                         <configuration>
                             <argLine>-Xmx1024m -XX:MaxPermSize=256m ${failsafeArgLine}</argLine>
+                            <skipTests>${skipTests}</skipTests>
                         </configuration>
                     </plugin>
                 </plugins>
