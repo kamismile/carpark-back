@@ -1,6 +1,7 @@
 package ru.neoflex.microservices.carpark.report.service;
 
 import groovy.util.logging.Slf4j;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,22 +28,23 @@ public class EmployeeService {
         UserInfoRepository userInfoRepository;
 
         public void save(EmployeeCommand cmd) {
-                if (Command.DELETE.equals(cmd.getCommand())) {
-                        cmd.getEntity().setActive(false);
-                        repository.save(cmd.getEntity());
-                } else if (Command.ADD.equals(cmd.getCommand())) {
-                        cmd.getEntity().setId(null);
-                        Long userId = cmd.getEntity().getUser().getId();
-                        if (userId == null) {
-                           userInfoRepository.save(cmd.getEntity().getUser());
-                        }
-
-                } else {
-                        Employee oldEmployee =  repository.findByUserId(cmd.getOldEntity().getUser().getId());
-                        repository.delete(oldEmployee);
-                        cmd.getEntity().setId(null);
+                String login = cmd.getEntity().getUser().getLogin();
+                UserInfo newUser = cmd.getEntity().getUser();
+                Employee oldEmployee = null;
+                try {
+                      oldEmployee = repository.findByUserLogin(login);
+                } catch (HibernateException ex){
+                        oldEmployee = null;
                 }
-                repository.save(cmd.getEntity());
+                if (oldEmployee == null) {
+                     newUser.setId(null);
+                } else {
+                    Long oldUserId = oldEmployee.getUser().getId();
+                    newUser.setId(oldUserId);
+                }
+                newUser = userInfoRepository.save(newUser);
+                cmd.getEntity().setUser(newUser);
+                repository.save(oldEmployee);
         }
 
 }

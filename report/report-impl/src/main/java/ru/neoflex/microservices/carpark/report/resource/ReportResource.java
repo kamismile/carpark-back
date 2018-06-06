@@ -98,7 +98,7 @@ public class ReportResource {
              Map<String, Employee> employeesMap =  employees.stream().collect(
                      Collectors.toMap(employee ->
                              employee.getUser().getLogin(),
-                             employee -> employee));
+                             employee -> employee, (e1, e2)-> e1));
              List<CarEvent> carEvent = carEventRepository.findByMessageDate(dateOfHistory);
              return carEvent.stream().map(e -> {
                      HistoryCarModel historyCarModel = new HistoryCarModel();

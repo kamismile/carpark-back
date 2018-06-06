@@ -7,4 +7,5 @@ import ru.neoflex.microservices.carpark.auth.model.UserInfo;
  * Created by rmorenko on 06.06.2018.
  */
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
+       UserInfo findByLogin (String login);
 }
