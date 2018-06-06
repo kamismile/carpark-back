@@ -76,7 +76,7 @@ public class PreorderServiceImpl implements PreorderService {
 
         List<Preorder> existingList = preorderRepository.findByCarId(preorder.getCarId());
         List<Preorder> overlappingList = existingList.stream()
-                .filter(a -> a.getId().equals(preorder.getId()))
+                .filter(a -> !a.getId().equals(preorder.getId()))
                 .filter(a -> preorder.overlaps(a)).collect(Collectors.toList());
         if (!overlappingList.isEmpty()) {
             throw new CarNotAvailableException(overlappingList.get(0).getLeaseStartDate(),
