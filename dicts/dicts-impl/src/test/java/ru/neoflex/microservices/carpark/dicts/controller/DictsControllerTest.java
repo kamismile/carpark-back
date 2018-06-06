@@ -11,12 +11,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.neoflex.microservices.carpark.dicts.controller.DictsApplication;
-import ru.neoflex.microservices.carpark.dicts.controller.controller.DictsController;
-import ru.neoflex.microservices.carpark.dicts.controller.model.Reference;
-import ru.neoflex.microservices.carpark.dicts.controller.service.ReferenceService;
-import ru.neoflex.microservices.carpark.dicts.controller.model.Rubric;
-import ru.neoflex.microservices.carpark.dicts.controller.service.RubricService;
+import ru.neoflex.microservices.carpark.dicts.DictsApplication;
+import ru.neoflex.microservices.carpark.dicts.model.Reference;
+import ru.neoflex.microservices.carpark.dicts.model.Rubric;
+import ru.neoflex.microservices.carpark.dicts.service.ReferenceService;
+import ru.neoflex.microservices.carpark.dicts.service.RubricService;
 
 import java.util.Arrays;
 
