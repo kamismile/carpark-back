@@ -52,7 +52,7 @@ public class EmployeeSprecifications {
             if (filter.getUserId() == null) {
                 return null;
             }
-            return  cb.like(root.get("userId"), filter.getUserId());
+            return  cb.equal(root.get("userId"), filter.getUserId());
         };
     }
 

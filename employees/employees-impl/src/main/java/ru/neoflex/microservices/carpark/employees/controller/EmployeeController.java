@@ -30,12 +30,12 @@ public class EmployeeController implements EmployeeApi {
     }
 
     @Override
-    public Employee getByUserId(String userId) {
+    public Employee getByUserId(Long userId) {
         return employeeService.getByUserId(userId);
     }
 
     @Override
-    public void deactivate(String userId) {
+    public void deactivate(Long userId) {
         employeeService.deactivate(userId);
     }
 
