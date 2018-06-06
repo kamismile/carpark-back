@@ -89,7 +89,7 @@ public class DictsControllerTest {
         verifyNoMoreInteractions(referenceService);
     }
 
-    @Test
+    /*@Test
     public void getRubricsTest() throws Exception {
         Rubric rubric = getDefaultRubric();
         when(rubricService.findAll()).thenReturn(Arrays.asList(rubric, rubric));
@@ -109,7 +109,7 @@ public class DictsControllerTest {
 
         verify(rubricService, times(1)).findAll();
         verifyNoMoreInteractions(rubricService);
-    }
+    }*/
 
 //    @Test
 //    public void createRubricTest() throws Exception {
