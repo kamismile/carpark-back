@@ -27,13 +27,13 @@ public class EmployeeService {
                         repository.save(cmd.getEntity());
                 } else if (Command.ADD.equals(cmd.getCommand())) {
                         cmd.getEntity().setId(null);
-                        repository.save(cmd.getEntity());
                 } else {
                         Employee oldEmployee =  repository.findByUserId(cmd.getOldEntity().getUserId());
                         repository.delete(oldEmployee);
                         cmd.getEntity().setId(null);
-                        repository.save(cmd.getEntity());
+
                 }
+                repository.save(cmd.getEntity());
         }
 
 }

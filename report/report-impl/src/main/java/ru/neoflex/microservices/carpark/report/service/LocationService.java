@@ -10,6 +10,8 @@ import ru.neoflex.microservices.carpark.employees.model.Location;
 import ru.neoflex.microservices.carpark.report.model.LocationCommand;
 import ru.neoflex.microservices.carpark.report.repository.LocationRepository;
 
+import java.util.Date;
+
 /**
  * @author rmorenko
  */
@@ -27,13 +29,13 @@ public class LocationService {
                         repository.save(cmd.getEntity());
                 } else if (Command.ADD.equals(cmd.getCommand())) {
                         cmd.getEntity().setId(null);
-                        repository.save(cmd.getEntity());
                 } else {
                         Location oldLocation =  repository.findByAddress(cmd.getOldEntity().getAddress());
                         repository.delete(oldLocation);
                         cmd.getEntity().setId(null);
-                        repository.save(cmd.getEntity());
                 }
+                cmd.setMessageDate(new Date());
+                repository.save(cmd.getEntity());
         }
 
 
