@@ -2,11 +2,20 @@ package ru.neoflex.microservices.carpark.employees.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import java.io.Serializable;
 import java.util.Date;
 
+
 /**
+ * Employee entity
  * @author mirzoevnik
  */
 @Data

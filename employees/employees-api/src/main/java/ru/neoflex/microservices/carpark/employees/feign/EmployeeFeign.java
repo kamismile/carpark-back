@@ -4,8 +4,10 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import ru.neoflex.microservices.carpark.employees.api.EmployeeApi;
 
 /**
- * @author rmorenko
+ *  Feign client for employee api.
+ *
+ *  @author rmorenko.
  */
-@FeignClient(name="employees")
+@FeignClient(name = "employees")
 public interface EmployeeFeign extends EmployeeApi {
 }

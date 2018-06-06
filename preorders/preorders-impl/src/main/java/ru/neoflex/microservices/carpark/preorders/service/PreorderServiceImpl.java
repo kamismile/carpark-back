@@ -33,7 +33,7 @@ public class PreorderServiceImpl implements PreorderService {
 
     @Override
     public Preorder getPreorder(Long id) {
-        return preorderRepository.findOne(id);
+        return preorderRepository.getOne(id);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class PreorderServiceImpl implements PreorderService {
 
         Date nextStatusDate = earliestPreorder.getLeaseStartDate();
         String nextStatus = earliestPreorder.getType().getNextStatus();
-        return new NextStatus(carId, nextStatus, nextStatusDate);
+        return new NextStatus(carId, nextStatus, nextStatusDate, earliestPreorder.getType());
     }
 
     /**

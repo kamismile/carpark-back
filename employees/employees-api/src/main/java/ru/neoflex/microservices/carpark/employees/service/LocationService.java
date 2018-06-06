@@ -1,12 +1,12 @@
 package ru.neoflex.microservices.carpark.employees.service;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.neoflex.microservices.carpark.employees.model.Location;
 import ru.neoflex.microservices.carpark.employees.model.LocationFilter;
 
 import java.util.List;
 
 /**
+ * Service for location.
  * @author mirzoevnik
  */
 public interface LocationService {

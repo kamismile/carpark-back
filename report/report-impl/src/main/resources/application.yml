@@ -5,7 +5,6 @@ kafka:
   bootstrap-servers: kafka01.kafka:9092
   topic:
     car: car.t
-    reference: reference.t
     employee: employee.t
     location: location.t
 
@@ -87,9 +86,8 @@ eureka:
   client.serviceUrl.defaultZone: http://localhost:8761/eureka/
 
 kafka:
-  bootstrap-servers: localhost:9092
+  bootstrap-servers: 54.158.77.53:9092
   topic:
-    json: car.t
-    reference: reference.t
+    car: car.t
     employee: employee.t
     location: location.t

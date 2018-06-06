@@ -1,22 +1,21 @@
 package ru.neoflex.microservices.carpark.employees.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.neoflex.microservices.carpark.commons.dto.PageResponse;
-import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.employees.api.EmployeeApi;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
-import ru.neoflex.microservices.carpark.employees.dto.EmployeeCommand;
 import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
-import ru.neoflex.microservices.carpark.employees.sender.Sender;
 import ru.neoflex.microservices.carpark.employees.service.EmployeeService;
 
 import java.util.List;
 
 /**
+ * Controller for employee.
+ *
  * @author mirzoevnik
  */
 @RestController
@@ -41,8 +40,8 @@ public class EmployeeController implements EmployeeApi {
     }
 
     @Override
-    public void add(@RequestBody  Employee employee) {
-        employeeService.add(employee);
+    public Employee add(@RequestBody  Employee employee) {
+        return  employeeService.add(employee);
     }
 
     @Override

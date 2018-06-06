@@ -31,6 +31,7 @@
         <lombok.version>1.16.18</lombok.version>
         <org.testng.version>6.11</org.testng.version>
         <postgresql.version>42.1.4</postgresql.version>
+        <common-lib.version>0.0.1-SNAPSHOT</common-lib.version>
         <spring-boot-maven-plugin.version>${spring-boot.version}</spring-boot-maven-plugin.version>
     </properties>
 
@@ -83,6 +84,12 @@
                 <artifactId>spring-boot-devtools</artifactId>
                 <scope>runtime</scope>
                 <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <artifactId>common-lib</artifactId>
+                <version>${common-lib.version}</version>
             </dependency>
 
             <!-- Database -->

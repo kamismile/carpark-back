@@ -1,12 +1,18 @@
 package ru.neoflex.microservices.carpark.employees.model;
 
 import lombok.Data;
-import org.springframework.data.domain.PageRequest;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Column;
+import javax.persistence.GenerationType;
 import java.io.Serializable;
 
 /**
+ * Location entity.
+ *
  * @author mirzoevnik
  */
 @Data

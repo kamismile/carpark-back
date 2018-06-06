@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://service-postgres.postgres:5432/auth
-    username: auth
-    password: auth
+    url: jdbc:postgresql://service-postgres.postgres:5432/employees
+    username: employees
+    password: employees
     driver-class-name: org.postgresql.Driver
   liquibase:
     default-schema: public
@@ -51,9 +51,9 @@ logging:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:postgresql://172.19.19.226:31564/auth
-    username: auth
-    password: auth
+    url: jdbc:postgresql://172.19.19.226:31564/employees
+    username: employees
+    password: employees
     driver-class-name: org.postgresql.Driver
   liquibase:
     default-schema: public

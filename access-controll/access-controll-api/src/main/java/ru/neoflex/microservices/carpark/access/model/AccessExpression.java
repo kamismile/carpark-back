@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  * Expressions for access controll

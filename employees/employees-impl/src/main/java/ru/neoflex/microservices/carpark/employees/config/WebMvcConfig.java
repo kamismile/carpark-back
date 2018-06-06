@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * WebMvc config.
+ *
  * @author morenko
  */
 @Configuration

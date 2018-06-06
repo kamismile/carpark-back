@@ -49,9 +49,6 @@ public class ReportResource {
         @Value("${kafka.topic.car}")
          String carTopic;
 
-        @Value("${kafka.topic.reference}")
-        String referenceTopic;
-
 
         @Autowired
         private Receiver receiver;
@@ -82,24 +79,6 @@ public class ReportResource {
                 car.setCurrentStatus(States.IN_USE.toString());
                 car.setPrevMaintenanceDate(new Date());
                 sender.send(carTopic,command);
-
-        }
-
-        @GetMapping(value = "/sendRef", produces = MediaType.APPLICATION_JSON_VALUE)
-        public void sendRef() {
-                Reference reference = new Reference();
-                reference.setCode("code");
-                reference.setTitle("title");
-                Rubric rubric = new Rubric();
-                reference.setSystem(true);
-                rubric.setCode("position");
-                rubric.setTitle("Должность");
-                ReferenceCommand command = new ReferenceCommand();
-                command.setEntity(reference);
-                reference.setRubric(rubric);
-                command.setMessageDate(new Date());
-                command.setCommand(Command.ADD);
-                sender.send(referenceTopic,command);
 
         }
 

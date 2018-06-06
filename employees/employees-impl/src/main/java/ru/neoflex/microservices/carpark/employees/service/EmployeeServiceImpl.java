@@ -1,5 +1,16 @@
 package ru.neoflex.microservices.carpark.employees.service;
 
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeAfterAppointmentDate;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeBeforeAppointmentDate;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeHasUserId;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeInLocations;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeInPositions;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeIsActive;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikePatronymic;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikeSurname;
+import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikeName;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -14,12 +25,14 @@ import ru.neoflex.microservices.carpark.employees.repository.EmployeeRepository;
 import ru.neoflex.microservices.carpark.employees.sender.Sender;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSprecifications.*;
+
 
 /**
+ * Service for employee.
+ *
  * @author mirzoevnik
  */
 @Service
@@ -52,16 +65,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeCommand employeeCommand = new EmployeeCommand();
         employeeCommand.setCommand(Command.DELETE);
         employeeCommand.setEntity(employee);
+        employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
     }
 
     @Override
-    public void add(Employee employee) {
+    public Employee add(Employee employee) {
         employeeRepository.save(employee);
         EmployeeCommand employeeCommand = new EmployeeCommand();
         employeeCommand.setCommand(Command.ADD);
         employeeCommand.setEntity(employee);
+        employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
+        return employee;
 
     }
 
@@ -70,9 +86,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee oldEmployee = employeeRepository.findOne(employee.getId());
         employeeRepository.save(employee);
         EmployeeCommand employeeCommand = new EmployeeCommand();
+        employeeCommand.setOldEntity(oldEmployee);
         employeeCommand.setCommand(Command.UPDATE);
         employeeCommand.setEntity(employee);
-        employeeCommand.setOldEntity(oldEmployee);
+        employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
     }
 
@@ -99,7 +116,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .and(employeeBeforeAppointmentDate(filter))
                 .and(employeeIsActive(filter))
                 .and(employeeHasUserId(filter)), pageRequest);
-        return new PageResponse<Employee>(page.getContent(), page.getTotalElements());
+        return new PageResponse<>(page.getContent(), page.getTotalElements());
     }
 
 

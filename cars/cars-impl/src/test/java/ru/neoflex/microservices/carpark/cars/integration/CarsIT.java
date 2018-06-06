@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import ru.neoflex.microservices.carpark.cars.CarsApplication;
 import ru.neoflex.microservices.carpark.cars.controller.CarController;
 import ru.neoflex.microservices.carpark.cars.model.Car;
+import ru.neoflex.microservices.carpark.cars.model.CarFilter;
 import ru.neoflex.microservices.carpark.cars.model.States;
 import ru.neoflex.microservices.carpark.cars.service.CarService;
 
@@ -78,7 +79,7 @@ public class CarsIT extends AbstractTestNGSpringContextTests {
         carService.createCar(car3);
         carService.createCar(car4);
 
-        List<Car> list = carService.getAllCars();
+        List<Car> list = carService.getAllCars(new CarFilter());
         //this will fail with test data
         Assert.assertEquals(list.size(),4);
     }

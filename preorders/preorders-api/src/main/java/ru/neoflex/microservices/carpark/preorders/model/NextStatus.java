@@ -12,4 +12,5 @@ public class NextStatus implements Serializable {
     private Long carId;
     private String nextStatus;
     private Date nextStatusDate;
+    private PreorderType type;
 }

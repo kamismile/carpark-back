@@ -1,8 +1,10 @@
 package ru.neoflex.microservices.carpark.dicts.service;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.dicts.model.Reference;
 import ru.neoflex.microservices.carpark.dicts.model.ReferenceCommand;
@@ -17,6 +19,8 @@ import java.util.List;
  * @author mirzoevnik
  */
 @Service
+@Data
+@Transactional
 public class ReferenceServiceImpl implements ReferenceService {
 
     private final ReferenceRepository referenceRepository;
