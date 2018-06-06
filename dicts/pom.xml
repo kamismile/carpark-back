@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>ru.neoflex.microservices.carpark</groupId>
-	<artifactId>dicts</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <groupId>ru.neoflex.microservices.carpark</groupId>
+    <artifactId>dicts</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>dicts-api</module>
         <module>dicts-db</module>
@@ -13,8 +13,8 @@
     </modules>
     <packaging>pom</packaging>
 
-	<name>${artifactId}</name>
-	<description>Dicts service</description>
+    <name>${artifactId}</name>
+    <description>Dicts service</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -136,15 +136,15 @@
 
             <!-- Kafka -->
             <dependency>
-                 <groupId>org.springframework.kafka</groupId>
-                 <artifactId>spring-kafka</artifactId>
-                 <version>${spring-kafka.version}</version>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
             </dependency>
             <dependency>
-                 <groupId>org.springframework.kafka</groupId>
-                 <artifactId>spring-kafka-test</artifactId>
-                 <version>${spring-kafka.version}</version>
-                 <scope>test</scope>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka-test</artifactId>
+                <version>${spring-kafka.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -167,7 +167,34 @@
                         <mainClass>DictsApplication</mainClass>
                     </configuration>
                 </plugin>
+
+                <plugin>
+                    <groupId>@project.groupId@</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>@project.version@</version>
+                </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

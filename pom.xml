@@ -21,8 +21,27 @@
         <module>preorders</module>
         <module>gateway</module>
         <module>report</module>
-		<module>dict-report</module>
+        <module>dict-report</module>
     </modules>
+
+    <properties>
+
+
+        <!--<sonar.jacoco.reportPaths>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPaths>
+        <sonar.jacoco.itReportPaths>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPaths>
+        <jacoco.version>0.7.9</jacoco.version>
+        <sonar.language>java</sonar.language>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>-->
+
+        <sonar.exclusions>
+            **/config/*,
+            **/exception/*,
+            **/dto/*,
+            **/event/*,
+            **/entity/*,
+            **/model/*
+        </sonar.exclusions>
+    </properties>
 
     <profiles>
         <profile>
@@ -36,58 +55,43 @@
                 </sonar.host.url>
             </properties>
             <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.jacoco</groupId>
-                            <artifactId>jacoco-maven-plugin</artifactId>
-                            <version>0.7.8</version>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.20</version>
+                        <configuration>
+                            <!--><-->
+                            <argLine>${argLine} -Xms256m -Xmx2048m</argLine>
+                            <forkCount>1</forkCount>
+                            <runOrder>random</runOrder>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.20</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <argLine>${argLine} -Xmx1024m -XX:MaxPermSize=256m</argLine>
+                                    <forkCount>1</forkCount>
+                                    <runOrder>random</runOrder>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <configuration>
-                            <append>true</append>
-                        </configuration>
                         <executions>
                             <execution>
-                                <id>agent-for-ut</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>agent-for-it</id>
-                                <goals>
-                                    <goal>prepare-agent-integration</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>jacoco-site</id>
+                                <id>report-aggregate</id>
                                 <phase>verify</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>pre-unit-test</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>post-unit-test</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>post-unit-agregate</id>
-                                <phase>test</phase>
                                 <goals>
                                     <goal>report-aggregate</goal>
                                 </goals>

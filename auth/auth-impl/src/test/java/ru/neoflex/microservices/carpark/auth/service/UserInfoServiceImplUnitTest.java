@@ -9,7 +9,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
 
-public class UserInfoServiceImplTest {
+public class UserInfoServiceImplUnitTest {
 
     private static final String ANY = "any";
     private static final String ANYPASS = "anypasss";
