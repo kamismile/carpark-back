@@ -15,7 +15,7 @@ public interface LocationService {
 
     void deactivate(Long locationId);
 
-    public void add(Location location);
+    public Location add(Location location);
 
     public void update(Location location);
 

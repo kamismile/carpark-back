@@ -28,10 +28,9 @@ public class EmployeeService {
                 } else if (Command.ADD.equals(cmd.getCommand())) {
                         cmd.getEntity().setId(null);
                 } else {
-                        Employee oldEmployee =  repository.findByUserId(cmd.getOldEntity().getUserId());
+                        Employee oldEmployee =  repository.findByUserId(cmd.getOldEntity().getUser().getId());
                         repository.delete(oldEmployee);
                         cmd.getEntity().setId(null);
-
                 }
                 repository.save(cmd.getEntity());
         }

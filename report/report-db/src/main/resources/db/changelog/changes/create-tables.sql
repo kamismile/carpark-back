@@ -133,3 +133,5 @@ ALTER TABLE  dict_reference
 ADD COLUMN active BOOLEAN NOT NULL DEFAULT true;
 
 UPDATE dict_reference set active = true;
+
+--changeset rmorenko:2018-06-06

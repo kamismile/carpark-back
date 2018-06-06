@@ -47,6 +47,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     String employeeTopic;
 
     @Autowired
+    UserInfoService userInfoService;
+
+    @Autowired
+    LocationService locationService;
+
+    @Autowired
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, Sender sender) {
         this.employeeRepository = employeeRepository;
         this.sender = sender;
@@ -61,16 +67,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deactivate(String userId) {
         Employee employee = employeeRepository.getByUserId(userId);
         employee.setActive(false);
-        employeeRepository.delete(employee);
+        employeeRepository.save(employee);
         EmployeeCommand employeeCommand = new EmployeeCommand();
         employeeCommand.setCommand(Command.DELETE);
         employeeCommand.setEntity(employee);
         employeeCommand.setMessageDate(new Date());
+        if (employee.getUser() != null) {
+            employee.getUser().setActive(false);
+            userInfoService.uppdateUserInfo(employee.getUser());
+        }
         sender.send(employeeTopic, employeeCommand);
     }
 
     @Override
     public Employee add(Employee employee) {
+        saveUserAndLocation(employee);
         employeeRepository.save(employee);
         EmployeeCommand employeeCommand = new EmployeeCommand();
         employeeCommand.setCommand(Command.ADD);
@@ -78,7 +89,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
         return employee;
+    }
 
+    private void saveUserAndLocation(Employee employee) {
+        if (employee.getUser()!= null && employee.getUser().getId()==null){
+            Long employeeId = userInfoService.addUserInfo(employee.getUser()).getId();
+            employee.getUser().setId(employeeId);
+        }
+        if (employee.getLocation()!= null && employee.getLocation().getId()==null){
+            Long locationId = locationService.add(employee.getLocation()).getId();
+            employee.getLocation().setId(locationId);
+        }
     }
 
     @Override

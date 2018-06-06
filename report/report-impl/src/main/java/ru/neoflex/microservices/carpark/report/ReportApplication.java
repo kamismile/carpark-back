@@ -17,7 +17,6 @@ import ru.neoflex.microservices.carpark.commons.config.*;
 	SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class })
 public class ReportApplication {
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(ReportApplication.class, args);
 

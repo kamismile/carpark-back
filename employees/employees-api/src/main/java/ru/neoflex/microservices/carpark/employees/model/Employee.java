@@ -1,15 +1,9 @@
 package ru.neoflex.microservices.carpark.employees.model;
 
 import lombok.Data;
+import ru.neoflex.microservices.carpark.auth.model.UserInfo;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Column;
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -50,8 +44,9 @@ public class Employee implements Serializable {
     @JoinColumn(name = "LOCATION_ID")
     private Location location;
 
-    @Column(name = "USER_ID")
-    private String userId;
+    @OneToOne
+    @JoinColumn (name = "USER_ID")
+    private UserInfo user;
 
     private boolean active;
 }

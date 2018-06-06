@@ -54,12 +54,13 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public void add(Location location) {
-        locationRepository.save(location);
+    public Location add(Location location) {
+        location = locationRepository.save(location);
         LocationCommand locationCommand = new LocationCommand();
         locationCommand.setCommand(Command.ADD);
         locationCommand.setEntity(location);
         sender.send(locationTopic, locationCommand);
+        return location;
     }
 
     @Override

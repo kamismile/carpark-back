@@ -1,10 +1,7 @@
 package ru.neoflex.microservices.carpark.employees.api;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.employees.model.Location;
 import ru.neoflex.microservices.carpark.employees.model.LocationFilter;
 
@@ -22,7 +19,7 @@ public interface LocationApi {
     @DeleteMapping(value = "/location/deactivate/{locationId}", produces = MediaType.APPLICATION_JSON_VALUE)
     void deactivate(@PathVariable("locationId") Long locationId);
 
-    @PutMapping(value = "/location/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/location/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void add(Location location);
 
     @PutMapping(value = "/location/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
