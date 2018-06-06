@@ -1,6 +1,8 @@
 package ru.neoflex.microservices.carpark.cars.service;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.config.StateMachineFactory;
@@ -19,12 +21,16 @@ public class StateMachinePoolServiceImpl implements StateMachinePoolService {
     private final BlockingQueue<StateMachine<String, String>> machines = new ArrayBlockingQueue<>(maxPollSize, false);
 
     private final StateMachineFactory<String, String> factory;
+    private static final Logger log = LoggerFactory.getLogger(StateMachinePoolServiceImpl.class);
 
     @PostConstruct
     public void init() {
         IntStream.range(0, maxPollSize).forEach(e -> {
             StateMachine<String, String> machine = factory.getStateMachine();
-            machines.offer(machine);
+            boolean successful = machines.offer(machine);
+            if (!successful) {
+                log.warn("Could not add statemachine to cache");
+            }
         });
     }
 
@@ -41,7 +47,10 @@ public class StateMachinePoolServiceImpl implements StateMachinePoolService {
     @Override
     public void giveBack(StateMachine<String, String> machine) {
         if (machine != null && !machine.hasStateMachineError()) {
-            machines.offer(machine);
+            boolean successful = machines.offer(machine);
+            if (!successful) {
+                log.warn("Could not return statemachine to cache");
+            }
         }
     }
 }

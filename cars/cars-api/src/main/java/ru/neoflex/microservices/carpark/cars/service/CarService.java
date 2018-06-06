@@ -5,6 +5,10 @@ import ru.neoflex.microservices.carpark.cars.model.CarFilter;
 
 import java.util.List;
 
+/**
+ * Сервис работы с сущностью автомобиля.
+ * @author Denis_Begun
+ */
 public interface CarService {
 
     List<Car> getAllCars(CarFilter filter);
@@ -15,6 +19,6 @@ public interface CarService {
 
     Car updateCar(Car car);
 
-    void deleteById (Long id);
+    void deleteById(Long id);
 
 }
