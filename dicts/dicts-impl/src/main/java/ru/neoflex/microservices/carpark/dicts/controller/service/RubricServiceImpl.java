@@ -1,12 +1,11 @@
-package ru.neoflex.microservices.carpark.dicts.service;
+package ru.neoflex.microservices.carpark.dicts.controller.service;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.neoflex.microservices.carpark.dicts.model.Rubric;
-import ru.neoflex.microservices.carpark.dicts.repository.RubricRepository;
-import ru.neoflex.microservices.carpark.dicts.service.RubricService;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Rubric;
+import ru.neoflex.microservices.carpark.dicts.controller.repository.RubricRepository;
 
 import java.util.ArrayList;
 import java.util.List;

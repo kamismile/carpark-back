@@ -1,9 +1,7 @@
-package ru.neoflex.microservices.carpark.dicts.api;
+package ru.neoflex.microservices.carpark.dicts.controller.api;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
-import ru.neoflex.microservices.carpark.dicts.model.Reference;
-import ru.neoflex.microservices.carpark.dicts.model.Rubric;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Reference;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Rubric;
 
 import java.util.List;
 

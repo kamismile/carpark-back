@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.dicts.service;
+package ru.neoflex.microservices.carpark.dicts.controller.service;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.neoflex.microservices.carpark.commons.model.Command;
-import ru.neoflex.microservices.carpark.dicts.model.Reference;
-import ru.neoflex.microservices.carpark.dicts.model.ReferenceCommand;
-import ru.neoflex.microservices.carpark.dicts.model.Rubric;
-import ru.neoflex.microservices.carpark.dicts.repository.ReferenceRepository;
-import ru.neoflex.microservices.carpark.dicts.sender.DictSender;
-import ru.neoflex.microservices.carpark.dicts.service.ReferenceService;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Reference;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Rubric;
+import ru.neoflex.microservices.carpark.dicts.controller.model.ReferenceCommand;
+import ru.neoflex.microservices.carpark.dicts.controller.repository.ReferenceRepository;
+import ru.neoflex.microservices.carpark.dicts.controller.sender.DictSender;
 
 import java.util.List;
 

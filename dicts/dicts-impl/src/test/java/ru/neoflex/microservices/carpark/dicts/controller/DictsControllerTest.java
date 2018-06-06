@@ -1,7 +1,5 @@
 package ru.neoflex.microservices.carpark.dicts.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -13,13 +11,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.neoflex.microservices.carpark.dicts.DictsApplication;
-import ru.neoflex.microservices.carpark.dicts.model.Reference;
-import ru.neoflex.microservices.carpark.dicts.model.Rubric;
-import ru.neoflex.microservices.carpark.dicts.service.ReferenceService;
-import ru.neoflex.microservices.carpark.dicts.service.RubricService;
+import ru.neoflex.microservices.carpark.dicts.controller.DictsApplication;
+import ru.neoflex.microservices.carpark.dicts.controller.controller.DictsController;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Reference;
+import ru.neoflex.microservices.carpark.dicts.controller.service.ReferenceService;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Rubric;
+import ru.neoflex.microservices.carpark.dicts.controller.service.RubricService;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
@@ -61,83 +59,78 @@ public class DictsControllerTest {
                 .build();
     }
 
-//    @Test
-//    public void getReferencesByRubricTest() throws Exception {
-//        Rubric rubric = getDefaultRubric();
-//        Reference reference = getDefaultReference();
-//
-//        when(rubricService.findByCode(rubric.getCode())).thenReturn(rubric);
-//        when(referenceService.findByRubric(reference.getRubric())).thenReturn(Arrays.asList(reference));
-//
-//        mockMvc.perform(get("/references/{rubricCode}", reference.getRubric().getCode())
-//                .accept(MediaType.APPLICATION_JSON_VALUE))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//                .andExpect(jsonPath("$", hasSize(1)))
-//                .andExpect(jsonPath("$[0].code", is(reference.getCode())))
-//                .andExpect(jsonPath("$[0].title", is(reference.getTitle())))
-//                .andExpect(jsonPath("$[0].rubric.code", is(reference.getRubric().getCode())))
-//                .andExpect(jsonPath("$[0].rubric.title", is(reference.getRubric().getTitle())))
-//                .andExpect(jsonPath("$[0].rubric.system", is(SYSTEM)))
-//                .andExpect(jsonPath("$[0].system", is(SYSTEM)))
-//                .andExpect(jsonPath("$[0].active", is(ACTIVE)));
-//
-//        verify(rubricService, times(1)).findByCode(rubric.getCode());
-//        verify(referenceService, times(1)).findByRubric(reference.getRubric());
-//        verifyNoMoreInteractions(rubricService);
-//        verifyNoMoreInteractions(referenceService);
-//    }
-//
-//    @Test
-//    public void getRubricsTest() throws Exception {
-//        Rubric rubric = getDefaultRubric();
-//        when(rubricService.findAll()).thenReturn(Arrays.asList(rubric, rubric));
-//
-//        mockMvc.perform(get("/rubrics")
-//                .accept(MediaType.APPLICATION_JSON_VALUE))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//                .andExpect(jsonPath("$", hasSize(2)))
-//                .andExpect(jsonPath("$[0].code", is(rubric.getCode())))
-//                .andExpect(jsonPath("$[0].title", is(rubric.getTitle())))
-//                .andExpect(jsonPath("$[0].system", is(SYSTEM)))
-//                .andExpect(jsonPath("$[1].code", is(rubric.getCode())))
-//                .andExpect(jsonPath("$[1].title", is(rubric.getTitle())))
-//                .andExpect(jsonPath("$[1].system", is(SYSTEM)));
-//
-//        verify(rubricService, times(1)).findAll();
-//        verifyNoMoreInteractions(rubricService);
-//    }
-
     @Test
-    public void createRubricTest() throws Exception {
-        Reference reference = new Reference();
-        doNothing().when(referenceService).createReference(reference);
+    public void getReferencesByRubricTest() throws Exception {
+        Rubric rubric = getNewRubric("1", "Title1", true);
+        Reference reference = getNewReference("1", "Title1", true, true);
 
-        mockMvc.perform(post("/references")
-                .content(mapper.writeValueAsString(reference))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
+        when(rubricService.findByCode(rubric.getCode())).thenReturn(rubric);
+        when(referenceService.findByRubric(rubric)).thenReturn(Arrays.asList(reference));
+
+        mockMvc.perform(get("/references/{rubricCode}", rubric.getCode())
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].code", is(reference.getCode())))
+                .andExpect(jsonPath("$[0].title", is(reference.getTitle())))
+                .andExpect(jsonPath("$[0].rubric.code", is(reference.getRubric().getCode())))
+                .andExpect(jsonPath("$[0].rubric.title", is(reference.getRubric().getTitle())))
+                .andExpect(jsonPath("$[0].rubric.system", is(SYSTEM)))
+                .andExpect(jsonPath("$[0].system", is(SYSTEM)))
+                .andExpect(jsonPath("$[0].active", is(ACTIVE)))
                 .andDo(print());
 
-//        verify(rubricService, times(1)).createRubric(rubric);
-//        verifyNoMoreInteractions(rubricService);
+        verify(rubricService, times(1)).findByCode(rubric.getCode());
+        verify(referenceService, times(1)).findByRubric(reference.getRubric());
+        verifyNoMoreInteractions(rubricService);
+        verifyNoMoreInteractions(referenceService);
     }
 
-    private Rubric getDefaultRubric() {
+    @Test
+    public void getRubricsTest() throws Exception {
+        Rubric rubric2 = getNewRubric("2", "Title2", true);
+        Rubric rubric3 = getNewRubric("3", "Title3", true);
+        when(dictsController.getRubrics()).thenReturn(Arrays.asList(rubric2, rubric3));
+
+        mockMvc.perform(get("/rubrics")
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].code", is(rubric2.getCode())))
+                .andExpect(jsonPath("$[0].title", is(rubric2.getTitle())))
+                .andExpect(jsonPath("$[0].system", is(SYSTEM)))
+                .andExpect(jsonPath("$[1].code", is(rubric3.getCode())))
+                .andExpect(jsonPath("$[1].title", is(rubric3.getTitle())))
+                .andExpect(jsonPath("$[1].system", is(SYSTEM)))
+                .andDo(print());
+    }
+
+    private Rubric getNewRubric(
+            String code,
+            String title,
+            boolean system
+    ) {
         Rubric rubric = new Rubric();
-        rubric.setCode(CODE);
-        rubric.setTitle(TITLE);
-        rubric.setSystem(SYSTEM);
+        rubric.setCode(code);
+        rubric.setTitle(title);
+        rubric.setSystem(system);
         return rubric;
     }
 
-    private Reference getDefaultReference() {
+    private Reference getNewReference(
+            String code,
+            String title,
+            boolean system,
+            boolean active
+    ) {
         Reference reference = new Reference();
-        reference.setCode(CODE);
-        reference.setTitle(TITLE);
-        reference.setSystem(SYSTEM);
-        reference.setActive(SYSTEM);
-        reference.setRubric(getDefaultRubric());
+        reference.setCode(code);
+        reference.setTitle(title);
+        reference.setSystem(system);
+        reference.setActive(active);
+        reference.setRubric(getNewRubric(code, title, system));
         return reference;
     }
 }

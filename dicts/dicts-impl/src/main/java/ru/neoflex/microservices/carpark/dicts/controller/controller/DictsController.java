@@ -1,16 +1,14 @@
-package ru.neoflex.microservices.carpark.dicts.controller;
+package ru.neoflex.microservices.carpark.dicts.controller.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
-import ru.neoflex.microservices.carpark.dicts.api.DictsApi;
-import ru.neoflex.microservices.carpark.dicts.model.Reference;
-import ru.neoflex.microservices.carpark.dicts.model.Rubric;
-import ru.neoflex.microservices.carpark.dicts.service.ReferenceService;
-import ru.neoflex.microservices.carpark.dicts.service.RubricService;
+import ru.neoflex.microservices.carpark.dicts.controller.api.DictsApi;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Reference;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Rubric;
+import ru.neoflex.microservices.carpark.dicts.controller.service.ReferenceService;
+import ru.neoflex.microservices.carpark.dicts.controller.service.RubricService;
 
 import java.util.List;
 

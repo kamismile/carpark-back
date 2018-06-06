@@ -164,7 +164,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ru.neoflex.microservices.carpark.dicts.DictsApplication</mainClass>
+                        <mainClass>DictsApplication</mainClass>
                     </configuration>
                 </plugin>
             </plugins>
