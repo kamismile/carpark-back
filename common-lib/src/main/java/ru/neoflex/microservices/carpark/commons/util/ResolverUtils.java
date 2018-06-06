@@ -24,7 +24,7 @@ public class ResolverUtils {
     public static Boolean getBooleanParameter(NativeWebRequest nativeWebRequest, String parameterName) {
 
         if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))) {
-            return (Boolean) null;
+            return null;
         }
         return  Boolean.valueOf(nativeWebRequest.getParameter(parameterName));
     }
@@ -65,7 +65,7 @@ public class ResolverUtils {
             return Integer.valueOf(stingVal);
         } catch (NumberFormatException ex) {
           log.info(ex.getMessage());
-          return (Integer)null;
+          return null;
         }
     }
 
@@ -78,7 +78,7 @@ public class ResolverUtils {
             return Long.valueOf(stingVal);
         } catch (NumberFormatException ex) {
             log.info(ex.getMessage());
-            return (Long)null;
+            return null;
         }
     }
 
@@ -91,7 +91,7 @@ public class ResolverUtils {
             return Double.valueOf(stingVal);
         } catch (NumberFormatException ex) {
             log.info(ex.getMessage());
-            return (Double)null;
+            return null;
         }
     }
 
