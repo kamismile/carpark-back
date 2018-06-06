@@ -48,6 +48,4 @@ public class LocationController implements LocationApi {
     public List<Location> getAll(LocationFilter filter) {
        return locationService.getAll(filter);
     }
-
-
 }
