@@ -30,9 +30,9 @@
         <!-- Below property indicates the pattern of the test suite --><!-- Sonar-JaCoCo properties -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <!--<sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>-->
-        <sonar.jacoco.reportPath>${project.build.directory}/target/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.jacoco.reportPaths>${project.build.directory}/target/jacoco.exec</sonar.jacoco.reportPaths>
         <!--<sonar.jacoco.itReportPath>${project.basedir}/target/jacoco-it.exec</sonar.jacoco.itReportPath>-->
-        <sonar.jacoco.itReportPath>${project.build.directory}/target/jacoco-it.exec</sonar.jacoco.itReportPath>
+        <sonar.jacoco.itReportPaths>${project.build.directory}/target/jacoco-it.exec</sonar.jacoco.itReportPaths>
         <sonar.language>java</sonar.language>
 
         <sonar.exclusions>
@@ -78,8 +78,6 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <destFile>${sonar.jacoco.ReportPath}</destFile>
-                                    <append>true</append>
                                     <propertyName>surefireArgLine</propertyName>
                                 </configuration>
                             </execution>
@@ -89,9 +87,6 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
-                                <configuration>
-                                    <dataFile>${sonar.jacoco.ReportPath}</dataFile>
-                                </configuration>
                             </execution>
                             <execution>
                                 <id>pre-integration-test</id>
@@ -100,9 +95,8 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <destFile>${sonar.jacoco.itReportPath}</destFile>
+                                    <destFile>${project.build.directory}/jacoco-it.exec</destFile>
                                     <propertyName>failsafeArgLine</propertyName>
-                                    <append>true</append>
                                 </configuration>
                             </execution>
                             <execution>
@@ -112,7 +106,7 @@
                                     <goal>report</goal>
                                 </goals>
                                 <configuration>
-                                    <dataFile>${sonar.jacoco.itReportPath}</dataFile>
+                                    <dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
                                     <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
                                 </configuration>
                             </execution>
@@ -146,6 +140,7 @@
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
+                                    <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                                     <argLine>${argLine} -Xmx1024m -XX:MaxPermSize=256m ${failsafeArgLine}</argLine>
                                     <skipTests>${skipTests}</skipTests>
                                 </configuration>
