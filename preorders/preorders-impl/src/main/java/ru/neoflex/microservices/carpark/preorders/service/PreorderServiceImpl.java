@@ -43,18 +43,18 @@ public class PreorderServiceImpl implements PreorderService {
         return preorder;
     }
 
-    @Override
-    public void deletePreoder(Long id) {
-        Preorder preorder = preorderRepository.findOne(id);
-        preorderRepository.delete(id);
-    }
+//    @Override
+//    public void deletePreoder(Long id) {
+//        Preorder preorder = preorderRepository.findOne(id);
+//        preorderRepository.delete(id);
+//    }
 
-    @Override
-    public Preorder updatePreorder(Preorder preorder) {
-        checkPreorder(preorder);
-        preorder = preorderRepository.save(preorder);
-        return preorder;
-    }
+//    @Override
+//    public Preorder updatePreorder(Preorder preorder) {
+//        checkPreorder(preorder);
+//        preorder = preorderRepository.save(preorder);
+//        return preorder;
+//    }
 
     @Override
     public NextStatus getNextStatusForCar(Long carId) {

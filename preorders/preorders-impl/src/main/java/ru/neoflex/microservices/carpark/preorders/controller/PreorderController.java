@@ -28,44 +28,41 @@ public class PreorderController implements PreorderApi {
     private final KafkaProducerService kafkaService;
 
     @Override
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Preorder> getAllPreorders(UserInfo userInfo) {
         return preorderService.findAll();
     }
 
     @Override
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Preorder getPreorder(UserInfo userInfo, @PathVariable Long id) {
+    public Preorder getPreorder(UserInfo userInfo, @PathVariable(name = "id") Long id) {
         return preorderService.getPreorder(id);
     }
 
     @Override
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public Preorder addPreorder(UserInfo userInfo, @RequestBody Preorder preorder) {
         preorder.setCreatedByUser(userInfo.getName());
         preorder = preorderService.addPreorder(preorder);
-        makeNotification (userInfo, preorder.getCarId());
+        makeNotification(userInfo, preorder.getCarId());
         preorder.setCreatedByUser(userInfo.getName());
         return preorder;
     }
 
-    @Override
-    @DeleteMapping(value = "/{id}")
-    public void deletePreoder(UserInfo userInfo, @PathVariable Long id) {
+//    @Override
+//    @DeleteMapping(value = "/{id}")
+//    public void deletePreoder(UserInfo userInfo, @PathVariable Long id) {
+//
+//        Long carId = preorderService.getPreorder(id).getCarId();
+//        makeNotification (userInfo, carId);
+//        preorderService.deletePreoder(id);
+//
+//    }
 
-        Long carId = preorderService.getPreorder(id).getCarId();
-        makeNotification (userInfo, carId);
-        preorderService.deletePreoder(id);
-
-    }
-
-    @Override
-    @PutMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Preorder updatePreorder(UserInfo userInfo, @RequestBody Preorder preorder) {
-        preorder = preorderService.updatePreorder(preorder);
-        makeNotification (userInfo, preorder.getCarId());
-        return preorder;
-    }
+//    @Override
+//    @PutMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public Preorder updatePreorder(UserInfo userInfo, @RequestBody Preorder preorder) {
+//        preorder = preorderService.updatePreorder(preorder);
+//        makeNotification (userInfo, preorder.getCarId());
+//        return preorder;
+//    }
 
     private void makeNotification(UserInfo userInfo, @PathVariable Long carId) {
         NextStatus ns = preorderService.getNextStatusForCar(carId);
