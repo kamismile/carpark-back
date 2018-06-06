@@ -167,7 +167,7 @@ where message_date <= $P{report_date}]]>
 	</columnHeader>
 	<detail>
 		<band height="30" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="163" height="30" uuid="faa02e5f-871d-49d8-a9cb-fba6fe8454b2"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -178,7 +178,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{mark_desc}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="163" y="0" width="129" height="30" uuid="adda73b0-d3ee-4457-9b00-788151fc8c73"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -189,7 +189,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{reg_number}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="292" y="0" width="100" height="30" uuid="eb9205e9-f366-4132-af28-7bd71a1037d0"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -200,7 +200,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="392" y="0" width="100" height="30" uuid="7222476b-6ef7-4ed0-84a5-ab0e340def0d"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -211,7 +211,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{mileage}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
 				<reportElement x="492" y="0" width="100" height="30" uuid="254707a9-a175-4c5e-947f-28c2be5cfb59"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -222,7 +222,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{prev_maintenance_date}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
 				<reportElement x="592" y="0" width="100" height="30" uuid="0a880c65-cedc-4278-b849-ffbbf12ad27a"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -233,7 +233,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{next_maintenance_date}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="692" y="0" width="100" height="30" uuid="67eb766c-936b-4d9b-983b-099a3fe54a6c"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -244,7 +244,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{curent_status_desc}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
 				<reportElement x="1091" y="0" width="169" height="30" uuid="a8e13ff3-0e79-4f7a-839c-62f7b8f1f94b"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -255,7 +255,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{next_status_date}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="957" y="0" width="134" height="30" uuid="2d2d91df-4a41-4798-9a66-bdf028fb03ea"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
@@ -266,7 +266,7 @@ where message_date <= $P{report_date}]]>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{next_status_desc}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
 				<reportElement x="792" y="0" width="165" height="30" uuid="44fc7f01-b76f-4005-88fa-1c4e8e2a4691"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="0.5"/>
