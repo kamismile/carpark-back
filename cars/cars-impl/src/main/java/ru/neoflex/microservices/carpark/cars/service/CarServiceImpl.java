@@ -14,8 +14,6 @@ import ru.neoflex.microservices.carpark.cars.repository.CarRepository;
 import javax.transaction.Transactional;
 import java.util.List;
 
-
-
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Transactional
@@ -55,6 +53,4 @@ public class CarServiceImpl implements CarService {
     public void deleteById(Long id) {
         carRepository.delete(id);
     }
-
-
 }
