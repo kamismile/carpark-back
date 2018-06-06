@@ -2,6 +2,7 @@ package ru.neoflex.microservices.carpark.employees.model;
 
 import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getBooleanParameter;
 import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getDateParameter;
+import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getLongParameter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
@@ -49,7 +50,7 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
         employeeFilter.setLocations(locations);
         employeeFilter.setAppointmentDateFrom(getDateParameter(nativeWebRequest, "appointmentDateFrom"));
         employeeFilter.setAppointmentDateTo(getDateParameter(nativeWebRequest, "appointmentDateFrom"));
-        employeeFilter.setUserId(nativeWebRequest.getParameter("useId"));
+        employeeFilter.setUserId(getLongParameter(nativeWebRequest,"useId"));
         employeeFilter.setActive(getBooleanParameter(nativeWebRequest,"active"));
         return employeeFilter;
     }
