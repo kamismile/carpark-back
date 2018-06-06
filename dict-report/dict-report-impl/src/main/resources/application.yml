@@ -2,7 +2,7 @@ server:
   port: ${PORT_TO_EXPOSE:8080}
 
 kafka:
-  bootstrap-servers: kafka01.kafka:9092
+  bootstrap-servers: kafka01.kafka:9092, kafka02.kafka:9092, kafka03.kafka:9092
   topic:
     reference: reference.t
 
