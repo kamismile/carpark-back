@@ -28,8 +28,6 @@ public class JpaConfig {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBean localSessionFactory = new LocalSessionFactoryBean();
         localSessionFactory.setDataSource(dataSource);
-        localSessionFactory
-                        .setPackagesToScan("ru.vtb.dbo.cancelreq.domain");
         return localSessionFactory;
     }
 }
