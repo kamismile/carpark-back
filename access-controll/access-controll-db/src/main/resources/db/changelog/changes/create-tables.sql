@@ -35,4 +35,4 @@ VALUES ('updateCar','#userInfo.role == ''administrator''');
 UPDATE  ACCESS_EXPRESSIONS  SET expression =
 '#userInfo.role == ''management'' || ( #userInfo.role == ''rental_manager'' &&  ( #stringEvent == ''READY'' || #stringEvent == ''IN_USE'' ) )'||
 '|| ( #userInfo.role == ''service_manager'' &&  #stringEvent == ''IN_SERVICE'')'
-WHERE operation_name = 'updateCar';
+WHERE operation_name = 'changeCarState';

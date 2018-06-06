@@ -17,8 +17,10 @@ import ru.neoflex.microservices.carpark.cars.model.States;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.report.model.CarCommand;
+import ru.neoflex.microservices.carpark.report.model.HistoryCarModel;
 import ru.neoflex.microservices.carpark.report.reciver.Receiver;
 import ru.neoflex.microservices.carpark.report.reciver.Sender;
+import ru.neoflex.microservices.carpark.report.repository.CarEventRepository;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
@@ -38,6 +40,9 @@ public class ReportResource {
         public static final String RENTAL_REPORT = "/car_rental.jrxml";
         @Autowired
         private Sender sender;
+
+        @Autowired
+        CarEventRepository repository;
 
         @Autowired
         private DataSource dataSource;
@@ -75,7 +80,11 @@ public class ReportResource {
                 info.setLocationId(1L);
                 command.setUserInfo(info);
                 sender.send(carTopic,command);
+        }
 
+        @GetMapping (value = "/history", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        public HistoryCarModel getHistory(UserInfo userInfo){
+             CarEventRepository carEventRepository = CarEventRepository();
         }
 
         @GetMapping(value = "/report", produces = "application/xlsx")

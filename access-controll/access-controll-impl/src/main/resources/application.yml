@@ -51,9 +51,9 @@ security:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:postgresql://172.19.19.226:31564/accesscontroll
-    username: accesscontroll
-    password: accesscontroll
+    url: jdbc:postgresql://172.19.19.226:31564/accesscontrol
+    username: accesscontrol
+    password: accesscontrol
     driver-class-name: org.postgresql.Driver
   liquibase:
     default-schema: public
