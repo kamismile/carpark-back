@@ -26,13 +26,11 @@
 
     <properties>
         <!--<sonar.sources>src/main</sonar.sources>
-        <sonar.tests>src/test</sonar.tests>
+        <sonar.tests>src/test</sonar.tests>-->
 
-        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-        <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
-        <sonar.jacoco.reportPaths>${project.build.directory}/target/jacoco.exec</sonar.jacoco.reportPaths>
-        <sonar.jacoco.itReportPath>${project.basedir}/target/jacoco-it.exec</sonar.jacoco.itReportPath>
-        <sonar.jacoco.itReportPaths>${project.build.directory}/target/jacoco-it.exec</sonar.jacoco.itReportPaths>-->
+        <jacoco.version>0.7.9</jacoco.version>
+        <sonar.jacoco.reportPaths>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPaths>
+        <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 
@@ -71,44 +69,29 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.7.9</version>
+                        <version>${jacoco.version}</version>
                         <executions>
                             <execution>
-                                <id>pre-unit-test</id>
+                                <id>agent-for-ut</id>
                                 <goals>
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
+                                    <append>true</append>
+                                    <destFile>${sonar.jacoco.reportPaths}</destFile>
                                     <propertyName>surefireArgLine</propertyName>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>post-unit-test</id>
-                                <phase>test</phase>
+                                <id>agent-for-it</id>
+                                <phase>package</phase>
                                 <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>pre-integration-test</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>prepare-agent</goal>
+                                    <goal>prepare-agent-integration</goal>
                                 </goals>
                                 <configuration>
-                                    <destFile>${project.build.directory}/jacoco-it.exec</destFile>
+                                    <append>true</append>
+                                    <destFile>${sonar.jacoco.itReportPath}</destFile>
                                     <propertyName>failsafeArgLine</propertyName>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>post-integration-test</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                                <configuration>
-                                    <dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
-                                    <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
                                 </configuration>
                             </execution>
                         </executions>
