@@ -144,6 +144,25 @@
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <artifactId>cars-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <artifactId>dicts-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <artifactId>auth-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
             <!-- h2 for test -->
             <dependency>
                 <groupId>com.h2database</groupId>

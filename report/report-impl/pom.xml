@@ -163,19 +163,16 @@
         <dependency>
             <groupId>ru.neoflex.microservices.carpark</groupId>
             <artifactId>cars-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>ru.neoflex.microservices.carpark</groupId>
             <artifactId>dicts-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>ru.neoflex.microservices.carpark</groupId>
-            <artifactId>dicts-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>auth-api</artifactId>
         </dependency>
 
         <dependency>
