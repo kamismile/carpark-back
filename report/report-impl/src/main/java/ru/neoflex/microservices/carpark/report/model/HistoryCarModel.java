@@ -8,7 +8,8 @@ import ru.neoflex.microservices.carpark.employees.model.Employee;
  * @author rmorenko
  */
 @Data
-public class HistoryCarModel extends Car{
+public class HistoryCarModel extends CarEvent{
+
   String fio;
   String address;
 

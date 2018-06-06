@@ -10,4 +10,5 @@ import ru.neoflex.microservices.carpark.employees.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
         Employee findByUserId(Long userId);
+
 }
