@@ -25,9 +25,9 @@
     </modules>
 
     <properties>
-        <sonar.sources>src/main</sonar.sources>
+        <!--<sonar.sources>src/main</sonar.sources>
         <sonar.tests>src/test</sonar.tests>
-        <!-- Below property indicates the pattern of the test suite --><!-- Sonar-JaCoCo properties
+        
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.jacoco.reportPaths>${project.build.directory}/target/jacoco.exec</sonar.jacoco.reportPaths>
