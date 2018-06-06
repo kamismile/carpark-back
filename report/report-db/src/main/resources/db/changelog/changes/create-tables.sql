@@ -253,7 +253,7 @@ CREATE TABLE employee (
   position VARCHAR(100) NOT NULL,
   appointment_date DATE NOT NULL,
   location_id INTEGER REFERENCES location(id) NOT NULL,
-  user_id VARCHAR(100) NOT NULL
+  user_id INTEGER NOT NULL
 );
 --changeset rmorenko:2018-06-06-17
 ALTER TABLE  employee
@@ -363,7 +363,6 @@ ALTER SEQUENCE employee_id_seq RESTART WITH 500;
 --changeset rmorenko:alter-tables
 ALTER TABLE  car_event
 ADD COLUMN employee_id BIGINT;
-
 
 
 
