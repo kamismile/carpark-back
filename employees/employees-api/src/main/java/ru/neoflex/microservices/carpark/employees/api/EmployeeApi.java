@@ -20,7 +20,7 @@ public interface EmployeeApi {
     @DeleteMapping(value = "/employee/deactivate/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     void deactivate(@PathVariable("userId") Long userId);
 
-    @PutMapping(value = "/employee/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/employee/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     Employee add(@RequestBody Employee employee);
 
     @PutMapping(value = "/employee/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
