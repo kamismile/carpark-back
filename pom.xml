@@ -76,6 +76,7 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
+                                    <append>true</append>
                                     <propertyName>surefireArgLine</propertyName>
                                 </configuration>
                             </execution>
@@ -95,6 +96,7 @@
                                 <configuration>
                                     <destFile>${project.build.directory}/jacoco-it.exec</destFile>
                                     <propertyName>failsafeArgLine</propertyName>
+                                    <append>true</append>
                                 </configuration>
                             </execution>
                             <execution>
