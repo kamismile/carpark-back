@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.dicts;
+package ru.neoflex.microservices.carpark.dicts.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

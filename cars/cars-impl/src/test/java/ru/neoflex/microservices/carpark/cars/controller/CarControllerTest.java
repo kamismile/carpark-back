@@ -42,7 +42,8 @@ public class CarControllerTest {
         carRepository = mock(CarRepository.class);
         car = getDefaultCar();
         carRepository.save(car);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(carController)
+        this.mockMvc = MockMvcBuilders
+                .standaloneSetup(carController)
                 .build();
     }
 

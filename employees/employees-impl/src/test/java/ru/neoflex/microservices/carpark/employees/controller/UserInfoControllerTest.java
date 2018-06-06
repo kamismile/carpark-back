@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.auth.controlller;
+package ru.neoflex.microservices.carpark.employees.controller;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.neoflex.microservices.carpark.auth.model.UserInfo;
-import ru.neoflex.microservices.carpark.auth.service.UserInfoService;
+import ru.neoflex.microservices.carpark.employees.service.UserInfoService;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,7 +28,7 @@ public class UserInfoControllerTest {
     private static final long ID = 1L;
     private MockMvc mockMvc;
 
-    /*@Mock
+    @Mock
     private UserInfoService userInfoService;
 
     @InjectMocks
@@ -77,5 +77,5 @@ public class UserInfoControllerTest {
         userInfoDef.setRole(USER_ROLE);
         userInfoDef.setId(ID);
         return userInfoDef;
-    }*/
+    }
 }

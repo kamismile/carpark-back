@@ -69,11 +69,13 @@ public class PreorderController implements PreorderApi {
 
     private void makeNotification(UserInfo userInfo, @PathVariable Long carId) {
         NextStatus ns = preorderService.getNextStatusForCar(carId);
-        NextStatusEvent nse = new NextStatusEvent();
-        nse.setCommand(Command.UPDATE);
-        nse.setEntity(ns);
-        nse.setUserInfo(userInfo);
-        nse.setMessageDate(new Date());
-        kafkaService.sendMessage(nse);
+        if (ns != null) {
+            NextStatusEvent nse = new NextStatusEvent();
+            nse.setCommand(Command.UPDATE);
+            nse.setEntity(ns);
+            nse.setUserInfo(userInfo);
+            nse.setMessageDate(new Date());
+            kafkaService.sendMessage(nse);
+        }
     }
 }
