@@ -18,10 +18,9 @@ import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.report.model.CarCommand;
 import ru.neoflex.microservices.carpark.report.model.CarEvent;
-import ru.neoflex.microservices.carpark.report.reciver.Receiver;
 import ru.neoflex.microservices.carpark.report.reciver.Sender;
 import ru.neoflex.microservices.carpark.report.repository.CarEventRepository;
-import ru.neoflex.microservices.carpark.report.repository.EmployeeRepository;
+
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
@@ -37,27 +36,26 @@ import java.util.*;
 @Slf4j
 public class ReportResource {
 
-        public static final String RENTAL_MANAGER = "rental_manager";
-        public static final String DEFAULT_REPORT = "/car.jrxml";
-        public static final String RENTAL_REPORT = "/car_rental.jrxml";
-        @Autowired
+        private static final String RENTAL_MANAGER = "rental_manager";
+        private static final String DEFAULT_REPORT = "/car.jrxml";
+        private static final String RENTAL_REPORT = "/car_rental.jrxml";
+
         private Sender sender;
 
-        @Autowired
-        CarEventRepository carEventRepository;
+        private CarEventRepository carEventRepository;
 
-        @Autowired
-        EmployeeRepository employeeRepository;
-
-        @Autowired
         private DataSource dataSource;
 
         @Value("${kafka.topic.car}")
          String carTopic;
 
-
         @Autowired
-        private Receiver receiver;
+        public ReportResource(Sender sender, CarEventRepository carEventRepository,
+                               DataSource dataSource ) {
+                this.carEventRepository = carEventRepository;
+                this.sender = sender;
+                this.dataSource = dataSource;
+        }
 
         /**
          * use only for testing
@@ -88,21 +86,26 @@ public class ReportResource {
         }
 
         @GetMapping (value = "/history", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public List<CarEvent> getHistory(UserInfo userInfo,  @RequestParam (required = false, defaultValue = "0") Long date){
-             Date dateOfHistory = date != 0 ? new Date(date) : new Date();
+        public List<CarEvent> getHistory(UserInfo userInfo, @RequestParam (value = "date", required = false) Long date) {
+                Date reportDate = getDateReport(date);
              if (isRentalRole(userInfo)){
-                return  carEventRepository.findByMessageDateAndLocationId(dateOfHistory, userInfo.getLocationId());
+                return  carEventRepository.findByMessageDateAndLocationId(reportDate, userInfo.getLocationId());
              }
-             return carEventRepository.findByMessageDate(dateOfHistory);
+             return carEventRepository.findByMessageDate(reportDate);
+        }
+
+        private Date getDateReport(@RequestParam(value = "date", required = false) Long date) {
+                Date reportDate = new Date();
+                if (date != null && date > 0){
+                     reportDate = new Date();
+                }
+                return reportDate;
         }
 
         @GetMapping(value = "/report", produces = "application/xlsx")
         public byte[] report(UserInfo userInfo, @RequestParam(value = "date", required = false) Long date) {
 
-                Date reportDate = new Date();
-                if (date != null && date > 0){
-                   reportDate = new Date();
-                }
+                Date reportDate = getDateReport(date);
 
                 Calendar calendar = new GregorianCalendar();
                 calendar.setTime(reportDate);
@@ -137,7 +140,7 @@ public class ReportResource {
         }
 
         private boolean isRentalRole(UserInfo userInfo) {
-                return RENTAL_MANAGER.equals(userInfo.getRole())?true:false;
+                return RENTAL_MANAGER.equals(userInfo.getRole());
         }
 
         private byte[] getReportBytes(JasperPrint jasperPrint) throws JRException {

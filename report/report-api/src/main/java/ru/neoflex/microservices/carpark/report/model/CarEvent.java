@@ -70,7 +70,7 @@ public class CarEvent {
     @Column(name="MESSAGE_TYPE")
     private String messageType;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
