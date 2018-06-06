@@ -39,7 +39,9 @@
             **/dto/*,
             **/event/*,
             **/entity/*,
-            **/model/*
+            **/model/*,
+            *Application.java,
+            SecureCookieFilter
         </sonar.exclusions>
     </properties>
 
