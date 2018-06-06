@@ -40,8 +40,8 @@
             **/event/*,
             **/entity/*,
             **/model/*,
-            *Application.java,
-            SecureCookieFilter
+            **/*Application.java,
+            **/SecureCookieFilter.java
         </sonar.exclusions>
     </properties>
 
