@@ -151,8 +151,27 @@
                         <mainClass>ru.neoflex.microservices.carpark.auth.AuthApplication</mainClass>
                     </configuration>
                 </plugin>
+                    <plugin>
+                        <groupId>@project.groupId@</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>@project.version@</version>
+                    </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
