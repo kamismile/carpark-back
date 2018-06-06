@@ -26,7 +26,6 @@ public class EmployeeService {
         @Autowired
         UserInfoRepository userInfoRepository;
 
-
         public void save(EmployeeCommand cmd) {
                 if (Command.DELETE.equals(cmd.getCommand())) {
                         cmd.getEntity().setActive(false);
