@@ -18,20 +18,12 @@ import java.util.concurrent.CountDownLatch;
 @Data
 public class Receiver {
 
-        private CountDownLatch latch = new CountDownLatch(1);
+    @Autowired
+    ReferenceService referenceService;
 
-        public CountDownLatch getLatch() {
-                return latch;
-        }
-
-        @Autowired
-        ReferenceService referenceService;
-
-        @KafkaListener(topics = "${kafka.topic.reference}")
-        public void receiveReference(ReferenceCommand referenceCommand) {
-                log.info("received command='{}'", referenceCommand.toString());
-                latch.countDown();
-                referenceService.save(referenceCommand);
-        }
-
+    @KafkaListener(topics = "${kafka.topic.reference}")
+    public void receiveReference(ReferenceCommand referenceCommand) {
+        log.info("received command='{}'", referenceCommand.toString());
+        referenceService.save(referenceCommand);
+    }
 }

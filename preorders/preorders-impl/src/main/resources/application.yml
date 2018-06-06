@@ -54,7 +54,7 @@ security:
                   yQIDAQAB
                   -----END PUBLIC KEY-----
 kafka:
-  bootstrap: 54.158.77.53:9092
+  bootstrap: kafka01.kafka:9092,kafka02.kafka:9092,kafka03.kafka:9092
   orders:
     topic: next.status
 
