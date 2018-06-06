@@ -360,5 +360,13 @@ VALUES ('14', 'Аркадий', 'Уваров', 'Валентинович', '485
 
 ALTER SEQUENCE employee_id_seq RESTART WITH 500;
 
+--changeset rmorenko:alter-tables
+ALTER TABLE  car_event
+ADD COLUMN employee_id BIGINT;
+
+ALTER TABLE  car_event
+ADD COLUMN location_id BIGINT;
+
+
 
 

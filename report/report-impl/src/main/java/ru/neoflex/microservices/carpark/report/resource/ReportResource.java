@@ -6,7 +6,6 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -17,10 +16,8 @@ import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.model.States;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
-import ru.neoflex.microservices.carpark.employees.model.Employee;
 import ru.neoflex.microservices.carpark.report.model.CarCommand;
 import ru.neoflex.microservices.carpark.report.model.CarEvent;
-import ru.neoflex.microservices.carpark.report.model.HistoryCarModel;
 import ru.neoflex.microservices.carpark.report.reciver.Receiver;
 import ru.neoflex.microservices.carpark.report.reciver.Sender;
 import ru.neoflex.microservices.carpark.report.repository.CarEventRepository;
@@ -91,31 +88,12 @@ public class ReportResource {
         }
 
         @GetMapping (value = "/history", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public List<HistoryCarModel> getHistory(UserInfo userInfo,  @RequestParam (required = false, defaultValue = "0") Long date){
+        public List<CarEvent> getHistory(UserInfo userInfo,  @RequestParam (required = false, defaultValue = "0") Long date){
              Date dateOfHistory = date != 0 ? new Date(date) : new Date();
-             List<Employee> employees =  employeeRepository.findAll();
-
-             Map<String, Employee> employeesMap =  employees.stream().collect(
-                     Collectors.toMap(employee ->
-                             employee.getUser().getLogin(),
-                             employee -> employee, (e1, e2)-> e1));
-             List<CarEvent> carEvent = carEventRepository.findByMessageDate(dateOfHistory);
-             return carEvent.stream().map(e -> {
-                     HistoryCarModel historyCarModel = new HistoryCarModel();
-                     BeanUtils.copyProperties(e, historyCarModel);
-                     return historyCarModel;
-             }).map(historyCarModel -> fillHistoryModel(employeesMap, historyCarModel)).collect(Collectors.toList());
-        }
-
-        private HistoryCarModel fillHistoryModel(Map<String, Employee> employeesMap, HistoryCarModel historyCarModel) {
-                String name = employeesMap.get(historyCarModel.getUserName()).getName();
-                String surname = employeesMap.get(historyCarModel.getUserName()).getSurname();
-                String partonymic = employeesMap.get(historyCarModel.getUserName()).getPatronymic();
-                historyCarModel.setFio(""+surname + " " + name + " " +  partonymic);
-                historyCarModel.setFio(""+surname + " " + name + " " +  partonymic);
-                String address = employeesMap.get(historyCarModel.getUserName()).getLocation().getAddress();
-                historyCarModel.setAddress(address);
-                return historyCarModel;
+             if (isRentalRole(userInfo)){
+                return  carEventRepository.findByMessageDateAndLocationId(dateOfHistory, userInfo.getLocationId());
+             }
+             return carEventRepository.findByMessageDate(dateOfHistory);
         }
 
         @GetMapping(value = "/report", produces = "application/xlsx")
