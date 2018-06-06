@@ -34,8 +34,7 @@ spring.jackson:
     WRITE_DATES_AS_TIMESTAMPS: false
     FAIL_ON_EMPTY_BEANS: false
   default-property-inclusion: non_null
-  date-format: org.codehaus.jackson.map.util.ISO8601DateFormat
-  time-zone: UTC
+  date-format: yyyy-MM-dd
 
 feign:
   oauth2.enabled: true
