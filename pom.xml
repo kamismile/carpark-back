@@ -79,7 +79,7 @@
                                 <configuration>
                                     <append>true</append>
                                     <destFile>${sonar.jacoco.reportPaths}</destFile>
-                                    <propertyName>surefireArgLine</propertyName>
+                                    <!--<propertyName>surefireArgLine</propertyName>-->
                                 </configuration>
                             </execution>
                             <execution>
@@ -91,7 +91,7 @@
                                 <configuration>
                                     <append>true</append>
                                     <destFile>${sonar.jacoco.itReportPath}</destFile>
-                                    <propertyName>failsafeArgLine</propertyName>
+                                    <!--<propertyName>failsafeArgLine</propertyName>-->
                                 </configuration>
                             </execution>
                         </executions>
