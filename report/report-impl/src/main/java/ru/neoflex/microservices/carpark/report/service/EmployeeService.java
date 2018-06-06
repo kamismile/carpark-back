@@ -13,6 +13,8 @@ import ru.neoflex.microservices.carpark.report.repository.EmployeeRepository;
 import ru.neoflex.microservices.carpark.report.repository.LocationRepository;
 import ru.neoflex.microservices.carpark.report.repository.UserInfoRepository;
 
+import javax.persistence.NoResultException;
+
 /**
  * @author rmorenko
  */
@@ -28,23 +30,28 @@ public class EmployeeService {
         UserInfoRepository userInfoRepository;
 
         public void save(EmployeeCommand cmd) {
-                String login = cmd.getEntity().getUser().getLogin();
-                UserInfo newUser = cmd.getEntity().getUser();
+                UserInfo newUserInfo = getNewUserInfo(cmd.getEntity(),Command.DELETE.equals(cmd.getCommand()));
+                cmd.getEntity().setUser(newUserInfo);
+                repository.save(cmd.getEntity());
+        }
+
+        private UserInfo getNewUserInfo(Employee employee, boolean active){
+                String login = employee.getUser().getLogin();
+                UserInfo newUser = employee.getUser();
                 Employee oldEmployee = null;
                 try {
-                      oldEmployee = repository.findByUserLogin(login);
-                } catch (HibernateException ex){
-                        oldEmployee = null;
+                     oldEmployee = repository.findByUserLogin(login);
+                } catch (Exception ex){
+                        newUser.setId(null);
                 }
                 if (oldEmployee == null) {
-                     newUser.setId(null);
+                      newUser.setId(null);
                 } else {
-                    Long oldUserId = oldEmployee.getUser().getId();
-                    newUser.setId(oldUserId);
+                        Long oldUserId = oldEmployee.getUser().getId();
+                        newUser.setId(oldUserId);
                 }
-                newUser = userInfoRepository.save(newUser);
-                cmd.getEntity().setUser(newUser);
-                repository.save(oldEmployee);
+                newUser.setActive(active);
+                return userInfoRepository.save(newUser);
         }
 
 }
