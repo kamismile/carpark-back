@@ -2,11 +2,11 @@ server:
   port: ${PORT_TO_EXPOSE:8080}
 
 kafka:
-  bootstrap: kafka01.kafka:31610
+  bootstrap: kafka01.kafka:9092
   cars:
     topic: car.t
   orders:
-    topic: orders
+    topic: next.status
     group-id: 1
 
 spring:
@@ -21,19 +21,21 @@ spring:
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
   jpa:
-    show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     properties:
       hibernate:
-        default_schema: public
+        jdbc:
+          time_zone: UTC
         temp:
           use_jdbc_metadata_defaults: false
+
 spring.jackson:
   serialization:
     WRITE_DATES_AS_TIMESTAMPS: false
     FAIL_ON_EMPTY_BEANS: false
   default-property-inclusion: non_null
-  date-format: yyyy-mm-dd
+  date-format: org.codehaus.jackson.map.util.ISO8601DateFormat
+  time-zone: UTC
 
 feign:
   oauth2.enabled: true
@@ -89,5 +91,5 @@ kafka:
   cars:
     topic: car.t
   orders:
-    topic: orders
+    topic: next.status
     group-id: 1

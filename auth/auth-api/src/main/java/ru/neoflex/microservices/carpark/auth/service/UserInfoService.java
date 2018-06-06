@@ -7,7 +7,5 @@ import ru.neoflex.microservices.carpark.auth.model.UserInfo;
  */
 public interface UserInfoService {
 
-    UserInfo getByLogin(String login);
-
     UserInfo authenticateUserByLoginAndPassword(String login, String password);
 }

@@ -12,6 +12,8 @@ import ru.neoflex.microservices.carpark.employees.service.LocationService;
 import java.util.List;
 
 /**
+ * Controller for locations.
+ *
  * @author mirzoevnik
  */
 @RestController

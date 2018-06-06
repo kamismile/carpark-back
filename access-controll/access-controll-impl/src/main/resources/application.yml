@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://service-postgres.postgres:5432/accesscontroll
-    username: accesscontroll
-    password: accesscontroll
+    url: jdbc:postgresql://service-postgres.postgres:5432/accesscontrol
+    username: accesscontrol
+    password: accesscontrol
     driver-class-name: org.postgresql.Driver
   liquibase:
     default-schema: public

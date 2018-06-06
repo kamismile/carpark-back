@@ -7,7 +7,7 @@ public class CarNotAvailableException extends RuntimeException {
 
     private final SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd");
 
-    private static final String MESSAGE = "Preorder could not be created, car already booked for dates:  '%s' - '%s'";
+    private static final String MESSAGE = "Выбранные даты недоступны, уже есть предзаказ на даты:  '%s' - '%s'";
 
     private CarNotAvailableException(String message) {
         super(message);

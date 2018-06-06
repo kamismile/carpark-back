@@ -7,7 +7,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 
-/**
+/** Kafka  template.
+ *
  * @author rmorenko
  */
 @Slf4j

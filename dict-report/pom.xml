@@ -139,7 +139,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ru.neoflex.microservices.carpark.dict.report.ReportApplication</mainClass>
+                        <mainClass>ru.neoflex.microservices.carpark.dict.report.DictReportApplication</mainClass>
                     </configuration>
                 </plugin>
             </plugins>

@@ -5,101 +5,107 @@ import org.springframework.util.ObjectUtils;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
 import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 
-;
-
-
+/**
+ * SpringData specifications for employee filter.
+ *
+ * @author rmorenko
+ */
 public class EmployeeSprecifications {
 
-    public static Specification<Employee> employeeLikeName(EmployeeFilter filter){
+    private EmployeeSprecifications(){
+        super();
+    }
+
+    public static Specification<Employee> employeeLikeName(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (filter.getName()==null){
+            if (filter.getName() == null) {
                 return null;
             }
             return  cb.like(root.get("name"), filter.getName());
         };
     }
 
-    public static Specification<Employee> employeeLikeSurname(EmployeeFilter filter){
+    public static Specification<Employee> employeeLikeSurname(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (filter.getSurname()==null){
+            if (filter.getSurname() == null) {
                 return null;
             }
             return  cb.like(root.get("surname"), filter.getSurname());
         };
     }
 
-    public static Specification<Employee> employeeLikePatronymic(EmployeeFilter filter){
+    public static Specification<Employee> employeeLikePatronymic(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (filter.getPatronymic()==null){
+            if (filter.getPatronymic() == null) {
                 return null;
             }
             return  cb.like(root.get("patronymic"), filter.getPatronymic());
         };
     }
 
-    public static Specification<Employee> employeeHasUserId(EmployeeFilter filter){
+    public static Specification<Employee> employeeHasUserId(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (filter.getUserId()==null){
+            if (filter.getUserId() == null) {
                 return null;
             }
             return  cb.like(root.get("userId"), filter.getUserId());
         };
     }
 
-    public static Specification<Employee> employeeIsActive(EmployeeFilter filter){
+    public static Specification<Employee> employeeIsActive(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (filter.getActive()==null){
+            if (filter.getActive() == null) {
                 return null;
             }
             return  cb.equal(root.get("active"), filter.getActive());
         };
     }
 
-    public static Specification<Employee> employeeAfterAppointmentDate(EmployeeFilter filter){
+    public static Specification<Employee> employeeAfterAppointmentDate(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (filter.getAppointmentDateFrom()==null){
+            if (filter.getAppointmentDateFrom() == null) {
                 return null;
             }
             return  cb.greaterThan(root.get("appointmentDate"), filter.getAppointmentDateFrom());
         };
     }
 
-    public static Specification<Employee> employeeBeforeAppointmentDate(EmployeeFilter filter){
+    public static Specification<Employee> employeeBeforeAppointmentDate(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (filter.getAppointmentDateTo()==null){
+            if (filter.getAppointmentDateTo() == null) {
                 return null;
             }
             return  cb.lessThan(root.get("appointmentDate"), filter.getAppointmentDateTo());
         };
     }
 
-    public static Specification<Employee> employeeInPositions(EmployeeFilter filter){
+    public static Specification<Employee> employeeInPositions(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (ObjectUtils.isEmpty(filter.getPositions())){
+            if ( ObjectUtils.isEmpty(filter.getPositions())) {
                 return null;
             }
-            if (filter.getPositions().get(0).isEmpty()){
+            if (filter.getPositions().get(0).isEmpty()) {
                 return null;
             }
             return  root.get("position").in(filter.getPositions());
         };
     }
 
-    public static Specification<Employee> employeeInLocations(EmployeeFilter filter){
+    public static Specification<Employee> employeeInLocations(EmployeeFilter filter) {
 
         return (root, query, cb) -> {
-            if (ObjectUtils.isEmpty(filter.getLocations())){
+            if (ObjectUtils.isEmpty(filter.getLocations())) {
                 return null;
             }
-            if (filter.getLocations().get(0).isEmpty()){
+            if (filter.getLocations().get(0).isEmpty()) {
                 return null;
             }
             return  root.get("location").get("id").in(filter.getLocations());

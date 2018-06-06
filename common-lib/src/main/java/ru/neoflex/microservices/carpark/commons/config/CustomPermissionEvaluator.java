@@ -1,6 +1,7 @@
 package ru.neoflex.microservices.carpark.commons.config;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -21,13 +22,14 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author rmorenko
  */
+@Slf4j
 public class CustomPermissionEvaluator implements PermissionEvaluator {
 
         public static final String USER_INFO_VAR = "userInfo";
         public static final String FILTER_SUFF = "_filter";
         public static final String TARGET = "target";
-        public static final Map<String, String> expressions;
-        public static final Map<String, String> defaultExpressions;
+        private static final Map<String, String> expressions;
+        private static final Map<String, String> defaultExpressions;
 
         @Autowired
         private AccessExpressionFeign accessExpressionFeign;
@@ -87,7 +89,8 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
                           if (expressions.isEmpty()){
                                   expressions.putAll(defaultExpressions);
                           }
-                  } catch (Throwable ex){
+                  } catch (Exception ex){
+                     log.info(ex.getMessage());
                      expressions.putAll(defaultExpressions);
                   }
 

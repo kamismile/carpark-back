@@ -7,10 +7,7 @@ import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.cars.api.CarApi;
-import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.cars.model.CarCommand;
-import ru.neoflex.microservices.carpark.cars.model.Events;
-import ru.neoflex.microservices.carpark.cars.model.States;
+import ru.neoflex.microservices.carpark.cars.model.*;
 import ru.neoflex.microservices.carpark.cars.service.CarService;
 import ru.neoflex.microservices.carpark.cars.service.KafkaProducerService;
 import ru.neoflex.microservices.carpark.cars.service.LifecycleService;
@@ -20,9 +17,10 @@ import ru.neoflex.microservices.carpark.commons.model.Command;
 import java.util.Date;
 import java.util.List;
 
-@RestController
+
 @AllArgsConstructor
 @Slf4j
+@RestController
 public class CarController implements CarApi {
 
     private CarService carService;
@@ -30,10 +28,8 @@ public class CarController implements CarApi {
     private KafkaProducerService kafkaProducerService;
 
     @Override
-    @GetMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PostFilter("hasPermission(filterObject, {'getCars_filter', {}})")
-    public List<Car> getCars(UserInfo userInfo) {
-        List<Car> list = carService.getAllCars();
+    public List<Car> getCars(UserInfo userInfo, CarFilter carFilter) {
+        List<Car> list = carService.getAllCars(carFilter);
         list.stream().forEach(car -> {
             car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
         });
@@ -41,20 +37,15 @@ public class CarController implements CarApi {
     }
 
     @Override
-    @GetMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    //@PreAuthorize("hasPermission({{'id', #id}} ,{'getCar'})")
-    public Car getCar(UserInfo userInfo, @PathVariable Long id) {
+    public Car getCar(UserInfo userInfo, @PathVariable(name="id") Long id) {
         System.out.println(userInfo);
         Car car = carService.getCar(id);
         car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
-        sendCommand(userInfo, car, Command.UPDATE);
         return carService.getCar(id);
     }
 
     @Override
-    @PutMapping (value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasPermission({{'id', #id}, {'car', #car}} , {'updateCar'})")
-    public Car updateCar(UserInfo userInfo, @PathVariable Long id, @RequestBody Car car) {
+    public Car updateCar(UserInfo userInfo, @PathVariable(name="id") Long id, @RequestBody Car car) {
         car.setId(id);
         Car mergedCar = carService.updateCar(car);
         sendCommand(userInfo, mergedCar, Command.UPDATE);
@@ -62,8 +53,6 @@ public class CarController implements CarApi {
     }
 
     @Override
-    @PostMapping (value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasPermission({{'car', #car}} , {'createCar'})")
     public Car createCar(UserInfo userInfo, @RequestBody Car car) {
         Car persistedCar = carService.createCar(car);
         sendCommand(userInfo, persistedCar, Command.ADD);
@@ -71,18 +60,14 @@ public class CarController implements CarApi {
     }
 
     @Override
-    @DeleteMapping(value = "/cars/{id}")
-    @PreAuthorize("hasPermission({{'id', #id}} , {'deleteCar'})")
-    public void deleteCar(UserInfo userInfo, @PathVariable Long id) {
+    public void deleteCar(UserInfo userInfo, Long id) {
         Car car = carService.getCar(id);
         carService.deleteById(id);
         sendCommand(userInfo, car, Command.DELETE);
     }
 
     @Override
-    @PatchMapping (value = "/cars/{id}/{event}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasPermission({{'id', #id}, {'stringEvent', #stringEvent}}, {'changeCarState'})")
-    public Car changeCarState(UserInfo userInfo, @PathVariable Long id, String stringEvent) {
+    public Car changeCarState(UserInfo userInfo, @PathVariable(name="id") Long id, @PathVariable(name ="stringEvent") String stringEvent) {
         Events event = Events.fromString(stringEvent);
         Car car = carService.getCar(id);
         States result = lifecycleService.doTransition(car, event);
@@ -94,7 +79,7 @@ public class CarController implements CarApi {
         return car;
     }
 
-    private void sendCommand (UserInfo userInfo, Car car, Command command) {
+    private void sendCommand(UserInfo userInfo, Car car, Command command) {
         CarCommand cc = new CarCommand();
         cc.setCommand(command);
         cc.setEntity(car);

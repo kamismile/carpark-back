@@ -9,10 +9,9 @@ import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 
 import java.util.List;
 
-/**
+/** Api for employee service.
  * @author mirzoevnik
  */
-
 public interface EmployeeApi {
 
     @GetMapping(value = "/employee/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -22,9 +21,9 @@ public interface EmployeeApi {
     void deactivate(@PathVariable("userId") String userId);
 
     @PutMapping(value = "/employee/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    void add(@RequestBody Employee employee);
+    Employee add(@RequestBody Employee employee);
 
-    @PatchMapping(value = "/employee/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/employee/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void update(@RequestBody Employee employee);
 
     @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
