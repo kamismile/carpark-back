@@ -11,10 +11,6 @@ import ru.neoflex.microservices.carpark.report.service.EmployeeService;
 import ru.neoflex.microservices.carpark.report.service.LocationService;
 
 
-
-import java.util.concurrent.CountDownLatch;
-
-
 /**
  * @author rmorenko
  */
@@ -22,12 +18,6 @@ import java.util.concurrent.CountDownLatch;
 @Configuration
 @Data
 public class Receiver {
-
-        private CountDownLatch latch = new CountDownLatch(1);
-
-        public CountDownLatch getLatch() {
-                return latch;
-        }
 
         @Autowired
         private CarEventResourceService carEventResourceService;
@@ -42,14 +32,12 @@ public class Receiver {
         @KafkaListener(topics = "${kafka.topic.car}")
         public void receiveCar(CarCommand command) {
                 log.info("received command='{}'", command.toString());
-                latch.countDown();
                 carEventResourceService.save(command);
         }
 
         @KafkaListener(topics = "${kafka.topic.employee}")
         public void receiveEmployee(EmployeeCommand employeeCommand) {
                 log.info("received command='{}'", employeeCommand.toString());
-                latch.countDown();
                 employeeService.save(employeeCommand);
 
         }
@@ -57,7 +45,6 @@ public class Receiver {
         @KafkaListener(topics = "${kafka.topic.location}")
         public void receiveLocation(LocationCommand locationCommand) {
                 log.info("received command='{}'", locationCommand.toString());
-                latch.countDown();
                 locationService.save(locationCommand);
         }
 

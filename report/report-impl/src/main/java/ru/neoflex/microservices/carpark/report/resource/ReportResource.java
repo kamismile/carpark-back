@@ -53,24 +53,17 @@ public class ReportResource {
         @Autowired
         private Receiver receiver;
 
+        /**
+         * use only for testing
+         */
         @GetMapping(value = "/sendCar", produces = MediaType.APPLICATION_JSON_VALUE)
         public void senCar() {
                 Car car = new Car();
                 car.setId(1L);
-                car.setMark("Рыдван");
                 car.setCurrentStatusDate(new Date());
                 car.setState(States.READY);
-                CarCommand command = new CarCommand();
-                command.setCommand(Command.ADD);
-                command.setEntity(car);
-                UserInfo info = new UserInfo();
-                info.setName("test");
-                info.setLocationId(1L);
-                command.setUserInfo(info);
-                command.setMessageDate(new Date());
                 car.setMark("reno");
                 car.setMileage(100.23);
-                car.setCurrentStatusDate(new Date());
                 car.setLocationId(1L);
                 car.setNextMaintenanceDate(new Date());
                 car.setYear(1983);
@@ -78,6 +71,13 @@ public class ReportResource {
                 car.setNumber("123AO6");
                 car.setCurrentStatus(States.IN_USE.toString());
                 car.setPrevMaintenanceDate(new Date());
+                CarCommand command = new CarCommand();
+                command.setCommand(Command.ADD);
+                command.setEntity(car);
+                UserInfo info = new UserInfo();
+                info.setName("test");
+                info.setLocationId(1L);
+                command.setUserInfo(info);
                 sender.send(carTopic,command);
 
         }
@@ -90,17 +90,17 @@ public class ReportResource {
                    reportDate = new Date();
 
                 }
-                boolean isRentalRole = RENTAL_MANAGER.equals(userInfo.getRole())?true:false;
+
                 Calendar calendar = new GregorianCalendar();
                 calendar.setTime(reportDate);
                 calendar.set(Calendar.HOUR_OF_DAY, 23);
                 calendar.set(Calendar.MINUTE, 59);
                 calendar.set(Calendar.SECOND, 59);
                 calendar.set(Calendar.MILLISECOND, 999);
-                Map<String, Object> parameters = fillParameters(userInfo, isRentalRole, calendar);
+                Map<String, Object> parameters = fillParameters(userInfo, calendar);
                 try {
                 InputStream employeeReportStream
-                        = getClass().getResourceAsStream(!isRentalRole? DEFAULT_REPORT : RENTAL_REPORT);
+                        = getClass().getResourceAsStream(getResourceAsStream(userInfo));
                         JasperReport jasperReport
                                 = JasperCompileManager.compileReport(employeeReportStream);
                         JasperPrint jasperPrint = JasperFillManager.fillReport(
@@ -115,6 +115,16 @@ public class ReportResource {
                         log.error(e.getMessage());
                         return e.getMessage().getBytes();
                 }
+        }
+
+        private String getResourceAsStream (UserInfo userInfo){
+                boolean isRentalRole = isRentalRole(userInfo);
+                return !isRentalRole? DEFAULT_REPORT : RENTAL_REPORT;
+
+        }
+
+        private boolean isRentalRole(UserInfo userInfo) {
+                return RENTAL_MANAGER.equals(userInfo.getRole())?true:false;
         }
 
         private byte[] getReportBytes(JasperPrint jasperPrint) throws JRException {
@@ -133,10 +143,10 @@ public class ReportResource {
                 return byteArrayOutputStream.toByteArray();
         }
 
-        private Map<String, Object> fillParameters(UserInfo userInfo, boolean isRentalRole, Calendar calendar) {
+        private Map<String, Object> fillParameters(UserInfo userInfo, Calendar calendar) {
                 Map<String,Object> parameters = new HashMap<>();
                 parameters.put("report_date", calendar.getTime());
-                if (isRentalRole){
+                if (isRentalRole(userInfo)){
                   parameters.put("locationId", userInfo.getLocationId());
                 }
                 return parameters;

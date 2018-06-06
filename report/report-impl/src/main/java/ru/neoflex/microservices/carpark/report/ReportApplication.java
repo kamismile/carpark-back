@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import ru.neoflex.microservices.carpark.commons.config.*;
+
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
 import java.util.concurrent.Executor;
 
 /**
@@ -19,7 +22,6 @@ import java.util.concurrent.Executor;
 @EnableFeignClients(basePackages = {"ru.neoflex.microservices.carpark.dicts.feign", "ru.neoflex.microservices.carpark.employees.feign"})
 @Import({OAuth2FeignAutoConfiguration.class, FeignConfig.class, MethodSecurityConfig.class,
 	SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class })
-@EnableAsync
 public class ReportApplication {
 
 
@@ -27,16 +29,5 @@ public class ReportApplication {
 		SpringApplication.run(ReportApplication.class, args);
 
     }
-
-	@Bean
-	public Executor asyncExecutor() {
-		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(2);
-		executor.setMaxPoolSize(16);
-		executor.setQueueCapacity(500);
-		executor.setThreadNamePrefix("feign_");
-		executor.initialize();
-		return executor;
-	}
 
 }
