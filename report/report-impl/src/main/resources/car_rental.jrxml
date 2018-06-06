@@ -8,7 +8,8 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="729"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="561"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="425"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="report_date" class="java.util.Date">
 		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
@@ -22,13 +23,13 @@
  r1.title next_status_desc,
  r2.title mark_desc
   from car_event e
-left join employee u on u.user_id=e.user_name
+left join employee u on u.user_id=e.employee_id
 left join location l on u.location_id = l.id
 left join dict_reference r on e.current_status = r.code
 left join dict_reference r1 on e.next_status = r1.code
 left join dict_reference r2 on e.mark = r2.code
 inner join ( select max(message_date) md, reg_number num from car_event group by reg_number) tm on e.message_date = tm.md and e.reg_number = tm.num
-where message_date <= $P{report_date} and current_location_id = $P{locationId}]]>
+where message_date <= $P{report_date} and e.location_id = $P{locationId}]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="year" class="java.lang.Integer"/>

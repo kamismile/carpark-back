@@ -20,7 +20,7 @@
  r1.title next_status_desc,
  r2.title mark_desc
   from car_event e
-left join employee u on u.user_id=e.user_name
+left join employee u on u.user_id=e.employee_id
 left join location l on u.location_id = l.id
 left join dict_reference r on e.current_status = r.code
 left join dict_reference r1 on e.next_status = r1.code
