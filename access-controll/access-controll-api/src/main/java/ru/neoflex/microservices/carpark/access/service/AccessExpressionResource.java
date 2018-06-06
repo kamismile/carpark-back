@@ -9,8 +9,8 @@ import ru.neoflex.microservices.carpark.access.model.AccessExpression;
 import java.util.List;
 
 /**
- * Interface for access controll expressions
- * @autor rmorenko.
+ * Interface for access control expressions
+ * @author rmorenko.
  */
 public interface AccessExpressionResource {
 

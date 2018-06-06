@@ -40,6 +40,14 @@ spring.jackson:
 feign:
   oauth2.enabled: true
 
+hystrix:
+  command:
+    AccessExpressionCommand:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
 eureka:
   instance:
     preferIpAddress: true

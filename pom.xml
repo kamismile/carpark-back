@@ -21,7 +21,8 @@
         <module>preorders</module>
         <module>gateway</module>
         <module>report</module>
-        <module>dict-report</module>
+		<module>dict-report</module>
+        <module>dashboard</module>
     </modules>
 
     <properties>
