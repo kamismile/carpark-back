@@ -76,6 +76,8 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
+                                    <includes>**/*Test*</includes>
+                                    <destFile>${sonar.jacoco.ReportPath}</destFile>
                                     <append>true</append>
                                     <propertyName>surefireArgLine</propertyName>
                                 </configuration>
@@ -86,6 +88,9 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
+                                <configuration>
+                                    <dataFile>${sonar.jacoco.ReportPath}</dataFile>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>pre-integration-test</id>
@@ -94,7 +99,8 @@
                                     <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <destFile>${project.build.directory}/jacoco-it.exec</destFile>
+                                    <includes>**/*IT*</includes>
+                                    <destFile>${sonar.jacoco.itReportPath}</destFile>
                                     <propertyName>failsafeArgLine</propertyName>
                                     <append>true</append>
                                 </configuration>
@@ -106,8 +112,7 @@
                                     <goal>report</goal>
                                 </goals>
                                 <configuration>
-                                    <dataFile>${project.build.directory}/jacoco-it.exec</dataFile>
-                                    <outputDirectory>${project.reporting.outputDirectory}outputDiit</outputDirectory>
+                                    <dataFile>${sonar.jacoco.itReportPath}</dataFile>
                                 </configuration>
                             </execution>
                         </executions>
