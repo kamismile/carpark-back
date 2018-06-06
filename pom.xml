@@ -34,12 +34,12 @@
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>-->
 
         <sonar.exclusions>
-            **/config/*,
-            **/exception/*,
-            **/dto/*,
-            **/event/*,
-            **/entity/*,
-            **/model/*,
+            **/config/**/*,
+            **/exception/**/*,
+            **/dto/**/*,
+            **/event/**/*,
+            **/entity/**/*,
+            **/model/**/*,
             **/*Application.java,
             **/SecureCookieFilter.java
         </sonar.exclusions>
