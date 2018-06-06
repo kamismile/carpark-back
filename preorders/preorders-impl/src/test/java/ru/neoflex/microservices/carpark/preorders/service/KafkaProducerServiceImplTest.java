@@ -20,24 +20,25 @@ public class KafkaProducerServiceImplTest {
     @Autowired
     private KafkaProducerService kafkaProducerService;
 
-    private NextStatusEvent nextStatusEvent = mock(NextStatusEvent.class);
-    private SendResult sendResult = mock(SendResult.class);
-    private ListenableFuture<SendResult<String, NextStatusEvent>> lf = mock(ListenableFuture.class);
+    private NextStatusEvent nextStatusEvent;
+    private ListenableFuture<SendResult<String, NextStatusEvent>> listenableFuture = mock(ListenableFuture.class);
 
     @BeforeMethod
     public void setupMock() {
         kafkaTopic = "next.status";
-        reset(nextStatusEvent);
+        nextStatusEvent = new NextStatusEvent();
         reset(kafkaTemplate);
-        reset(sendResult);
-        reset(lf);
+        reset(listenableFuture);
         kafkaProducerService = new KafkaProducerServiceImpl();
     }
 
     @Test
     public void testSendMessage() {
-        when(kafkaTemplate.send(null, nextStatusEvent)).thenReturn(lf);
-        when(kafkaTemplate.send(kafkaTopic, nextStatusEvent)).thenReturn(lf);
+        when(kafkaTemplate.send(null, nextStatusEvent)).thenReturn(listenableFuture);
+        when(kafkaTemplate.send(kafkaTopic, nextStatusEvent)).thenReturn(listenableFuture);
+        kafkaTemplate.send(kafkaTopic, nextStatusEvent);
+        kafkaTemplate.send(null, nextStatusEvent);
+        verify(kafkaTemplate, atLeastOnce()).send(eq(kafkaTopic), eq(nextStatusEvent));
     }
 
 }
