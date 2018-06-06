@@ -3,9 +3,13 @@ package ru.neoflex.microservices.carpark.preorders.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
+import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.preorders.exception.CarNotAvailableException;
 import ru.neoflex.microservices.carpark.preorders.exception.PreorderException;
 import ru.neoflex.microservices.carpark.preorders.model.NextStatus;
+import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
 import ru.neoflex.microservices.carpark.preorders.model.Preorder;
 import ru.neoflex.microservices.carpark.preorders.repository.PreorderRepository;
 
@@ -26,6 +30,8 @@ public class PreorderServiceImpl implements PreorderService {
 
     private final PreorderRepository preorderRepository;
 
+    private final KafkaProducerService kafkaService;
+
     @Override
     public List<Preorder> findAll() {
         return preorderRepository.findAll();
@@ -37,24 +43,12 @@ public class PreorderServiceImpl implements PreorderService {
     }
 
     @Override
-    public Preorder addPreorder(Preorder preorder) {
+    public Preorder addPreorder(Preorder preorder, UserInfo userInfo) {
         checkPreorder(preorder);
         preorder = preorderRepository.save(preorder);
+        makeNotification(userInfo, preorder.getCarId());
         return preorder;
     }
-
-//    @Override
-//    public void deletePreoder(Long id) {
-//        Preorder preorder = preorderRepository.findOne(id);
-//        preorderRepository.delete(id);
-//    }
-
-//    @Override
-//    public Preorder updatePreorder(Preorder preorder) {
-//        checkPreorder(preorder);
-//        preorder = preorderRepository.save(preorder);
-//        return preorder;
-//    }
 
     @Override
     public NextStatus getNextStatusForCar(Long carId) {
@@ -87,6 +81,18 @@ public class PreorderServiceImpl implements PreorderService {
         if (!overlappingList.isEmpty()) {
             throw new CarNotAvailableException(overlappingList.get(0).getLeaseStartDate(),
                     overlappingList.get(0).getLeaseEndDate());
+        }
+    }
+
+    private void makeNotification(UserInfo userInfo, @PathVariable Long carId) {
+        NextStatus ns = getNextStatusForCar(carId);
+        if (ns != null) {
+            NextStatusEvent nse = new NextStatusEvent();
+            nse.setCommand(Command.UPDATE);
+            nse.setEntity(ns);
+            nse.setUserInfo(userInfo);
+            nse.setMessageDate(new Date());
+            kafkaService.sendMessage(nse);
         }
     }
 }

@@ -24,7 +24,4 @@ public interface PreorderApi {
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     Preorder addPreorder(UserInfo userInfo, @RequestBody Preorder preorder);
 
-//    void deletePreoder(UserInfo userInfo, Long id);
-//
-//    Preorder updatePreorder(UserInfo userInfo, Preorder preorder);
 }

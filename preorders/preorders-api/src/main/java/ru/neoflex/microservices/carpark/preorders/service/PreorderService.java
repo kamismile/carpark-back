@@ -15,11 +15,7 @@ public interface PreorderService {
 
     Preorder getPreorder(Long id);
 
-    Preorder addPreorder(Preorder preorder);
-
-//    void deletePreoder(Long id);
-//
-//    Preorder updatePreorder(Preorder preorder);
+    Preorder addPreorder(Preorder preorder, UserInfo userInfo);
 
     public NextStatus getNextStatusForCar(Long carId);
 }
