@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-public class UserInfoTest {
+public class UserInfoUnitTest {
 
     private UserInfo userInfo = new UserInfo();
     private static final Long ID = 12L;
