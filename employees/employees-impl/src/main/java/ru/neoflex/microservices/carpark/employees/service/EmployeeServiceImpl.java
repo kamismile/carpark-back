@@ -59,12 +59,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getByUserId(String userId) {
+    public Employee getByUserId(Long userId) {
         return employeeRepository.getByUserId(userId);
     }
 
     @Override
-    public void deactivate(String userId) {
+    public void deactivate(Long userId) {
         Employee employee = employeeRepository.getByUserId(userId);
         employee.setActive(false);
         employeeRepository.save(employee);
