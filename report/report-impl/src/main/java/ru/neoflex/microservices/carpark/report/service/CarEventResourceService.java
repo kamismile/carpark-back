@@ -34,9 +34,11 @@ public class CarEventResourceService {
       carEvent.setUserName(carCommand.getUserInfo().getName());
       try {
          Employee employee = employeeRepository.findByUserLogin(carCommand.getUserInfo().getName());
+         carEvent.setEmployee(employee);
       } catch(Exception ex) {
          carEvent.setEmployee(null);
       }
+
       BeanUtils.copyProperties(car,carEvent);
       carEvent.setId(null);
       carEvent.setCarId(car.getId());
