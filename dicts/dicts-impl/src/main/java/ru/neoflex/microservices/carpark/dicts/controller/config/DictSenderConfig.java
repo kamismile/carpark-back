@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.dicts.config;
+package ru.neoflex.microservices.carpark.dicts.controller.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -9,7 +9,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
-import ru.neoflex.microservices.carpark.dicts.sender.DictSender;
+import ru.neoflex.microservices.carpark.dicts.controller.sender.DictSender;
 
 import java.util.HashMap;
 import java.util.Map;

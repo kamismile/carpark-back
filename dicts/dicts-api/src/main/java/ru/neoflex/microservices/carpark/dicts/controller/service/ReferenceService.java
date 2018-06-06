@@ -1,7 +1,7 @@
-package ru.neoflex.microservices.carpark.dicts.service;
+package ru.neoflex.microservices.carpark.dicts.controller.service;
 
-import ru.neoflex.microservices.carpark.dicts.model.Reference;
-import ru.neoflex.microservices.carpark.dicts.model.Rubric;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Reference;
+import ru.neoflex.microservices.carpark.dicts.controller.model.Rubric;
 
 import java.util.List;
 

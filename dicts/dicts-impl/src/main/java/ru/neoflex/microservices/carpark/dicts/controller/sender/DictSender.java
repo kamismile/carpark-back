@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.dicts.sender;
+package ru.neoflex.microservices.carpark.dicts.controller.sender;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

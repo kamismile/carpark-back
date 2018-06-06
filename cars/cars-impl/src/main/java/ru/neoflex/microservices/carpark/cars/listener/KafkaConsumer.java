@@ -15,8 +15,6 @@ import ru.neoflex.microservices.carpark.preorders.model.NextStatus;
 import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
 import ru.neoflex.microservices.carpark.preorders.model.PreorderType;
 
-import java.util.concurrent.CountDownLatch;
-
 
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -25,18 +23,9 @@ public class KafkaConsumer {
     private final CarService carService;
     private final KafkaProducerService kafkaProducerService;
 
-    private CountDownLatch latch = new CountDownLatch(1);
-
-    public CountDownLatch getLatch() {
-        return latch;
-    }
-
     @KafkaListener(id = "cars", topics = "${kafka.orders.topic}",
             containerFactory = "kafkaListenerContainerFactory")
-    public void listen(ConsumerRecord<String, NextStatusEvent> cr, Acknowledgment acknowledgment) throws Exception {
-
-        System.out.println ("-----------> we got a message " + cr.value());
-
+    public void listen(ConsumerRecord<String, NextStatusEvent> cr, Acknowledgment acknowledgment) {
         NextStatus nextStatus = cr.value().getEntity();
         Long carId = nextStatus.getCarId();
         Car car = carService.getCar(carId);
@@ -55,8 +44,6 @@ public class KafkaConsumer {
         cc.setMessageDate(cr.value().getMessageDate());
         cc.setUserInfo(cr.value().getUserInfo());
         kafkaProducerService.sendMessage(cc);
-
-        latch.countDown();
 
         acknowledgment.acknowledge();
     }

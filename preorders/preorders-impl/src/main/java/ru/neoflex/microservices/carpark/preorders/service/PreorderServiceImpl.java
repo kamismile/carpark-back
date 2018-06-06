@@ -43,31 +43,31 @@ public class PreorderServiceImpl implements PreorderService {
         return preorder;
     }
 
-    @Override
-    public void deletePreoder(Long id) {
-        Preorder preorder = preorderRepository.findOne(id);
-        preorderRepository.delete(id);
-    }
+//    @Override
+//    public void deletePreoder(Long id) {
+//        Preorder preorder = preorderRepository.findOne(id);
+//        preorderRepository.delete(id);
+//    }
 
-    @Override
-    public Preorder updatePreorder(Preorder preorder) {
-        checkPreorder(preorder);
-        preorder = preorderRepository.save(preorder);
-        return preorder;
-    }
+//    @Override
+//    public Preorder updatePreorder(Preorder preorder) {
+//        checkPreorder(preorder);
+//        preorder = preorderRepository.save(preorder);
+//        return preorder;
+//    }
 
     @Override
     public NextStatus getNextStatusForCar(Long carId) {
         List<Preorder> existingList = preorderRepository.findByCarId(carId);
 
         Preorder earliestPreorder = existingList.stream()
-                .min((o1, o2) -> Long.compare(
-                        o1.getLeaseStartDate().getTime(),
-                        o2.getLeaseStartDate().getTime())).get();
-
-        Date nextStatusDate = earliestPreorder.getLeaseStartDate();
-        String nextStatus = earliestPreorder.getType().getNextStatus();
-        return new NextStatus(carId, nextStatus, nextStatusDate, earliestPreorder.getType());
+                .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime())).orElse(null);
+        if (earliestPreorder != null) {
+            Date nextStatusDate = earliestPreorder.getLeaseStartDate();
+            String nextStatus = earliestPreorder.getType().getNextStatus();
+            return new NextStatus(carId, nextStatus, nextStatusDate, earliestPreorder.getType());
+        }
+        return null;
     }
 
     /**
