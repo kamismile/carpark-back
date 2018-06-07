@@ -132,16 +132,16 @@ public class ReportResource {
         }
 
         private Date shiftDay(Calendar calendar) {
-                calendar.set(Calendar.HOUR_OF_DAY, -24);
+                calendar.set(Calendar.HOUR_OF_DAY, -23);
                 return calendar.getTime();
         }
 
         private Calendar trimDate(Date reportDate) {
                 Calendar calendar = new GregorianCalendar();
                 calendar.setTime(reportDate);
-                calendar.set(Calendar.HOUR_OF_DAY, 24);
-                calendar.set(Calendar.MINUTE, 00);
-                calendar.set(Calendar.SECOND, 00);
+                calendar.set(Calendar.HOUR_OF_DAY, 23);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
                 return calendar;
         }
 
