@@ -5,6 +5,7 @@ import static org.springframework.data.jpa.domain.Specifications.where;
 import static ru.neoflex.microservices.carpark.cars.repository.CarSpecifications.*;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.neoflex.microservices.carpark.cars.model.Car;
@@ -26,6 +27,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Transactional
+@Slf4j
 public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
@@ -66,7 +68,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public void upploadCar(UserInfo userInfo, Car car) {
         sendCommand(userInfo, car, Command.ADD);
-    }
+     }
 
     @Override
     public void deleteById(UserInfo userInfo, Long id) {
@@ -81,6 +83,7 @@ public class CarServiceImpl implements CarService {
         cc.setEntity(car);
         cc.setMessageDate(new Date());
         cc.setUserInfo(userInfo);
+        log.info(" sendCommand " + cc.getCommand());
         kafkaProducerService.sendMessage(cc);
     }
 }
