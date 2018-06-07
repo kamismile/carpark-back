@@ -36,3 +36,7 @@ UPDATE  ACCESS_EXPRESSIONS  SET expression =
 '#userInfo.role == ''management''|| #userInfo.role == ''administrator'' || ( #userInfo.role == ''rental_manager'' &&  ( #stringEvent == ''READY'' || #stringEvent == ''IN_USE'' ) )'||
 '|| ( #userInfo.role == ''service_manager'' &&  #stringEvent == ''IN_SERVICE'')'
 WHERE operation_name = 'changeCarState';
+
+--changeset dbegun:2018-06-07
+INSERT into ACCESS_EXPRESSIONS (operation_name, expression)
+VALUES ('createPreorder','#userInfo.role == ''administrator'' || #userInfo.role == ''rental_manager''');

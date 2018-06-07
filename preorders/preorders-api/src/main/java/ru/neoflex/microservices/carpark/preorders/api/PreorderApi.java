@@ -5,6 +5,7 @@
 package ru.neoflex.microservices.carpark.preorders.api;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ public interface PreorderApi {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     Preorder getPreorder(UserInfo userInfo, @PathVariable Long id);
 
+    @PreAuthorize("hasPermission({{'preorder', #preorder}} , {'createPreorder'})")
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     Preorder addPreorder(UserInfo userInfo, @RequestBody Preorder preorder);
 
