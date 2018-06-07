@@ -43,9 +43,9 @@ public interface CarApi {
     @PreAuthorize("hasPermission({{'id', #id}} , {'deleteCar'})")
     void deleteCar(UserInfo userInfo, @PathVariable Long id);
 
-    @PatchMapping(value = "/cars/{id}/{event}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/cars/{id}/{stringEvent}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasPermission({{'id', #id}, {'stringEvent', #stringEvent}}, {'changeCarState'})")
-    Car changeCarState(UserInfo userInfo, @PathVariable Long id, @PathVariable String stringEvent);
+    Car changeCarState(UserInfo userInfo, @PathVariable("id") Long id, @PathVariable("stringEvent") String stringEvent);
 
     @GetMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('administrator')")

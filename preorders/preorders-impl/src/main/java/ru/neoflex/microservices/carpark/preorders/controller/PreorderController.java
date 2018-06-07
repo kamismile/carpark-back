@@ -2,16 +2,12 @@ package ru.neoflex.microservices.carpark.preorders.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
-import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.preorders.api.PreorderApi;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatus;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
 import ru.neoflex.microservices.carpark.preorders.model.Preorder;
-import ru.neoflex.microservices.carpark.preorders.service.KafkaProducerService;
 import ru.neoflex.microservices.carpark.preorders.service.PreorderService;
+
 
 import java.util.Date;
 import java.util.List;

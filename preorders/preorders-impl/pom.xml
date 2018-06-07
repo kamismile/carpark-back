@@ -93,6 +93,10 @@
             <groupId>ru.neoflex.microservices.carpark</groupId>
             <artifactId>preorders-db</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <artifactId>cars-api</artifactId>
+        </dependency>
 
         <!-- Spring -->
         <dependency>

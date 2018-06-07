@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
+import ru.neoflex.microservices.carpark.cars.model.NextStatusEvent;
 
 @Service
 public class KafkaProducerServiceImpl implements KafkaProducerService {

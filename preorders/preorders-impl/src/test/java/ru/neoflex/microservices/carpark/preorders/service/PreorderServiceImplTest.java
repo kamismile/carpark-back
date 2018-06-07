@@ -1,8 +1,8 @@
 package ru.neoflex.microservices.carpark.preorders.service;
 
+import ru.neoflex.microservices.carpark.cars.model.NextStatus;
+import ru.neoflex.microservices.carpark.cars.model.PreorderType;
 import ru.neoflex.microservices.carpark.preorders.model.Preorder;
-import ru.neoflex.microservices.carpark.preorders.model.PreorderType;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatus;
 import ru.neoflex.microservices.carpark.preorders.repository.PreorderRepository;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;

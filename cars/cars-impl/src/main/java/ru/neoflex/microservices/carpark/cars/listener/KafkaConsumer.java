@@ -7,13 +7,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.cars.model.CarCommand;
+import ru.neoflex.microservices.carpark.cars.model.NextStatus;
+import ru.neoflex.microservices.carpark.cars.model.NextStatusEvent;
+import ru.neoflex.microservices.carpark.cars.model.PreorderType;
 import ru.neoflex.microservices.carpark.cars.service.CarService;
-import ru.neoflex.microservices.carpark.cars.service.KafkaProducerService;
-import ru.neoflex.microservices.carpark.commons.model.Command;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatus;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
-import ru.neoflex.microservices.carpark.preorders.model.PreorderType;
 
 
 @Component

@@ -1,6 +1,6 @@
 package ru.neoflex.microservices.carpark.preorders.service;
 
-import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
+import ru.neoflex.microservices.carpark.cars.model.NextStatusEvent;
 
 public interface KafkaProducerService {
 

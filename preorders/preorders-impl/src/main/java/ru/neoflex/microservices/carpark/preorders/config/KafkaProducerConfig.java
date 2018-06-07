@@ -12,7 +12,8 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
+import ru.neoflex.microservices.carpark.cars.model.NextStatusEvent;
+
 
 import java.util.HashMap;
 import java.util.Map;

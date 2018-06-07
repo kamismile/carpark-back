@@ -5,19 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import ru.neoflex.microservices.carpark.cars.model.NextStatus;
+import ru.neoflex.microservices.carpark.cars.model.NextStatusEvent;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.preorders.exception.CarNotAvailableException;
 import ru.neoflex.microservices.carpark.preorders.exception.PreorderException;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatus;
-import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
 import ru.neoflex.microservices.carpark.preorders.model.Preorder;
 import ru.neoflex.microservices.carpark.preorders.repository.PreorderRepository;
 
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

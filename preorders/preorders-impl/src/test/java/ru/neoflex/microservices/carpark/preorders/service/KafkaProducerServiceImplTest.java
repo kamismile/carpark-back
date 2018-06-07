@@ -1,11 +1,13 @@
 package ru.neoflex.microservices.carpark.preorders.service;
 
-import ru.neoflex.microservices.carpark.preorders.model.NextStatusEvent;
+
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.*;
+import ru.neoflex.microservices.carpark.cars.model.NextStatusEvent;
+
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
 import java.util.Date;

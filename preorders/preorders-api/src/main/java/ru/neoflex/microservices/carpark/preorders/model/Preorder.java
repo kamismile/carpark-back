@@ -1,12 +1,9 @@
 package ru.neoflex.microservices.carpark.preorders.model;
 
 import lombok.Data;
+import ru.neoflex.microservices.carpark.cars.model.PreorderType;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.Date;
 
 import static java.util.Objects.requireNonNull;

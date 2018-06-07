@@ -18,9 +18,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Controoller for car.
+ * Controller for cars.
  *
- * @author dbegun
+ * @author Denis_Begun
  */
 
 @AllArgsConstructor
