@@ -33,6 +33,6 @@ VALUES ('updateCar','#userInfo.role == ''administrator''');
 
 --changeset rmorenko:2018-05-31
 UPDATE  ACCESS_EXPRESSIONS  SET expression =
-'#userInfo.role == ''management'' || ( #userInfo.role == ''rental_manager'' &&  ( #stringEvent == ''READY'' || #stringEvent == ''IN_USE'' ) )'||
+'#userInfo.role == ''management''|| #userInfo.role == ''administrator'' || ( #userInfo.role == ''rental_manager'' &&  ( #stringEvent == ''READY'' || #stringEvent == ''IN_USE'' ) )'||
 '|| ( #userInfo.role == ''service_manager'' &&  #stringEvent == ''IN_SERVICE'')'
 WHERE operation_name = 'changeCarState';
