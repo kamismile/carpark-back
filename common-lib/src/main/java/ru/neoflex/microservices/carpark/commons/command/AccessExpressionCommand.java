@@ -44,12 +44,16 @@ public class AccessExpressionCommand {
     }
 
     @HystrixCommand(fallbackMethod = "defaultList", commandKey = "AccessExpressionCommand")
+    public AccessExpression getByOperation(String operation){
+        return accessExpressionFeign.getByOperation(operation);
+    }
+
     public List<AccessExpression> getAll() {
         return accessExpressionFeign.getAll();
     }
 
-    public List<AccessExpression> defaultList() {
-        System.out.println("defaultList");
-        return DEFAULT_ACCESS_EXPR;
+
+    public AccessExpression defaultList(String operation) {
+        return defaultAccessExpressions.get(0);
     }
 }

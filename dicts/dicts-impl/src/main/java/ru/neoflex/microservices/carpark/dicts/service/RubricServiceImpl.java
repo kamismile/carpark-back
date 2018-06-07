@@ -1,5 +1,6 @@
 package ru.neoflex.microservices.carpark.dicts.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class RubricServiceImpl implements RubricService {
     }
 
     @Override
+    @HystrixCommand(threadPoolKey = "findAllRubrics", commandKey = "DictExpressionCommand")
     public List<Rubric> findAll() {
         return new ArrayList<>(rubricRepository.findAll());
     }

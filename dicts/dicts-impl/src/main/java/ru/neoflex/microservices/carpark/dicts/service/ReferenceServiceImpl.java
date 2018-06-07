@@ -1,5 +1,6 @@
 package ru.neoflex.microservices.carpark.dicts.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +36,7 @@ public class ReferenceServiceImpl implements ReferenceService {
         this.sender = sender;
     }
 
+    @HystrixCommand(threadPoolKey = "findDictByRubric", commandKey = "DictExpressionCommand")
     public List<Reference> findByRubric(Rubric rubric) {
         return referenceRepository.findByRubric(rubric);
     }

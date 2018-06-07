@@ -70,7 +70,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
             List arguments = ((List) permission).subList(1, ((List) permission).size());
             putArgumentsInContext(arguments, context);
         }
-        initExpressionsIfNeed();
+        initExpressionsIfNeedForDemo(method);
         String expression = expressions.get(method);
         if (!StringUtils.isEmpty(expression)) {
             return (Boolean) parser.parseExpression(expression).getValue(context);
@@ -78,22 +78,26 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         return true;
     }
 
-    private void initExpressionsIfNeed() {
+   private void initExpressionsIfNeed() {
+        List<AccessExpression> accessExpressions = accessExpressionCommand.getAll();
+        accessExpressions.stream()
+                .filter(e -> !StringUtils.isEmpty(e.getOperation())
+                        && !StringUtils.isEmpty(e.getExpression()))
+                .forEach(e -> expressions.put(e.getOperation(), e.getExpression()));
         if (expressions.isEmpty()) {
-            try {
-                List<AccessExpression> accessExpressions = accessExpressionCommand.getAll();
-                accessExpressions.stream()
-                        .filter(e -> !StringUtils.isEmpty(e.getOperation())
-                                && !StringUtils.isEmpty(e.getExpression()))
-                        .forEach(e -> expressions.put(e.getOperation(), e.getExpression()));
-                if (expressions.isEmpty()) {
-                    expressions.putAll(defaultExpressions);
-                }
-            } catch (Exception ex) {
-                log.info(ex.getMessage());
-             /*expressions.putAll(defaultExpressions);*/
-            }
+                expressions.putAll(defaultExpressions);
+        }
+    }
 
+    //TODO: special for demonstration Hystrix-Turbine
+    private void initExpressionsIfNeedForDemo(String operation) {
+        AccessExpression accessExpressions = accessExpressionCommand.getByOperation(operation);
+        if(!StringUtils.isEmpty(accessExpressions.getOperation())
+                && !StringUtils.isEmpty(accessExpressions.getExpression())){
+            expressions.put(accessExpressions.getOperation(), accessExpressions.getExpression());
+        }
+        if (expressions.isEmpty()) {
+            expressions.putAll(defaultExpressions);
         }
     }
 
