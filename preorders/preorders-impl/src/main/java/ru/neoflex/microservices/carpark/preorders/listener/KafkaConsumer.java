@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.preorders.listener;
 
 import lombok.RequiredArgsConstructor;
@@ -14,7 +19,10 @@ import ru.neoflex.microservices.carpark.cars.service.CarService;
 import ru.neoflex.microservices.carpark.preorders.model.Preorder;
 import ru.neoflex.microservices.carpark.preorders.service.PreorderService;
 
-
+/**
+ * Подписчик kafka для отправки уведомлений о готовности автомобиля.
+ * @author Denis_Begun
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))

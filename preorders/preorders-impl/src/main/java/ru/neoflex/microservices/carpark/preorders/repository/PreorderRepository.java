@@ -7,7 +7,8 @@ import ru.neoflex.microservices.carpark.preorders.model.Preorder;
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * Объект доступа к данным о презаказх.
+ * @author Denis_Begun
  */
 @Repository
 public interface PreorderRepository extends JpaRepository<Preorder, Long> {

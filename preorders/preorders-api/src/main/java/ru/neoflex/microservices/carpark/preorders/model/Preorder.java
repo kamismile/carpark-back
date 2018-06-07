@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.preorders.model;
 
 import lombok.Data;
@@ -9,7 +14,8 @@ import java.util.Date;
 import static java.util.Objects.requireNonNull;
 
 /**
- * @author mirzoevnik
+ * Сущность предзаказа.
+ * @author Denis_Begun
  */
 @Data
 @Entity
@@ -69,6 +75,10 @@ public class Preorder {
 
     public boolean isInFuture() {
         return this.getLeaseStartDate().getTime() > new Date().getTime();
+    }
+
+    public boolean isDurationOk() {
+        return this.getLeaseStartDate().getTime() < this.getLeaseEndDate().getTime();
     }
 
 

@@ -54,7 +54,6 @@ eureka:
     serviceUrl:
       defaultZone: http://service-registry.service:8080/eureka
 
-
 security:
   oauth2:
     client:
@@ -100,3 +99,11 @@ kafka:
   orders:
     topic: next.status
     group-id: 1
+
+hystrix:
+  command:
+    CarsExpressionCommand:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

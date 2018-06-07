@@ -1,5 +1,9 @@
-package ru.neoflex.microservices.carpark.preorders.config;
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
 
+package ru.neoflex.microservices.carpark.preorders.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -20,6 +24,10 @@ import ru.neoflex.microservices.carpark.cars.model.CarCommand;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Конфигурация отправки сообщений в kafka.
+ * @author Denis_Begun
+ */
 @Configuration
 @ConfigurationProperties
 @EnableKafka

@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.preorders.service;
 
 import lombok.RequiredArgsConstructor;
@@ -23,8 +28,9 @@ import java.util.stream.Collectors;
 /**
  * Реализация сервиса предварительных заказов автомобилей.
  *
- * @author mirzoevnik, Denis_Begun
+ * @author Denis_Begun
  */
+
 @Service
 @Transactional
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -93,7 +99,11 @@ public class PreorderServiceImpl implements PreorderService {
      */
     private void checkPreorder(Preorder preorder) {
         if (!preorder.isInFuture()) {
-            throw new PreorderException("New preorder should start in future");
+            throw new PreorderException("Дата начала бронирования не может быть меньше текущей");
+        }
+
+        if (!preorder.isDurationOk()) {
+            throw new PreorderException("Дата окончания бронирования должна быть позже даты начала");
         }
 
         List<Preorder> existingList = preorderRepository.findByCarId(preorder.getCarId());
