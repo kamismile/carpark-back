@@ -46,15 +46,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Value("${kafka.topic.employee}")
     String employeeTopic;
 
-    @Autowired
+
     UserInfoService userInfoService;
 
-    @Autowired
+
     LocationService locationService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, Sender sender) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, Sender sender,
+            UserInfoService userInfoService, LocationService locationService) {
         this.employeeRepository = employeeRepository;
+        this.userInfoService = userInfoService;
+        this.locationService = locationService;
         this.sender = sender;
     }
 
