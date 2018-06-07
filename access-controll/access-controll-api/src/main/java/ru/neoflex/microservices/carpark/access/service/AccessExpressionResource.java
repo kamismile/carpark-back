@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.access.service;
 
 import org.springframework.web.bind.annotation.RequestMapping;

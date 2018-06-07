@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.access.service;
 
 import lombok.Getter;
@@ -11,7 +16,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * @author rmorenko
+ * Service for expression.
+ *
+ * @author Roman_Morenko
  */
 @Service
 @Getter
@@ -19,32 +26,31 @@ import java.util.List;
 @Transactional
 public class AccessExpressionService {
 
-        @Autowired
-        private AccessExpressionRepository repository;
+    @Autowired
+    private AccessExpressionRepository repository;
 
-        public AccessExpression getByOperation(String operation) {
-               return repository.findByOperation(operation).stream()
+    public AccessExpression getByOperation(String operation) {
+        return repository.findByOperation(operation).stream()
                        .findFirst().orElse(new AccessExpression());
-        }
+    }
 
-        public List<AccessExpression> getAll() {
-                return repository.findAll();
-        }
+    public List<AccessExpression> getAll() {
+        return repository.findAll();
+    }
 
+    public AccessExpression add(AccessExpression expression) {
+        return repository.save(expression);
+    }
 
-        public AccessExpression add(AccessExpression expression) {
-             return repository.save(expression);
-        }
+    public void delete(Long id) {
+        repository.delete(id);
+    }
 
-        public void delete(Long id) {
-             repository.delete(id);
-        }
+    public void update(AccessExpression expression) {
+        repository.save(expression);
+    }
 
-        public void update(AccessExpression expression) {
-            repository.save(expression);
-        }
-
-        public AccessExpression get(Long id) {
-                return repository.findOne(id);
-        }
+    public AccessExpression get(Long id) {
+        return repository.findOne(id);
+    }
 }
