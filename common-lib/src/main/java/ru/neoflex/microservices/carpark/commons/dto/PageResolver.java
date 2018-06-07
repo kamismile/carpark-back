@@ -35,9 +35,9 @@ public class PageResolver implements HandlerMethodArgumentResolver {
         String count = nativeWebRequest.getParameter("count");
         String order = nativeWebRequest.getParameter("order");
         String sortColumns = nativeWebRequest.getParameter("sort");
-        page = Optional.of(page).orElse(PAGE_DEFAULT);
-        count = Optional.of(count).orElse(COUNT_DEFAULT);
-        order = Optional.of(order).orElse(SORT_DEFAULT);
+        page = Optional.ofNullable(page).orElse(PAGE_DEFAULT);
+        count = Optional.ofNullable(count).orElse(COUNT_DEFAULT);
+        order = Optional.ofNullable(order).orElse(SORT_DEFAULT);
         if (order.toUpperCase() != SORT_DEFAULT
                 && order.toUpperCase() != Sort.Direction.DESC.toString() ){
             order = SORT_DEFAULT;
