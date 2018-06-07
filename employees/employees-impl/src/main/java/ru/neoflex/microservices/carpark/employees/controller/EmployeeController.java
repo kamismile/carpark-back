@@ -3,6 +3,7 @@ package ru.neoflex.microservices.carpark.employees.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.neoflex.microservices.carpark.commons.dto.PageResponse;
@@ -30,13 +31,13 @@ public class EmployeeController implements EmployeeApi {
     }
 
     @Override
-    public Employee getByUserId(String userId) {
-        return employeeService.getByUserId(userId);
+    public Employee getById(@PathVariable Long id) {
+        return employeeService.getById(id);
     }
 
     @Override
-    public void deactivate(String userId) {
-        employeeService.deactivate(userId);
+    public void deactivate(@PathVariable Long id) {
+        employeeService.deactivate(id);
     }
 
     @Override

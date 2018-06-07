@@ -6,7 +6,6 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -17,21 +16,18 @@ import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.model.States;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
-import ru.neoflex.microservices.carpark.employees.model.Employee;
 import ru.neoflex.microservices.carpark.report.model.CarCommand;
 import ru.neoflex.microservices.carpark.report.model.CarEvent;
-import ru.neoflex.microservices.carpark.report.model.HistoryCarModel;
-import ru.neoflex.microservices.carpark.report.reciver.Receiver;
 import ru.neoflex.microservices.carpark.report.reciver.Sender;
 import ru.neoflex.microservices.carpark.report.repository.CarEventRepository;
-import ru.neoflex.microservices.carpark.report.repository.EmployeeRepository;
+
 
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 /**
  * @author rmorenko
@@ -40,27 +36,26 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ReportResource {
 
-        public static final String RENTAL_MANAGER = "rental_manager";
-        public static final String DEFAULT_REPORT = "/car.jrxml";
-        public static final String RENTAL_REPORT = "/car_rental.jrxml";
-        @Autowired
+        private static final String RENTAL_MANAGER = "rental_manager";
+        private static final String DEFAULT_REPORT = "/car.jrxml";
+        private static final String RENTAL_REPORT = "/car_rental.jrxml";
+
         private Sender sender;
 
-        @Autowired
-        CarEventRepository carEventRepository;
+        private CarEventRepository carEventRepository;
 
-        @Autowired
-        EmployeeRepository employeeRepository;
-
-        @Autowired
         private DataSource dataSource;
 
         @Value("${kafka.topic.car}")
          String carTopic;
 
-
         @Autowired
-        private Receiver receiver;
+        public ReportResource(Sender sender, CarEventRepository carEventRepository,
+                               DataSource dataSource ) {
+                this.carEventRepository = carEventRepository;
+                this.sender = sender;
+                this.dataSource = dataSource;
+        }
 
         /**
          * use only for testing
@@ -91,40 +86,26 @@ public class ReportResource {
         }
 
         @GetMapping (value = "/history", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-        public List<HistoryCarModel> getHistory(UserInfo userInfo,  @RequestParam (required = false, defaultValue = "0") Long date){
-             Date dateOfHistory = date != 0 ? new Date(date) : new Date();
-             List<Employee> employees =  employeeRepository.findAll();
-
-             Map<String, Employee> employeesMap =  employees.stream().collect(
-                     Collectors.toMap(employee ->
-                             employee.getUser().getLogin(),
-                             employee -> employee, (e1, e2)-> e1));
-             List<CarEvent> carEvent = carEventRepository.findByMessageDate(dateOfHistory);
-             return carEvent.stream().map(e -> {
-                     HistoryCarModel historyCarModel = new HistoryCarModel();
-                     BeanUtils.copyProperties(e, historyCarModel);
-                     return historyCarModel;
-             }).map(historyCarModel -> fillHistoryModel(employeesMap, historyCarModel)).collect(Collectors.toList());
+        public List<CarEvent> getHistory(UserInfo userInfo, @RequestParam (value = "date", required = false) Long date) {
+                Date reportDate = getDateReport(date);
+             if (isRentalRole(userInfo)){
+                return  carEventRepository.findByMessageDateAndLocationId(reportDate, userInfo.getLocationId());
+             }
+             return carEventRepository.findByMessageDate(reportDate);
         }
 
-        private HistoryCarModel fillHistoryModel(Map<String, Employee> employeesMap, HistoryCarModel historyCarModel) {
-                String name = employeesMap.get(historyCarModel.getUserName()).getName();
-                String surname = employeesMap.get(historyCarModel.getUserName()).getSurname();
-                String partonymic = employeesMap.get(historyCarModel.getUserName()).getPatronymic();
-                historyCarModel.setFio(""+surname + " " + name + " " +  partonymic);
-                historyCarModel.setFio(""+surname + " " + name + " " +  partonymic);
-                String address = employeesMap.get(historyCarModel.getUserName()).getLocation().getAddress();
-                historyCarModel.setAddress(address);
-                return historyCarModel;
+        private Date getDateReport(@RequestParam(value = "date", required = false) Long date) {
+                Date reportDate = new Date();
+                if (date != null && date > 0){
+                     reportDate = new Date();
+                }
+                return reportDate;
         }
 
         @GetMapping(value = "/report", produces = "application/xlsx")
         public byte[] report(UserInfo userInfo, @RequestParam(value = "date", required = false) Long date) {
 
-                Date reportDate = new Date();
-                if (date != null && date > 0){
-                   reportDate = new Date();
-                }
+                Date reportDate = getDateReport(date);
 
                 Calendar calendar = new GregorianCalendar();
                 calendar.setTime(reportDate);
@@ -159,7 +140,7 @@ public class ReportResource {
         }
 
         private boolean isRentalRole(UserInfo userInfo) {
-                return RENTAL_MANAGER.equals(userInfo.getRole())?true:false;
+                return RENTAL_MANAGER.equals(userInfo.getRole());
         }
 
         private byte[] getReportBytes(JasperPrint jasperPrint) throws JRException {

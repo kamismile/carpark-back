@@ -4,6 +4,8 @@ import lombok.Data;
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.model.Events;
 import ru.neoflex.microservices.carpark.cars.model.States;
+import ru.neoflex.microservices.carpark.employees.model.Employee;
+import ru.neoflex.microservices.carpark.employees.model.Location;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -67,6 +69,11 @@ public class CarEvent {
 
     @Column(name="MESSAGE_TYPE")
     private String messageType;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
 
     @Transient
     private List<Events> availableEvents;

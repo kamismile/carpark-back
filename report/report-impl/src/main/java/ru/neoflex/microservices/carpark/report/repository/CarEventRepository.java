@@ -12,5 +12,8 @@ import java.util.List;
  */
 @Repository
 public interface CarEventRepository extends JpaRepository<CarEvent, Long> {
+
         public List<CarEvent> findByMessageDate(Date date);
+
+        public List<CarEvent> findByMessageDateAndLocationId(Date date, Long locationId);
 }

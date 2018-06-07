@@ -27,7 +27,7 @@ public class EmployeeFilter {
 
     private List<String> locations;
 
-    private String userId;
+    private Long userId;
 
     private Boolean active;
 
