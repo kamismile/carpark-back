@@ -13,6 +13,7 @@ import static ru.neoflex.microservices.carpark.employees.repository.EmployeeSpre
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.*;
+import ru.neoflex.microservices.carpark.auth.model.UserInfo;
 import ru.neoflex.microservices.carpark.employees.model.Employee;
 import ru.neoflex.microservices.carpark.employees.repository.EmployeeRepository;
 import ru.neoflex.microservices.carpark.employees.sender.Sender;
@@ -20,6 +21,7 @@ import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 import ru.neoflex.microservices.carpark.employees.dto.EmployeeCommand;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import static org.mockito.Mockito.*;
+import org.springframework.boot.test.mock.mockito.*;
 import static org.testng.Assert.*;
 import java.util.Date;
 import java.util.List;
@@ -40,19 +42,29 @@ public class EmployeeServiceImplTest {
     @Autowired
     private Sender sender = mock(Sender.class);
     @Autowired
+    private UserInfoService userInfoService = mock(UserInfoService.class);
+    @Autowired
+    private LocationService locationService = mock(LocationService.class);
+    @Autowired
     private EmployeeService employeeService;
 
     private Employee employee;
     private EmployeeCommand employeeCommand;
     private List<Employee> employeeList;
     private EmployeeFilter filter;
+    private UserInfo userInfo;
 
     @BeforeMethod
     public void setupMock() {
         reset(employeeRepository);
         reset(sender);
-        employeeService = new EmployeeServiceImpl(employeeRepository, sender);
+        reset(userInfoService);
+        reset(locationService);
+        employeeService = new EmployeeServiceImpl(employeeRepository, sender, userInfoService, locationService);
+        userInfo = new UserInfo();
+        userInfo.setId(EMPLOYEE_ID);
         employee = new Employee();
+        employee.setUser(userInfo);
         employee.setName(USER_NAME);
         employee.setSurname(USER_SURNAME);
         employee.setPassportSeries(PASSPORT_SERIES);
@@ -67,31 +79,28 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void testGetByUserId() {
-        when(employeeService.getById(anyLong())).thenReturn(employee);
-        when(employeeService.getById(null)).thenReturn(null);
+    public void testGetById() {
+        when(employeeRepository.findOne(anyLong())).thenReturn(employee);
 
         Employee employeeAny = employeeService.getById(USER_ID);
-        Employee employeeNull = employeeService.getById(null);
 
         assertNotNull(employeeAny);
-        assertNull(employeeNull);
         assertEquals(employeeAny.getName(), USER_NAME);
-        verify(employeeRepository, atLeastOnce()).getByUserId(eq(USER_ID));
-        verify(employeeRepository, atMost(1)).getByUserId(eq(null));
+        verify(employeeRepository, atLeastOnce()).findOne(eq(USER_ID));
     }
 
     @Test
     public void testDeactivate() {
-        when(employeeService.getById(anyLong())).thenReturn(employee);
-        when(employeeService.getById(null)).thenReturn(null);
+        when(employeeRepository.findOne(anyLong())).thenReturn(employee);
+        when(employeeRepository.save(employee)).thenReturn(employee);
         doNothing().when(employeeRepository).delete(isA(Employee.class));
         doNothing().when(sender).send(isA(String.class), isA(EmployeeCommand.class));
+        doNothing().when(userInfoService).uppdateUserInfo(isA(UserInfo.class));
 
         employeeService.deactivate(USER_ID);
 
-        verify(employeeRepository, atLeastOnce()).getByUserId(eq(USER_ID));
-        verify(employeeRepository, atLeastOnce()).delete(eq(employee));
+        verify(employeeRepository, atLeastOnce()).findOne(eq(USER_ID));
+        verify(employeeRepository, atLeastOnce()).save(eq(employee));
     }
 
     @Test
