@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.neoflex.microservices.carpark.cars.model.NextStatus;
 import ru.neoflex.microservices.carpark.cars.model.NextStatusEvent;
+import ru.neoflex.microservices.carpark.cars.model.PreorderType;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import ru.neoflex.microservices.carpark.preorders.exception.CarNotAvailableException;
@@ -53,10 +54,7 @@ public class PreorderServiceImpl implements PreorderService {
 
     @Override
     public NextStatus getNextStatusForCar(Long carId) {
-        List<Preorder> existingList = preorderRepository.findByCarId(carId);
-
-        Preorder earliestPreorder = existingList.stream()
-                .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime())).orElse(null);
+        Preorder earliestPreorder = getEarliestPreorder(carId);
         if (earliestPreorder != null) {
             Date nextStatusDate = earliestPreorder.getLeaseStartDate();
             String nextStatus = earliestPreorder.getType().getNextStatus();
@@ -64,6 +62,29 @@ public class PreorderServiceImpl implements PreorderService {
         }
         return null;
     }
+
+    @Override
+    public Preorder getEarliestPreorder(Long carId) {
+        List<Preorder> existingList = preorderRepository.findByCarId(carId);
+        if (existingList.isEmpty()) {
+            return null;
+        } else {
+            return existingList.stream()
+                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime())).orElse(null);
+        }
+    }
+
+    @Override
+    public Preorder getEarliestPreorderByType(Long carId, PreorderType type) {
+        List<Preorder> existingList = preorderRepository.findByCarId(carId);
+        if (existingList.isEmpty()) {
+            return null;
+        } else {
+            return existingList.stream().filter(preorder -> type == preorder.getType())
+                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime())).orElse(null);
+        }
+    }
+
 
     /**
      * Проверяет, нет ли проблем с заказом.

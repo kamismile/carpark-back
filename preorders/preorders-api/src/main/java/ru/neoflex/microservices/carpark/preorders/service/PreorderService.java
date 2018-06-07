@@ -1,5 +1,6 @@
 package ru.neoflex.microservices.carpark.preorders.service;
 
+import ru.neoflex.microservices.carpark.cars.model.PreorderType;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.cars.model.NextStatus;
 import ru.neoflex.microservices.carpark.preorders.model.Preorder;
@@ -7,7 +8,8 @@ import ru.neoflex.microservices.carpark.preorders.model.Preorder;
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * Сервис для работы с предзаказами.
+ * @author Denis_Begun
  */
 public interface PreorderService {
 
@@ -17,5 +19,9 @@ public interface PreorderService {
 
     Preorder addPreorder(Preorder preorder, UserInfo userInfo);
 
-    public NextStatus getNextStatusForCar(Long carId);
+    NextStatus getNextStatusForCar(Long carId);
+
+    Preorder getEarliestPreorder(Long carId);
+
+    Preorder getEarliestPreorderByType(Long carId, PreorderType type);
 }
