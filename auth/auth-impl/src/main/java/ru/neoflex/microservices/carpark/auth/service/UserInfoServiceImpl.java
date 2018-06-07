@@ -20,7 +20,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo authenticateUserByLoginAndPassword(String login, String password) {
-        return userInfoRepository.getByLoginAndPasswordAndActive(login, password, true);
+        return userInfoRepository.getByLoginAndPasswordAndActive(login, password, Boolean.TRUE);
     }
 
 
