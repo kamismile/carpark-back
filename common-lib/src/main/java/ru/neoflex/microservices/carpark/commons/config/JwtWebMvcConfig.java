@@ -4,6 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import ru.neoflex.microservices.carpark.commons.dto.PageResolver;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfoResolver;
 
 import java.util.List;
@@ -23,7 +24,15 @@ public class JwtWebMvcConfig extends WebMvcConfigurerAdapter {
                 return  userInfoResolver;
         }
 
+        @Bean
+        public PageResolver pageResolver() {
+                PageResolver pageResolver = new PageResolver();
+                pageResolver.setObjectMapper(new ObjectMapper());
+                return pageResolver;
+        }
+
         public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
                 argumentResolvers.add(this.userInfoResolver());
+                argumentResolvers.add(this.pageResolver());
         }
 }

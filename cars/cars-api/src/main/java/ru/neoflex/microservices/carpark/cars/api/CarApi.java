@@ -5,6 +5,7 @@
 
 package ru.neoflex.microservices.carpark.cars.api;
 
+
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,4 +46,5 @@ public interface CarApi {
     @PatchMapping(value = "/cars/{id}/{event}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasPermission({{'id', #id}, {'stringEvent', #stringEvent}}, {'changeCarState'})")
     Car changeCarState(UserInfo userInfo, @PathVariable Long id, @PathVariable String stringEvent);
+
 }

@@ -29,6 +29,6 @@ public interface EmployeeApi {
     @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
     List<Employee> getAll(EmployeeFilter filter);
 
-    @GetMapping(value = "/employees/page", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/employeespage", produces = MediaType.APPLICATION_JSON_VALUE)
     PageResponse<Employee> getAll(EmployeeFilter filter, PageRequest pageRequest);
 }

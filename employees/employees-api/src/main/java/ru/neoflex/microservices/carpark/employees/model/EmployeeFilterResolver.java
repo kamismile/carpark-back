@@ -4,7 +4,7 @@ import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getBoo
 import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getDateParameter;
 import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getLongParameter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

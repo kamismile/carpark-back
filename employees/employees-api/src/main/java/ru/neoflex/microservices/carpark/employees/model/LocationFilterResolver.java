@@ -2,8 +2,7 @@ package ru.neoflex.microservices.carpark.employees.model;
 
 import static ru.neoflex.microservices.carpark.commons.util.ResolverUtils.getBooleanParameter;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

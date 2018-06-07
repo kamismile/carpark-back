@@ -14,6 +14,11 @@ import ru.neoflex.microservices.carpark.cars.repository.CarRepository;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * Car service realization
+ *
+ * @autor dbegun
+ */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Transactional
@@ -24,28 +29,23 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<Car> getAllCars(CarFilter filter) {
         return carRepository.findAll(where(carIsYearFrom(filter))
-                .and(carIsYearTo(filter))
-                .and(carInCurentStatuses(filter))
+                .and(carIsYearTo(filter)).and(carInCurentStatuses(filter))
                 .and(carIsCurrentLocationId(filter))
                 .and(carIsMileageFrom(filter))
                 .and(carIsMileageTo(filter))
                 .and(carIsLocationId(filter))
-                .and(carInMarks(filter))
-                );
+                .and(carInMarks(filter)));
     }
 
-    @Override
-    public Car getCar(Long id) {
+    @Override public Car getCar(Long id) {
         return carRepository.findOne(id);
     }
 
-    @Override
-    public Car createCar(Car car) {
+    @Override public Car createCar(Car car) {
         return carRepository.save(car);
     }
 
-    @Override
-    public Car updateCar(Car car) {
+    @Override public Car updateCar(Car car) {
         return carRepository.save(car);
     }
 
@@ -54,3 +54,4 @@ public class CarServiceImpl implements CarService {
         carRepository.delete(id);
     }
 }
+

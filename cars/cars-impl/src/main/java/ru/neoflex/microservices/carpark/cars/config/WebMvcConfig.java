@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import ru.neoflex.microservices.carpark.cars.model.CarFilterResolver;
-import ru.neoflex.microservices.carpark.commons.dto.PageResolver;
+
 import java.util.List;
 
 /**
