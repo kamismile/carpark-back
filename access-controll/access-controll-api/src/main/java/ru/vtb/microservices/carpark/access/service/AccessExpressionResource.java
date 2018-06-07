@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Interface for access control expressions
- * @author rmorenko.
+ * @author Roman_Morenko.
  */
 public interface AccessExpressionResource {
 
