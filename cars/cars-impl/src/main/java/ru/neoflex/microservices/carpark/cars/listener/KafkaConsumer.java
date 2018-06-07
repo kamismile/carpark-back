@@ -36,7 +36,7 @@ public class KafkaConsumer {
                 || car.getNextMaintenanceDate().getTime() > nextStatus.getNextStatusDate().getTime() )) {
             car.setNextMaintenanceDate(nextStatus.getNextStatusDate());
         }
-        carService.updateCar(car);
+        carService.updateCar(cr.value().getUserInfo(), car);
 
         CarCommand cc = new CarCommand();
         cc.setCommand(Command.UPDATE);
