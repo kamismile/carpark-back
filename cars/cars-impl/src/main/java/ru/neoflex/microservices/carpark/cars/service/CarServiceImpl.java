@@ -64,6 +64,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void upploadCar(UserInfo userInfo, Car car) {
+        sendCommand(userInfo, car, Command.ADD);
+    }
+
+    @Override
     public void deleteById(UserInfo userInfo, Long id) {
         Car car = getCar(id);
         carRepository.delete(id);

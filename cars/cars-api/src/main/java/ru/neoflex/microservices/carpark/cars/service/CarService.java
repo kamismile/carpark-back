@@ -21,6 +21,8 @@ public interface CarService {
 
     Car updateCar(UserInfo userInfo, Car car);
 
+    void upploadCar(UserInfo userInfo, Car car);
+
     void deleteById(UserInfo userInfo, Long id);
 
 }

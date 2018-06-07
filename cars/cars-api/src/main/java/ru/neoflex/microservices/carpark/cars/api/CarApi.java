@@ -47,4 +47,8 @@ public interface CarApi {
     @PreAuthorize("hasPermission({{'id', #id}, {'stringEvent', #stringEvent}}, {'changeCarState'})")
     Car changeCarState(UserInfo userInfo, @PathVariable Long id, @PathVariable String stringEvent);
 
+    @GetMapping(value = "/upload}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('administrator')")
+    List<Car> uploadAllCars(UserInfo userInfo);
+
 }
