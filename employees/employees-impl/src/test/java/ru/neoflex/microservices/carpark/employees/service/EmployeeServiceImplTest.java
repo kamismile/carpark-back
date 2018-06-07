@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class EmployeeServiceImplTest {
 
-    private static final String USER_ID = "userId";
+    private static final Long USER_ID = 1L;
     private static Long EMPLOYEE_ID = 111l;
     private static final String PASSPORT_SERIES = "1111";
     private static final String PASSPORT_NUMBER = "222222";
@@ -70,7 +70,7 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void testGetByUserId() {
-        when(employeeService.getByUserId(anyString())).thenReturn(employee);
+        when(employeeService.getByUserId(anyLong())).thenReturn(employee);
         when(employeeService.getByUserId(null)).thenReturn(null);
 
         Employee employeeAny = employeeService.getByUserId(USER_ID);
@@ -85,7 +85,7 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void testDeactivate() {
-        when(employeeService.getByUserId(anyString())).thenReturn(employee);
+        when(employeeService.getByUserId(anyLong())).thenReturn(employee);
         when(employeeService.getByUserId(null)).thenReturn(null);
         doNothing().when(employeeRepository).delete(isA(Employee.class));
         doNothing().when(sender).send(isA(String.class), isA(EmployeeCommand.class));

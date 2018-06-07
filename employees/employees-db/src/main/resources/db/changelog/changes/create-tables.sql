@@ -276,3 +276,7 @@ ALTER SEQUENCE user_info_id_seq RESTART WITH 500;
 ALTER TABLE user_info
 ADD COLUMN active BOOLEAN NOT NULL DEFAULT true;
 
+--changeset rmorenko:2018-06-07
+ALTER TABLE employee
+ALTER COLUMN user_id  TYPE INTEGER;
+
