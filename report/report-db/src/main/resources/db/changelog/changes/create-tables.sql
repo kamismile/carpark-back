@@ -364,6 +364,9 @@ ALTER SEQUENCE employee_id_seq RESTART WITH 500;
 ALTER TABLE  car_event
 ADD COLUMN employee_id BIGINT;
 
+--changeset rmorenko:alter-tables-2
+ALTER TABLE  car_event
+ALTER COLUMN next_maintenance_date TYPE TIMESTAMP;
 
 
 
