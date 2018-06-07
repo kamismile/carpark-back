@@ -107,13 +107,11 @@ public class ReportResource {
 
                 Date reportDate = getDateReport(date);
 
-                Calendar calendar = new GregorianCalendar();
-                calendar.setTime(reportDate);
-                calendar.set(Calendar.HOUR_OF_DAY, 23);
-                calendar.set(Calendar.MINUTE, 59);
-                calendar.set(Calendar.SECOND, 59);
-                calendar.set(Calendar.MILLISECOND, 999);
-                Map<String, Object> parameters = fillParameters(userInfo, calendar);
+                Calendar calendar = trimDate(reportDate);
+                Date dateTo = calendar.getTime();
+                Date dateFrom = shiftDay(calendar);
+
+                Map<String, Object> parameters = fillParameters(userInfo, dateFrom, dateTo);
                 try {
                 InputStream employeeReportStream
                         = getClass().getResourceAsStream(getResourceAsStream(userInfo));
@@ -131,6 +129,20 @@ public class ReportResource {
                         log.error(e.getMessage());
                         return e.getMessage().getBytes();
                 }
+        }
+
+        private Date shiftDay(Calendar calendar) {
+                calendar.set(Calendar.HOUR_OF_DAY, -24);
+                return calendar.getTime();
+        }
+
+        private Calendar trimDate(Date reportDate) {
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(reportDate);
+                calendar.set(Calendar.HOUR_OF_DAY, 24);
+                calendar.set(Calendar.MINUTE, 00);
+                calendar.set(Calendar.SECOND, 00);
+                return calendar;
         }
 
         private String getResourceAsStream (UserInfo userInfo){
@@ -159,9 +171,10 @@ public class ReportResource {
                 return byteArrayOutputStream.toByteArray();
         }
 
-        private Map<String, Object> fillParameters(UserInfo userInfo, Calendar calendar) {
+        private Map<String, Object> fillParameters(UserInfo userInfo, Date dateFrom, Date dateTo) {
                 Map<String,Object> parameters = new HashMap<>();
-                parameters.put("report_date", calendar.getTime());
+                parameters.put("dateFrom", dateFrom );
+                parameters.put("dateTo", dateTo );
                 if (isRentalRole(userInfo)){
                   parameters.put("locationId", userInfo.getLocationId());
                 }

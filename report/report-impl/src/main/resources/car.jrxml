@@ -10,7 +10,10 @@
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="665"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="321"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<parameter name="report_date" class="java.util.Date">
+	<parameter name="dateTo" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateFrom" class="java.util.Date">
 		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -26,7 +29,7 @@ left join dict_reference r on e.current_status = r.code
 left join dict_reference r1 on e.next_status = r1.code
 left join dict_reference r2 on e.mark = r2.code
 inner join ( select max(message_date) md, reg_number num from car_event group by reg_number) tm on e.message_date = tm.md and e.reg_number = tm.num
-where message_date <= $P{report_date}]]>
+where message_date >= $P{dateFrom} and message_date <= $P{dateTo}  ]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="year" class="java.lang.Integer"/>
