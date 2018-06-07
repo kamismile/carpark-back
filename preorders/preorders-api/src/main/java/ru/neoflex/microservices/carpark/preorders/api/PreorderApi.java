@@ -1,3 +1,7 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
 package ru.neoflex.microservices.carpark.preorders.api;
 
 import org.springframework.http.MediaType;
@@ -11,7 +15,8 @@ import ru.neoflex.microservices.carpark.preorders.model.Preorder;
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * API для рест-сервиса предзаказов.
+ * @author Denis_Begun
  */
 public interface PreorderApi {
 

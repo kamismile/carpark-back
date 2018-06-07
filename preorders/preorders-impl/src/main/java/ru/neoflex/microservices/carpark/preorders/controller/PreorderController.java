@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.preorders.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -13,7 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * Rest-контроллер для обработки предзаказов.
+ * @author Denis_Begun
  */
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
