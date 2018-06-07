@@ -78,22 +78,22 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         return true;
     }
 
-   private void initExpressionsIfNeed() {
+    private void initExpressionsIfNeed() {
         List<AccessExpression> accessExpressions = accessExpressionCommand.getAll();
         accessExpressions.stream()
                 .filter(e -> !StringUtils.isEmpty(e.getOperation())
                         && !StringUtils.isEmpty(e.getExpression()))
                 .forEach(e -> expressions.put(e.getOperation(), e.getExpression()));
         if (expressions.isEmpty()) {
-                expressions.putAll(defaultExpressions);
+            expressions.putAll(defaultExpressions);
         }
     }
 
     //TODO: special for demonstration Hystrix-Turbine
     private void initExpressionsIfNeedForDemo(String operation) {
         AccessExpression accessExpressions = accessExpressionCommand.getByOperation(operation);
-        if(!StringUtils.isEmpty(accessExpressions.getOperation())
-                && !StringUtils.isEmpty(accessExpressions.getExpression())){
+        if (!StringUtils.isEmpty(accessExpressions.getOperation())
+                && !StringUtils.isEmpty(accessExpressions.getExpression())) {
             expressions.put(accessExpressions.getOperation(), accessExpressions.getExpression());
         }
         if (expressions.isEmpty()) {

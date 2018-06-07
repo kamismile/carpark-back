@@ -54,6 +54,6 @@ public class AccessExpressionCommand {
 
 
     public AccessExpression defaultList(String operation) {
-        return defaultAccessExpressions.get(0);
+        return DEFAULT_ACCESS_EXPR.get(0);
     }
 }
