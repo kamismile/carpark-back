@@ -85,7 +85,7 @@ eureka:
   client.serviceUrl.defaultZone: http://localhost:8761/eureka/
 
 kafka:
-  bootstrap-servers: localhost:9092
+  bootstrap-servers: 54.158.77.53:9092
   topic:
     car: car.t
     employee: employee.t

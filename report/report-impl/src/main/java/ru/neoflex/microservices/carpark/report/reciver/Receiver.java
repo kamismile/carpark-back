@@ -29,20 +29,20 @@ public class Receiver {
         private EmployeeService employeeService;
 
 
-        @KafkaListener(topics = "${kafka.topic.car}")
+        @KafkaListener(id = "report", topics = "${kafka.topic.car}")
         public void receiveCar(CarCommand command) {
                 log.info("received command='{}'", command.toString());
                 carEventResourceService.save(command);
         }
 
-        @KafkaListener(topics = "${kafka.topic.employee}")
+        @KafkaListener(id = "report2", topics = "${kafka.topic.employee}")
         public void receiveEmployee(EmployeeCommand employeeCommand) {
                 log.info("received command='{}'", employeeCommand.toString());
                 employeeService.save(employeeCommand);
 
         }
 
-        @KafkaListener(topics = "${kafka.topic.location}")
+        @KafkaListener(id = "report3", topics = "${kafka.topic.location}")
         public void receiveLocation(LocationCommand locationCommand) {
                 log.info("received command='{}'", locationCommand.toString());
                 locationService.save(locationCommand);
