@@ -21,9 +21,6 @@ CREATE TABLE employee (
   user_id INTEGER NOT NULL
 );
 
---changeset rmorenko:2018-06-01
-ALTER TABLE employee
-ALTER COLUMN user_id  TYPE VARCHAR(100);
 
 --changeset rmorenko:insert-data-location
 INSERT INTO  location (address, location_type)
@@ -276,7 +273,4 @@ ALTER SEQUENCE user_info_id_seq RESTART WITH 500;
 ALTER TABLE user_info
 ADD COLUMN active BOOLEAN NOT NULL DEFAULT true;
 
---changeset rmorenko:2018-06-07
-ALTER TABLE employee
-ALTER COLUMN user_id  TYPE INTEGER;
 
