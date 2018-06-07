@@ -50,7 +50,7 @@ public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
         employeeFilter.setLocations(locations);
         employeeFilter.setAppointmentDateFrom(getDateParameter(nativeWebRequest, "appointmentDateFrom"));
         employeeFilter.setAppointmentDateTo(getDateParameter(nativeWebRequest, "appointmentDateFrom"));
-        employeeFilter.setUserId(getLongParameter(nativeWebRequest,"useId"));
+        employeeFilter.setUserId(getLongParameter(nativeWebRequest,"userId"));
         employeeFilter.setActive(getBooleanParameter(nativeWebRequest,"active"));
         return employeeFilter;
     }
