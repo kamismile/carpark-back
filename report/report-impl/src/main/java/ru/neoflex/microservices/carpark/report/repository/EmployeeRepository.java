@@ -1,7 +1,7 @@
-package ru.neoflex.microservices.carpark.report.repository;
+package ru.vtb.microservices.carpark.report.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.neoflex.microservices.carpark.employees.model.Employee;
+import ru.vtb.microservices.carpark.employees.model.Employee;
 
 
 /**

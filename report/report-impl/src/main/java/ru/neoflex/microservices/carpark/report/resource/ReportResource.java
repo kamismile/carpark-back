@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.report.resource;
+package ru.vtb.microservices.carpark.report.resource;
 
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
@@ -12,14 +12,14 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.cars.model.States;
-import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
-import ru.neoflex.microservices.carpark.commons.model.Command;
-import ru.neoflex.microservices.carpark.report.model.CarCommand;
-import ru.neoflex.microservices.carpark.report.model.CarEvent;
-import ru.neoflex.microservices.carpark.report.reciver.Sender;
-import ru.neoflex.microservices.carpark.report.repository.CarEventRepository;
+import ru.vtb.microservices.carpark.cars.model.Car;
+import ru.vtb.microservices.carpark.cars.model.States;
+import ru.vtb.microservices.carpark.commons.dto.UserInfo;
+import ru.vtb.microservices.carpark.commons.model.Command;
+import ru.vtb.microservices.carpark.report.model.CarCommand;
+import ru.vtb.microservices.carpark.report.model.CarEvent;
+import ru.vtb.microservices.carpark.report.reciver.Sender;
+import ru.vtb.microservices.carpark.report.repository.CarEventRepository;
 
 
 import javax.sql.DataSource;

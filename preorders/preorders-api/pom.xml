@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>preorders</artifactId>
-        <groupId>ru.neoflex.microservices.carpark</groupId>
+        <groupId>ru.vtb.microservices.carpark</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,11 +14,11 @@
     <dependencies>
 
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>common-lib</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>cars-api</artifactId>
         </dependency>
 

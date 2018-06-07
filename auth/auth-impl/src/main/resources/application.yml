@@ -52,7 +52,7 @@ security:
 logging:
   level:
     ROOT: INFO
-    ru.neoflex: DEBUG
+    ru.vtb: DEBUG
     org.springframework: INFO
 
 ---

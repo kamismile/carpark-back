@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.report.config;
+package ru.vtb.microservices.carpark.report.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -10,7 +10,7 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
-import ru.neoflex.microservices.carpark.report.reciver.Receiver;
+import ru.vtb.microservices.carpark.report.reciver.Receiver;
 
 import java.util.HashMap;
 import java.util.Map;

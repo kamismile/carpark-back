@@ -1,17 +1,15 @@
-package ru.neoflex.microservices.carpark.report.service;
+package ru.vtb.microservices.carpark.report.service;
 
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.neoflex.microservices.carpark.cars.model.Car;
-import ru.neoflex.microservices.carpark.commons.model.Command;
-import ru.neoflex.microservices.carpark.employees.model.Employee;
-import ru.neoflex.microservices.carpark.report.model.CarCommand;
-import ru.neoflex.microservices.carpark.report.model.CarEvent;
-import ru.neoflex.microservices.carpark.report.repository.CarEventRepository;
-import ru.neoflex.microservices.carpark.report.repository.EmployeeRepository;
-import ru.neoflex.microservices.carpark.report.repository.UserInfoRepository;
+import ru.vtb.microservices.carpark.cars.model.Car;
+import ru.vtb.microservices.carpark.employees.model.Employee;
+import ru.vtb.microservices.carpark.report.model.CarCommand;
+import ru.vtb.microservices.carpark.report.model.CarEvent;
+import ru.vtb.microservices.carpark.report.repository.CarEventRepository;
+import ru.vtb.microservices.carpark.report.repository.EmployeeRepository;
 
 
 /**

@@ -1,4 +1,4 @@
-package ru.neoflex.microservices.carpark.report;
+package ru.vtb.microservices.carpark.report;
 
 
 import org.junit.Before;
@@ -14,9 +14,9 @@ import org.springframework.kafka.test.rule.KafkaEmbedded;
 import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.neoflex.microservices.carpark.access.feign.AccessExpressionFeign;
-import ru.neoflex.microservices.carpark.report.reciver.Receiver;
-import ru.neoflex.microservices.carpark.report.reciver.Sender;
+import ru.vtb.microservices.carpark.access.feign.AccessExpressionFeign;
+import ru.vtb.microservices.carpark.report.reciver.Receiver;
+import ru.vtb.microservices.carpark.report.reciver.Sender;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

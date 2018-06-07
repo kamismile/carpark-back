@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.neoflex.microservices.carpark</groupId>
+    <groupId>ru.vtb.microservices.carpark</groupId>
     <artifactId>employees</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -41,12 +41,12 @@
         <dependencies>
             <!-- bro modules -->
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>employees-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>employees-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -143,7 +143,7 @@
                 <version>${spring-test.version}</version>
             </dependency>
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>common-lib</artifactId>
                 <version>${common-lib.version}</version>
             </dependency>
@@ -154,7 +154,7 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>auth-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -176,7 +176,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ru.neoflex.microservices.carpark.employees.EmployeesApplication</mainClass>
+                        <mainClass>ru.vtb.microservices.carpark.employees.EmployeesApplication</mainClass>
                     </configuration>
                 </plugin>
 

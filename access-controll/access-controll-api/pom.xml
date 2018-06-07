@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>access-controll</artifactId>
-        <groupId>ru.neoflex.microservices.carpark</groupId>
+        <groupId>ru.vtb.microservices.carpark</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -124,7 +124,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ru.neoflex.microservices.carpark.auth.AuthApplication</mainClass>
+                        <mainClass>ru.vtb.microservices.carpark.auth.AuthApplication</mainClass>
                     </configuration>
                 </plugin>
             </plugins>

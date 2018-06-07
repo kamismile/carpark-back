@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>cars</artifactId>
-        <groupId>ru.neoflex.microservices.carpark</groupId>
+        <groupId>ru.vtb.microservices.carpark</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -82,19 +82,19 @@
     <dependencies>
         <!-- bro modules -->
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>cars-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>cars-db</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>common-lib</artifactId>
             <version>${common-lib.version}</version>
         </dependency>
