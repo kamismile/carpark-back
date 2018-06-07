@@ -26,7 +26,7 @@ public class LocationServiceTest {
 
     private MockMvc mockMvc;
     @Mock
-    LocationRepository locationRepository;
+    private LocationRepository locationRepository;
     @InjectMocks
     private LocationService locationService;
 
