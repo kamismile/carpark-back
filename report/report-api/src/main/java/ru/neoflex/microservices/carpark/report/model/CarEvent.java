@@ -59,6 +59,7 @@ public class CarEvent {
     private String number;
 
     @Column(name="MESSAGE_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date messageDate;
 
     @Column(name="USER_NAME")
