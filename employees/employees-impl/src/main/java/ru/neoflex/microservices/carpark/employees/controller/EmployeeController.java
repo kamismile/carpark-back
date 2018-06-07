@@ -31,13 +31,13 @@ public class EmployeeController implements EmployeeApi {
     }
 
     @Override
-    public Employee getByUserId(@PathVariable Long userId) {
-        return employeeService.getByUserId(userId);
+    public Employee getById(@PathVariable Long id) {
+        return employeeService.getById(id);
     }
 
     @Override
-    public void deactivate(@PathVariable Long userId) {
-        employeeService.deactivate(userId);
+    public void deactivate(@PathVariable Long id) {
+        employeeService.deactivate(id);
     }
 
     @Override

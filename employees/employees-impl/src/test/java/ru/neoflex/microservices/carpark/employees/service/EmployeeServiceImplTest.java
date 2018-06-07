@@ -18,8 +18,6 @@ import ru.neoflex.microservices.carpark.employees.repository.EmployeeRepository;
 import ru.neoflex.microservices.carpark.employees.sender.Sender;
 import ru.neoflex.microservices.carpark.employees.model.EmployeeFilter;
 import ru.neoflex.microservices.carpark.employees.dto.EmployeeCommand;
-import org.springframework.data.domain.PageRequest;
-import ru.neoflex.microservices.carpark.commons.dto.PageResponse;
 import ru.neoflex.microservices.carpark.commons.model.Command;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
@@ -70,11 +68,11 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void testGetByUserId() {
-        when(employeeService.getByUserId(anyLong())).thenReturn(employee);
-        when(employeeService.getByUserId(null)).thenReturn(null);
+        when(employeeService.getById(anyLong())).thenReturn(employee);
+        when(employeeService.getById(null)).thenReturn(null);
 
-        Employee employeeAny = employeeService.getByUserId(USER_ID);
-        Employee employeeNull = employeeService.getByUserId(null);
+        Employee employeeAny = employeeService.getById(USER_ID);
+        Employee employeeNull = employeeService.getById(null);
 
         assertNotNull(employeeAny);
         assertNull(employeeNull);
@@ -85,8 +83,8 @@ public class EmployeeServiceImplTest {
 
     @Test
     public void testDeactivate() {
-        when(employeeService.getByUserId(anyLong())).thenReturn(employee);
-        when(employeeService.getByUserId(null)).thenReturn(null);
+        when(employeeService.getById(anyLong())).thenReturn(employee);
+        when(employeeService.getById(null)).thenReturn(null);
         doNothing().when(employeeRepository).delete(isA(Employee.class));
         doNothing().when(sender).send(isA(String.class), isA(EmployeeCommand.class));
 

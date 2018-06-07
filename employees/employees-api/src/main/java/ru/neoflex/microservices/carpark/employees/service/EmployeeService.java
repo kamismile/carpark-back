@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface EmployeeService {
 
-    Employee getByUserId(Long userId);
+    Employee getById(Long id);
 
     void deactivate(Long userId);
 

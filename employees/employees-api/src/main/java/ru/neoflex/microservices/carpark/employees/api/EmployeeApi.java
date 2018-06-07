@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface EmployeeApi {
 
-    @GetMapping(value = "/employee/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Employee getByUserId(@PathVariable("userId") Long userId);
+    @GetMapping(value = "/employee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Employee getById(@PathVariable("id") Long Id);
 
-    @DeleteMapping(value = "/employee/deactivate/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    void deactivate(@PathVariable("userId") Long userId);
+    @DeleteMapping(value = "/employee/deactivate/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    void deactivate(@PathVariable("id") Long userId);
 
     @PostMapping(value = "/employee/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     Employee add(@RequestBody Employee employee);
