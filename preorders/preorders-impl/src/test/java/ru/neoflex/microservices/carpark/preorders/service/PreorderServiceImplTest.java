@@ -95,14 +95,14 @@ public class PreorderServiceImplTest {
         Preorder preorder = new Preorder();
         preorder.setId(preorder_id);
         preorder.setCarId(preorder_car_id);
-        preorder.setLeaseStartDate(futureDate);
-        preorder.setLeaseEndDate(presentDate);
+        preorder.setLeaseStartDate(presentDate);
+        preorder.setLeaseEndDate(futureDate);
         preorder.setType(PreorderType.BOOKING);
         return preorder;
     }
 
     private NextStatus getDefaultNextStatus() {
-        NextStatus nextStatus = new NextStatus(preorder_car_id, "in_use", futureDate, PreorderType.BOOKING);
+        NextStatus nextStatus = new NextStatus(preorder_car_id, "in_use", presentDate, PreorderType.BOOKING);
         return nextStatus;
     }
 }
