@@ -21,7 +21,6 @@ import ru.neoflex.microservices.carpark.preorders.model.PreorderType;
 public class KafkaConsumer {
 
     private final CarService carService;
-    private final KafkaProducerService kafkaProducerService;
 
     @KafkaListener(id = "cars", topics = "${kafka.orders.topic}",
             containerFactory = "kafkaListenerContainerFactory")
@@ -31,20 +30,12 @@ public class KafkaConsumer {
         Car car = carService.getCar(carId);
         car.setNextStatusDate(nextStatus.getNextStatusDate());
         car.setNextStatus(nextStatus.getNextStatus());
-        if (PreorderType.SERVICE.equals(nextStatus.getType())
+        if (PreorderType.SERVICE == nextStatus.getType()
                 && (car.getNextMaintenanceDate() == null
                 || car.getNextMaintenanceDate().getTime() > nextStatus.getNextStatusDate().getTime() )) {
             car.setNextMaintenanceDate(nextStatus.getNextStatusDate());
         }
         carService.updateCar(cr.value().getUserInfo(), car);
-
-        CarCommand cc = new CarCommand();
-        cc.setCommand(Command.UPDATE);
-        cc.setEntity(car);
-        cc.setMessageDate(cr.value().getMessageDate());
-        cc.setUserInfo(cr.value().getUserInfo());
-        kafkaProducerService.sendMessage(cc);
-
         acknowledgment.acknowledge();
     }
 }

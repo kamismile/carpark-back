@@ -5,7 +5,6 @@
 
 package ru.neoflex.microservices.carpark.cars.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
@@ -36,7 +35,7 @@ public class LifecycleServiceImpl implements LifecycleService {
 
     private final StateMachinePoolService stateMachinePool;
 
-    private final Map<States, List<Events>> availableActionsMap = new HashMap<>();
+    private final Map<States, List<Events>> availableActionsMap = new EnumMap<>(States.class);
 
     @Override
     public States doTransition(Car car, Events event) {
