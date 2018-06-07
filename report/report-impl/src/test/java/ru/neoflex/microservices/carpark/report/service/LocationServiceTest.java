@@ -50,7 +50,7 @@ public class LocationServiceTest {
     }
 
     @Test
-    public void testSendMessage() {
+    public void testSave() {
         when(locationRepository.save(location)).thenReturn(location);
         when(locationRepository.findByAddress(anyString())).thenReturn(location);
         doNothing().when(locationRepository).delete(isA(Location.class));
