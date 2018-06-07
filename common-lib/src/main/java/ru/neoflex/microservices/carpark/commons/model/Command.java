@@ -1,7 +1,14 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.commons.model;
 
 /**
- * Created by rmorenko on 31.05.2018.
+ * Enum for Kafka message.
+ *
+ * @author Roman_Morenko
  */
 public enum Command {
     ADD, UPDATE, DELETE

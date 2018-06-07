@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.neoflex.microservices.carpark.commons.command;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -9,28 +14,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * Hystrix Command for fill security rules.
+ *
+ * @author Nikita_Mirzoev
  */
 public class AccessExpressionCommand {
 
     @Autowired
     private AccessExpressionFeign accessExpressionFeign;
 
-    private static final List<AccessExpression> defaultAccessExpressions;
+    private static final List<AccessExpression> DEFAULT_ACCESS_EXPR;
 
     public static final String USER_INFO_ROLE_ADMINISTRATOR = "#userInfo.role == 'administrator'";
 
     static {
-        defaultAccessExpressions = new ArrayList<>();
-        defaultAccessExpressions.add(new AccessExpression("getCars_filter",
-            " ( #userInfo.role == 'rental_manager' && #userInfo.localityId == #target.currentLocationId ) "
-            + " || ( #userInfo.role == 'service_manager' && ( #target.currentStatus = 'in_service' ||  #target.nextStatus == 'in_service' )) "
-            + " || #userInfo.role == 'management' ||  #userInfo.role == 'administrator' "));
-        defaultAccessExpressions.add((new AccessExpression("getReferencesByRubric_filter", "#userInfo.role != 'test'")));
-        defaultAccessExpressions.add((new AccessExpression("changeCarState", "#userInfo.role == 'management'")));
-        defaultAccessExpressions.add((new AccessExpression("deleteCar", USER_INFO_ROLE_ADMINISTRATOR)));
-        defaultAccessExpressions.add((new AccessExpression("createCar", USER_INFO_ROLE_ADMINISTRATOR)));
-        defaultAccessExpressions.add((new AccessExpression("updateCar", USER_INFO_ROLE_ADMINISTRATOR)));
+        DEFAULT_ACCESS_EXPR = new ArrayList<>();
+        DEFAULT_ACCESS_EXPR.add(new AccessExpression("getCars_filter",
+                " ( #userInfo.role == 'rental_manager' && #userInfo.localityId == #target.currentLocationId ) "
+                + " || ( #userInfo.role == 'service_manager' && ( #target.currentStatus = 'in_service' ||  #target.nextStatus == 'in_service' )) "
+                + " || #userInfo.role == 'management' ||  #userInfo.role == 'administrator' "));
+        DEFAULT_ACCESS_EXPR.add((new AccessExpression("getReferencesByRubric_filter", "#userInfo.role != 'test'")));
+        DEFAULT_ACCESS_EXPR.add((new AccessExpression("changeCarState", "#userInfo.role == 'management'")));
+        DEFAULT_ACCESS_EXPR.add((new AccessExpression("deleteCar", USER_INFO_ROLE_ADMINISTRATOR)));
+        DEFAULT_ACCESS_EXPR.add((new AccessExpression("createCar", USER_INFO_ROLE_ADMINISTRATOR)));
+        DEFAULT_ACCESS_EXPR.add((new AccessExpression("updateCar", USER_INFO_ROLE_ADMINISTRATOR)));
     }
 
     @HystrixCommand(fallbackMethod = "defaultList", commandKey = "AccessExpressionCommand")
@@ -40,6 +47,6 @@ public class AccessExpressionCommand {
 
     public List<AccessExpression> defaultList() {
         System.out.println("defaultList");
-        return defaultAccessExpressions;
+        return DEFAULT_ACCESS_EXPR;
     }
 }
