@@ -10,8 +10,6 @@ import ru.neoflex.microservices.carpark.dicts.model.ReferenceCommand;
 import ru.neoflex.microservices.carpark.dicts.model.Rubric;
 import ru.neoflex.microservices.carpark.dicts.repository.ReferenceRepository;
 import ru.neoflex.microservices.carpark.dicts.sender.DictSender;
-import ru.neoflex.microservices.carpark.dicts.service.ReferenceService;
-import ru.neoflex.microservices.carpark.dicts.service.ReferenceServiceImpl;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -21,7 +19,6 @@ import java.util.List;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
 
 public class ReferenceServiceImplTest {
 

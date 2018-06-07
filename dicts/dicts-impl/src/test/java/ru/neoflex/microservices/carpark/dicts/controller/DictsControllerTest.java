@@ -1,106 +1,135 @@
 package ru.neoflex.microservices.carpark.dicts.controller;
 
-import lombok.extern.slf4j.Slf4j;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.neoflex.microservices.carpark.dicts.DictsApplication;
+import ru.neoflex.microservices.carpark.dicts.api.DictsApi;
 import ru.neoflex.microservices.carpark.dicts.model.Reference;
 import ru.neoflex.microservices.carpark.dicts.model.Rubric;
 import ru.neoflex.microservices.carpark.dicts.service.ReferenceService;
 import ru.neoflex.microservices.carpark.dicts.service.RubricService;
 
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Slf4j
-@SpringBootTest(classes = DictsApplication.class)
 public class DictsControllerTest {
 
     private static final String CODE = "1";
+    private static final String UPDATE_CODE = "2";
     private static final String TITLE = "Title";
     private static final boolean SYSTEM = true;
     private static final boolean ACTIVE = true;
-    private  ObjectMapper mapper;
-    private MockMvc mockMvc;
+    private static final int RUBRICS_LIST_SIZE = 2;
+    private static final int REFERENCES_LIST_SIZE = 1;
     private Reference reference;
     private Rubric rubric;
+    private List<Rubric> rubricList;
 
-    @Mock
-    private RubricService rubricService;
-    @Mock
-    private ReferenceService referenceService;
-    @InjectMocks
-    private DictsController dictsController;
+    @Autowired
+    DictsApi dictsApi;
+    @Autowired
+    RubricService rubricService = mock(RubricService.class);
+    @Autowired
+    ReferenceService referenceService = mock(ReferenceService.class);
 
     @BeforeMethod
     public void setUp() {
-        mapper = new ObjectMapper();
-        MockitoAnnotations.initMocks(this);
+        reset(rubricService);
+        reset(referenceService);
+        dictsApi = new DictsController(rubricService, referenceService);
         rubric = new Rubric();
         reference = new Reference();
         rubric.setCode(CODE);
         rubric.setTitle(TITLE);
         rubric.setSystem(SYSTEM);
+        rubricList = new ArrayList<>();
+        rubricList.add(rubric);
         reference.setCode(CODE);
         reference.setTitle(TITLE);
         reference.setSystem(SYSTEM);
         reference.setActive(ACTIVE);
         reference.setRubric(rubric);
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(dictsController)
-                .build();
     }
 
     @Test
-    public void testGetReferencesByRubric() throws Exception {
-        when(dictsController.getReferencesByRubric(reference.getRubric().getCode())).thenReturn(Arrays.asList(reference));
+    public void testGetRubrics() {
+        when(rubricService.findAll()).thenReturn(Arrays.asList(rubric, rubric));
+        List<Rubric> rubricList = dictsApi.getRubrics();
 
-        mockMvc.perform(get("/references/{rubricCode}", rubric.getCode())
-                .accept(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].code", is(reference.getCode())))
-                .andExpect(jsonPath("$[0].title", is(reference.getTitle())))
-                .andExpect(jsonPath("$[0].rubric.code", is(reference.getRubric().getCode())))
-                .andExpect(jsonPath("$[0].rubric.title", is(reference.getRubric().getTitle())))
-                .andExpect(jsonPath("$[0].rubric.system", is(SYSTEM)))
-                .andExpect(jsonPath("$[0].system", is(SYSTEM)))
-                .andExpect(jsonPath("$[0].active", is(ACTIVE)));
+        Assert.assertNotNull(rubricList.size());
+        Assert.assertEquals(RUBRICS_LIST_SIZE, rubricList.size());
+
+        Assert.assertEquals(CODE, rubricList.get(0).getCode());
+        Assert.assertEquals(TITLE, rubricList.get(0).getTitle());
+        Assert.assertEquals(SYSTEM, true);
+
+        Assert.assertEquals(CODE, rubricList.get(1).getCode());
+        Assert.assertEquals(TITLE, rubricList.get(1).getTitle());
+        Assert.assertEquals(SYSTEM, true);
+
+        verify(rubricService, atLeastOnce()).findAll();
     }
 
     @Test
-    public void testGetRubricsTest() throws Exception {
-        when(dictsController.getRubrics()).thenReturn(Arrays.asList(rubric, rubric));
+    public void testGetReferencesByRubric() {
+        when(rubricService.findByCode(CODE)).thenReturn(rubric);
+        when(referenceService.findByRubric(rubric)).thenReturn(Arrays.asList(reference));
 
-        mockMvc.perform(get("/rubrics")
-                .accept(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].code", is(rubric.getCode())))
-                .andExpect(jsonPath("$[0].title", is(rubric.getTitle())))
-                .andExpect(jsonPath("$[0].system", is(SYSTEM)))
-                .andExpect(jsonPath("$[1].code", is(rubric.getCode())))
-                .andExpect(jsonPath("$[1].title", is(rubric.getTitle())))
-                .andExpect(jsonPath("$[1].system", is(SYSTEM)));
+        List<Reference> referenceList = dictsApi.getReferencesByRubric(rubric.getCode());
+
+        Assert.assertNotNull(referenceList.size());
+        Assert.assertEquals(REFERENCES_LIST_SIZE, referenceList.size());
+
+        Assert.assertEquals(CODE, referenceList.get(0).getCode());
+        Assert.assertEquals(TITLE, referenceList.get(0).getTitle());
+        Assert.assertEquals(CODE, referenceList.get(0).getRubric().getCode());
+        Assert.assertEquals(TITLE, referenceList.get(0).getRubric().getTitle());
+        Assert.assertEquals(SYSTEM, true);
+        Assert.assertEquals(ACTIVE, true);
+
+        verify(rubricService, atLeastOnce()).findByCode(eq(rubric.getCode()));
+        verify(referenceService, atLeastOnce()).findByRubric(eq(rubric));
+    }
+
+    @Test
+    public void testUpdateReference() {
+        doNothing().when(referenceService).updateReference(isA(Reference.class));
+        dictsApi.updateReference(UPDATE_CODE, reference);
+        Assert.assertEquals(reference.getCode(), UPDATE_CODE);
+        verify(referenceService, atLeastOnce()).updateReference(eq(reference));
+    }
+
+    @Test
+    public void testUpdateRubric() {
+        doNothing().when(rubricService).updateRubric(isA(Rubric.class));
+        dictsApi.updateRubric(UPDATE_CODE, rubric);
+        Assert.assertEquals(rubric.getCode(), UPDATE_CODE);
+        verify(rubricService, atLeastOnce()).updateRubric(eq(rubric));
+    }
+
+    @Test
+    public void testCreateRubric() {
+        doNothing().when(rubricService).createRubric(isA(Rubric.class));
+        dictsApi.createRubric(rubric);
+        verify(rubricService, atLeastOnce()).createRubric(eq(rubric));
+    }
+
+    @Test
+    public void testCreateReference() {
+        doNothing().when(referenceService).createReference(isA(Reference.class));
+        dictsApi.createReference(reference);
+        verify(referenceService, atLeastOnce()).createReference(eq(reference));
+    }
+
+    @Test
+    public void testDisableReference() {
+        doNothing().when(referenceService).disableReference(isA(String.class));
+        dictsApi.disableReference(CODE);
+        verify(referenceService, atLeastOnce()).disableReference(eq(CODE));
     }
 }
