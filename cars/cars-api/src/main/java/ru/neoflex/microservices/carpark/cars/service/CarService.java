@@ -2,11 +2,13 @@ package ru.neoflex.microservices.carpark.cars.service;
 
 import ru.neoflex.microservices.carpark.cars.model.Car;
 import ru.neoflex.microservices.carpark.cars.model.CarFilter;
+import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 
 import java.util.List;
 
 /**
  * Сервис работы с сущностью автомобиля.
+ *
  * @author Denis_Begun
  */
 public interface CarService {
@@ -15,10 +17,10 @@ public interface CarService {
 
     Car getCar(Long id);
 
-    Car createCar(Car car);
+    Car createCar(UserInfo userInfo, Car car);
 
-    Car updateCar(Car car);
+    Car updateCar(UserInfo userInfo, Car car);
 
-    void deleteById(Long id);
+    void deleteById(UserInfo userInfo, Long id);
 
 }

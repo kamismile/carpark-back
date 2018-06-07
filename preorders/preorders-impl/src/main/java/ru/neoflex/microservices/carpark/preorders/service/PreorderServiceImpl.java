@@ -3,6 +3,7 @@ package ru.neoflex.microservices.carpark.preorders.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.neoflex.microservices.carpark.commons.dto.UserInfo;
 import ru.neoflex.microservices.carpark.commons.model.Command;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
  * @author mirzoevnik, Denis_Begun
  */
 @Service
+@Transactional
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PreorderServiceImpl implements PreorderService {
 

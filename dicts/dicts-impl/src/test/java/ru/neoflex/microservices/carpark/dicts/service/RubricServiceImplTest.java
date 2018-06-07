@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.neoflex.microservices.carpark.dicts.controller.model.Rubric;
-import ru.neoflex.microservices.carpark.dicts.controller.repository.RubricRepository;
-import ru.neoflex.microservices.carpark.dicts.controller.service.RubricService;
-import ru.neoflex.microservices.carpark.dicts.controller.service.RubricServiceImpl;
+import ru.neoflex.microservices.carpark.dicts.model.Rubric;
+import ru.neoflex.microservices.carpark.dicts.repository.RubricRepository;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
