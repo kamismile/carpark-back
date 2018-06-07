@@ -25,12 +25,12 @@ public class CarController implements CarApi {
 
     private CarService carService;
     private LifecycleService lifecycleService;
-    private KafkaProducerService kafkaProducerService;
+
 
     @Override
     public List<Car> getCars(UserInfo userInfo, CarFilter carFilter) {
         List<Car> list = carService.getAllCars(carFilter);
-        list.stream().forEach(car -> {
+        list.forEach(car -> {
             car.setAvailableEvents(lifecycleService.getAvailableTransitions(car));
         });
         return list;
@@ -46,23 +46,17 @@ public class CarController implements CarApi {
     @Override
     public Car updateCar(UserInfo userInfo, @PathVariable(name = "id") Long id, @RequestBody Car car) {
         car.setId(id);
-        Car mergedCar = carService.updateCar(car);
-        sendCommand(userInfo, mergedCar, Command.UPDATE);
-        return mergedCar;
+        return carService.updateCar(userInfo, car);
     }
 
     @Override
     public Car createCar(UserInfo userInfo, @RequestBody Car car) {
-        Car persistedCar = carService.createCar(car);
-        sendCommand(userInfo, persistedCar, Command.ADD);
-        return persistedCar;
+        return carService.createCar(userInfo, car);
     }
 
     @Override
     public void deleteCar(UserInfo userInfo, @PathVariable(name = "id") Long id) {
-        Car car = carService.getCar(id);
-        carService.deleteById(id);
-        sendCommand(userInfo, car, Command.DELETE);
+        carService.deleteById(userInfo, id);
     }
 
     @Override
@@ -73,18 +67,9 @@ public class CarController implements CarApi {
         car.setState(result);
         car.setCurrentStatus(result.getStatusCode());
         car.setCurrentStatusDate(new Date());
-        car = carService.updateCar(car);
-        sendCommand(userInfo, car, Command.ADD);
+        car = carService.updateCar(userInfo, car);
         return car;
     }
 
-    private void sendCommand(UserInfo userInfo, Car car, Command command) {
-        CarCommand cc = new CarCommand();
-        cc.setCommand(command);
-        cc.setEntity(car);
-        cc.setMessageDate(new Date());
-        cc.setUserInfo(userInfo);
-        kafkaProducerService.sendMessage(cc);
-    }
 
 }
