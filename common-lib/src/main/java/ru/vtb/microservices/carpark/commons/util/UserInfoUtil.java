@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * UserInfoUtil.
  *
- * @author  Roman_Morenko.
+ * @author  Roman_Morenko
  */
 @Slf4j
 public class UserInfoUtil {

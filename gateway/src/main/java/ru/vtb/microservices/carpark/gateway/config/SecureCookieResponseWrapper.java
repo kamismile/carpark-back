@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.gateway.config;
 
 import javax.servlet.http.Cookie;
@@ -7,7 +12,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 /**
  * Http servlet response wrapper for set secure cookie.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 public class SecureCookieResponseWrapper extends HttpServletResponseWrapper {
     public SecureCookieResponseWrapper(HttpServletResponse response) {

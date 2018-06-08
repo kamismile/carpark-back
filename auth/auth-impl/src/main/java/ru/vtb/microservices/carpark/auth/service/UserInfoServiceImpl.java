@@ -13,7 +13,7 @@ import ru.vtb.microservices.carpark.auth.repository.UserInfoRepository;
 /**
  * UserInfoService realization.
  *
- * @author mirzoevnik
+ * @author Miirzoev_Nikita
  */
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -35,7 +35,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      *
      * @param login login
      * @param password password
-     * @return
+     * @return user info
     */
     @Override
     public UserInfo authenticateUserByLoginAndPassword(String login, String password) {
