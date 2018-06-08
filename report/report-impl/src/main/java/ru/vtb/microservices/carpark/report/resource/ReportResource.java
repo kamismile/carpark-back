@@ -37,6 +37,7 @@ import ru.vtb.microservices.carpark.report.repository.CarEventRepository;
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -131,7 +132,7 @@ public class ReportResource {
          * @return report
          */
     @GetMapping(value = "/report", produces = "application/xlsx")
-     public byte[] report(UserInfo userInfo, @RequestParam(value = "date", required = false) Long date) {
+     public byte[] report(UserInfo userInfo, @RequestParam(value = "date", required = false) Long date) throws UnsupportedEncodingException {
 
         Date reportDate = getDateReport(date);
 
@@ -147,14 +148,10 @@ public class ReportResource {
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                                 jasperReport, parameters, dataSource.getConnection());
             return getReportBytes(jasperPrint);
-        } catch (JRException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
             log.trace("Jasper error", e);
-            return e.getMessage().getBytes();
-        } catch (SQLException e) {
-            log.trace("SQL error", e);
-            log.error(e.getMessage());
-            return e.getMessage().getBytes();
+            return e.getMessage().getBytes("UTF-8");
         }
     }
 
@@ -189,10 +186,10 @@ public class ReportResource {
                      new SimpleOutputStreamExporterOutput(byteArrayOutputStream));
         SimpleXlsxReportConfiguration xlsReportConfiguration
                         = new SimpleXlsxReportConfiguration();
-        xlsReportConfiguration.setOnePagePerSheet(false);
+        xlsReportConfiguration.setOnePagePerSheet(Boolean.FALSE);
         xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(true);
-        xlsReportConfiguration.setDetectCellType(true);
-        xlsReportConfiguration.setWhitePageBackground(false);
+        xlsReportConfiguration.setDetectCellType(Boolean.TRUE);
+        xlsReportConfiguration.setWhitePageBackground(Boolean.FALSE);
         exporter.exportReport();
         return byteArrayOutputStream.toByteArray();
     }

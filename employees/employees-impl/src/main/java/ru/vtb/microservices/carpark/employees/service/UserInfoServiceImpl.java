@@ -35,7 +35,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public void deactivate(String login) {
         UserInfo userInfo = userInfoRepository.getByLogin(login);
-        userInfo.setActive(false);
+        userInfo.setActive(Boolean.FALSE);
         userInfoRepository.save(userInfo);
     }
 

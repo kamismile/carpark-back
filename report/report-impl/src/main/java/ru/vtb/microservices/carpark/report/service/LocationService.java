@@ -30,7 +30,7 @@ public class LocationService {
     LocationRepository repository;
 
     public void save(LocationCommand cmd) {
-        if (Command.DELETE.equals(cmd.getCommand())) {
+        if (Command.DELETE == cmd.getCommand()) {
             cmd.getEntity().setActive(false);
             repository.save(cmd.getEntity());
         } else if (Command.ADD.equals(cmd.getCommand())) {

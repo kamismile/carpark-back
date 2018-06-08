@@ -33,7 +33,7 @@ public class EmployeeService {
     UserInfoRepository userInfoRepository;
 
     public void save(EmployeeCommand cmd) {
-        UserInfo newUserInfo = getNewUserInfo(cmd.getEntity(),!Command.DELETE.equals(cmd.getCommand()));
+        UserInfo newUserInfo = getNewUserInfo(cmd.getEntity(),!(Command.DELETE == cmd.getCommand()));
         cmd.getEntity().setUser(newUserInfo);
         repository.save(cmd.getEntity());
     }
