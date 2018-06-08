@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.auth;
 
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +12,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 /**
- * @author mirzoevnik
+ * Main class.
+ *
+ * @author Nikita_Mirzoev
  */
 @EnableEurekaClient
 @Slf4j
