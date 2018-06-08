@@ -139,7 +139,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>AccessApplication</mainClass>
+                        <mainClass>ru.vtb.microservices.carpark.access.AccessApplication</mainClass>
                     </configuration>
                 </plugin>
                 <plugin>

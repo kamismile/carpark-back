@@ -139,7 +139,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>DictReportApplication</mainClass>
+                        <mainClass>ru.vtb.microservices.carpark.dict.report.DictReportApplication</mainClass>
                     </configuration>
                 </plugin>
 
