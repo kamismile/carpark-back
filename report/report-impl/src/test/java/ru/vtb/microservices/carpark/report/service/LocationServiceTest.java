@@ -54,9 +54,13 @@ public class LocationServiceTest {
         when(locationRepository.save(location)).thenReturn(location);
         when(locationRepository.findByAddress(anyString())).thenReturn(location);
         doNothing().when(locationRepository).delete(isA(Location.class));
-
         locationService.save(locationCommand);
-
+        verify(locationRepository, atLeastOnce()).save(eq(location));
+        locationCommand.setCommand(Command.DELETE);
+        locationService.save(locationCommand);
+        verify(locationRepository, atLeastOnce()).save(eq(location));
+        locationCommand.setCommand(Command.UPDATE);
+        locationService.save(locationCommand);
         verify(locationRepository, atLeastOnce()).save(eq(location));
     }
 

@@ -1,9 +1,10 @@
 package ru.vtb.microservices.carpark.employees.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import ru.vtb.microservices.carpark.employees.api.LocationApi;
 import ru.vtb.microservices.carpark.employees.model.Location;
 import ru.vtb.microservices.carpark.employees.model.LocationFilter;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author mirzoevnik
  */
 @RestController
+@Api(value = "locations", description = "Rest API for locations operations", tags = "Locations API")
 public class LocationController implements LocationApi {
 
     private final LocationService locationService;
@@ -26,27 +28,32 @@ public class LocationController implements LocationApi {
         this.locationService = locationService;
     }
 
-    @Override
+    @GetMapping(value = "/location/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get location by id")
     public Location getById(Long id) {
         return locationService.getById(id);
     }
 
-    @Override
+    @DeleteMapping(value = "/location/deactivate/{locationId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Deactivate location by id")
     public void deactivate(@PathVariable("locationId") Long locationId) {
          locationService.deactivate(locationId);
     }
 
-    @Override
+    @PostMapping(value = "/location/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Add new location")
     public void add(@RequestBody Location location) {
        locationService.add(location);
     }
 
-    @Override
+    @PutMapping(value = "/location/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Update location")
     public void update(@RequestBody Location location) {
         locationService.add(location);
     }
 
-    @Override
+    @GetMapping(value = "/locations", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get all locations")
     public List<Location> getAll(LocationFilter filter) {
        return locationService.getAll(filter);
     }
