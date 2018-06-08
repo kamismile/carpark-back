@@ -28,6 +28,9 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.*;
 
+import static org.springframework.data.jpa.domain.Specifications.where;
+import static ru.vtb.microservices.carpark.report.repository.CarEventSpecisications.carEventFrom;
+import static ru.vtb.microservices.carpark.report.repository.CarEventSpecisications.carEventTo;
 
 /**
  * @author rmorenko
@@ -88,10 +91,14 @@ public class ReportResource {
         @GetMapping (value = "/history", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
         public List<CarEvent> getHistory(UserInfo userInfo, @RequestParam (value = "date", required = false) Long date) {
                 Date reportDate = getDateReport(date);
+                Calendar calendar = trimDate(reportDate);
+                Date dateTo = calendar.getTime();
+                Date dateFrom = shiftDay(calendar);
+
              if (isRentalRole(userInfo)){
                 return  carEventRepository.findByMessageDateAndLocationId(reportDate, userInfo.getLocationId());
              }
-             return carEventRepository.findByMessageDate(reportDate);
+             return carEventRepository.findAll(where(carEventFrom(dateFrom)).and(carEventTo(dateTo)));
         }
 
         private Date getDateReport(@RequestParam(value = "date", required = false) Long date) {
