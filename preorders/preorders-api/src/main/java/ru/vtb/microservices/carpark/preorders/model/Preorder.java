@@ -8,13 +8,21 @@ package ru.vtb.microservices.carpark.preorders.model;
 import lombok.Data;
 import ru.vtb.microservices.carpark.cars.model.PreorderType;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 import static java.util.Objects.requireNonNull;
 
 /**
  * Сущность предзаказа.
+ *
  * @author Denis_Begun
  */
 @Data
