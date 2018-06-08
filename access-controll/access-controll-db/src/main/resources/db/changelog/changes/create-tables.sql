@@ -47,3 +47,10 @@ UPDATE  ACCESS_EXPRESSIONS  SET expression =
 '(#userInfo.role == ''service_manager'' && ( #target.currentStatus = ''in_service'' ||  #target.nextStatus == ''in_service'' )) ||'||
 '(#userInfo.role == ''management'') || (#userInfo.role == ''administrator'')'
 WHERE operation_name = 'getCars_filter';
+
+--changeset rmorenko:2018-06-08-2
+UPDATE  ACCESS_EXPRESSIONS  SET expression =
+'( #userInfo.role == ''rental_manager'' && #userInfo.locationId == #target.currentLocationId )||'||
+'(#userInfo.role == ''service_manager'' && ( #target.currentStatus == ''in_service'' ||  #target.nextStatus == ''in_service'' )) ||'||
+'(#userInfo.role == ''management'') || (#userInfo.role == ''administrator'')'
+WHERE operation_name = 'getCars_filter';

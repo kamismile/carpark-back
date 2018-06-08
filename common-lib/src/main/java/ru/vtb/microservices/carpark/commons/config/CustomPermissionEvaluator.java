@@ -46,7 +46,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         defaultExpressions = new ConcurrentHashMap<>();
         defaultExpressions.put("getCars_filter",
                 " ( #userInfo.role == 'rental_manager' && #userInfo.locationId == #target.currentLocationId ) "
-                        + " || ( #userInfo.role == 'service_manager' && ( #target.currentStatus = 'in_service' ||  #target.nextStatus == 'in_service' )) "
+                        + " || ( #userInfo.role == 'service_manager' && ( #target.currentStatus == 'in_service' ||  #target.nextStatus == 'in_service' )) "
                         + " || #userInfo.role == 'management' ||  #userInfo.role == 'administrator' ");
         defaultExpressions.put("getReferencesByRubric_filter", "#userInfo.role != 'test'");
         defaultExpressions.put("changeCarState", "#userInfo.role == 'administrator' || #userInfo.role == 'management' "
