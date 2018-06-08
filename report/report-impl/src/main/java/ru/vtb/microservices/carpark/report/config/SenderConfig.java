@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.report.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -15,37 +20,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author rmorenko
+ * Config for sender.
+ *
+ * @author Roman_Morenko
  */
 @Configuration
 public class SenderConfig {
 
-        @Value("${kafka.bootstrap-servers}")
-        private String bootstrapServers;
+    @Value("${kafka.bootstrap-servers}")
+    private String bootstrapServers;
 
-        @Bean
-        public Map<String, Object> producerConfigs() {
-                Map<String, Object> props = new HashMap<>();
-                props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-                props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-                props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-                return props;
-        }
+    @Bean
+    public Map<String, Object> producerConfigs() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        return props;
+    }
 
-        @Bean
-        public ProducerFactory<String, String> producerFactory() {
-                return new DefaultKafkaProducerFactory<>(producerConfigs());
-        }
+    @Bean
+    public ProducerFactory<String, String> producerFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfigs());
+    }
 
-        @Bean
-        public KafkaTemplate<String, String> kafkaTemplate() {
-                KafkaTemplate<String, String> template = new KafkaTemplate<>(producerFactory());
-                template.setMessageConverter(new StringJsonMessageConverter());
-                return template;
-        }
+    @Bean
+    public KafkaTemplate<String, String> kafkaTemplate() {
+        KafkaTemplate<String, String> template = new KafkaTemplate<>(producerFactory());
+        template.setMessageConverter(new StringJsonMessageConverter());
+        return template;
+    }
 
-        @Bean
-        public Sender sender() {
-                return new Sender();
-        }
+    @Bean
+    public Sender sender() {
+        return new Sender();
+    }
 }

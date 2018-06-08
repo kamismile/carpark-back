@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.commons.config;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -10,29 +15,32 @@ import ru.vtb.microservices.carpark.commons.dto.UserInfoResolver;
 import java.util.List;
 
 /**
- * @author rmorenko
+ * Jwt Config.
+ *
+ * @author Roman_Morenko
  */
 public class JwtWebMvcConfig extends WebMvcConfigurerAdapter {
-        public JwtWebMvcConfig() {
-                super();
-        }
 
-        @Bean
-        public UserInfoResolver userInfoResolver() {
-                UserInfoResolver userInfoResolver = new UserInfoResolver();
-                userInfoResolver.setObjectMapper(new ObjectMapper());
-                return  userInfoResolver;
-        }
+    public JwtWebMvcConfig() {
+           super();
+    }
 
-        @Bean
-        public PageResolver pageResolver() {
-                PageResolver pageResolver = new PageResolver();
-                pageResolver.setObjectMapper(new ObjectMapper());
-                return pageResolver;
-        }
+    @Bean
+    public UserInfoResolver userInfoResolver() {
+        UserInfoResolver userInfoResolver = new UserInfoResolver();
+        userInfoResolver.setObjectMapper(new ObjectMapper());
+        return  userInfoResolver;
+    }
 
-        public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-                argumentResolvers.add(this.userInfoResolver());
-                argumentResolvers.add(this.pageResolver());
-        }
+    @Bean
+    public PageResolver pageResolver() {
+        PageResolver pageResolver = new PageResolver();
+        pageResolver.setObjectMapper(new ObjectMapper());
+        return pageResolver;
+    }
+
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(this.userInfoResolver());
+        argumentResolvers.add(this.pageResolver());
+    }
 }

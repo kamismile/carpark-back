@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dicts.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -13,7 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * Implementation for rubric service.
+ *
+ * @author Mirzoev_Nikita
  */
 @Service
 @Data

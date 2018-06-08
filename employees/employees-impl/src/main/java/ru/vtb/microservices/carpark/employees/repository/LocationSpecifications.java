@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.repository;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -8,7 +13,7 @@ import ru.vtb.microservices.carpark.employees.model.LocationFilter;
 /**
  * SpringData specifications for location filter.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 
 public class LocationSpecifications {

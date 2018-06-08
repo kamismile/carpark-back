@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.report.resource;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +38,9 @@ import static ru.vtb.microservices.carpark.report.repository.CarEventSpecisicati
 import static ru.vtb.microservices.carpark.report.repository.CarEventSpecisications.carEventTo;
 
 /**
- * @author rmorenko
+ * Report controoller.
+ *
+ * @author Roman_Morenko
  */
 @RestController
 @Slf4j

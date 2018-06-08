@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dict.report.service;
 
 import lombok.Data;
@@ -9,7 +14,9 @@ import ru.vtb.microservices.carpark.dict.report.model.ReferenceCommand;
 import ru.vtb.microservices.carpark.dict.report.repository.ReferenceRepository;
 
 /**
- * @author vanosov
+ * Service for reference.
+ *
+ * @author Vadim_Anosov
  */
 @Service
 @Data

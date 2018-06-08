@@ -1,5 +1,9 @@
-package ru.vtb.microservices.carpark.employees.config;
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
 
+package ru.vtb.microservices.carpark.employees.config;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +18,7 @@ import java.util.List;
 /**
  * WebMvc config.
  *
- * @author morenko
+ * @author Roman_Morenko
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {

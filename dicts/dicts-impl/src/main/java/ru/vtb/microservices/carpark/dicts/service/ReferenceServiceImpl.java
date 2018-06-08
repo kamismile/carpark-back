@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dicts.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -18,7 +23,9 @@ import ru.vtb.microservices.carpark.dicts.repository.ReferenceRepository;
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * Implementation for Reference service.
+ *
+ * @author Mirzoev_Nikita
  */
 @Service
 @Data
@@ -57,9 +64,9 @@ public class ReferenceServiceImpl implements ReferenceService {
         Reference oldReference = referenceRepository.findOne(reference.getCode());
         referenceRepository.save(reference);
         ReferenceCommand referenceCommand = new ReferenceCommand();
+        referenceCommand.setOldEntity(oldReference);
         referenceCommand.setCommand(Command.UPDATE);
         referenceCommand.setEntity(reference);
-        referenceCommand.setOldEntity(oldReference);
         sender.send(referenceTopic, referenceCommand);
     }
 

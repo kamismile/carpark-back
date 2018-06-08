@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.service;
 
 import org.springframework.data.domain.PageRequest;
@@ -10,7 +15,7 @@ import java.util.List;
 /**
  * Service for employee.
  *
- * @author mirzoevnik
+ * @author Roman_Morenko
  */
 public interface EmployeeService {
 

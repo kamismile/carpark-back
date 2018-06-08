@@ -24,7 +24,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author rmorenko
+ * CustomPermissionEvaluator for acl.
+ *
+ * @author Roman_Morenko
  */
 @Slf4j
 public class CustomPermissionEvaluator implements PermissionEvaluator {
@@ -32,8 +34,8 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     public static final String USER_INFO_VAR = "userInfo";
     public static final String FILTER_SUFF = "_filter";
     public static final String TARGET = "target";
-    private static final Map<String, String> expressions;
-    private static final Map<String, String> defaultExpressions;
+    private static final Map<String, String> EXPRESSIONS;
+    private static final Map<String, String> DEFAULT_EXPRESSIONS;
 
     @Autowired
     private AccessExpressionCommand accessExpressionCommand;
@@ -42,21 +44,22 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     public static final String USER_INFO_ROLE_ADMINISTRATOR = USER_INFO_ROLE_ADMINISTRATOR1;
 
     static {
-        expressions = new ConcurrentHashMap<>();
-        defaultExpressions = new ConcurrentHashMap<>();
-        defaultExpressions.put("getCars_filter",
+        EXPRESSIONS = new ConcurrentHashMap<>();
+        DEFAULT_EXPRESSIONS = new ConcurrentHashMap<>();
+        DEFAULT_EXPRESSIONS.put("getCars_filter",
                 " ( #userInfo.role == 'rental_manager' && #userInfo.locationId == #target.currentLocationId ) "
-                        + " || ( #userInfo.role == 'service_manager' && ( #target.currentStatus = 'in_service' ||  #target.nextStatus == 'in_service' )) "
+                        + " || ( #userInfo.role == 'service_manager' && "
+                        + " ( #target.currentStatus == 'in_service' ||  #target.nextStatus == 'in_service' )) "
                         + " || #userInfo.role == 'management' ||  #userInfo.role == 'administrator' ");
-        defaultExpressions.put("getReferencesByRubric_filter", "#userInfo.role != 'test'");
-        defaultExpressions.put("changeCarState", "#userInfo.role == 'administrator' || #userInfo.role == 'management' "
+        DEFAULT_EXPRESSIONS.put("getReferencesByRubric_filter", "#userInfo.role != 'test'");
+        DEFAULT_EXPRESSIONS.put("changeCarState", "#userInfo.role == 'administrator' || #userInfo.role == 'management' "
                 + "|| ( #userInfo.role == 'rental_manager' "
                 + "&&  ( #stringEvent == 'READY' || #stringEvent == 'IN_USE' ) )|| ( #userInfo.role == 'service_manager' "
                 + "&&  #stringEvent == 'IN_SERVICE')");
-        defaultExpressions.put("deleteCar", USER_INFO_ROLE_ADMINISTRATOR1);
-        defaultExpressions.put("createCar", USER_INFO_ROLE_ADMINISTRATOR1);
-        defaultExpressions.put("updateCar", USER_INFO_ROLE_ADMINISTRATOR);
-        defaultExpressions.put("createPreorder", "#userInfo.role == 'administrator' || #userInfo.role == 'rental_manager'");
+        DEFAULT_EXPRESSIONS.put("deleteCar", USER_INFO_ROLE_ADMINISTRATOR1);
+        DEFAULT_EXPRESSIONS.put("createCar", USER_INFO_ROLE_ADMINISTRATOR1);
+        DEFAULT_EXPRESSIONS.put("updateCar", USER_INFO_ROLE_ADMINISTRATOR);
+        DEFAULT_EXPRESSIONS.put("createPreorder", "#userInfo.role == 'administrator' || #userInfo.role == 'rental_manager'");
 
     }
 
@@ -76,10 +79,16 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
             putArgumentsInContext(arguments, context);
         }
         initExpressionsIfNeedForDemo(method);
-        String expression = expressions.get(method);
+        String expression = EXPRESSIONS.get(method);
         if (!StringUtils.isEmpty(expression)) {
             return (Boolean) parser.parseExpression(expression).getValue(context);
         }
+        return true;
+    }
+
+    @Override
+    public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
+            Object permission) {
         return true;
     }
 
@@ -88,9 +97,9 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         accessExpressions.stream()
                 .filter(e -> !StringUtils.isEmpty(e.getOperation())
                         && !StringUtils.isEmpty(e.getExpression()))
-                .forEach(e -> expressions.put(e.getOperation(), e.getExpression()));
-        if (expressions.isEmpty()) {
-            expressions.putAll(defaultExpressions);
+                .forEach(e -> EXPRESSIONS.put(e.getOperation(), e.getExpression()));
+        if (EXPRESSIONS.isEmpty()) {
+            EXPRESSIONS.putAll(DEFAULT_EXPRESSIONS);
         }
     }
 
@@ -99,10 +108,10 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         AccessExpression accessExpressions = accessExpressionCommand.getByOperation(operation);
         if (!StringUtils.isEmpty(accessExpressions.getOperation())
                 && !StringUtils.isEmpty(accessExpressions.getExpression())) {
-            expressions.put(accessExpressions.getOperation(), accessExpressions.getExpression());
+            EXPRESSIONS.put(accessExpressions.getOperation(), accessExpressions.getExpression());
         }
-        if (expressions.isEmpty()) {
-            expressions.putAll(defaultExpressions);
+        if (EXPRESSIONS.isEmpty()) {
+            EXPRESSIONS.putAll(DEFAULT_EXPRESSIONS);
         }
     }
 
@@ -120,9 +129,5 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         }
     }
 
-    @Override
-    public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType,
-                                 Object permission) {
-        return true;
-    }
+
 }

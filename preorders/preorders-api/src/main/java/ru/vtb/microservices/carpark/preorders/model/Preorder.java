@@ -81,8 +81,8 @@ public class Preorder {
         return start1.getTime() <= end2.getTime() && start2.getTime() <= end1.getTime();
     }
 
-    public boolean isInFuture() {
-        return this.getLeaseStartDate().getTime() > new Date().getTime();
+    public boolean startsNotBefore(Date date) {
+        return this.getLeaseStartDate().getTime() >= date.getTime();
     }
 
     public boolean isDurationOk() {

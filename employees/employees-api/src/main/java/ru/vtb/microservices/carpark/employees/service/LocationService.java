@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.service;
 
 import ru.vtb.microservices.carpark.employees.model.Location;
@@ -8,7 +13,8 @@ import java.util.List;
 
 /**
  * Service for location.
- * @author mirzoevnik
+ *
+ * @author Nikita_Mirzoev
  */
 public interface LocationService {
 

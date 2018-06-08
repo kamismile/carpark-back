@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.commons.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +15,9 @@ import ru.vtb.microservices.carpark.access.feign.AccessExpressionFeign;
 import ru.vtb.microservices.carpark.commons.command.AccessExpressionCommand;
 
 /**
- * @author rmorenko
+ * Security config.
+ *
+ * @author Roman_Morenko
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
@@ -24,7 +31,7 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
         DefaultMethodSecurityExpressionHandler expressionHandler =
-            new DefaultMethodSecurityExpressionHandler();
+                new DefaultMethodSecurityExpressionHandler();
         expressionHandler.setPermissionEvaluator(customPermissionEvaluator);
         return expressionHandler;
     }
@@ -35,7 +42,7 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     }
 
     @Bean
-    public CustomPermissionEvaluator customPermissionEvaluator(){
+    public CustomPermissionEvaluator customPermissionEvaluator() {
         return new CustomPermissionEvaluator();
     }
 

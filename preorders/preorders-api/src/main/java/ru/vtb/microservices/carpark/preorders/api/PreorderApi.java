@@ -49,7 +49,7 @@ public interface PreorderApi {
      * @param preorder добавляемый предзаказ
      * @return предзаказ
      */
-    @PreAuthorize("hasPermission({{'preorder', #preorder}} , {'createPreorder'})")
+    //@PreAuthorize("hasPermission({{'preorder', #preorder}} , {'createPreorder'})")
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     Preorder addPreorder(UserInfo userInfo, @RequestBody Preorder preorder);
 

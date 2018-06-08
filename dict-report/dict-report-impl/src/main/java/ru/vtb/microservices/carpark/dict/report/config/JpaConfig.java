@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 /**
  * Default jpa config.
  *
- * @author vanosov
+ * @author Vadim_Anosov
  */
 @Configuration
 @EntityScan(basePackages = {"ru.vtb.microservices.carpark.dicts.model"})

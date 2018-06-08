@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dicts.sender;
 
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +13,9 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 
 /**
- * @author vanosov
+ * DictSender to Kafka.
+ *
+ * @author Vadim_Anosov
  */
 @Slf4j
 @Configuration

@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.report.service;
 
 import groovy.util.logging.Slf4j;
@@ -12,30 +17,31 @@ import ru.vtb.microservices.carpark.report.repository.LocationRepository;
 import java.util.Date;
 
 /**
- * @author rmorenko
+ *  Location service.
+ *
+ * @author Roman_Morenko
  */
 @Service
 @Slf4j
 @Transactional
 public class LocationService {
 
-        @Autowired
-        LocationRepository repository;
+    @Autowired
+    LocationRepository repository;
 
-        public void save(LocationCommand cmd) {
-                if (Command.DELETE.equals(cmd.getCommand())) {
-                        cmd.getEntity().setActive(false);
-                        repository.save(cmd.getEntity());
-                } else if (Command.ADD.equals(cmd.getCommand())) {
-                        cmd.getEntity().setId(null);
-                } else {
-                        Location oldLocation =  repository.findByAddress(cmd.getOldEntity().getAddress());
-                        repository.delete(oldLocation);
-                        cmd.getEntity().setId(null);
-                }
-                cmd.setMessageDate(new Date());
-                repository.save(cmd.getEntity());
+    public void save(LocationCommand cmd) {
+        if (Command.DELETE.equals(cmd.getCommand())) {
+            cmd.getEntity().setActive(false);
+            repository.save(cmd.getEntity());
+        } else if (Command.ADD.equals(cmd.getCommand())) {
+            cmd.getEntity().setId(null);
+        } else {
+            Location oldLocation =  repository.findByAddress(cmd.getOldEntity().getAddress());
+            repository.delete(oldLocation);
+            cmd.getEntity().setId(null);
         }
-
+        cmd.setMessageDate(new Date());
+        repository.save(cmd.getEntity());
+    }
 
 }

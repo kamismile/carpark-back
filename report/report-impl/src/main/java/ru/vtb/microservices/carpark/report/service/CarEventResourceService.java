@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.report.service;
 
 import lombok.Data;
@@ -13,35 +18,41 @@ import ru.vtb.microservices.carpark.report.repository.EmployeeRepository;
 
 
 /**
- * @author rmorenko
+ * Controller for car event.
+ *
+ * @author Roman_Morenko
  */
 @Service
 @Data
 public class CarEventResourceService {
 
-   @Autowired
-   private CarEventRepository carEventRepository;
+    @Autowired
+    private CarEventRepository carEventRepository;
 
-   @Autowired
-   private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
-   public void save(CarCommand carCommand){
-      Car car = carCommand.getEntity();
-      CarEvent carEvent = new CarEvent();
-      carEvent.setMessageDate(carCommand.getMessageDate());
-      carEvent.setUserName(carCommand.getUserInfo().getName());
-      try {
-         Employee employee = employeeRepository.findByUserLogin(carCommand.getUserInfo().getName());
-         carEvent.setEmployee(employee);
-      } catch(Exception ex) {
-         carEvent.setEmployee(null);
-      }
-
-      BeanUtils.copyProperties(car,carEvent);
-      carEvent.setId(null);
-      carEvent.setCarId(car.getId());
-      carEvent.setMessageType(carCommand.getCommand().toString());
-      carEventRepository.save(carEvent);
-   }
+   /**
+   *  Command for save.
+    *
+   * @param carCommand comand
+   */
+    public void save(CarCommand carCommand) {
+        CarEvent carEvent = new CarEvent();
+        carEvent.setMessageDate(carCommand.getMessageDate());
+        carEvent.setUserName(carCommand.getUserInfo().getName());
+        try {
+            Employee employee = employeeRepository.findByUserLogin(carCommand.getUserInfo().getName());
+            carEvent.setEmployee(employee);
+        } catch (Exception ex) {
+            carEvent.setEmployee(null);
+        }
+        Car car = carCommand.getEntity();
+        BeanUtils.copyProperties(car,carEvent);
+        carEvent.setId(null);
+        carEvent.setCarId(car.getId());
+        carEvent.setMessageType(carCommand.getCommand().toString());
+        carEventRepository.save(carEvent);
+    }
 
 }

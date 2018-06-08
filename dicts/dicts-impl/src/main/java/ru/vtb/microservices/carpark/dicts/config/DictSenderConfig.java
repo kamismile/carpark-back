@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dicts.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -15,7 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author vanosov
+ * DictSender configiguration.
+ *
+ * @author Vadim_Anosov
  */
 @Configuration
 public class DictSenderConfig {

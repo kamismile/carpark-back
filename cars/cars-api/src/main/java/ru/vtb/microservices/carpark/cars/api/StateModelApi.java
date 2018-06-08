@@ -41,7 +41,7 @@ public interface StateModelApi {
     List<States> getPossibleStates();
 
     /**
-     * Получение списка событий для перехода
+     * Получение списка событий для перехода.
      *
      * @return список событий для перехода.
      */
@@ -72,7 +72,7 @@ public interface StateModelApi {
     Transition updateTransition(UserInfo userInfo, Long id, Transition transition);
 
     /**
-     * Удаление возможного перехода
+     * Удаление возможного перехода.
      *
      * @param userInfo Информация о пользователе (из токена).
      * @param id       Идентификатор перехода.

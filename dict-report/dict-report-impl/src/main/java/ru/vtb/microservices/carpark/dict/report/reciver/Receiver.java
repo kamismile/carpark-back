@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dict.report.reciver;
 
 import lombok.Data;
@@ -9,7 +14,9 @@ import ru.vtb.microservices.carpark.dict.report.model.ReferenceCommand;
 import ru.vtb.microservices.carpark.dict.report.service.ReferenceService;
 
 /**
- * @author vanosov
+ * Reciver for Kafka.
+ *
+ * @author Vadim_Nasonov
  */
 @Slf4j
 @Configuration

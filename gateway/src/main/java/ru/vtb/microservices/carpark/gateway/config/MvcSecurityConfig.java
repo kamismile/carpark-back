@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.gateway.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -13,7 +18,7 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * MVC security configuration.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 @Configuration
 @EnableResourceServer
@@ -29,12 +34,12 @@ public class MvcSecurityConfig extends ResourceServerConfigurerAdapter {
 
     @Bean
     public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         CorsFilter bean = new org.springframework.web.filter.CorsFilter(source);
         return bean;
