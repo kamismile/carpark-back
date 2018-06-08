@@ -189,7 +189,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ru.vtb.microservices.carpark.report.ReportApplication</mainClass>
+                        <mainClass>ReportApplication</mainClass>
                     </configuration>
                 </plugin>
 
