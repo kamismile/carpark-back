@@ -29,19 +29,18 @@ public class PreorderServiceImplTest {
     private UserInfo userInfo;
     private Preorder preorder;
     private List<Preorder> preorderList;
-    private Long preorder_id;
-    private Long preorder_car_id;
+    private Long preorder_id = 1111l;
+    private Long preorder_car_id = 2222l;
     private Date futureDate;
     private Date presentDate;
     private NextStatus nextStatus;
+    private String PREORDER_TYPE_IN_USE = "in_use";
+    private String futureString = "01.01.9999";
+    private String presentString = "01.01.2022";
+    private DateFormat format = new SimpleDateFormat("dd.mm.yyyy", Locale.ENGLISH);
 
     @BeforeMethod
     public void setupMock() {
-        preorder_id = 1111l;
-        preorder_car_id = 2222l;
-        String futureString = "01.01.9999";
-        String presentString = "01.01.2022";
-        DateFormat format = new SimpleDateFormat("dd.mm.yyyy", Locale.ENGLISH);
         try {
             futureDate = format.parse(futureString);
             presentDate = format.parse(presentString);
@@ -102,7 +101,7 @@ public class PreorderServiceImplTest {
     }
 
     private NextStatus getDefaultNextStatus() {
-        NextStatus nextStatus = new NextStatus(preorder_car_id, "in_use", presentDate, PreorderType.BOOKING);
+        NextStatus nextStatus = new NextStatus(preorder_car_id, PREORDER_TYPE_IN_USE, presentDate, PreorderType.BOOKING);
         return nextStatus;
     }
 }
