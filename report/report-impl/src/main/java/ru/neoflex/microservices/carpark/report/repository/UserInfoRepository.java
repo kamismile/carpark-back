@@ -1,7 +1,7 @@
-package ru.neoflex.microservices.carpark.report.repository;
+package ru.vtb.microservices.carpark.report.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.neoflex.microservices.carpark.auth.model.UserInfo;
+import ru.vtb.microservices.carpark.auth.model.UserInfo;
 
 /**
  * Created by rmorenko on 06.06.2018.

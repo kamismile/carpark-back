@@ -1,8 +1,8 @@
-package ru.neoflex.microservices.carpark.report.repository;
+package ru.vtb.microservices.carpark.report.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.neoflex.microservices.carpark.report.model.CarEvent;
+import ru.vtb.microservices.carpark.report.model.CarEvent;
 
 import java.util.Date;
 import java.util.List;

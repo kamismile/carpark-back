@@ -1,10 +1,8 @@
-package ru.neoflex.microservices.carpark.report.service;
+package ru.vtb.microservices.carpark.report.service;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,15 +15,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import ru.neoflex.microservices.carpark.commons.model.Command;
-import ru.neoflex.microservices.carpark.employees.model.Employee;
-import ru.neoflex.microservices.carpark.employees.model.Location;
-import ru.neoflex.microservices.carpark.report.model.EmployeeCommand;
-import ru.neoflex.microservices.carpark.report.model.LocationCommand;
-import ru.neoflex.microservices.carpark.report.repository.EmployeeRepository;
-import ru.neoflex.microservices.carpark.report.repository.LocationRepository;
-import ru.neoflex.microservices.carpark.report.repository.UserInfoRepository;
-import ru.neoflex.microservices.carpark.auth.model.UserInfo;
+import ru.vtb.microservices.carpark.commons.model.Command;
+import ru.vtb.microservices.carpark.employees.model.Employee;
+import ru.vtb.microservices.carpark.report.model.EmployeeCommand;
+import ru.vtb.microservices.carpark.report.repository.EmployeeRepository;
+import ru.vtb.microservices.carpark.report.repository.UserInfoRepository;
+import ru.vtb.microservices.carpark.auth.model.UserInfo;
 
 public class EmployeeServiceTest {
 

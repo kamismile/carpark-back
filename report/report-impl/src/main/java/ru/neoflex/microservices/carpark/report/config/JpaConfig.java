@@ -3,7 +3,7 @@
  * Copyright (c) 2018 VTB Group. All rights reserved.
  */
 
-package ru.neoflex.microservices.carpark.report.config;
+package ru.vtb.microservices.carpark.report.config;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
@@ -19,9 +19,9 @@ import javax.sql.DataSource;
  * @author Roman_Morenko
  */
 @Configuration
-@EntityScan(basePackages = {"ru.neoflex.microservices.carpark.dicts.model","ru.neoflex.microservices.carpark.auth.model",
-        "ru.neoflex.microservices.carpark.report.model", "ru.neoflex.microservices.carpark.employees.model"})
-@EnableJpaRepositories(basePackages = "ru.neoflex.microservices.carpark.report.repository")
+@EntityScan(basePackages = {"ru.vtb.microservices.carpark.dicts.model","ru.vtb.microservices.carpark.auth.model",
+        "ru.vtb.microservices.carpark.report.model", "ru.vtb.microservices.carpark.employees.model"})
+@EnableJpaRepositories(basePackages = "ru.vtb.microservices.carpark.report.repository")
 public class JpaConfig {
 
     @Bean

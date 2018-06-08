@@ -1,14 +1,17 @@
-package ru.neoflex.microservices.carpark.report.reciver;
+package ru.vtb.microservices.carpark.report.reciver;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
-import ru.neoflex.microservices.carpark.report.model.*;
-import ru.neoflex.microservices.carpark.report.service.CarEventResourceService;
-import ru.neoflex.microservices.carpark.report.service.EmployeeService;
-import ru.neoflex.microservices.carpark.report.service.LocationService;
+import ru.vtb.microservices.carpark.report.model.*;
+import ru.vtb.microservices.carpark.report.service.CarEventResourceService;
+import ru.vtb.microservices.carpark.report.service.EmployeeService;
+import ru.vtb.microservices.carpark.report.service.LocationService;
+import ru.vtb.microservices.carpark.report.model.CarCommand;
+import ru.vtb.microservices.carpark.report.model.EmployeeCommand;
+import ru.vtb.microservices.carpark.report.model.LocationCommand;
 
 
 /**

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>dict-report</artifactId>
-        <groupId>ru.neoflex.microservices.carpark</groupId>
+        <groupId>ru.vtb.microservices.carpark</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -96,7 +96,7 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>common-lib</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -147,19 +147,19 @@
         </dependency>
 
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>cars-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>dicts-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>dicts-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -169,7 +169,7 @@
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>employees-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

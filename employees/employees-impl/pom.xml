@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>employees</artifactId>
-        <groupId>ru.neoflex.microservices.carpark</groupId>
+        <groupId>ru.vtb.microservices.carpark</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -81,11 +81,11 @@
     <dependencies>
         <!-- bro modules -->
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>employees-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>employees-db</artifactId>
         </dependency>
 
@@ -129,11 +129,11 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>common-lib</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>auth-api</artifactId>
         </dependency>
         <dependency>

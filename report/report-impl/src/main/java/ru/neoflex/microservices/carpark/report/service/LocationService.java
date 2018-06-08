@@ -1,14 +1,13 @@
-package ru.neoflex.microservices.carpark.report.service;
+package ru.vtb.microservices.carpark.report.service;
 
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.neoflex.microservices.carpark.commons.model.Command;
-import ru.neoflex.microservices.carpark.employees.model.Employee;
-import ru.neoflex.microservices.carpark.employees.model.Location;
-import ru.neoflex.microservices.carpark.report.model.LocationCommand;
-import ru.neoflex.microservices.carpark.report.repository.LocationRepository;
+import ru.vtb.microservices.carpark.commons.model.Command;
+import ru.vtb.microservices.carpark.employees.model.Location;
+import ru.vtb.microservices.carpark.report.model.LocationCommand;
+import ru.vtb.microservices.carpark.report.repository.LocationRepository;
 
 import java.util.Date;
 
