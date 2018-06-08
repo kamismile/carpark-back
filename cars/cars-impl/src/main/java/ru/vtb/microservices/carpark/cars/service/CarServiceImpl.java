@@ -11,7 +11,6 @@ import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.car
 import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carInMarks;
 import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.accessSpecifications;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
