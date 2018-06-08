@@ -6,6 +6,7 @@
 package ru.vtb.microservices.carpark.report.service;
 
 import groovy.util.logging.Slf4j;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,7 @@ public class EmployeeService {
         Employee oldEmployee = null;
         try {
             oldEmployee = repository.findByUserLogin(login);
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             newUser.setId(null);
         }
         if (oldEmployee == null) {
