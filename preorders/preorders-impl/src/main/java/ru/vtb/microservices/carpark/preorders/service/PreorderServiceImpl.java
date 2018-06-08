@@ -21,8 +21,10 @@ import ru.vtb.microservices.carpark.preorders.model.Preorder;
 import ru.vtb.microservices.carpark.preorders.repository.PreorderRepository;
 import ru.vtb.microservices.carpark.preorders.repository.PreorderRepository;
 
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,7 +74,7 @@ public class PreorderServiceImpl implements PreorderService {
     @Override
     public Preorder getEarliestPreorder(Long carId) {
         List<Preorder> existingList = preorderRepository.findByCarId(carId);
-        Date now = new Date();
+        Date now = getTodayStart();
         if (existingList.isEmpty()) {
             return null;
         } else {
@@ -86,7 +88,7 @@ public class PreorderServiceImpl implements PreorderService {
     @Override
     public Preorder getEarliestPreorderByType(Long carId, PreorderType type) {
         List<Preorder> existingList = preorderRepository.findByCarId(carId);
-        Date now = new Date();
+        Date now = getTodayStart();
         if (existingList.isEmpty()) {
             return null;
         } else {
@@ -103,7 +105,7 @@ public class PreorderServiceImpl implements PreorderService {
      * @param preorder проверяемый заказ
      */
     private void checkPreorder(Preorder preorder) {
-        if (!preorder.isInFuture()) {
+        if (!preorder.startsNotBefore(getTodayStart())) {
             throw new PreorderException("Дата начала бронирования не может быть меньше текущей");
         }
 
@@ -137,5 +139,14 @@ public class PreorderServiceImpl implements PreorderService {
             nse.setMessageDate(new Date());
             kafkaService.sendMessage(nse);
         }
+    }
+
+    private Date getTodayStart() {
+        Calendar date = new GregorianCalendar();
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        return date.getTime();
     }
 }

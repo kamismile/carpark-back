@@ -38,7 +38,6 @@ public interface CarApi {
      * @param carFilter Фильтр по автомобилям (из параметров запроса)
      * @return Список автомобилей.
      */
-    @GetMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
     @PostFilter("hasPermission(filterObject, {'getCars_filter', {}})")
     List<Car> getCars(UserInfo userInfo, CarFilter carFilter);
 
@@ -49,7 +48,6 @@ public interface CarApi {
      * @param carFilter Фильтр по автомобилям (из параметров запроса).
      * @return Список автомобилей.
      */
-    @GetMapping(value = "/carspage/", produces = MediaType.APPLICATION_JSON_VALUE)
     PageResponse<Car> getCars(UserInfo userInfo, CarFilter carFilter, PageRequest pageRequest);
 
     /**
@@ -59,7 +57,6 @@ public interface CarApi {
      * @param id       Индентификатор автомобиля.
      * @return Сущность автомобиля.
      */
-    @GetMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     Car getCar(UserInfo userInfo, @PathVariable(name = "id") Long id);
 
     /**
@@ -70,7 +67,6 @@ public interface CarApi {
      * @param car      Сущность автомобиля.
      * @return Сущность автомобиля.
      */
-    @PutMapping(value = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasPermission({{'id', #id}, {'car', #car}} , {'updateCar'})")
     Car updateCar(UserInfo userInfo, @PathVariable Long id, @RequestBody Car car);
 
@@ -81,7 +77,6 @@ public interface CarApi {
      * @param car      Сущность автомобиля.
      * @return Сущность автомобиля.
      */
-    @PostMapping(value = "/cars/", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasPermission({{'car', #car}} , {'createCar'})")
     Car createCar(UserInfo userInfo, @RequestBody Car car);
 
@@ -91,7 +86,6 @@ public interface CarApi {
      * @param userInfo Информация о пользователе (из токена).
      * @param id       Индентификатор автомобиля.
      */
-    @DeleteMapping(value = "/cars/{id}")
     @PreAuthorize("hasPermission({{'id', #id}} , {'deleteCar'})")
     void deleteCar(UserInfo userInfo, @PathVariable Long id);
 
@@ -103,7 +97,6 @@ public interface CarApi {
      * @param stringEvent Имя отсылаемого события
      * @return Сущность автомобиля.
      */
-    @PatchMapping(value = "/cars/{id}/{stringEvent}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasPermission({{'id', #id}, {'stringEvent', #stringEvent}}, {'changeCarState'})")
     Car changeCarState(UserInfo userInfo, @PathVariable("id") Long id, @PathVariable("stringEvent") String stringEvent);
 
@@ -113,7 +106,6 @@ public interface CarApi {
      * @param userInfo Информация о пользователе (из токена).
      * @return Список автомобилей.
      */
-    @GetMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('administrator')")
     List<Car> uploadAllCars(UserInfo userInfo);
 
