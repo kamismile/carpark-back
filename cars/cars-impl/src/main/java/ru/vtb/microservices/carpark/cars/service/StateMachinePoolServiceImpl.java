@@ -46,9 +46,8 @@ public class StateMachinePoolServiceImpl implements StateMachinePoolService {
         StateMachine<String, String> polled = machines.poll();
         if (polled == null) {
             return factory.getStateMachine();
-        } else {
-            return polled;
         }
+        return polled;
     }
 
     @Override

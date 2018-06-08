@@ -85,7 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeCommand.setEntity(employee);
         employeeCommand.setMessageDate(new Date());
         if (employee.getUser() != null) {
-            employee.getUser().setActive(false);
+            employee.getUser().setActive(Boolean.FALSE);
             userInfoService.uppdateUserInfo(employee.getUser());
         }
         sender.send(employeeTopic, employeeCommand);

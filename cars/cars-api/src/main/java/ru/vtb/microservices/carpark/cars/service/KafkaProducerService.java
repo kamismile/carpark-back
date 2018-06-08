@@ -12,6 +12,7 @@ import ru.vtb.microservices.carpark.cars.model.CarCommand;
  *
  * @author Denis_Begun
  */
+@FunctionalInterface
 public interface KafkaProducerService {
 
     void sendMessage(CarCommand carCommand);

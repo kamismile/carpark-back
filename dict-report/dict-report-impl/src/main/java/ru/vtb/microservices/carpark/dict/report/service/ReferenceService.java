@@ -27,7 +27,7 @@ public class ReferenceService {
     ReferenceRepository repository;
 
     public void save(ReferenceCommand cmd) {
-        if (Command.DELETE.equals(cmd.getCommand())) {
+        if (Command.DELETE == cmd.getCommand()) {
             cmd.getEntity().setActive(false);
         }
         repository.save(cmd.getEntity());

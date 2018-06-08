@@ -37,6 +37,7 @@ import ru.vtb.microservices.carpark.report.repository.CarEventRepository;
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -190,8 +191,8 @@ public class ReportResource {
         SimpleXlsxReportConfiguration xlsReportConfiguration
                         = new SimpleXlsxReportConfiguration();
         xlsReportConfiguration.setOnePagePerSheet(Boolean.FALSE);
-        xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(Boolean.TRUE);
-        xlsReportConfiguration.setDetectCellType(Boolean.FALSE);
+        xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(true);
+        xlsReportConfiguration.setDetectCellType(Boolean.TRUE);
         xlsReportConfiguration.setWhitePageBackground(Boolean.FALSE);
         exporter.exportReport();
         return byteArrayOutputStream.toByteArray();
