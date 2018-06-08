@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.model;
 
 import static ru.vtb.microservices.carpark.commons.util.ResolverUtils.getBooleanParameter;
@@ -16,11 +21,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
-
 /**
  * FilterResolver for employee parameter.
- * @author rmorenko
+ *
+ * @author Roman_Morenko
  */
 public class EmployeeFilterResolver implements HandlerMethodArgumentResolver {
 
