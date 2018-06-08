@@ -44,9 +44,10 @@ public class KafkaConsumer {
     @KafkaListener(id = "preorders", topics = "${kafka.cars.topic}",
             containerFactory = "kafkaListenerContainerFactory")
     public void listen(ConsumerRecord<String, CarCommand> cr, Acknowledgment acknowledgment) {
-        log.info("received command='{}'", cr.value());
 
+        log.info("received command='{}'", cr);
         Car car = cr.value().getEntity();
+
         if (States.READY == car.getState()) {
             Preorder preorder = preorderService.getEarliestPreorderByType(car.getId(), PreorderType.BOOKING);
             if (preorder != null) {
