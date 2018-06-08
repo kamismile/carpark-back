@@ -40,3 +40,10 @@ WHERE operation_name = 'changeCarState';
 --changeset dbegun:2018-06-07
 INSERT into ACCESS_EXPRESSIONS (operation_name, expression)
 VALUES ('createPreorder','#userInfo.role == ''administrator'' || #userInfo.role == ''rental_manager''');
+
+--changeset dbegun:2018-06-08
+UPDATE  ACCESS_EXPRESSIONS  SET expression 'getCars_filter',
+'( #userInfo.role == ''rental_manager'' && #userInfo.locationId == #target.currentLocationId )||'||
+'(#userInfo.role == ''service_manager'' && ( #target.currentStatus = ''in_service'' ||  #target.nextStatus == ''in_service'' )) ||'||
+'(#userInfo.role == ''management'') || (#userInfo.role == ''administrator'')'
+WHERE operation_name = 'changeCarState';
