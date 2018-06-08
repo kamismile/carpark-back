@@ -20,26 +20,29 @@ import ru.vtb.microservices.carpark.cars.model.Events;
 import ru.vtb.microservices.carpark.cars.model.States;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Сервис жизненного цикла.
+ *
  * @author Denis_Begun
  * @inheritDoc
  */
-
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class LifecycleServiceImpl implements LifecycleService {
 
-
     private final StateMachinePoolService stateMachinePool;
-
     private final Map<States, List<Events>> availableActionsMap = new EnumMap<>(States.class);
 
     @Override
     public States doTransition(Car car, Events event) {
-        StateMachine<String,String> stateMachine = getRunningStateMachineForCar(car);
+        StateMachine<String, String> stateMachine = getRunningStateMachineForCar(car);
         boolean success = stateMachine.sendEvent(event.name());
         if (!success) {
             throw new TransitionUnsupportedException(event.name(), car.getState().name());

@@ -1,15 +1,22 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars.service;
 
 import ru.vtb.microservices.carpark.cars.exception.TransitionUnsupportedException;
 import ru.vtb.microservices.carpark.cars.model.Car;
 import ru.vtb.microservices.carpark.cars.model.Events;
 import ru.vtb.microservices.carpark.cars.model.States;
-import ru.vtb.microservices.carpark.cars.model.Car;
-import ru.vtb.microservices.carpark.cars.model.Events;
-import ru.vtb.microservices.carpark.cars.model.States;
 
 import java.util.List;
 
+/**
+ * Сервис для управления жизненным циклом автомобиля.
+ *
+ * @author Denis_Begun
+ */
 public interface LifecycleService {
 
     /**

@@ -6,6 +6,7 @@
 package ru.vtb.microservices.carpark.cars.api;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,6 +55,7 @@ public interface StateModelApi {
      * @param transition Добавляемый переход.
      * @return Добавленный переход.
      */
+    @PreAuthorize("hasAuthority('administrator')")
     @PostMapping(value = "/sm/transitions/", produces = MediaType.APPLICATION_JSON_VALUE)
     Transition addTransition(UserInfo userInfo, Transition transition);
 
@@ -65,6 +67,7 @@ public interface StateModelApi {
      * @param transition Обновляемый переход.
      * @return Обновленный переход.
      */
+    @PreAuthorize("hasAuthority('administrator')")
     @PutMapping(value = "/sm/transitions/{id}")
     Transition updateTransition(UserInfo userInfo, Long id, Transition transition);
 
@@ -74,6 +77,7 @@ public interface StateModelApi {
      * @param userInfo Информация о пользователе (из токена).
      * @param id       Идентификатор перехода.
      */
+    @PreAuthorize("hasAuthority('administrator')")
     @DeleteMapping(value = "/sm/transitions/{id}")
     void deleteTransition(UserInfo userInfo, Long id);
 }

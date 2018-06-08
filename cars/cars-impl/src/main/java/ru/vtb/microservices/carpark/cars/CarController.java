@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +32,6 @@ import java.util.List;
  *
  * @author Denis_Begun
  */
-
 @AllArgsConstructor
 @Slf4j
 @RestController
@@ -75,7 +79,8 @@ public class CarController implements CarApi {
     }
 
     @Override
-    public Car changeCarState(UserInfo userInfo, @PathVariable(name = "id") Long id, @PathVariable(name = "stringEvent") String stringEvent) {
+    public Car changeCarState(UserInfo userInfo, @PathVariable(name = "id") Long id,
+                              @PathVariable(name = "stringEvent") String stringEvent) {
         Events event = Events.fromString(stringEvent);
         Car car = carService.getCar(id);
         States result = lifecycleService.doTransition(car, event);

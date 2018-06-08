@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars.model;
 
 import lombok.Data;
@@ -7,25 +12,25 @@ import java.util.List;
 /**
  * Filter for car.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 @Data
 public class CarFilter {
 
-        private List<String> marks;
+    private List<String> marks;
 
-        private Integer yearFrom;
+    private Integer yearFrom;
 
-        private Integer yearTo;
+    private Integer yearTo;
 
-        private Long currentLocationId;
+    private Long currentLocationId;
 
-        private Double mileageFrom;
+    private Double mileageFrom;
 
-        private Double mileageTo;
+    private Double mileageTo;
 
-        private Long locationId;
+    private Long locationId;
 
-        private List<String> currentStatuses;
+    private List<String> currentStatuses;
 
 }

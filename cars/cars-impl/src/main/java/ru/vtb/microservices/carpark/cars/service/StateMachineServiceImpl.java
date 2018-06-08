@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars.service;
 
 import lombok.RequiredArgsConstructor;
@@ -8,6 +13,11 @@ import ru.vtb.microservices.carpark.cars.repository.StateMachineTransitionReposi
 
 import java.util.List;
 
+/**
+ * Имплементация сервиса для настройки жизненного цикла автомобиля.
+ *
+ * @author Denis_Begun
+ */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StateMachineServiceImpl implements StateMachineService {
