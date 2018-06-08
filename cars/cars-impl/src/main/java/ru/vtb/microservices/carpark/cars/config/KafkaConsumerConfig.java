@@ -14,18 +14,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
-import org.springframework.kafka.core.*;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.AbstractMessageListenerContainer;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-import ru.vtb.microservices.carpark.cars.model.CarCommand;
 import ru.vtb.microservices.carpark.cars.model.NextStatusEvent;
-import ru.vtb.microservices.carpark.cars.model.NextStatusEvent;
-
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Настройки консьюмера для kafka для получения информации о следующем статусе.
+ *
+ * @author Denis_Begun
+ */
 @Configuration
 @ConfigurationProperties
 @EnableKafka
