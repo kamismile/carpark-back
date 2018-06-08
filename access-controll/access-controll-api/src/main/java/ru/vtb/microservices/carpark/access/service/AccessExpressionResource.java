@@ -14,28 +14,28 @@ import ru.vtb.microservices.carpark.access.model.AccessExpression;
 import java.util.List;
 
 /**
- * Interface for access control expressions
- * @author Roman_Morenko.
+ * Interface for access control expressions.
+ * @author Roman_Morenko
  */
 public interface AccessExpressionResource {
 
-   @RequestMapping(method = RequestMethod.GET, value = "/expression")
-   AccessExpression getByOperation(@RequestParam("operation")String operation);
+    @RequestMapping(method = RequestMethod.GET, value = "/expression")
+    AccessExpression getByOperation(@RequestParam("operation")String operation);
 
-   @RequestMapping(method = RequestMethod.GET, value = "/expression/{id}")
-   AccessExpression get(@RequestPart("id")Long id);
+    @RequestMapping(method = RequestMethod.GET, value = "/expression/{id}")
+    AccessExpression get(@RequestPart("id")Long id);
 
-   @RequestMapping(method = RequestMethod.GET, value = "/expressions")
-   List<AccessExpression> getAll();
+    @RequestMapping(method = RequestMethod.GET, value = "/expressions")
+    List<AccessExpression> getAll();
 
-   @RequestMapping(method = RequestMethod.PUT, value = "/expression/add")
-   AccessExpression add(AccessExpression expression);
+    @RequestMapping(method = RequestMethod.PUT, value = "/expression/add")
+    AccessExpression add(AccessExpression expression);
 
-   @RequestMapping(method = RequestMethod.DELETE, value = "/expression/delete")
-   void delete(Long id);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/expression/delete")
+    void delete(Long id);
 
-   @RequestMapping(method = RequestMethod.PUT, value = "/expression/update")
-   void update(AccessExpression expression);
+    @RequestMapping(method = RequestMethod.PUT, value = "/expression/update")
+    void update(AccessExpression expression);
 
 
 
