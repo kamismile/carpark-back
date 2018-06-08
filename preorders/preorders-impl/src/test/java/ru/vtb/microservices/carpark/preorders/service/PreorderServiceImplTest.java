@@ -90,6 +90,16 @@ public class PreorderServiceImplTest {
         assertEquals(nextStatusTest, nextStatus);
     }
 
+    @Test
+    public void testGetEarliestPreorder() {
+        when(preorderRepository.findByCarId(anyLong())).thenReturn(new ArrayList<Preorder>());
+        when(preorderRepository.findByCarId(preorder_car_id)).thenReturn(preorderList);
+        Preorder preorderTest = preorderService.getEarliestPreorder(preorder_car_id);
+        assertNotNull(preorderTest);
+        Preorder preorderTest2 = preorderService.getEarliestPreorder(5555555l);
+        assertNull(preorderTest2);
+    }
+
     private Preorder getDefaultPreorder() {
         Preorder preorder = new Preorder();
         preorder.setId(preorder_id);
