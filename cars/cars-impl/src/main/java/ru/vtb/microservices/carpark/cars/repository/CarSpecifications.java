@@ -56,7 +56,7 @@ public class CarSpecifications {
             if (filter.getYearFrom() == null) {
                 return null;
             }
-            return cb.greaterThan(root.get("year"), filter.getYearFrom());
+            return cb.greaterThanOrEqualTo(root.get("year"), filter.getYearFrom());
         };
     }
 
@@ -65,7 +65,7 @@ public class CarSpecifications {
             if (filter.getYearFrom() == null) {
                 return null;
             }
-            return cb.lessThan(root.get("year"), filter.getYearTo());
+            return cb.lessThanOrEqualTo(root.get("year"), filter.getYearTo());
         };
     }
 

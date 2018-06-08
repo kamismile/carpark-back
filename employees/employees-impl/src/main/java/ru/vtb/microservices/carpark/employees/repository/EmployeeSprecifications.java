@@ -72,7 +72,7 @@ public class EmployeeSprecifications {
             if (filter.getAppointmentDateFrom() == null) {
                 return null;
             }
-            return  cb.greaterThan(root.get("appointmentDate"), filter.getAppointmentDateFrom());
+            return  cb.greaterThanOrEqualTo(root.get("appointmentDate"), filter.getAppointmentDateFrom());
         };
     }
 
@@ -82,7 +82,7 @@ public class EmployeeSprecifications {
             if (filter.getAppointmentDateTo() == null) {
                 return null;
             }
-            return  cb.lessThan(root.get("appointmentDate"), filter.getAppointmentDateTo());
+            return  cb.lessThanOrEqualTo(root.get("appointmentDate"), filter.getAppointmentDateTo());
         };
     }
 
