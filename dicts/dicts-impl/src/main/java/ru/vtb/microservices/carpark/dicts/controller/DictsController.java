@@ -1,21 +1,33 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dicts.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.vtb.microservices.carpark.dicts.api.DictsApi;
 import ru.vtb.microservices.carpark.dicts.model.Reference;
 import ru.vtb.microservices.carpark.dicts.model.Rubric;
 import ru.vtb.microservices.carpark.dicts.service.ReferenceService;
 import ru.vtb.microservices.carpark.dicts.service.RubricService;
-import ru.vtb.microservices.carpark.dicts.api.DictsApi;
-import ru.vtb.microservices.carpark.dicts.model.Rubric;
 
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * Controller for dicts.
+ *
+ * @author Nikita_Mirzoev
  */
 @RestController
 public class DictsController implements DictsApi {

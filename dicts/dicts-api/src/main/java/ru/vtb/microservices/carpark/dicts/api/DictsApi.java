@@ -1,13 +1,19 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dicts.api;
 
 import ru.vtb.microservices.carpark.dicts.model.Reference;
-import ru.vtb.microservices.carpark.dicts.model.Rubric;
 import ru.vtb.microservices.carpark.dicts.model.Rubric;
 
 import java.util.List;
 
 /**
- * @author mirzoevnik
+ * Api for Dicts.
+ *
+ * @author Nikita_Mirzoev
  */
 public interface DictsApi {
 

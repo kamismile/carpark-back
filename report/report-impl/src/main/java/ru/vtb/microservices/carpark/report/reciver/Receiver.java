@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.report.reciver;
 
 import lombok.Data;
@@ -14,13 +19,16 @@ import ru.vtb.microservices.carpark.report.model.LocationCommand;
 
 
 /**
- * @author rmorenko
+ * Kafka reciver
+ *
+ * @author Roman_Morenko
  */
 @Slf4j
 @Configuration
 @Data
 public class Receiver {
 
+        public static final String RECEIVED_COMMAND = "received command='{}'";
         @Autowired
         private CarEventResourceService carEventResourceService;
 
@@ -33,20 +41,20 @@ public class Receiver {
 
         @KafkaListener(id = "report", topics = "${kafka.topic.car}")
         public void receiveCar(CarCommand command) {
-                log.info("received command='{}'", command.toString());
+                log.info(RECEIVED_COMMAND, command.toString());
                 carEventResourceService.save(command);
         }
 
         @KafkaListener(id = "report2", topics = "${kafka.topic.employee}")
         public void receiveEmployee(EmployeeCommand employeeCommand) {
-                log.info("received command='{}'", employeeCommand.toString());
+                log.info(RECEIVED_COMMAND, employeeCommand.toString());
                 employeeService.save(employeeCommand);
 
         }
 
         @KafkaListener(id = "report3", topics = "${kafka.topic.location}")
         public void receiveLocation(LocationCommand locationCommand) {
-                log.info("received command='{}'", locationCommand.toString());
+                log.info(RECEIVED_COMMAND, locationCommand.toString());
                 locationService.save(locationCommand);
         }
 
