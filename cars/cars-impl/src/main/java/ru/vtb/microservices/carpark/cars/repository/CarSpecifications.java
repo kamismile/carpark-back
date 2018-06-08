@@ -1,9 +1,21 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars.repository;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.util.ObjectUtils;
 import ru.vtb.microservices.carpark.cars.model.Car;
 import ru.vtb.microservices.carpark.cars.model.CarFilter;
+import ru.vtb.microservices.carpark.commons.dto.UserInfo;
+
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -16,6 +28,27 @@ public class CarSpecifications {
 
     private CarSpecifications() {
         super();
+    }
+
+    private final static List<String> ALL_PERMISION_ROLES =
+            new ArrayList<>(Arrays.asList(new String[] {"management", "administrator"}));
+
+    public static Specification<Car> accessSpecifications(UserInfo userInfo){
+
+        return (root, query, cb) -> {
+            if (ALL_PERMISION_ROLES.contains(userInfo.getRole())) {
+                return null;
+            }
+            if ("rental_manager".equals(userInfo.getRole())){
+                return cb.equal(root.get("localityId"), userInfo.getLocationId());
+            }
+            if ("service_manager".equals(userInfo.getRole())){
+                Predicate curentStatus = cb.equal(root.get("currentStatus"), "in_service");
+                Predicate nextStatus = cb.equal(root.get("nextStatus"), "in_service");
+                return cb.or(curentStatus, nextStatus);
+            }
+            return null;
+        };
     }
 
     public static Specification<Car> carIsYearFrom(CarFilter filter) {

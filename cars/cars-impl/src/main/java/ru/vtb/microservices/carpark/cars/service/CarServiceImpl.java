@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars.service;
 
 
@@ -7,6 +12,8 @@ import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.vtb.microservices.carpark.cars.model.Car;
 import ru.vtb.microservices.carpark.cars.model.CarCommand;
@@ -44,6 +51,20 @@ public class CarServiceImpl implements CarService {
                 .and(carIsLocationId(filter))
                 .and(carInMarks(filter))
                 );
+    }
+
+    @Override
+    public Page<Car> getAllCars(UserInfo userInfo, CarFilter filter, PageRequest pageRequest) {
+        return carRepository.findAll(where(carIsYearFrom(filter))
+                .and(carIsYearTo(filter))
+                .and(carInCurentStatuses(filter))
+                .and(carIsCurrentLocationId(filter))
+                .and(carIsMileageFrom(filter))
+                .and(carIsMileageTo(filter))
+                .and(carIsLocationId(filter))
+                .and(carInMarks(filter))
+                .and(accessSpecifications(userInfo)), pageRequest
+        );
     }
 
     @Override

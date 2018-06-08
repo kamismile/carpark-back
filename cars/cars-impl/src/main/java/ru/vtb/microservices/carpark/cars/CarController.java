@@ -2,6 +2,8 @@ package ru.vtb.microservices.carpark.cars;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +14,7 @@ import ru.vtb.microservices.carpark.cars.model.States;
 import ru.vtb.microservices.carpark.cars.model.CarFilter;
 import ru.vtb.microservices.carpark.cars.service.CarService;
 import ru.vtb.microservices.carpark.cars.service.LifecycleService;
+import ru.vtb.microservices.carpark.commons.dto.PageResponse;
 import ru.vtb.microservices.carpark.commons.dto.UserInfo;
 import ru.vtb.microservices.carpark.cars.model.Events;
 import ru.vtb.microservices.carpark.cars.model.States;
@@ -39,6 +42,13 @@ public class CarController implements CarApi {
         List<Car> list = carService.getAllCars(carFilter);
         list.forEach(car -> car.setAvailableEvents(lifecycleService.getAvailableTransitions(car)));
         return list;
+    }
+
+    @Override
+    public PageResponse<Car> getCars(UserInfo userInfo, CarFilter carFilter, PageRequest pageRequest) {
+        Page<Car> page = carService.getAllCars(userInfo,carFilter,pageRequest);
+        page.getContent().forEach(car -> car.setAvailableEvents(lifecycleService.getAvailableTransitions(car)));
+        return new PageResponse<>(page.getContent(), page.getTotalPages());
     }
 
     @Override
