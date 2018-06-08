@@ -33,8 +33,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     /**
      * Autentification method.
      *
-     * @param login
-     * @param password
+     * @param login login
+     * @param password password
      * @return
     */
     @Override
