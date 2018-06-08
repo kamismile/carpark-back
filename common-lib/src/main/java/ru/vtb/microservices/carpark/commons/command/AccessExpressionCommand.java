@@ -45,7 +45,7 @@ public class AccessExpressionCommand {
     }
 
     @HystrixCommand(fallbackMethod = "defaultList", commandKey = "AccessExpressionCommand")
-    public AccessExpression getByOperation(String operation){
+    public AccessExpression getByOperation(String operation) {
         return accessExpressionFeign.getByOperation(operation);
     }
 
