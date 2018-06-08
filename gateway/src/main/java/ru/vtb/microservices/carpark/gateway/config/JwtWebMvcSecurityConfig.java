@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.gateway.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,30 +18,30 @@ import ru.vtb.microservices.carpark.gateway.config.filter.JwtAcesDecisionVoter;
 import java.util.List;
 
 /**
- * @author rmorenko
+ * JWT config.
+ *
+ * @author Roman_Morenko
  */
 @Configuration
 public class JwtWebMvcSecurityConfig extends ResourceServerConfigurerAdapter {
-        @Autowired
-        private List<AccessDecisionVoter<? extends Object>> decisionVoters;
+    @Autowired
+    private List<AccessDecisionVoter<? extends Object>> decisionVoters;
 
-        public JwtWebMvcSecurityConfig() {
-                super();
-        }
+    public JwtWebMvcSecurityConfig() {
+           super();
+    }
 
-        public void configure(HttpSecurity http) throws Exception {
-                http.authorizeRequests().accessDecisionManager(this.accessDecisionManager());
-        }
+    public void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().accessDecisionManager(this.accessDecisionManager());
+    }
 
-        @Bean
-        public AccessDecisionManager accessDecisionManager() {
-               // WebExpressionVoter expressionVoter = new WebExpressionVoter();
-               //expressionVoter.setExpressionHandler(new OAuth2WebSecurityExpressionHandler());
-               return new UnanimousBased(this.decisionVoters);
-        }
+    @Bean
+    public AccessDecisionManager accessDecisionManager() {
+        return new UnanimousBased(this.decisionVoters);
+    }
 
-        @Bean
-        public AccessDecisionVoter accessDecisionVoter() {
-                return new JwtAcesDecisionVoter();
-        }
+    @Bean
+    public AccessDecisionVoter accessDecisionVoter() {
+        return new JwtAcesDecisionVoter();
+    }
 }

@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.gateway.config.filter;
 
 import org.slf4j.Logger;
@@ -11,11 +16,13 @@ import org.springframework.security.web.FilterInvocation;
 import java.util.Collection;
 
 /**
- * @author rmorenko
+ * Acces token voter.
+ *
+ * @author Roman_Morenko
  */
 public class JwtAcesDecisionVoter implements AccessDecisionVoter {
 
-    private static final Logger log = LoggerFactory.getLogger(JwtAcesDecisionVoter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JwtAcesDecisionVoter.class);
 
     public JwtAcesDecisionVoter() {
         super();
@@ -29,6 +36,14 @@ public class JwtAcesDecisionVoter implements AccessDecisionVoter {
         return true;
     }
 
+    /**
+     *  Method for chrch grant.
+     *
+     * @param authentication - autentification param
+     * @param object - request objtcy
+     * @param collection - collection
+     * @return granted decision
+    */
     public int vote(Authentication authentication, Object object, Collection collection) {
         if (object instanceof FilterInvocation
                 && ((FilterInvocation) object).getRequestUrl().contains("auth/ui/tokens")) {
@@ -43,14 +58,14 @@ public class JwtAcesDecisionVoter implements AccessDecisionVoter {
             return ACCESS_GRANTED;
         }
         if (object instanceof FilterInvocation
-                && ((FilterInvocation) object).getHttpRequest().getMethod().equals("OPTIONS")) {
+                && "OPTIONS".equals(((FilterInvocation) object).getHttpRequest().getMethod())) {
             return ACCESS_GRANTED;
         }
 
         if (authentication.getAuthorities() == null || authentication.getAuthorities().isEmpty()) {
             return ACCESS_DENIED;
         }
-        if (!(authentication.getDetails() instanceof OAuth2AuthenticationDetails)){
+        if (!(authentication.getDetails() instanceof OAuth2AuthenticationDetails)) {
             return ACCESS_DENIED;
         }
         OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails)authentication.getDetails();

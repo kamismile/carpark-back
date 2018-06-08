@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.gateway.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +21,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 /**
- *  @author rmorenko
+ * Config for JWT security.
+ *
+ *  @author Roman_Morenko
  */
 @Configuration
 public class JwtConfig {

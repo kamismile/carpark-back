@@ -16,8 +16,8 @@ import ru.vtb.microservices.carpark.employees.model.Employee;
  */
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-        Employee findByUserId(Long userId);
+    Employee findByUserId(Long userId);
 
-        Employee findByUserLogin(String login);
+    Employee findByUserLogin(String login);
 
 }

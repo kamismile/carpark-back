@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.dashboard;
 
 import org.springframework.boot.SpringApplication;
@@ -7,7 +12,9 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.cloud.netflix.turbine.EnableTurbine;
 
 /**
- * @author mirzoevnik
+ * Dashboard main class.
+ *
+ * @author Vadim_Anosov
  */
 @SpringBootApplication
 @EnableEurekaClient

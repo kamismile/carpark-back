@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.commons.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +14,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
- * @author mirzoevnik
+ * JwtConfig.
+ * @author Mirzoev_Nikita
  */
 @Configuration
 public class JwtConfig {
