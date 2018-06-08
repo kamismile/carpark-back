@@ -189,10 +189,10 @@ public class ReportResource {
                      new SimpleOutputStreamExporterOutput(byteArrayOutputStream));
         SimpleXlsxReportConfiguration xlsReportConfiguration
                         = new SimpleXlsxReportConfiguration();
-        xlsReportConfiguration.setOnePagePerSheet(false);
-        xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(true);
-        xlsReportConfiguration.setDetectCellType(true);
-        xlsReportConfiguration.setWhitePageBackground(false);
+        xlsReportConfiguration.setOnePagePerSheet(Boolean.FALSE);
+        xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(Boolean.TRUE);
+        xlsReportConfiguration.setDetectCellType(Boolean.FALSE);
+        xlsReportConfiguration.setWhitePageBackground(Boolean.FALSE);
         exporter.exportReport();
         return byteArrayOutputStream.toByteArray();
     }
