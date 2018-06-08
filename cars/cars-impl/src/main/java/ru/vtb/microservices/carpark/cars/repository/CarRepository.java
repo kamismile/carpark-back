@@ -16,5 +16,5 @@ import ru.vtb.microservices.carpark.cars.model.Car;
  * @author Denis_Begun
  */
 @Repository
-public interface CarRepository extends JpaRepository<Car, Long>, JpaSpecificationExecutor {
+public interface CarRepository extends JpaRepository<Car, Long>, JpaSpecificationExecutor<Car> {
 }
