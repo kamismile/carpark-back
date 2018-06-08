@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>access-controll</artifactId>
-        <groupId>ru.neoflex.microservices.carpark</groupId>
+        <groupId>ru.vtb.microservices.carpark</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -81,13 +81,13 @@
     <dependencies>
         <!-- bro modules -->
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>access-controll-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>access-controll-db</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -110,7 +110,7 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.neoflex.microservices.carpark</groupId>
+            <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>common-lib</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

@@ -54,7 +54,6 @@ eureka:
     serviceUrl:
       defaultZone: http://service-registry.service:8080/eureka
 
-
 security:
   oauth2:
     client:
@@ -94,9 +93,17 @@ eureka:
   client.serviceUrl.defaultZone: http://localhost:8761/eureka/
 
 kafka:
-  bootstrap: localhost:9092
+  bootstrap: 54.158.77.53:9092
   cars:
     topic: car.t
   orders:
     topic: next.status
     group-id: 1
+
+hystrix:
+  command:
+    CarsExpressionCommand:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

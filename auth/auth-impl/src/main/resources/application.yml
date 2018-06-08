@@ -26,6 +26,14 @@ eureka:
     serviceUrl:
       defaultZone: http://service-registry.service:8080/eureka
 
+hystrix:
+  command:
+    AccessExpressionCommand:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
 security:
   session:
     duration: 43200
@@ -44,7 +52,7 @@ security:
 logging:
   level:
     ROOT: INFO
-    ru.neoflex: DEBUG
+    ru.vtb: DEBUG
     org.springframework: INFO
 
 ---
@@ -67,3 +75,11 @@ server:
 eureka:
   instance.preferIpAddress: true
   client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+
+hystrix:
+  command:
+    AccessExpressionCommand:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

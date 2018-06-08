@@ -10,11 +10,11 @@
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="425"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<parameter name="report_date" class="java.util.Date">
+	<parameter name="dateTo" class="java.util.Date">
 		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
-	<parameter name="locationId" class="java.lang.Long">
-		<defaultValueExpression><![CDATA[1L]]></defaultValueExpression>
+	<parameter name="dateFrom" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select *, u.name ||' '|| u.surname || ' ' || u.patronymic  fio,
@@ -29,7 +29,7 @@ left join dict_reference r on e.current_status = r.code
 left join dict_reference r1 on e.next_status = r1.code
 left join dict_reference r2 on e.mark = r2.code
 inner join ( select max(message_date) md, reg_number num from car_event group by reg_number) tm on e.message_date = tm.md and e.reg_number = tm.num
-where message_date <= $P{report_date} and e.location_id = $P{locationId}]]>
+where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.location_id = $P{locationId}]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="year" class="java.lang.Integer"/>

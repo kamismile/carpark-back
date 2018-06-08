@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.neoflex.microservices.carpark</groupId>
+    <groupId>ru.vtb.microservices.carpark</groupId>
     <artifactId>preorders</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
@@ -27,32 +27,39 @@
         <spring-cloud-netflix.version>1.3.4.RELEASE</spring-cloud-netflix.version>
         <liquibase.version>3.6.1</liquibase.version>
         <lombok.version>1.16.18</lombok.version>
+        <spring-test.version>5.0.6.RELEASE</spring-test.version>
         <liquibase.version>3.5.5</liquibase.version>
         <org.testng.version>6.11</org.testng.version>
         <org.mockito.version>1.9.5</org.mockito.version>
         <postgresql.version>42.1.4</postgresql.version>
         <common-lib.version>0.0.1-SNAPSHOT</common-lib.version>
+        <cars.version>0.0.1-SNAPSHOT</cars.version>
         <spring-boot-maven-plugin.version>${spring-boot.version}</spring-boot-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>common-lib</artifactId>
                 <version>${common-lib.version}</version>
             </dependency>
 
             <!-- bro modules -->
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>preorders-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>preorders-db</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.vtb.microservices.carpark</groupId>
+                <artifactId>cars-api</artifactId>
+                <version>${cars.version}</version>
             </dependency>
 
             <!-- Spring -->
@@ -96,6 +103,11 @@
                 <artifactId>spring-boot-configuration-processor</artifactId>
                 <version>${spring-boot.version}</version>
                 <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
 
             <!-- Database -->
@@ -155,6 +167,11 @@
                 <version>${org.testng.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring-test.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -173,7 +190,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ru.neoflex.microservices.carpark.preorders.PreordersApplication</mainClass>
+                        <mainClass>ru.vtb.microservices.carpark.preorders.PreordersApplication</mainClass>
                     </configuration>
                 </plugin>
                 <plugin>

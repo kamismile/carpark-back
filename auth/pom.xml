@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.neoflex.microservices.carpark</groupId>
+    <groupId>ru.vtb.microservices.carpark</groupId>
     <artifactId>auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -39,12 +39,12 @@
         <dependencies>
             <!-- bro modules -->
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>auth-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>auth-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -85,9 +85,13 @@
                 <scope>runtime</scope>
                 <version>${spring-boot.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>ru.neoflex.microservices.carpark</groupId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ru.vtb.microservices.carpark</groupId>
                 <artifactId>common-lib</artifactId>
                 <version>${common-lib.version}</version>
             </dependency>
@@ -148,7 +152,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ru.neoflex.microservices.carpark.auth.AuthApplication</mainClass>
+                        <mainClass>ru.vtb.microservices.carpark.auth.AuthApplication</mainClass>
                     </configuration>
                 </plugin>
                 <plugin>

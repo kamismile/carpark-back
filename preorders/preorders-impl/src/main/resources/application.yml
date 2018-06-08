@@ -21,6 +21,19 @@ spring:
           time_zone: UTC
         temp:
           use_jdbc_metadata_defaults: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: vtb.carpark
+    password: 370fd0511
+    properties:
+      mail:
+        smtp:
+          auth : true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
 
 eureka:
   instance:
@@ -54,9 +67,14 @@ security:
                   yQIDAQAB
                   -----END PUBLIC KEY-----
 kafka:
-  bootstrap: kafka01.kafka:9092,kafka02.kafka:9092,kafka03.kafka:9092
+  bootstrap: kafka01.kafka:9092, kafka02.kafka:9092, kafka03.kafka:9092
+  cars:
+    topic: car.t
+    group-id: preorders
   orders:
     topic: next.status
+
+
 
 
 ---
@@ -82,5 +100,8 @@ eureka:
 
 kafka:
   bootstrap: 54.158.77.53:9092
+  cars:
+    topic: car.t
+    group-id: preorders
   orders:
     topic: next.status
