@@ -6,43 +6,43 @@
 package ru.vtb.microservices.carpark.cars.repository;
 
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.util.ObjectUtils;
 import ru.vtb.microservices.carpark.cars.model.Car;
 import ru.vtb.microservices.carpark.cars.model.CarFilter;
 import ru.vtb.microservices.carpark.commons.dto.UserInfo;
 
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
  * SpringData specifications for location filter.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 
 public class CarSpecifications {
+
+    private static final Set<String> ALL_PERMISION_ROLES =
+            new HashSet<>(Arrays.asList("management", "administrator"));
 
     private CarSpecifications() {
         super();
     }
 
-    private final static List<String> ALL_PERMISION_ROLES =
-            new ArrayList<>(Arrays.asList(new String[] {"management", "administrator"}));
 
-    public static Specification<Car> accessSpecifications(UserInfo userInfo){
+    public static Specification<Car> accessSpecifications(UserInfo userInfo) {
 
         return (root, query, cb) -> {
             if (ALL_PERMISION_ROLES.contains(userInfo.getRole())) {
                 return null;
             }
-            if ("rental_manager".equals(userInfo.getRole())){
+            if ("rental_manager".equals(userInfo.getRole())) {
                 return cb.equal(root.get("localityId"), userInfo.getLocationId());
             }
-            if ("service_manager".equals(userInfo.getRole())){
+            if ("service_manager".equals(userInfo.getRole())) {
                 Predicate curentStatus = cb.equal(root.get("currentStatus"), "in_service");
                 Predicate nextStatus = cb.equal(root.get("nextStatus"), "in_service");
                 return cb.or(curentStatus, nextStatus);
@@ -106,7 +106,6 @@ public class CarSpecifications {
     }
 
 
-
     public static Specification<Car> carInCurentStatuses(CarFilter filter) {
         return (root, query, cb) -> {
             if (ObjectUtils.isEmpty(filter.getCurrentStatuses())) {
@@ -115,7 +114,7 @@ public class CarSpecifications {
             if (filter.getCurrentStatuses().get(0).isEmpty()) {
                 return null;
             }
-            return  root.get("currentStatus").in(filter.getCurrentStatuses());
+            return root.get("currentStatus").in(filter.getCurrentStatuses());
         };
     }
 
@@ -128,7 +127,7 @@ public class CarSpecifications {
             if (filter.getMarks().get(0).isEmpty()) {
                 return null;
             }
-            return  root.get("mark").in(filter.getMarks());
+            return root.get("mark").in(filter.getMarks());
         };
     }
 }

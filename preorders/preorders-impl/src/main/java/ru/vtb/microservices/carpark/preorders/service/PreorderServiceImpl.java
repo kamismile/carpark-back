@@ -73,22 +73,28 @@ public class PreorderServiceImpl implements PreorderService {
     @Override
     public Preorder getEarliestPreorder(Long carId) {
         List<Preorder> existingList = preorderRepository.findByCarId(carId);
+        Date now = new Date();
         if (existingList.isEmpty()) {
             return null;
         } else {
             return existingList.stream()
-                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime())).orElse(null);
+                    .filter(p -> p.getLeaseStartDate().compareTo(now) > 0)
+                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime()))
+                    .orElse(null);
         }
     }
 
     @Override
     public Preorder getEarliestPreorderByType(Long carId, PreorderType type) {
         List<Preorder> existingList = preorderRepository.findByCarId(carId);
+        Date now = new Date();
         if (existingList.isEmpty()) {
             return null;
         } else {
             return existingList.stream().filter(preorder -> type == preorder.getType())
-                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime())).orElse(null);
+                    .filter(p -> p.getLeaseStartDate().compareTo(now) > 0)
+                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime()))
+                    .orElse(null);
         }
     }
 

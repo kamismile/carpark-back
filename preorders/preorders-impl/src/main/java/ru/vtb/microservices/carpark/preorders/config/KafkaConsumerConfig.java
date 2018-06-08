@@ -26,6 +26,7 @@ import java.util.Map;
 
 /**
  * Конфигурация отправки сообщений в kafka.
+ *
  * @author Denis_Begun
  */
 @Configuration
@@ -59,7 +60,7 @@ public class KafkaConsumerConfig {
 
     @Bean
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, CarCommand>>
-    kafkaListenerContainerFactory() {
+            kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, CarCommand> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
