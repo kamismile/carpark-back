@@ -27,7 +27,7 @@ public class ReferenceServiceImplTest {
     private static final boolean ACTIVE = true;
 
     @Autowired
-    ReferenceRepository referenceRepository = mock(ReferenceRepository.class);
+    private ReferenceRepository referenceRepository = mock(ReferenceRepository.class);
     @Autowired
     private DictSender sender = mock(DictSender.class);
     @Autowired
