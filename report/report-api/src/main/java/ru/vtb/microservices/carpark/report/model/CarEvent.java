@@ -1,11 +1,10 @@
 package ru.vtb.microservices.carpark.report.model;
 
 import lombok.Data;
-import ru.vtb.microservices.carpark.cars.model.Car;
 import ru.vtb.microservices.carpark.cars.model.Events;
 import ru.vtb.microservices.carpark.cars.model.States;
 import ru.vtb.microservices.carpark.employees.model.Employee;
-import ru.vtb.microservices.carpark.employees.model.Location;
+
 
 import javax.persistence.*;
 import java.util.Date;

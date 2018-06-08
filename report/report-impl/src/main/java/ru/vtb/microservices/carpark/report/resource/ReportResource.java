@@ -104,7 +104,7 @@ public class ReportResource {
         private Date getDateReport(@RequestParam(value = "date", required = false) Long date) {
                 Date reportDate = new Date();
                 if (date != null && date > 0){
-                     reportDate = new Date();
+                     reportDate = new Date(date);
                 }
                 return reportDate;
         }

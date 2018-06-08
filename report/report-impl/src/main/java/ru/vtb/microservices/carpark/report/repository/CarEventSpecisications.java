@@ -22,7 +22,7 @@ public class CarEventSpecisications {
                               if (from == null) {
                                       return null;
                               }
-                              return cb.greaterThan(root.get("messageDate"), from);
+                              return cb.greaterThanOrEqualTo(root.get("messageDate"), from);
            };
       }
 
@@ -31,7 +31,7 @@ public class CarEventSpecisications {
                         if (to == null) {
                                 return null;
                         }
-                        return cb.lessThan(root.get("messageDate"), to);
+                        return cb.lessThanOrEqualTo(root.get("messageDate"), to);
            };
       }
 

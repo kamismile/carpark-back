@@ -49,4 +49,6 @@ public class Employee implements Serializable {
     private UserInfo user;
 
     private boolean active;
+
+
 }

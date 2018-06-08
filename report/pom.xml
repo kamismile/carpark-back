@@ -161,6 +161,11 @@
                 <artifactId>auth-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>ru.vtb.microservices.carpark</groupId>
+                <artifactId>employees-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
 
             <!-- h2 for test -->
