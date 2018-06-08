@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -18,7 +23,7 @@ import java.util.Map;
 /**
  * Config for spring-kafka.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 @Configuration
 public class SenderConfig {

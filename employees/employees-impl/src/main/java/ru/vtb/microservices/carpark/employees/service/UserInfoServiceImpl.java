@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +12,9 @@ import ru.vtb.microservices.carpark.employees.repository.UserInfoRepository;
 import ru.vtb.microservices.carpark.employees.service.UserInfoService;
 
 /**
- * @author mirzoevnik
+ * Implomentation of userInfoService.
+ *
+ * @author Mirzoev_Nikita
  */
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -34,11 +41,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo addUserInfo(UserInfo userInfo) {
-       return save(userInfo);
+        return save(userInfo);
     }
 
     private UserInfo save(UserInfo userInfo) {
-       return userInfoRepository.save(userInfo);
+        return userInfoRepository.save(userInfo);
     }
 
     @Override

@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.service;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
@@ -21,7 +26,7 @@ import java.util.List;
 /**
  * Service for location.
  *
- * @author mirzoevnik
+ * @author Mirzoev_Nikita
  */
 @Service
 public class LocationServiceImpl implements LocationService {
@@ -69,9 +74,9 @@ public class LocationServiceImpl implements LocationService {
         Location oldLocation = locationRepository.findOne(location.getId());
         locationRepository.save(location);
         LocationCommand locationCommand = new LocationCommand();
+        locationCommand.setOldEntity(oldLocation);
         locationCommand.setCommand(Command.UPDATE);
         locationCommand.setEntity(location);
-        locationCommand.setOldEntity(oldLocation);
         sender.send(locationTopic, locationCommand);
     }
 

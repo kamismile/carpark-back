@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.controller;
 
 import io.swagger.annotations.Api;
@@ -6,7 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.vtb.microservices.carpark.commons.dto.PageResponse;
 import ru.vtb.microservices.carpark.employees.api.EmployeeApi;
 import ru.vtb.microservices.carpark.employees.model.Employee;
@@ -18,7 +29,7 @@ import java.util.List;
 /**
  * Controller for employee.
  *
- * @author mirzoevnik
+ * @author Mirzoev_Nikita
  */
 @RestController
 @Api(value = "employees", description = "Rest API for employees operations", tags = "Employees API")

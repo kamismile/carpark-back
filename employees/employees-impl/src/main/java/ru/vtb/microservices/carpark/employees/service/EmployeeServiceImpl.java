@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.employees.service;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
@@ -37,7 +42,7 @@ import java.util.List;
 /**
  * Service for employee.
  *
- * @author mirzoevnik
+ * @author Mirzoev_Nikita
  */
 @Service
 @Transactional
@@ -99,11 +104,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private void saveUserAndLocation(Employee employee) {
-        if (employee.getUser()!= null && employee.getUser().getId()==null){
+        if (employee.getUser() != null && employee.getUser().getId() == null) {
             Long employeeId = userInfoService.addUserInfo(employee.getUser()).getId();
             employee.getUser().setId(employeeId);
         }
-        if (employee.getLocation()!= null && employee.getLocation().getId()==null){
+        if (employee.getLocation() != null && employee.getLocation().getId() == null) {
             Long locationId = locationService.add(employee.getLocation()).getId();
             employee.getLocation().setId(locationId);
         }
