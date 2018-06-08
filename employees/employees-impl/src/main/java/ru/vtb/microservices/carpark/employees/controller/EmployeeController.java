@@ -92,12 +92,12 @@ public class EmployeeController implements EmployeeApi {
     @GetMapping(value = "/employeespage/fields", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get name of fields")
     public String[] getFieldsName(EmployeeFilter filter, PageRequest pageRequest) {
-        return FIELDS;
+        return FIELDS.clone();
     }
 
     @GetMapping(value = "/employeespage/fieldsFilter", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Get name of fields by filter")
     public String[] getFieldsFilterName(EmployeeFilter filter, PageRequest pageRequest) {
-        return FIELDS_FILTER;
+        return FIELDS_FILTER.clone();
     }
 }
