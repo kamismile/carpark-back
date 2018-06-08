@@ -1,11 +1,12 @@
 package ru.vtb.microservices.carpark.employees.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import ru.vtb.microservices.carpark.commons.dto.PageResponse;
 import ru.vtb.microservices.carpark.employees.api.EmployeeApi;
 import ru.vtb.microservices.carpark.employees.model.Employee;
@@ -20,6 +21,7 @@ import java.util.List;
  * @author mirzoevnik
  */
 @RestController
+@Api(value = "employees", description = "Rest API for employees operations", tags = "Employees API")
 public class EmployeeController implements EmployeeApi {
 
     public static final String[] FIELDS = {"id", "name", "surname", "patronymic", "passportSeries",
@@ -40,45 +42,51 @@ public class EmployeeController implements EmployeeApi {
         this.employeeService = employeeService;
     }
 
-    @Override
+    @GetMapping(value = "/employee/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get employee by id")
     public Employee getById(@PathVariable Long id) {
         return employeeService.getById(id);
     }
 
-    @Override
+    @DeleteMapping(value = "/employee/deactivate/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Deactivate a employee")
     public void deactivate(@PathVariable Long id) {
         employeeService.deactivate(id);
     }
 
-    @Override
+    @PostMapping(value = "/employee/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Add new employee")
     public Employee add(@RequestBody  Employee employee) {
         return  employeeService.add(employee);
     }
 
-    @Override
+    @PutMapping(value = "/employee/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Update a employee")
     public void update(@RequestBody Employee employee) {
         employeeService.update(employee);
     }
 
-    @Override
+    @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get all employees")
     public List<Employee> getAll(EmployeeFilter filter) {
         return employeeService.getAll(filter);
     }
 
-    @Override
+    @GetMapping(value = "/employeespage", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get employees by filter and page")
     public PageResponse<Employee> getAll(EmployeeFilter filter, PageRequest pageRequest) {
         return employeeService.getAll(filter, pageRequest);
     }
 
-    @Override
+    @GetMapping(value = "/employeespage/fields", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get name of fields")
     public String[] getFieldsName(EmployeeFilter filter, PageRequest pageRequest) {
         return FIELDS;
     }
 
-    @Override
+    @GetMapping(value = "/employeespage/fieldsFilter", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get name of fields by filter")
     public String[] getFieldsFilterName(EmployeeFilter filter, PageRequest pageRequest) {
         return FIELDS_FILTER;
     }
-
-
 }
