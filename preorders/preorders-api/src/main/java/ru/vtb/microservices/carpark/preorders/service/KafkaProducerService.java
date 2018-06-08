@@ -15,7 +15,8 @@ import ru.vtb.microservices.carpark.cars.model.NextStatusEvent;
 public interface KafkaProducerService {
 
     /**
-     * Отправка сообщения
+     * Отправка сообщения.
+     *
      * @param event сообщение
      */
     void sendMessage(NextStatusEvent event);
