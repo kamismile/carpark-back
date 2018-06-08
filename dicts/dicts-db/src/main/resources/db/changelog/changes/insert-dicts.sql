@@ -68,3 +68,21 @@ ALTER TABLE  dict_reference
 ADD COLUMN active BOOLEAN NOT NULL DEFAULT true;
 
 UPDATE dict_reference set active = true;
+
+--changeset dbegun-add:2018-06-07
+-- добавление должностей
+INSERT INTO public.dict_reference(
+            code, title, system, rubric_code, active)
+    VALUES ('director', 'Директор', true, 'position', true);
+
+INSERT INTO public.dict_reference(
+            code, title, system, rubric_code, active)
+    VALUES ('senior_administrator', 'Старший администратор', true, 'position', true);
+
+INSERT INTO public.dict_reference(
+            code, title, system, rubric_code, active)
+    VALUES ('senior_rental_manager', 'Старший менеджер проката', true, 'position', true);
+
+INSERT INTO public.dict_reference(
+            code, title, system, rubric_code, active)
+    VALUES ('senior_service_manager', 'Старший менеджер обслуживания', true, 'position', true);
