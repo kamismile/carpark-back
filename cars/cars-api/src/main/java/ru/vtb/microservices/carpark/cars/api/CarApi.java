@@ -64,7 +64,7 @@ public interface CarApi {
     Car updateCar(UserInfo userInfo, @PathVariable Long id, @RequestBody Car car);
 
     /**
-     * Создание автомобиля
+     * Создание автомобиля.
      *
      * @param userInfo Информация о пользователе (из токена).
      * @param car      Сущность автомобиля.

@@ -14,7 +14,8 @@ import ru.vtb.microservices.carpark.dict.report.model.ReferenceCommand;
 import ru.vtb.microservices.carpark.dict.report.service.ReferenceService;
 
 /**
- * Reciver for Kafka
+ * Reciver for Kafka.
+ *
  * @author Vadim_Nasonov
  */
 @Slf4j
