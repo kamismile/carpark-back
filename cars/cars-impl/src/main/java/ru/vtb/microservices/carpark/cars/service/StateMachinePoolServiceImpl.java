@@ -1,6 +1,7 @@
 package ru.vtb.microservices.carpark.cars.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +14,21 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.stream.IntStream;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StateMachinePoolServiceImpl implements StateMachinePoolService {
 
-    private final int maxPollSize = 3;
-    private final BlockingQueue<StateMachine<String, String>> machines = new ArrayBlockingQueue<>(maxPollSize, false);
-
+    private final BlockingQueue<StateMachine<String, String>> machines = new ArrayBlockingQueue<>(3, false);
     private final StateMachineFactory<String, String> factory;
-    private static final Logger log = LoggerFactory.getLogger(StateMachinePoolServiceImpl.class);
 
     @PostConstruct
     public void init() {
-        IntStream.range(0, maxPollSize).forEach(e -> {
+        IntStream.range(0, 3).forEach(e -> {
             StateMachine<String, String> machine = factory.getStateMachine();
             boolean successful = machines.offer(machine);
             if (!successful) {
-                log.warn("Could not add statemachine to cache");
+                log.warn("Could not add stateMachine to cache");
             }
         });
     }
@@ -49,7 +48,7 @@ public class StateMachinePoolServiceImpl implements StateMachinePoolService {
         if (machine != null && !machine.hasStateMachineError()) {
             boolean successful = machines.offer(machine);
             if (!successful) {
-                log.warn("Could not return statemachine to cache");
+                log.warn("Could not return stateMachine to cache");
             }
         }
     }
