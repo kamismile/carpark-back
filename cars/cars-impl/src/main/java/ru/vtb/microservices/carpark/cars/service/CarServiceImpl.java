@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Car service implementation.
  *
- * @autor Denis_Begun
+ * @author Denis_Begun
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
