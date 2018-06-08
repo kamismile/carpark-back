@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
  *
  * @author Denis_Begun
  */
-
 @Service
 @Transactional
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -98,7 +97,6 @@ public class PreorderServiceImpl implements PreorderService {
         }
     }
 
-
     /**
      * Проверяет, нет ли проблем с заказом.
      *
@@ -123,6 +121,12 @@ public class PreorderServiceImpl implements PreorderService {
         }
     }
 
+    /**
+     * Отсылка оповещения об изменении следующего статутса.
+     *
+     * @param userInfo информация о пользователе
+     * @param carId    идентификатор автомобиля
+     */
     private void makeNotification(UserInfo userInfo, @PathVariable Long carId) {
         NextStatus ns = getNextStatusForCar(carId);
         if (ns != null) {
