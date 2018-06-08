@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.commons.dto;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -14,7 +19,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * @rmorenko.
+ * Resover for page parameter.
+ *
+ * @author Roman_Morenko
  */
 public class PageResolver implements HandlerMethodArgumentResolver {
 
@@ -34,15 +41,15 @@ public class PageResolver implements HandlerMethodArgumentResolver {
         String page  = nativeWebRequest.getParameter("page");
         String count = nativeWebRequest.getParameter("count");
         String order = nativeWebRequest.getParameter("order");
-        String sortColumns = nativeWebRequest.getParameter("sort");
         page = Optional.ofNullable(page).orElse(PAGE_DEFAULT);
         count = Optional.ofNullable(count).orElse(COUNT_DEFAULT);
         order = Optional.ofNullable(order).orElse(SORT_DEFAULT);
         if (order.toUpperCase() != SORT_DEFAULT
-                && order.toUpperCase() != Sort.Direction.DESC.toString() ){
+                && order.toUpperCase() != Sort.Direction.DESC.toString() ) {
             order = SORT_DEFAULT;
         }
-        if (StringUtils.isEmpty(sortColumns)){
+        String sortColumns = nativeWebRequest.getParameter("sort");
+        if (StringUtils.isEmpty(sortColumns)) {
             return new PageRequest(Integer.valueOf(page), Integer.valueOf(count));
         }
         return new PageRequest(Integer.valueOf(page), Integer.valueOf(count),

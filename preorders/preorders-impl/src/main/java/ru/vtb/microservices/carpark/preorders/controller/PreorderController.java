@@ -7,12 +7,13 @@ package ru.vtb.microservices.carpark.preorders.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import ru.vtb.microservices.carpark.commons.dto.UserInfo;
 import ru.vtb.microservices.carpark.preorders.api.PreorderApi;
 import ru.vtb.microservices.carpark.preorders.model.Preorder;
 import ru.vtb.microservices.carpark.preorders.service.PreorderService;
-
 
 import java.util.List;
 

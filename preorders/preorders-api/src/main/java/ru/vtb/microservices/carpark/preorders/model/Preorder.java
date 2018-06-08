@@ -18,7 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-import static java.util.Objects.requireNonNull;
+
 
 /**
  * Сущность предзаказа.
