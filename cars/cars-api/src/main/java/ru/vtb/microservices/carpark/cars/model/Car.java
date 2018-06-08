@@ -75,5 +75,4 @@ public class Car implements Serializable {
 
     @Transient
     private List<Events> availableEvents;
-
 }

@@ -22,7 +22,6 @@ public enum States {
     IN_SERVICE("in_service", "На обслуживании"),
     DECOMMISSIONED("decommissioned", "Выбыл из автопарка");
 
-
     private String statusCode;
     private String description;
 }
