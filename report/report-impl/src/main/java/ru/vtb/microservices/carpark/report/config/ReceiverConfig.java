@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.report.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -16,43 +21,45 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author rmorenko
+ * Config for reciver.
+ *
+ * @author Roman_Morenko
  */
 @Configuration
 @EnableKafka
 public class ReceiverConfig {
 
-        @Value("${kafka.bootstrap-servers}")
-        private String bootstrapServers;
+    @Value("${kafka.bootstrap-servers}")
+    private String bootstrapServers;
 
-        @Bean
-        public Map<String, Object> consumerConfigs() {
-                Map<String, Object> props = new HashMap<>();
-                props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-                props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-                props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-                props.put(ConsumerConfig.GROUP_ID_CONFIG, "json");
-                props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-                return props;
-        }
+    @Bean
+    public Map<String, Object> consumerConfigs() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "json");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        return props;
+    }
 
-        @Bean
-        public ConsumerFactory<String, String> consumerFactory() {
-                return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
+    @Bean
+    public ConsumerFactory<String, String> consumerFactory() {
+        return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
                         new StringDeserializer());
-        }
+    }
 
-        @Bean
-        public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
-                ConcurrentKafkaListenerContainerFactory<String, String> factory =
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory =
                         new ConcurrentKafkaListenerContainerFactory<>();
-                factory.setConsumerFactory(consumerFactory());
-                factory.setMessageConverter(new StringJsonMessageConverter());
-                return factory;
-        }
+        factory.setConsumerFactory(consumerFactory());
+        factory.setMessageConverter(new StringJsonMessageConverter());
+        return factory;
+    }
 
-        @Bean
-        public Receiver receiver() {
-                return new Receiver();
-        }
+    @Bean
+    public Receiver receiver() {
+        return new Receiver();
+    }
 }

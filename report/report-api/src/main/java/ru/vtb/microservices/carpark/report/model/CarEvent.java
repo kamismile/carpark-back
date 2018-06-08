@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.report.model;
 
 import lombok.Data;
@@ -5,13 +10,24 @@ import ru.vtb.microservices.carpark.cars.model.Events;
 import ru.vtb.microservices.carpark.cars.model.States;
 import ru.vtb.microservices.carpark.employees.model.Employee;
 
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
 
 /**
- * @author rmorenko
+ * CarEvent entity.
+ *
+ * @author Roman_Morenko
  */
 @Data
 @Entity
@@ -57,17 +73,17 @@ public class CarEvent {
     @Column (name = "REG_NUMBER")
     private String number;
 
-    @Column(name="MESSAGE_DATE")
+    @Column(name = "MESSAGE_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date messageDate;
 
-    @Column(name="USER_NAME")
+    @Column(name = "USER_NAME")
     private String userName;
 
-    @Column(name="CAR_ID")
+    @Column(name = "CAR_ID")
     private Long carId;
 
-    @Column(name="MESSAGE_TYPE")
+    @Column(name = "MESSAGE_TYPE")
     private String messageType;
 
     @ManyToOne
