@@ -30,9 +30,9 @@ public class ReferenceServiceImplTest {
     @Autowired
     ReferenceRepository referenceRepository = mock(ReferenceRepository.class);
     @Autowired
-    private ReferenceService referenceService;
-    @Autowired
     private DictSender sender = mock(DictSender.class);
+    @Autowired
+    private ReferenceService referenceService;
 
     private Reference reference;
     private Rubric rubric;
@@ -63,8 +63,8 @@ public class ReferenceServiceImplTest {
 
     @Test
     public void testFindByRubric() {
-        when(referenceService.findByRubric(rubric)).thenReturn(Arrays.asList(reference));
-        when(referenceService.findByRubric(null)).thenReturn(null);
+        when(referenceRepository.findByRubric(rubric)).thenReturn(Arrays.asList(reference));
+        when(referenceRepository.findByRubric(null)).thenReturn(null);
 
         List<Reference> referenceAny = referenceService.findByRubric(rubric);
         List<Reference> referencesNull = referenceService.findByRubric(null);
