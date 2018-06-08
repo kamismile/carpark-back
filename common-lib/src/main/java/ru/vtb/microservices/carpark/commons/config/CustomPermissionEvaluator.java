@@ -45,7 +45,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         expressions = new ConcurrentHashMap<>();
         defaultExpressions = new ConcurrentHashMap<>();
         defaultExpressions.put("getCars_filter",
-                " ( #userInfo.role == 'rental_manager' && #userInfo.localityId == #target.currentLocationId ) "
+                " ( #userInfo.role == 'rental_manager' && #userInfo.locationId == #target.currentLocationId ) "
                         + " || ( #userInfo.role == 'service_manager' && ( #target.currentStatus = 'in_service' ||  #target.nextStatus == 'in_service' )) "
                         + " || #userInfo.role == 'management' ||  #userInfo.role == 'administrator' ");
         defaultExpressions.put("getReferencesByRubric_filter", "#userInfo.role != 'test'");
@@ -83,7 +83,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         return true;
     }
 
-    private void initExpressionsIfNeed() {
+    protected void initExpressionsIfNeed() {
         List<AccessExpression> accessExpressions = accessExpressionCommand.getAll();
         accessExpressions.stream()
                 .filter(e -> !StringUtils.isEmpty(e.getOperation())

@@ -34,7 +34,8 @@ public class AccessExpressionCommand {
                 + " || ( #userInfo.role == 'service_manager' && ( #target.currentStatus = 'in_service' ||  #target.nextStatus == 'in_service' )) "
                 + " || #userInfo.role == 'management' ||  #userInfo.role == 'administrator' "));
         DEFAULT_ACCESS_EXPR.add((new AccessExpression("getReferencesByRubric_filter", "#userInfo.role != 'test'")));
-        DEFAULT_ACCESS_EXPR.add((new AccessExpression("changeCarState", "#userInfo.role == 'management' || #userInfo.role == 'administrator' || ( #userInfo.role == 'rental_manager' "
+        DEFAULT_ACCESS_EXPR.add((new AccessExpression("changeCarState", "#userInfo.role == 'management' || #userInfo.role == 'administrator' "
+                + "|| ( #userInfo.role == 'rental_manager' "
                 + " && ( #stringEvent == 'READY' || #stringEvent == 'IN_USE' ) )|| "
                 + " ( #userInfo.role == 'service_manager' &&  #stringEvent == 'IN_SERVICE') ")));
         DEFAULT_ACCESS_EXPR.add((new AccessExpression("deleteCar", USER_INFO_ROLE_ADMINISTRATOR)));

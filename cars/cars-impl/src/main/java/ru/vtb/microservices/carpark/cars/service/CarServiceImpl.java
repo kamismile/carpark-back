@@ -5,7 +5,6 @@
 
 package ru.vtb.microservices.carpark.cars.service;
 
-
 import static org.springframework.data.jpa.domain.Specifications.where;
 import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.*;
 
@@ -27,9 +26,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Car service realization
+ * Car service implementation.
  *
- * @autor dbegun
+ * @author Denis_Begun
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -50,7 +49,7 @@ public class CarServiceImpl implements CarService {
                 .and(carIsMileageTo(filter))
                 .and(carIsLocationId(filter))
                 .and(carInMarks(filter))
-                );
+        );
     }
 
     @Override
@@ -89,7 +88,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public void upploadCar(UserInfo userInfo, Car car) {
         sendCommand(userInfo, car, Command.ADD);
-     }
+    }
 
     @Override
     public void deleteById(UserInfo userInfo, Long id) {
@@ -104,7 +103,7 @@ public class CarServiceImpl implements CarService {
         cc.setEntity(car);
         cc.setMessageDate(new Date());
         cc.setUserInfo(userInfo);
-        log.info(" sendCommand " + cc.getCommand());
+        log.info("sendCommand: {}", cc.getCommand());
         kafkaProducerService.sendMessage(cc);
     }
 }

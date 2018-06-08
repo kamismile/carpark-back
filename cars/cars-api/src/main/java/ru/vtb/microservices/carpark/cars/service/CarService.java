@@ -10,8 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import ru.vtb.microservices.carpark.cars.model.Car;
 import ru.vtb.microservices.carpark.cars.model.CarFilter;
 import ru.vtb.microservices.carpark.commons.dto.UserInfo;
-import ru.vtb.microservices.carpark.cars.model.Car;
-import ru.vtb.microservices.carpark.cars.model.CarFilter;
 
 import java.util.List;
 

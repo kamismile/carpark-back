@@ -25,7 +25,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * @author rmorenko
+ *  TokenConverter configuration.
+ *
+ * @author Roman_Morenko
  */
 @Configuration
 @Slf4j
@@ -33,6 +35,11 @@ public class TokenConverterConfig {
 
     public static final String LOCATION_ID = "locationId";
 
+    /**
+     * fabric method for  method JwtAccessTokenConverter.
+     *
+     * @return JwtAccessTokenConverter
+    */
     @Order(1)
     @Bean("jwtConverter")
     public JwtAccessTokenConverter getTokenConverter() {
@@ -40,7 +47,7 @@ public class TokenConverterConfig {
             @Override
             public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
                 if (Objects.nonNull(accessToken.getValue()) && isUuid(accessToken.getValue())) {
-                   accessToken = super.enhance(accessToken, authentication);
+                    accessToken = super.enhance(accessToken, authentication);
                 }
                 Map<String, Object> addInfo = new HashMap<>();
                 addInfo.put(LOCATION_ID, authentication.getDetails());

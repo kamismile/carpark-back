@@ -10,6 +10,7 @@ import java.util.Date;
 
 /**
  * Исключение для ошибок заказа (недоступность машины).
+ *
  * @author Denis_Begun
  */
 public class CarNotAvailableException extends RuntimeException {

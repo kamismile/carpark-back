@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
  *
  * @author Denis_Begun
  */
-
 @Service
 @Transactional
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -73,25 +72,30 @@ public class PreorderServiceImpl implements PreorderService {
     @Override
     public Preorder getEarliestPreorder(Long carId) {
         List<Preorder> existingList = preorderRepository.findByCarId(carId);
+        Date now = new Date();
         if (existingList.isEmpty()) {
             return null;
         } else {
             return existingList.stream()
-                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime())).orElse(null);
+                    .filter(p -> p.getLeaseStartDate().compareTo(now) > 0)
+                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime()))
+                    .orElse(null);
         }
     }
 
     @Override
     public Preorder getEarliestPreorderByType(Long carId, PreorderType type) {
         List<Preorder> existingList = preorderRepository.findByCarId(carId);
+        Date now = new Date();
         if (existingList.isEmpty()) {
             return null;
         } else {
             return existingList.stream().filter(preorder -> type == preorder.getType())
-                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime())).orElse(null);
+                    .filter(p -> p.getLeaseStartDate().compareTo(now) > 0)
+                    .min(Comparator.comparingLong(o -> o.getLeaseStartDate().getTime()))
+                    .orElse(null);
         }
     }
-
 
     /**
      * Проверяет, нет ли проблем с заказом.
@@ -117,6 +121,12 @@ public class PreorderServiceImpl implements PreorderService {
         }
     }
 
+    /**
+     * Отсылка оповещения об изменении следующего статутса.
+     *
+     * @param userInfo информация о пользователе
+     * @param carId    идентификатор автомобиля
+     */
     private void makeNotification(UserInfo userInfo, @PathVariable Long carId) {
         NextStatus ns = getNextStatusForCar(carId);
         if (ns != null) {

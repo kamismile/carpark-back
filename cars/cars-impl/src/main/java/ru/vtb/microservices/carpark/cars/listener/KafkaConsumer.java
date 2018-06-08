@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars.listener;
 
 import lombok.RequiredArgsConstructor;
@@ -11,9 +16,12 @@ import ru.vtb.microservices.carpark.cars.model.NextStatus;
 import ru.vtb.microservices.carpark.cars.model.NextStatusEvent;
 import ru.vtb.microservices.carpark.cars.model.PreorderType;
 import ru.vtb.microservices.carpark.cars.service.CarService;
-import ru.vtb.microservices.carpark.cars.model.NextStatus;
 
-
+/**
+ * Потребитель сообщений об изменении следующего статуса автомобиля.
+ *
+ * @author Denis_Begun
+ */
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class KafkaConsumer {
@@ -30,7 +38,7 @@ public class KafkaConsumer {
         car.setNextStatus(nextStatus.getNextStatus());
         if (PreorderType.SERVICE == nextStatus.getType()
                 && (car.getNextMaintenanceDate() == null
-                || car.getNextMaintenanceDate().getTime() > nextStatus.getNextStatusDate().getTime() )) {
+                || car.getNextMaintenanceDate().getTime() > nextStatus.getNextStatusDate().getTime())) {
             car.setNextMaintenanceDate(nextStatus.getNextStatusDate());
         }
         carService.updateCar(cr.value().getUserInfo(), car);

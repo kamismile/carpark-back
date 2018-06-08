@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,9 +22,9 @@ import static ru.vtb.microservices.carpark.commons.util.ResolverUtils.getInteger
 import static ru.vtb.microservices.carpark.commons.util.ResolverUtils.getLongParameter;
 
 /**
- * Resolver for CarFilter
+ * Resolver for CarFilter.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 public class CarFilterResolver implements HandlerMethodArgumentResolver {
 

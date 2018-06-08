@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.commons.util;
 
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
@@ -12,7 +17,7 @@ import java.util.Date;
 /**
  * Util for resolver.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 @Slf4j
 public class ResolverUtils {
@@ -30,7 +35,7 @@ public class ResolverUtils {
     }
 
     /**
-     * Util metod for resolve date parameter
+     * Util metod for resolve date parameter.
      * @param nativeWebRequest request instance
      * @param parameterName name of http request parameter
      * @return Date value of parameter
@@ -58,20 +63,20 @@ public class ResolverUtils {
 
     public static Integer getIntegerParameter(NativeWebRequest nativeWebRequest, String parameterName) {
         String stingVal = nativeWebRequest.getParameter(parameterName);
-        if (StringUtils.isEmpty(stingVal)){
+        if (StringUtils.isEmpty(stingVal)) {
             return null;
         }
         try {
             return Integer.valueOf(stingVal);
         } catch (NumberFormatException ex) {
-          log.info(ex.getMessage());
-          return null;
+            log.info(ex.getMessage());
+            return null;
         }
     }
 
     public static Long getLongParameter(NativeWebRequest nativeWebRequest, String parameterName) {
         String stingVal = nativeWebRequest.getParameter(parameterName);
-        if (StringUtils.isEmpty(stingVal)){
+        if (StringUtils.isEmpty(stingVal)) {
             return null;
         }
         try {
@@ -84,7 +89,7 @@ public class ResolverUtils {
 
     public static Double getDoubleParameter(NativeWebRequest nativeWebRequest, String parameterName) {
         String stingVal = nativeWebRequest.getParameter(parameterName);
-        if (StringUtils.isEmpty(stingVal)){
+        if (StringUtils.isEmpty(stingVal)) {
             return null;
         }
         try {

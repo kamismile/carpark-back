@@ -23,6 +23,7 @@ import java.util.Map;
 
 /**
  * Конфигурация получения сообщений из kafka.
+ *
  * @author Denis_Begun
  */
 @Configuration

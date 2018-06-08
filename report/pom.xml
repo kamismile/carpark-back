@@ -161,6 +161,11 @@
                 <artifactId>auth-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>ru.vtb.microservices.carpark</groupId>
+                <artifactId>employees-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
 
             <!-- h2 for test -->
@@ -189,7 +194,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>ReportApplication</mainClass>
+                        <mainClass>ru.vtb.microservices.carpark.report.ReportApplication</mainClass>
                     </configuration>
                 </plugin>
 

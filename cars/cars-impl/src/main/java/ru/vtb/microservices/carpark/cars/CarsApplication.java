@@ -1,3 +1,8 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2018 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.cars;
 
 import org.springframework.boot.SpringApplication;
@@ -18,20 +23,25 @@ import ru.vtb.microservices.carpark.cars.model.Car;
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
+/**
+ * Приложение сервиса управления автомобилями.
+ *
+ * @author Denis_Begun
+ */
 @EnableEurekaClient
 @SpringBootApplication
 @EntityScan(basePackageClasses = Car.class)
 @EnableHystrix
 @Import({OAuth2FeignAutoConfiguration.class, FeignConfig.class, MethodSecurityConfig.class,
-	SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class })
+        SecurityConfig.class, JwtWebMvcConfig.class, JwtConfig.class})
 public class CarsApplication {
 
-	@PostConstruct
-	void started() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-	}
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(CarsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CarsApplication.class, args);
+    }
 }

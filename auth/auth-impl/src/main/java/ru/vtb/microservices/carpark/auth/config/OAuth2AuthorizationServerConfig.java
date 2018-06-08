@@ -1,3 +1,7 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
 
 package ru.vtb.microservices.carpark.auth.config;
 
@@ -14,21 +18,25 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.*;
+import org.springframework.security.oauth2.provider.TokenGranter;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
+
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
-import org.springframework.security.oauth2.provider.token.*;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import ru.vtb.microservices.carpark.auth.access.LoginPasswordTokenGranter;
 import ru.vtb.microservices.carpark.auth.helper.HttpRequestHelper;
 import ru.vtb.microservices.carpark.auth.service.UserInfoService;
-import ru.vtb.microservices.carpark.auth.service.UserInfoService;
+
 
 
 /**
  * OAuth 2.0 authorization server configuration.
  *
- * @author rmorenko
+ * @author Roman_Morenko
  */
 @Configuration
 @ConfigurationProperties

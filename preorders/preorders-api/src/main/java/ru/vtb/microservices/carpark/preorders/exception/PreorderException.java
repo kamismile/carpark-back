@@ -6,6 +6,7 @@ package ru.vtb.microservices.carpark.preorders.exception;
 
 /**
  * Исключение для ошибок заказа.
+ *
  * @author Denis_Begun
  */
 public class PreorderException extends RuntimeException {

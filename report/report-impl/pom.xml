@@ -182,7 +182,6 @@
         <dependency>
             <groupId>ru.vtb.microservices.carpark</groupId>
             <artifactId>employees-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

@@ -1,16 +1,26 @@
+/*
+ * VTB Group. Do not reproduce without permission in writing.
+ * Copyright (c) 2017 VTB Group. All rights reserved.
+ */
+
 package ru.vtb.microservices.carpark.commons.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.util.StringUtils;
 import ru.vtb.microservices.carpark.commons.dto.UserInfo;
 
 import java.util.Collection;
 import java.util.Map;
 
 /**
- * Created by rmorenko on 29.05.2018.
+ * UserInfoUtil.
+ *
+ * @author  Roman_Morenko.
  */
+@Slf4j
 public class UserInfoUtil {
 
     private UserInfoUtil() {
@@ -27,6 +37,7 @@ public class UserInfoUtil {
         try {
             locationId = Long.valueOf(map.get("locationId").toString());
         } catch (Exception ex) {
+            log.info(ex.getMessage());
             return new UserInfo(userName, role, null);
         }
         return new UserInfo(userName, role, locationId);
@@ -34,7 +45,7 @@ public class UserInfoUtil {
 
     private static String getRole(Collection<? extends GrantedAuthority> authorities) {
         String role = "";
-        if (authorities != null || !authorities.isEmpty()) {
+        if (StringUtils.isEmpty(authorities.isEmpty())) {
             role = authorities.stream().map(GrantedAuthority::getAuthority).findFirst().orElse("");
         }
         return role;
