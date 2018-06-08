@@ -6,26 +6,24 @@
 package ru.vtb.microservices.carpark.cars.service;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carInCurentStatuses;
 import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsYearFrom;
 import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsYearTo;
 import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carInMarks;
 import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.accessSpecifications;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsMileageTo;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsMileageFrom;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsCurrentLocationId;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsLocationId;
+
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import ru.vtb.microservices.carpark.cars.model.Car;
 import ru.vtb.microservices.carpark.cars.model.CarCommand;
 import ru.vtb.microservices.carpark.cars.model.CarFilter;
 import ru.vtb.microservices.carpark.cars.repository.CarRepository;
+import ru.vtb.microservices.carpark.cars.repository.CarSpecifications;
 import ru.vtb.microservices.carpark.commons.dto.UserInfo;
 import ru.vtb.microservices.carpark.commons.model.Command;
 
@@ -51,27 +49,31 @@ public class CarServiceImpl implements CarService {
     public List<Car> getAllCars(CarFilter filter) {
         return carRepository.findAll(where(carIsYearFrom(filter))
                 .and(carIsYearTo(filter))
-                .and(carInCurentStatuses(filter))
-                .and(carIsCurrentLocationId(filter))
-                .and(carIsMileageFrom(filter))
-                .and(carIsMileageTo(filter))
-                .and(carIsLocationId(filter))
+                .and(CarSpecifications.carInCurentStatuses(filter))
+                .and(CarSpecifications.carIsCurrentLocationId(filter))
+                .and(CarSpecifications.carIsMileageFrom(filter))
+                .and(CarSpecifications.carIsMileageTo(filter))
+                .and(CarSpecifications.carIsLocationId(filter))
                 .and(carInMarks(filter))
         );
     }
 
     @Override
     public Page<Car> getAllCars(UserInfo userInfo, CarFilter filter, PageRequest pageRequest) {
-        return carRepository.findAll(where(carIsYearFrom(filter))
-                .and(carIsYearTo(filter))
-                .and(carInCurentStatuses(filter))
-                .and(carIsCurrentLocationId(filter))
-                .and(carIsMileageFrom(filter))
-                .and(carIsMileageTo(filter))
-                .and(carIsLocationId(filter))
-                .and(carInMarks(filter))
-                .and(accessSpecifications(userInfo)), pageRequest
+        return carRepository.findAll(getFilterSpecification(userInfo, filter), pageRequest
         );
+    }
+
+    private Specifications<Car> getFilterSpecification(UserInfo userInfo, CarFilter filter) {
+        return where(carIsYearFrom(filter))
+                .and(carIsYearTo(filter))
+                .and(CarSpecifications.carInCurentStatuses(filter))
+                .and(CarSpecifications.carIsCurrentLocationId(filter))
+                .and(CarSpecifications.carIsMileageFrom(filter))
+                .and(CarSpecifications.carIsMileageTo(filter))
+                .and(CarSpecifications.carIsLocationId(filter))
+                .and(carInMarks(filter))
+                .and(accessSpecifications(userInfo));
     }
 
     @Override

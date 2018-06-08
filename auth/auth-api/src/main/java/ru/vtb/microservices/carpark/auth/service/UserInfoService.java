@@ -13,6 +13,7 @@ import ru.vtb.microservices.carpark.auth.model.UserInfo;
  *
  * @author Nikita_Mirzoev
  */
+@FunctionalInterface
 public interface UserInfoService {
 
     UserInfo authenticateUserByLoginAndPassword(String login, String password);

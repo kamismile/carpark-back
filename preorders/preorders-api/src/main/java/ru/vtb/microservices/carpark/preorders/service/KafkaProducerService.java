@@ -12,6 +12,7 @@ import ru.vtb.microservices.carpark.cars.model.NextStatusEvent;
  *
  * @author Denis_Begun
  */
+@FunctionalInterface
 public interface KafkaProducerService {
 
     /**

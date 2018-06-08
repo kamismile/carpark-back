@@ -37,13 +37,13 @@ import java.util.stream.Stream;
 @Slf4j
 public class LoginPasswordTokenGranter extends AbstractTokenGranter {
 
-    public static final String GRANT_TYPE = "login_password";
-    public static final String LOGIN = "login";
-    public static final String PAS_PARAM = "password";
-    public static final String REDIRECT_URI = "redirect_uri";
-    public static final String AUTH_REQUEST_PARAMS = "auth_request_params";
-    private HttpRequestHelper httpRequestHelper;
-    private UserInfoService userInfoService;
+    private static final String GRANT_TYPE = "login_password";
+    private static final String LOGIN = "login";
+    private static final String PAS_PARAM = "password";
+    private static final String REDIRECT_URI = "redirect_uri";
+    private static final String AUTH_REQUEST_PARAMS = "auth_request_params";
+    private final HttpRequestHelper httpRequestHelper;
+    private final UserInfoService userInfoService;
 
 
     public LoginPasswordTokenGranter(AuthorizationServerTokenServices tokenServices,

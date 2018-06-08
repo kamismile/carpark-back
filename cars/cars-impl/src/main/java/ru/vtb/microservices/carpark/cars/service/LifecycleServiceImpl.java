@@ -8,6 +8,7 @@ package ru.vtb.microservices.carpark.cars.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.StateMachineException;
 import org.springframework.statemachine.access.StateMachineAccess;
 import org.springframework.statemachine.state.State;
 import org.springframework.statemachine.support.DefaultStateMachineContext;
@@ -92,7 +93,7 @@ public class LifecycleServiceImpl implements LifecycleService {
                 a.resetStateMachine(new DefaultStateMachineContext<String, String>(currentState, null, null, null));
             }
             stateMachine.start();
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             throw new LifecycleException("Lifecycle service was unable to initialize state machine", ex);
         }
         return stateMachine;

@@ -44,10 +44,10 @@ public class StateMachinePoolServiceImpl implements StateMachinePoolService {
     @Override
     public StateMachine<String, String> borrow() {
         StateMachine<String, String> polled = machines.poll();
-        if (polled != null) {
-            return polled;
-        } else {
+        if (polled == null) {
             return factory.getStateMachine();
+        } else {
+            return polled;
         }
     }
 
