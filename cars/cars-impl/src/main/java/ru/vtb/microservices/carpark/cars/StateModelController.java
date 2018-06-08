@@ -7,19 +7,15 @@ package ru.vtb.microservices.carpark.cars;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.vtb.microservices.carpark.cars.api.StateModelApi;
 import ru.vtb.microservices.carpark.cars.model.Events;
 import ru.vtb.microservices.carpark.cars.model.States;
 import ru.vtb.microservices.carpark.cars.model.Transition;
-import ru.vtb.microservices.carpark.cars.service.LifecycleService;
 import ru.vtb.microservices.carpark.cars.service.StateMachineService;
 import ru.vtb.microservices.carpark.commons.dto.UserInfo;
-import ru.vtb.microservices.carpark.cars.api.StateModelApi;
-import ru.vtb.microservices.carpark.cars.model.Events;
-import ru.vtb.microservices.carpark.cars.model.States;
-import ru.vtb.microservices.carpark.cars.model.Transition;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,7 +52,7 @@ public class StateModelController implements StateModelApi {
     }
 
     /**
-     * Получение списка событий для перехода
+     * Получение списка событий для перехода.
      *
      * @return список событий для перехода.
      */
@@ -92,7 +88,7 @@ public class StateModelController implements StateModelApi {
     }
 
     /**
-     * Удаление возможного перехода
+     * Удаление возможного перехода.
      *
      * @param userInfo Информация о пользователе (из токена).
      * @param id       Идентификатор перехода.

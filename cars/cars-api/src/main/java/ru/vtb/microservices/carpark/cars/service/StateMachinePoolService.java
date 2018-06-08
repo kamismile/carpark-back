@@ -14,14 +14,14 @@ import org.springframework.statemachine.StateMachine;
  */
 public interface StateMachinePoolService {
     /**
-     * Получает из пула экземпляр стейт-машины
+     * Получает из пула экземпляр стейт-машины.
      *
      * @return Экземпляр стейт-машины.
      */
     StateMachine<String, String> borrow();
 
     /**
-     * Возвращает экземпляр стейт-машины в пул
+     * Возвращает экземпляр стейт-машины в пул.
      *
      * @param machine Возвращаемая в пул стейт-машина.
      */

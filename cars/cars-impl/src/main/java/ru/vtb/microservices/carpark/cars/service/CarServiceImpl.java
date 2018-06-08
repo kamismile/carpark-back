@@ -6,7 +6,15 @@
 package ru.vtb.microservices.carpark.cars.service;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.*;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carInCurentStatuses;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsYearFrom;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsYearTo;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carInMarks;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.accessSpecifications;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsMileageTo;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsMileageFrom;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsCurrentLocationId;
+import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsLocationId;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
