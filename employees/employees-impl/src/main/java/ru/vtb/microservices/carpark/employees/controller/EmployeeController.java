@@ -22,6 +22,16 @@ import java.util.List;
 @RestController
 public class EmployeeController implements EmployeeApi {
 
+    public static final String[] FIELDS = {"id", "name", "surname", "patronymic", "passportSeries",
+            "passportNumber", "birthday", "position",
+            "appointmentDate", "location.id", "location.address", "location.locationType",
+            "location.active", "user.id", "user.passord", "user.role", "user.locationId",
+            "user.active", "active"};
+
+    public static final String[] FIELDS_FILTER = {"name", "surname", "patronymic", "positions", "appointmentDateFrom",
+            "appointmentDateTo", "locations", "userId",
+            "active"};
+
     private final EmployeeService employeeService;
 
 
@@ -58,6 +68,16 @@ public class EmployeeController implements EmployeeApi {
     @Override
     public PageResponse<Employee> getAll(EmployeeFilter filter, PageRequest pageRequest) {
         return employeeService.getAll(filter, pageRequest);
+    }
+
+    @Override
+    public String[] getFieldsName(EmployeeFilter filter, PageRequest pageRequest) {
+        return FIELDS;
+    }
+
+    @Override
+    public String[] getFieldsFilterName(EmployeeFilter filter, PageRequest pageRequest) {
+        return FIELDS_FILTER;
     }
 
 

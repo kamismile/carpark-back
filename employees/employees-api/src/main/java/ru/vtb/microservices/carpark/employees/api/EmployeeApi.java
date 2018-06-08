@@ -33,4 +33,10 @@ public interface EmployeeApi {
 
     @GetMapping(value = "/employeespage", produces = MediaType.APPLICATION_JSON_VALUE)
     PageResponse<Employee> getAll(EmployeeFilter filter, PageRequest pageRequest);
+
+    @GetMapping(value = "/employeespage/fields", produces = MediaType.APPLICATION_JSON_VALUE)
+    String[] getFieldsName(EmployeeFilter filter, PageRequest pageRequest);
+
+    @GetMapping(value = "/employeespage/fieldsFilter", produces = MediaType.APPLICATION_JSON_VALUE)
+    String[] getFieldsFilterName(EmployeeFilter filter, PageRequest pageRequest);
 }

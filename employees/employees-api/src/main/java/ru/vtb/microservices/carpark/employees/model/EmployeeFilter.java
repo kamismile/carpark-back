@@ -32,5 +32,4 @@ public class EmployeeFilter {
     private Boolean active;
 
 
-
 }
