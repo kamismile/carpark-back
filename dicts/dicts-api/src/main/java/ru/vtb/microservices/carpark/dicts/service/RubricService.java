@@ -6,7 +6,6 @@
 package ru.vtb.microservices.carpark.dicts.service;
 
 import ru.vtb.microservices.carpark.dicts.model.Rubric;
-import ru.vtb.microservices.carpark.dicts.model.Rubric;
 
 import java.util.List;
 
