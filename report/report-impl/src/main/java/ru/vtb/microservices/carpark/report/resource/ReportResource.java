@@ -182,19 +182,7 @@ public class ReportResource {
     }
 
     private byte[] getReportBytes(JasperPrint jasperPrint) throws JRException {
-        JRXlsxExporter exporter = new JRXlsxExporter();
-        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        exporter.setExporterOutput(
-                     new SimpleOutputStreamExporterOutput(byteArrayOutputStream));
-        SimpleXlsxReportConfiguration xlsReportConfiguration
-                        = new SimpleXlsxReportConfiguration();
-        xlsReportConfiguration.setOnePagePerSheet(Boolean.FALSE);
-        xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(Boolean.TRUE);
-        xlsReportConfiguration.setDetectCellType(Boolean.TRUE);
-        xlsReportConfiguration.setWhitePageBackground(Boolean.FALSE);
-        exporter.exportReport();
-        return byteArrayOutputStream.toByteArray();
+        return new Report(jasperPrint).invoke();
     }
 
     private Map<String, Object> fillParameters(UserInfo userInfo, Date dateFrom, Date dateTo) {
@@ -207,4 +195,27 @@ public class ReportResource {
         return parameters;
     }
 
+    private class Report {
+        private JasperPrint jasperPrint;
+
+        public Report(JasperPrint jasperPrint) {
+            this.jasperPrint = jasperPrint;
+        }
+
+        public byte[] invoke() throws JRException {
+            JRXlsxExporter exporter = new JRXlsxExporter();
+            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            exporter.setExporterOutput(
+                         new SimpleOutputStreamExporterOutput(byteArrayOutputStream));
+            SimpleXlsxReportConfiguration xlsReportConfiguration
+                            = new SimpleXlsxReportConfiguration();
+            xlsReportConfiguration.setOnePagePerSheet(Boolean.FALSE);
+            xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(Boolean.TRUE);
+            xlsReportConfiguration.setDetectCellType(Boolean.TRUE);
+            xlsReportConfiguration.setWhitePageBackground(Boolean.FALSE);
+            exporter.exportReport();
+            return byteArrayOutputStream.toByteArray();
+        }
+    }
 }
