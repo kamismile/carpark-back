@@ -17,6 +17,10 @@ import java.util.Date;
  */
 public class CarEventSpecisications {
 
+    private CarEventSpecisications(){
+        super();
+    }
+
     public static Specification<CarEvent> carEventFrom(Date from) {
         return (root, query, cb) -> {
             if (from == null) {

@@ -62,11 +62,11 @@ public class ReportResource {
     private static final String DEFAULT_REPORT = "/car.jrxml";
     private static final String RENTAL_REPORT = "/car_rental.jrxml";
 
-    private Sender sender;
+    private final Sender sender;
 
-    private CarEventRepository carEventRepository;
+    private final CarEventRepository carEventRepository;
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     @Value("${kafka.topic.car}")
     String carTopic;
@@ -174,8 +174,7 @@ public class ReportResource {
     }
 
     private String getResourceAsStream( UserInfo userInfo ) {
-        boolean isRentalRole = isRentalRole(userInfo);
-        return !isRentalRole ? DEFAULT_REPORT : RENTAL_REPORT;
+        return isRentalRole(userInfo) ? RENTAL_REPORT  : DEFAULT_REPORT;
     }
 
     private boolean isRentalRole(UserInfo userInfo) {
