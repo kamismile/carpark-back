@@ -188,7 +188,7 @@ public class ReportResource {
         SimpleXlsxReportConfiguration xlsReportConfiguration
                         = new SimpleXlsxReportConfiguration();
         xlsReportConfiguration.setOnePagePerSheet(Boolean.FALSE);
-        xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(true);
+        xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(Boolean.TRUE);
         xlsReportConfiguration.setDetectCellType(Boolean.TRUE);
         xlsReportConfiguration.setWhitePageBackground(Boolean.FALSE);
         exporter.exportReport();
