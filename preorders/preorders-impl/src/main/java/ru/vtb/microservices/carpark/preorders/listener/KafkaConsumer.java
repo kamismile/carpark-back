@@ -50,9 +50,7 @@ public class KafkaConsumer {
 
         if (States.READY == car.getState()) {
             Preorder preorder = preorderService.getEarliestPreorderByType(car.getId(), PreorderType.BOOKING);
-            if (preorder != null) {
-                if (car.getCurrentLocationId() != null
-                        && car.getCurrentLocationId().equals(preorder.getStartLocationId())) {
+            if (isCarAndOrderValid(car, preorder)) {
                     log.info("Sending email to: {}", preorder.getEmail());
                     SimpleMailMessage message = new SimpleMailMessage();
                     message.setTo(preorder.getEmail());
@@ -60,10 +58,13 @@ public class KafkaConsumer {
                     message.setText(String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
                             preorder.getClientName(), preorder.getClientPatronymic()));
                     emailSender.send(message);
-                }
             }
         }
-
         acknowledgment.acknowledge();
+    }
+
+    private boolean isCarAndOrderValid(Car car, Preorder preorder) {
+        return preorder != null && car.getCurrentLocationId() != null
+                && car.getCurrentLocationId().equals(preorder.getStartLocationId());
     }
 }
