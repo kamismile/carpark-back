@@ -25,7 +25,7 @@ import java.util.Map;
 @Slf4j
 public class UserInfoUtil {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserInfoUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger("UserInfoUtil");
 
     private UserInfoUtil() {
 
