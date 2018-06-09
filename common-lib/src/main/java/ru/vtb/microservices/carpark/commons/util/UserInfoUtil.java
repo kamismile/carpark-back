@@ -41,7 +41,7 @@ public class UserInfoUtil {
         try {
             locationId = Long.valueOf(map.get("locationId").toString());
         } catch (Exception ex) {
-            LOGGER.info(ex.getMessage());
+            LOGGER.info(ex.getMessage(), ex);
             return new UserInfo(userName, role, null);
         }
         return new UserInfo(userName, role, locationId);
