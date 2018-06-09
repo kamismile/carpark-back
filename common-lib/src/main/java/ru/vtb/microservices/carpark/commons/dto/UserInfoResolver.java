@@ -34,7 +34,7 @@ public class UserInfoResolver implements HandlerMethodArgumentResolver {
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                       NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return UserInfoUtil.getInstance(authentication);
+        return UserInfoUtil.getNewInstance(authentication);
     }
 
     public ObjectMapper getObjectMapper() {

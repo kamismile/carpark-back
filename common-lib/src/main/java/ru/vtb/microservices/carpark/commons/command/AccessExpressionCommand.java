@@ -43,7 +43,7 @@ public class AccessExpressionCommand {
         DEFAULT_ACCESS_EXPR.add((new AccessExpression("updateCar", USER_INFO_ROLE_ADMINISTRATOR)));
 
     }
-
+    @SuppressWarnings("all")
     @HystrixCommand(fallbackMethod = "defaultList", commandKey = "AccessExpressionCommand")
     public AccessExpression getByOperation(String operation) {
         return accessExpressionFeign.getByOperation(operation);

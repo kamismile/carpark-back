@@ -29,7 +29,7 @@ public class ResolverUtils {
     public static Boolean getBooleanParameter(NativeWebRequest nativeWebRequest, String parameterName) {
 
         if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))) {
-            return null;
+            return (Boolean)null;
         }
         return  Boolean.valueOf(nativeWebRequest.getParameter(parameterName));
     }

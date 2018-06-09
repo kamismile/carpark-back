@@ -75,7 +75,12 @@
             **/ReferenceServiceImpl.java,
             **/CarServiceImpl.java,
             **/PreorderServiceImpl.java,
-            **/SecureCookieFilter.java
+            **/StateMachinePoolServiceImpl.java,
+            **/UserInfoUtil.java,
+            **/EmployeeSprecifications.java,
+            **/SecureCookieFilter.java,
+            **/LocationSpecifications.java,
+            **/EmployeeServiceImpl.java
         </sonar.coverage.exclusions>
     </properties>
 

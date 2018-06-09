@@ -31,7 +31,7 @@ public class UserInfoUtil {
 
     }
 
-    public static UserInfo getInstance(Authentication authentication) {
+    public static UserInfo getNewInstance(Authentication authentication) {
         Object details = authentication.getDetails();
         Map map = (Map) ((OAuth2AuthenticationDetails) details).getDecodedDetails();
         String userName = authentication.getPrincipal().toString();
@@ -40,7 +40,7 @@ public class UserInfoUtil {
         Long locationId;
         try {
             locationId = Long.valueOf(map.get("locationId").toString());
-        } catch (Exception ex) {
+        } catch (ClassCastException | NullPointerException | IndexOutOfBoundsException ex) {
             LOGGER.info(ex.getMessage(), ex);
             return new UserInfo(userName, role, null);
         }

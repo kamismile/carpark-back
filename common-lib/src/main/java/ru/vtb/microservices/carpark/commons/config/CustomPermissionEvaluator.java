@@ -69,7 +69,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         ExpressionParser parser = new SpelExpressionParser();
         StandardEvaluationContext context = new StandardEvaluationContext();
         String method = ((List) permission).get(0).toString();
-        UserInfo userInfo = UserInfoUtil.getInstance(authentication);
+        UserInfo userInfo = UserInfoUtil.getNewInstance(authentication);
         context.setVariable(USER_INFO_VAR, userInfo);
         if (!method.contains(FILTER_SUFF)) {
             putArgumentsInContext((List) targetDomainObject, context);
