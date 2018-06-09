@@ -182,7 +182,7 @@ public class ReportResource {
     }
 
     private byte[] getReportBytes(JasperPrint jasperPrint) throws JRException {
-        return new Report(jasperPrint).invoke();
+        return Report.invoke(jasperPrint);
     }
 
     private Map<String, Object> fillParameters(UserInfo userInfo, Date dateFrom, Date dateTo) {
@@ -195,14 +195,13 @@ public class ReportResource {
         return parameters;
     }
 
-    private class Report {
-        private JasperPrint jasperPrint;
+    private static class Report {
 
-        public Report(JasperPrint jasperPrint) {
-            this.jasperPrint = jasperPrint;
+        private Report() {
+            super();
         }
 
-        public byte[] invoke() throws JRException {
+        public  static byte[] invoke(JasperPrint jasperPrint) throws JRException {
             JRXlsxExporter exporter = new JRXlsxExporter();
             exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
