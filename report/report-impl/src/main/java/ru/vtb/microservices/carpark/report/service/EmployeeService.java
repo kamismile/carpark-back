@@ -49,7 +49,7 @@ public class EmployeeService {
         try {
             oldEmployee = repository.findByUserLogin(login);
         } catch (RuntimeException ex) {
-            LOGGER.info(ex.getMessage());
+            LOGGER.info(ex.getMessage(), ex);
             newUser.setId(null);
         }
         if (oldEmployee == null) {

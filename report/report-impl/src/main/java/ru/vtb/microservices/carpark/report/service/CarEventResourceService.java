@@ -51,7 +51,7 @@ public class CarEventResourceService {
             Employee employee = employeeRepository.findByUserLogin(carCommand.getUserInfo().getName());
             carEvent.setEmployee(employee);
         } catch (Exception ex) {
-            LOGGER.info(ex.getMessage());
+            LOGGER.info(ex.getMessage(), ex);
             carEvent.setEmployee(null);
         }
         Car car = carCommand.getEntity();

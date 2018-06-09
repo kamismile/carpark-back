@@ -41,11 +41,22 @@
             **/event/**/*,
             **/entity/**/*,
             **/model/**/*,
+            **/*Application.java,
+            **/SecureCookieFilter.java
+        </sonar.exclusions>
+
+        <sonar.coverage.exclusions>
+            **/config/**/*,
+            **/exception/**/*,
+            **/dto/**/*,
+            **/event/**/*,
+            **/entity/**/*,
+            **/model/**/*,
             **/controller/**/*,
             **/*Controller.java,
             **/*Application.java,
             **/SecureCookieFilter.java
-        </sonar.exclusions>
+        </sonar.coverage.exclusions>
     </properties>
 
     <profiles>
