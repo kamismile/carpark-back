@@ -49,7 +49,7 @@ public class UserInfoUtil {
 
     private static String getRole(Collection<? extends GrantedAuthority> authorities) {
         String role = "";
-        if (StringUtils.isEmpty(authorities.isEmpty())) {
+        if (!StringUtils.isEmpty(authorities.isEmpty())) {
             role = authorities.stream().map(GrantedAuthority::getAuthority).findFirst().orElse("");
         }
         return role;
