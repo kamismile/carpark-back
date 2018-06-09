@@ -35,7 +35,11 @@
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>-->
 
         <sonar.exclusions>
-            **/config/**/*
+            **/config/**/*,
+            **/model/**/*,
+            **/entity/**/*,
+            **/*Application.java,
+
         </sonar.exclusions>
 
         <sonar.coverage.exclusions>
