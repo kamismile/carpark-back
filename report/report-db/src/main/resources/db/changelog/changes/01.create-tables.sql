@@ -15,7 +15,7 @@ CREATE TABLE car_event (
   location_id INTEGER NOT NULL,
   current_location_id INTEGER NULL,
   reg_number VARCHAR(10) NOT NULL,
-  MESSAGE_DATE DATE NOT NULL,
+  MESSAGE_DATE timestamp without time zone,
   MESSAGE_TYPE VARCHAR(10) NOT NULL,
   USER_NAME VARCHAR(100) NOT NULL,
   CAR_ID INTEGER,
