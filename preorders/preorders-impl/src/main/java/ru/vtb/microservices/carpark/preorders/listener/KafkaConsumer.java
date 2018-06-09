@@ -50,7 +50,8 @@ public class KafkaConsumer {
 
         if (States.READY == car.getState()) {
             Preorder preorder = preorderService.getEarliestPreorderByType(car.getId(), PreorderType.BOOKING);
-            if (isCarAndOrderValid(car, preorder)) {
+            if (preorder != null && car.getCurrentLocationId() != null
+                    && car.getCurrentLocationId().equals(preorder.getStartLocationId())) {
                     log.info("Sending email to: {}", preorder.getEmail());
                     SimpleMailMessage message = new SimpleMailMessage();
                     message.setTo(preorder.getEmail());
@@ -63,8 +64,4 @@ public class KafkaConsumer {
         acknowledgment.acknowledge();
     }
 
-    private boolean isCarAndOrderValid(Car car, Preorder preorder) {
-        return preorder != null && car.getCurrentLocationId() != null
-                && car.getCurrentLocationId().equals(preorder.getStartLocationId());
-    }
 }
