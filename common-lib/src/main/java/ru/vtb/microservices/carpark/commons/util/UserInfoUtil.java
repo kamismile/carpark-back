@@ -6,6 +6,8 @@
 package ru.vtb.microservices.carpark.commons.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -23,6 +25,8 @@ import java.util.Map;
 @Slf4j
 public class UserInfoUtil {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(UserInfoUtil.class);
+
     private UserInfoUtil() {
 
     }
@@ -37,7 +41,7 @@ public class UserInfoUtil {
         try {
             locationId = Long.valueOf(map.get("locationId").toString());
         } catch (Exception ex) {
-            log.info(ex.getMessage());
+            LOGGER.info(ex.getMessage());
             return new UserInfo(userName, role, null);
         }
         return new UserInfo(userName, role, locationId);

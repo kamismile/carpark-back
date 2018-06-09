@@ -6,6 +6,8 @@
 package ru.vtb.microservices.carpark.report.service;
 
 import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +28,15 @@ import ru.vtb.microservices.carpark.report.repository.EmployeeRepository;
 @Data
 public class CarEventResourceService {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(CarEventResourceService.class);
+
     @Autowired
     private CarEventRepository carEventRepository;
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+
 
    /**
    *  Command for save.
@@ -45,6 +51,7 @@ public class CarEventResourceService {
             Employee employee = employeeRepository.findByUserLogin(carCommand.getUserInfo().getName());
             carEvent.setEmployee(employee);
         } catch (Exception ex) {
+            LOGGER.info(ex.getMessage());
             carEvent.setEmployee(null);
         }
         Car car = carCommand.getEntity();

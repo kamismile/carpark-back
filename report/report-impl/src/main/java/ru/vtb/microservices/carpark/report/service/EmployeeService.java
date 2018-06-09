@@ -6,7 +6,8 @@
 package ru.vtb.microservices.carpark.report.service;
 
 import groovy.util.logging.Slf4j;
-import org.hibernate.HibernateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,8 @@ import ru.vtb.microservices.carpark.report.repository.UserInfoRepository;
 @Transactional
 public class EmployeeService {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
+
     @Autowired
     EmployeeRepository repository;
 
@@ -46,6 +49,7 @@ public class EmployeeService {
         try {
             oldEmployee = repository.findByUserLogin(login);
         } catch (RuntimeException ex) {
+            LOGGER.info(ex.getMessage());
             newUser.setId(null);
         }
         if (oldEmployee == null) {
