@@ -6,6 +6,8 @@
 package ru.vtb.microservices.carpark.commons.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -23,11 +25,13 @@ import java.util.Map;
 @Slf4j
 public class UserInfoUtil {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger("UserInfoUtil");
+
     private UserInfoUtil() {
 
     }
 
-    public static UserInfo getInstance(Authentication authentication) {
+    public static UserInfo getNewInstance(Authentication authentication) {
         Object details = authentication.getDetails();
         Map map = (Map) ((OAuth2AuthenticationDetails) details).getDecodedDetails();
         String userName = authentication.getPrincipal().toString();
@@ -36,8 +40,8 @@ public class UserInfoUtil {
         Long locationId;
         try {
             locationId = Long.valueOf(map.get("locationId").toString());
-        } catch (Exception ex) {
-            log.info(ex.getMessage());
+        } catch (NumberFormatException ex) {
+            LOGGER.info(ex.getMessage(), ex);
             return new UserInfo(userName, role, null);
         }
         return new UserInfo(userName, role, locationId);
@@ -45,7 +49,7 @@ public class UserInfoUtil {
 
     private static String getRole(Collection<? extends GrantedAuthority> authorities) {
         String role = "";
-        if (StringUtils.isEmpty(authorities.isEmpty())) {
+        if (!StringUtils.isEmpty(authorities.isEmpty())) {
             role = authorities.stream().map(GrantedAuthority::getAuthority).findFirst().orElse("");
         }
         return role;

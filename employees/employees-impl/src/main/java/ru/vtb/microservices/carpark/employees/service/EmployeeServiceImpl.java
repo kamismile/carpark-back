@@ -6,15 +6,6 @@
 package ru.vtb.microservices.carpark.employees.service;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeAfterAppointmentDate;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeBeforeAppointmentDate;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeHasUserId;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeInLocations;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeInPositions;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeIsActive;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikePatronymic;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikeSurname;
-import static ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications.employeeLikeName;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,10 +19,7 @@ import ru.vtb.microservices.carpark.employees.model.Employee;
 import ru.vtb.microservices.carpark.employees.model.EmployeeFilter;
 import ru.vtb.microservices.carpark.employees.repository.EmployeeRepository;
 import ru.vtb.microservices.carpark.employees.sender.Sender;
-import ru.vtb.microservices.carpark.employees.dto.EmployeeCommand;
-import ru.vtb.microservices.carpark.employees.repository.EmployeeRepository;
 import ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications;
-import ru.vtb.microservices.carpark.employees.sender.Sender;
 
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -125,7 +113,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeCommand.setMessageDate(new Date());
         sender.send(employeeTopic, employeeCommand);
     }
-
+    @SuppressWarnings("all")
     @Override
     public List<Employee> getAll(EmployeeFilter filter) {
 
@@ -139,7 +127,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .and(EmployeeSprecifications.employeeInLocations(filter))
                 .and(EmployeeSprecifications.employeeInPositions(filter)));
     }
-
+    @SuppressWarnings("all")
     @Override
     public PageResponse<Employee> getAll(EmployeeFilter filter, PageRequest pageRequest) {
         Page<Employee> page =  employeeRepository.findAll(where(EmployeeSprecifications.employeeLikeName(filter))

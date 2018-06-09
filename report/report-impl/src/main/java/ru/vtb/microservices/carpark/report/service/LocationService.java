@@ -33,7 +33,7 @@ public class LocationService {
         if (Command.DELETE == cmd.getCommand()) {
             cmd.getEntity().setActive(false);
             repository.save(cmd.getEntity());
-        } else if (Command.ADD.equals(cmd.getCommand())) {
+        } else if (Command.ADD == cmd.getCommand()) {
             cmd.getEntity().setId(null);
         } else {
             Location oldLocation =  repository.findByAddress(cmd.getOldEntity().getAddress());

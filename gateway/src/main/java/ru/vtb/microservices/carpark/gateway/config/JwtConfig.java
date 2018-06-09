@@ -51,7 +51,7 @@ public class JwtConfig {
         try {
             publicKey = IOUtils.toString(resource.getInputStream(), Charset.defaultCharset());
         } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            throw new IllegalArgumentException(ex);
         }
 
         converter.setVerifierKey(publicKey);

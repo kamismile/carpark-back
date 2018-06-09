@@ -6,15 +6,15 @@
 package ru.vtb.microservices.carpark.auth.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
-import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
@@ -32,6 +32,8 @@ import java.util.UUID;
 @Configuration
 @Slf4j
 public class TokenConverterConfig {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(TokenConverterConfig.class);
 
     public static final String LOCATION_ID = "locationId";
 
@@ -66,9 +68,10 @@ public class TokenConverterConfig {
     public boolean isUuid(String uuidToCheck) {
         try {
             UUID uuid = UUID.fromString(uuidToCheck);
-            log.debug("uuid" + uuid);
+            log.debug("uiid ok");
             return true;
         } catch (IllegalArgumentException exception) {
+            LOGGER.info( exception.getMessage(), exception);
             return false;
         }
     }

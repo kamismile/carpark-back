@@ -43,7 +43,7 @@ public class AccessExpressionCommand {
         DEFAULT_ACCESS_EXPR.add((new AccessExpression("updateCar", USER_INFO_ROLE_ADMINISTRATOR)));
 
     }
-
+    @SuppressWarnings("all")
     @HystrixCommand(fallbackMethod = "defaultList", commandKey = "AccessExpressionCommand")
     public AccessExpression getByOperation(String operation) {
         return accessExpressionFeign.getByOperation(operation);
@@ -53,8 +53,11 @@ public class AccessExpressionCommand {
         return accessExpressionFeign.getAll();
     }
 
-
+    @SuppressWarnings("all")
     public AccessExpression defaultList(String operation) {
-        return DEFAULT_ACCESS_EXPR.get(0);
+        return DEFAULT_ACCESS_EXPR.stream()
+                .filter( o -> o.getOperation().equals(operation))
+                .findFirst().orElse(
+                        new AccessExpression(operation,"#userInfo.role != 'fake'"));
     }
 }

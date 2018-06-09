@@ -37,14 +37,17 @@ import ru.vtb.microservices.carpark.report.repository.CarEventRepository;
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.GregorianCalendar;
+
+
+
+
 
 /**
  * Report controoller.
@@ -59,11 +62,11 @@ public class ReportResource {
     private static final String DEFAULT_REPORT = "/car.jrxml";
     private static final String RENTAL_REPORT = "/car_rental.jrxml";
 
-    private Sender sender;
+    private final Sender sender;
 
-    private CarEventRepository carEventRepository;
+    private final CarEventRepository carEventRepository;
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     @Value("${kafka.topic.car}")
     String carTopic;
@@ -148,14 +151,11 @@ public class ReportResource {
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                                 jasperReport, parameters, dataSource.getConnection());
             return getReportBytes(jasperPrint);
-        } catch (JRException e) {
-            log.error(e.getMessage());
-            log.trace("Jasper error", e);
-            return e.getMessage().getBytes();
-        } catch (SQLException e) {
+
+        } catch (JRException | SQLException e) {
             log.trace("SQL error", e);
             log.error(e.getMessage());
-            return e.getMessage().getBytes();
+            throw new IllegalArgumentException(e);
         }
     }
 
@@ -174,8 +174,7 @@ public class ReportResource {
     }
 
     private String getResourceAsStream( UserInfo userInfo ) {
-        boolean isRentalRole = isRentalRole(userInfo);
-        return !isRentalRole ? DEFAULT_REPORT : RENTAL_REPORT;
+        return isRentalRole(userInfo) ? RENTAL_REPORT  : DEFAULT_REPORT;
     }
 
     private boolean isRentalRole(UserInfo userInfo) {
@@ -183,19 +182,7 @@ public class ReportResource {
     }
 
     private byte[] getReportBytes(JasperPrint jasperPrint) throws JRException {
-        JRXlsxExporter exporter = new JRXlsxExporter();
-        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        exporter.setExporterOutput(
-                     new SimpleOutputStreamExporterOutput(byteArrayOutputStream));
-        SimpleXlsxReportConfiguration xlsReportConfiguration
-                        = new SimpleXlsxReportConfiguration();
-        xlsReportConfiguration.setOnePagePerSheet(Boolean.FALSE);
-        xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(true);
-        xlsReportConfiguration.setDetectCellType(Boolean.TRUE);
-        xlsReportConfiguration.setWhitePageBackground(Boolean.FALSE);
-        exporter.exportReport();
-        return byteArrayOutputStream.toByteArray();
+        return Report.invoke(jasperPrint);
     }
 
     private Map<String, Object> fillParameters(UserInfo userInfo, Date dateFrom, Date dateTo) {
@@ -208,4 +195,26 @@ public class ReportResource {
         return parameters;
     }
 
+    private static class Report {
+
+        private Report() {
+            super();
+        }
+
+        public  static byte[] invoke(JasperPrint jasperPrint) throws JRException {
+            JRXlsxExporter exporter = new JRXlsxExporter();
+            exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            exporter.setExporterOutput(
+                         new SimpleOutputStreamExporterOutput(byteArrayOutputStream));
+            SimpleXlsxReportConfiguration xlsReportConfiguration
+                            = new SimpleXlsxReportConfiguration();
+            xlsReportConfiguration.setOnePagePerSheet(Boolean.FALSE);
+            xlsReportConfiguration.setRemoveEmptySpaceBetweenRows(Boolean.TRUE);
+            xlsReportConfiguration.setDetectCellType(Boolean.TRUE);
+            xlsReportConfiguration.setWhitePageBackground(Boolean.FALSE);
+            exporter.exportReport();
+            return byteArrayOutputStream.toByteArray();
+        }
+    }
 }

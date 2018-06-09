@@ -6,10 +6,6 @@
 package ru.vtb.microservices.carpark.cars.service;
 
 import static org.springframework.data.jpa.domain.Specifications.where;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsYearFrom;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carIsYearTo;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.carInMarks;
-import static ru.vtb.microservices.carpark.cars.repository.CarSpecifications.accessSpecifications;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,14 +42,14 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getAllCars(CarFilter filter) {
-        return carRepository.findAll(where(carIsYearFrom(filter))
-                .and(carIsYearTo(filter))
+        return carRepository.findAll(where(CarSpecifications.carIsYearFrom(filter))
+                .and(CarSpecifications.carIsYearTo(filter))
                 .and(CarSpecifications.carInCurentStatuses(filter))
                 .and(CarSpecifications.carIsCurrentLocationId(filter))
                 .and(CarSpecifications.carIsMileageFrom(filter))
                 .and(CarSpecifications.carIsMileageTo(filter))
                 .and(CarSpecifications.carIsLocationId(filter))
-                .and(carInMarks(filter))
+                .and(CarSpecifications.carInMarks(filter))
         );
     }
 
@@ -64,15 +60,15 @@ public class CarServiceImpl implements CarService {
     }
 
     private Specifications<Car> getFilterSpecification(UserInfo userInfo, CarFilter filter) {
-        return where(carIsYearFrom(filter))
-                .and(carIsYearTo(filter))
+        return where(CarSpecifications.carIsYearFrom(filter))
+                .and(CarSpecifications.carIsYearTo(filter))
                 .and(CarSpecifications.carInCurentStatuses(filter))
                 .and(CarSpecifications.carIsCurrentLocationId(filter))
                 .and(CarSpecifications.carIsMileageFrom(filter))
                 .and(CarSpecifications.carIsMileageTo(filter))
                 .and(CarSpecifications.carIsLocationId(filter))
-                .and(carInMarks(filter))
-                .and(accessSpecifications(userInfo));
+                .and(CarSpecifications.carInMarks(filter))
+                .and(CarSpecifications.accessSpecifications(userInfo));
     }
 
     @Override

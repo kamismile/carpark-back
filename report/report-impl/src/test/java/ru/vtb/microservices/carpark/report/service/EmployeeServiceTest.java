@@ -34,6 +34,7 @@ public class EmployeeServiceTest {
 
     private Long USER_ID = 111111l;
     private String USER_LOGIN = "login";
+    private String EXCEPTION = "exception";
     private Long EMPLOYEE_ID = 222222l;
     private Employee employee;
     private EmployeeCommand employeeCommand;
@@ -41,16 +42,9 @@ public class EmployeeServiceTest {
 
     @BeforeMethod
     public void setupMock() {
-        userInfo = new UserInfo();
-        userInfo.setId(USER_ID);
-        userInfo.setLogin(USER_LOGIN);
-        employee = new Employee();
-        employee.setId(EMPLOYEE_ID);
-        employee.setUser(userInfo);
-        employeeCommand = new EmployeeCommand();
-        employeeCommand.setEntity(employee);
-        employeeCommand.setOldEntity(employee);
-        employeeCommand.setCommand(Command.ADD);
+        userInfo = getUserInfo(USER_LOGIN, USER_ID);
+        employee = getEmployee(userInfo);
+        employeeCommand = getEmployeeCommand(Command.ADD, employee);
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(employeeService).build();
         reset(employeeRepository);
@@ -61,11 +55,41 @@ public class EmployeeServiceTest {
     public void testSave() {
         when(employeeRepository.save(employee)).thenReturn(employee);
         when(employeeRepository.findByUserLogin(anyString())).thenReturn(employee);
+        when(employeeRepository.findByUserLogin(EXCEPTION)).thenThrow(RuntimeException.class);
         when(userInfoRepository.save(userInfo)).thenReturn(userInfo);
-
         employeeService.save(employeeCommand);
-
         verify(employeeRepository, atLeastOnce()).save(eq(employee));
+        verify(employeeRepository, atLeastOnce()).findByUserLogin(eq(USER_LOGIN));
+        verify(userInfoRepository, atLeastOnce()).save(eq(userInfo));
+        userInfo = getUserInfo(EXCEPTION, USER_ID);
+        employee = getEmployee(userInfo);
+        employeeCommand = getEmployeeCommand(Command.DELETE, employee);
+        employeeService.save(employeeCommand);
+        verify(employeeRepository, atLeastOnce()).save(eq(employee));
+        verify(employeeRepository, atLeastOnce()).findByUserLogin(eq(EXCEPTION));
+        verify(userInfoRepository, atLeastOnce()).save(eq(userInfo));
+    }
+
+    private UserInfo getUserInfo(String login, Long id) {
+        userInfo = new UserInfo();
+        userInfo.setId(USER_ID);
+        userInfo.setLogin(login);
+        return userInfo;
+    }
+
+    private Employee getEmployee(UserInfo userInfo) {
+        employee = new Employee();
+        employee.setId(EMPLOYEE_ID);
+        employee.setUser(userInfo);
+        return employee;
+    }
+
+    private EmployeeCommand getEmployeeCommand(Command command,  Employee employee) {
+        employeeCommand = new EmployeeCommand();
+        employeeCommand.setEntity(employee);
+        employeeCommand.setOldEntity(employee);
+        employeeCommand.setCommand(command);
+        return employeeCommand;
     }
 
 }

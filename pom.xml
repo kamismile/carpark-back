@@ -36,14 +36,47 @@
 
         <sonar.exclusions>
             **/config/**/*,
+            **/model/**/*,
+            **/entity/**/*,
+            **/dto/**/*,
+            **/*Application.java
+        </sonar.exclusions>
+
+        <sonar.coverage.exclusions>
+            **/config/**/*,
             **/exception/**/*,
             **/dto/**/*,
             **/event/**/*,
             **/entity/**/*,
             **/model/**/*,
+            **/controller/**/*,
+            **/*Controller.java,
             **/*Application.java,
-            **/SecureCookieFilter.java
-        </sonar.exclusions>
+            **/AccessExpressionCommand.java,
+            **/AccessExpressionResourceImpl.java,
+            **/HttpRequestHelper.java,
+            **/KafkaConsumer.java,
+            **/LifecycleServiceImpl.java,
+            **/LoginPasswordTokenGranter.java,
+            **/Receiver.java,
+            **/ReportResource.java,
+            **/ResolverUtils.java,
+            **/CarSpecifications.java,
+            **/Sender.java,
+            **/DictSender.java,
+            **/ReferenceService.java,
+            **/RubricServiceImpl.java,
+            **/ReferenceServiceImpl.java,
+            **/CarServiceImpl.java,
+            **/PreorderServiceImpl.java,
+            **/StateMachinePoolServiceImpl.java,
+            **/UserInfoUtil.java,
+            **/EmployeeSprecifications.java,
+            **/SecureCookieFilter.java,
+            **/LocationSpecifications.java,
+            **/EmployeeServiceImpl.java,
+            **/CarEventSpecisications.java
+        </sonar.coverage.exclusions>
     </properties>
 
     <profiles>
