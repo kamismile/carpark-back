@@ -68,7 +68,7 @@ public class TokenConverterConfig {
     public boolean isUuid(String uuidToCheck) {
         try {
             UUID uuid = UUID.fromString(uuidToCheck);
-            log.debug("uuid" + uuid);
+            log.debug("uiid ok");
             return true;
         } catch (IllegalArgumentException exception) {
             LOGGER.info( exception.getMessage(), exception);

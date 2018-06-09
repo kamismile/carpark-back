@@ -14,6 +14,7 @@ import ru.vtb.microservices.carpark.cars.exception.LifecycleException;
  * @author Denis_Begun
  */
 @AllArgsConstructor
+@SuppressWarnings("all")
 public enum Events {
 
     RENT("Выдать"),
