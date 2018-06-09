@@ -54,7 +54,6 @@
             **/*Application.java,
             **/AccessExpressionCommand.java,
             **/AccessExpressionResourceImpl.java,
-            **/AccessExpressionResourceImpl.java,
             **/HttpRequestHelper.java,
             **/KafkaConsumer.java,
             **/LifecycleServiceImpl.java,
@@ -67,7 +66,6 @@
             **/DictSender.java,
             **/ReferenceService.java,
             **/RubricServiceImpl.java,
-            **/RubricServiceImpl.java,
             **/ReferenceServiceImpl.java,
             **/CarServiceImpl.java,
             **/PreorderServiceImpl.java,
@@ -77,8 +75,7 @@
             **/SecureCookieFilter.java,
             **/LocationSpecifications.java,
             **/EmployeeServiceImpl.java,
-            **/CarEventSpecisications.java,
-            **/EmployeeService.java
+            **/CarEventSpecisications.java
         </sonar.coverage.exclusions>
     </properties>
 
