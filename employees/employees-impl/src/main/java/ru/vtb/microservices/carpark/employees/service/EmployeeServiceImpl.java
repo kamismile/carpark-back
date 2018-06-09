@@ -17,6 +17,7 @@ import ru.vtb.microservices.carpark.commons.model.Command;
 import ru.vtb.microservices.carpark.employees.dto.EmployeeCommand;
 import ru.vtb.microservices.carpark.employees.model.Employee;
 import ru.vtb.microservices.carpark.employees.model.EmployeeFilter;
+import ru.vtb.microservices.carpark.employees.model.Location;
 import ru.vtb.microservices.carpark.employees.repository.EmployeeRepository;
 import ru.vtb.microservices.carpark.employees.sender.Sender;
 import ru.vtb.microservices.carpark.employees.repository.EmployeeSprecifications;
@@ -100,6 +101,13 @@ public class EmployeeServiceImpl implements EmployeeService {
             Long locationId = locationService.add(employee.getLocation()).getId();
             employee.getLocation().setId(locationId);
         }
+        if (employee.getLocation() != null && employee.getLocation().getId() != null){
+           Location location = locationService.getById(employee.getLocation().getId());
+           employee.setLocation(location);
+           locationService.add(location);
+        }
+
+
     }
 
     @Override
