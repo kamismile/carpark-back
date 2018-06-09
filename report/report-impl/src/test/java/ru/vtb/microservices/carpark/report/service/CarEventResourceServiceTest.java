@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.testng.annotations.BeforeMethod;
@@ -41,6 +42,7 @@ public class CarEventResourceServiceTest {
     @InjectMocks
     private CarEventResourceService carEventResourceService;
 
+    private String EXCEPTION = "exception";
     private String TEST_DATA = "test";
     private String USER_NAME = "Vasya";
     private Double MILEAGE = 2018d;
@@ -56,26 +58,11 @@ public class CarEventResourceServiceTest {
 
     @BeforeMethod
     public void setupMock() {
-        userInfo = new UserInfo();
-        userInfo.setName(USER_NAME);
+        userInfo = getUserInfo(USER_NAME);
         car = getDefaultCar();
-        carCommand = new CarCommand();
-        carCommand.setUserInfo(userInfo);
-        carCommand.setEntity(car);
-        carCommand.setOldEntity(car);
-        carCommand.setCommand(Command.ADD);
-        carCommand.setMessageDate(new Date());
-        employee = new Employee();
-        employee.setId(EMPLOYEE_ID);
-        carEvent = new CarEvent();
-        carEvent.setMessageDate(carCommand.getMessageDate());
-        carEvent.setUserName(carCommand.getUserInfo().getName());
-        BeanUtils.copyProperties(car,carEvent);
-        carEvent.setEmployee(employee);
-        carEvent.setId(null);
-        carEvent.setCarId(car.getId());
-        carEvent.setMessageType(carCommand.getCommand().toString());
-        carEvent.setState(States.READY);
+        carCommand = getCarCommand(userInfo, car, Command.ADD);
+        employee = getEmployee(EMPLOYEE_ID);
+        carEvent = getCarEvent(carCommand, employee, car, States.READY);
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(carEventResourceService).build();
         reset(employeeRepository);
@@ -86,10 +73,9 @@ public class CarEventResourceServiceTest {
     public void testSave() {
         when(employeeRepository.save(employee)).thenReturn(employee);
         when(employeeRepository.findByUserLogin(anyString())).thenReturn(employee);
+        when(employeeRepository.findByUserLogin(EXCEPTION)).thenThrow(DataAccessException.class);
         when(carEventRepository.save(carEvent)).thenReturn(carEvent);
-
         carEventResourceService.save(carCommand);
-
         verify(employeeRepository, atLeastOnce()).findByUserLogin(eq(USER_NAME));
         verify(carEventRepository, atLeastOnce()).save(eq(carEvent));
     }
@@ -115,4 +101,38 @@ public class CarEventResourceServiceTest {
         return car;
     }
 
+    private UserInfo getUserInfo(String login) {
+        userInfo = new UserInfo();
+        userInfo.setName(login);
+        return userInfo;
+    }
+
+    private CarCommand getCarCommand(UserInfo userInfo, Car car, Command command) {
+        carCommand = new CarCommand();
+        carCommand.setUserInfo(userInfo);
+        carCommand.setEntity(car);
+        carCommand.setOldEntity(car);
+        carCommand.setCommand(command);
+        carCommand.setMessageDate(new Date());
+        return carCommand;
+    }
+
+    private Employee getEmployee(Long id) {
+        employee = new Employee();
+        employee.setId(id);
+        return employee;
+    }
+
+    private CarEvent getCarEvent(CarCommand carCommand, Employee employee, Car car, States state) {
+        carEvent = new CarEvent();
+        carEvent.setMessageDate(carCommand.getMessageDate());
+        carEvent.setUserName(carCommand.getUserInfo().getName());
+        BeanUtils.copyProperties(car,carEvent);
+        carEvent.setEmployee(employee);
+        carEvent.setId(null);
+        carEvent.setCarId(car.getId());
+        carEvent.setMessageType(carCommand.getCommand().toString());
+        carEvent.setState(States.READY);
+        return carEvent;
+    }
 }

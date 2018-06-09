@@ -75,7 +75,8 @@
             **/SecureCookieFilter.java,
             **/LocationSpecifications.java,
             **/EmployeeServiceImpl.java,
-            **/CarEventSpecisications.java
+            **/CarEventSpecisications.java,
+            **/CarEventResourceService
         </sonar.coverage.exclusions>
     </properties>
 
