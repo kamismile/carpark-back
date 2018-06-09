@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import ru.vtb.microservices.carpark.cars.model.Car;
 import ru.vtb.microservices.carpark.employees.model.Employee;
@@ -50,7 +51,7 @@ public class CarEventResourceService {
         try {
             Employee employee = employeeRepository.findByUserLogin(carCommand.getUserInfo().getName());
             carEvent.setEmployee(employee);
-        } catch (Exception ex) {
+        } catch ( DataAccessException ex ) {
             LOGGER.info(ex.getMessage(), ex);
             carEvent.setEmployee(null);
         }
