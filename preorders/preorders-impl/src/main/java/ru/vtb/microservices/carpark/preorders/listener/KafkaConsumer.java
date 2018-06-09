@@ -64,8 +64,4 @@ public class KafkaConsumer {
         acknowledgment.acknowledge();
     }
 
-    private boolean isCarAndOrderValid(Car car, Preorder preorder) {
-        return preorder != null && car.getCurrentLocationId() != null
-                && car.getCurrentLocationId().equals(preorder.getStartLocationId());
-    }
 }
