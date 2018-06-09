@@ -22,7 +22,7 @@ import java.util.List;
 public class JwtWebMvcConfig extends WebMvcConfigurerAdapter {
 
     public JwtWebMvcConfig() {
-           super();
+        super();
     }
 
     @Bean

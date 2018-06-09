@@ -28,6 +28,6 @@ public class UserInfo implements Serializable {
     private Long locationId;
 
     public UserInfo() {
-      super();
+        super();
     }
 }
