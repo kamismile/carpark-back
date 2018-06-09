@@ -38,8 +38,7 @@
             **/config/**/*,
             **/model/**/*,
             **/entity/**/*,
-            **/*Application.java,
-
+            **/*Application.java
         </sonar.exclusions>
 
         <sonar.coverage.exclusions>
