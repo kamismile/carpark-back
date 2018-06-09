@@ -14,6 +14,7 @@ import java.util.List;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.BeanUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.testng.annotations.BeforeMethod;
@@ -69,7 +70,12 @@ public class CarEventResourceServiceTest {
         carEvent = new CarEvent();
         carEvent.setMessageDate(carCommand.getMessageDate());
         carEvent.setUserName(carCommand.getUserInfo().getName());
+        BeanUtils.copyProperties(car,carEvent);
         carEvent.setEmployee(employee);
+        carEvent.setId(null);
+        carEvent.setCarId(car.getId());
+        carEvent.setMessageType(carCommand.getCommand().toString());
+        carEvent.setState(States.READY);
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(carEventResourceService).build();
         reset(employeeRepository);
@@ -85,6 +91,7 @@ public class CarEventResourceServiceTest {
         carEventResourceService.save(carCommand);
 
         verify(employeeRepository, atLeastOnce()).findByUserLogin(eq(USER_NAME));
+        verify(carEventRepository, atLeastOnce()).save(eq(carEvent));
     }
 
     private Car getDefaultCar() {

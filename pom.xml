@@ -66,7 +66,6 @@
             **/Sender.java,
             **/DictSender.java,
             **/ReferenceService.java,
-            **/CarEventResourceService.java,
             **/RubricServiceImpl.java,
             **/RubricServiceImpl.java,
             **/ReferenceServiceImpl.java,
