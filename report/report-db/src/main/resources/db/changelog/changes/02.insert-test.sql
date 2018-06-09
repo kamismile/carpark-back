@@ -10,14 +10,34 @@ delete from dict_rubric;
 -- Data for Name: location; Type: TABLE DATA; Schema: public; Owner: report
 --
 
-INSERT INTO public.location (id, address, location_type, active) VALUES (1, 'Лубянский пр-д, 9 строение 1, Москва, 101000', 'head_office', true);
-INSERT INTO public.location (id, address, location_type, active) VALUES (2, '1-я Брестская ул., 2, Москва, 125047', 'rental_station', true);
-INSERT INTO public.location (id, address, location_type, active) VALUES (3, 'Кожевническая ул., 2, Москва, 115114', 'rental_station', true);
-INSERT INTO public.location (id, address, location_type, active) VALUES (4, 'Лубянский пр-д, 9 строение 1, Москва, 101000', 'service_station', true);
-INSERT INTO public.location (id, address, location_type, active) VALUES (5, 'Рогожский Вал ул., 9/2, Москва, 109544', 'rental_station', true);
-INSERT INTO public.location (id, address, location_type, active) VALUES (6, 'Авиамоторная ул., 30А, Москва, 111024', 'rental_station', true);
-INSERT INTO public.location (id, address, location_type, active) VALUES (7, 'Крюковская ул., 23, Москва, 111020', 'rental_station', true);
-INSERT INTO public.location (id, address, location_type, active) VALUES (500, 'Лубянский пр-д, 9 строение 1, Москва, 101000', 'head_office', true);
+----- ЦО
+INSERT INTO public.location(
+            id, address, location_type)
+    VALUES ('1', '(ЦО) Лубянский пр-д, 9 строение 1, Москва, 101000', 'head_office');
+-- прокат 1
+INSERT INTO public.location(
+            id, address, location_type)
+    VALUES ('2', '1-я Брестская ул., 2, Москва, 125047', 'rental_station');
+--прокат
+INSERT INTO public.location(
+            id, address, location_type)
+    VALUES ('3', 'Кожевническая ул., 2, Москва, 115114', 'rental_station');
+-- пункт обслуживания
+INSERT INTO public.location(
+            id, address, location_type)
+    VALUES ('4', '(Станция обсуживнаия) Лубянский пр-д, 9 строение 1, Москва, 101000', 'service_station');
+-- прокат
+INSERT INTO public.location(
+            id, address, location_type)
+    VALUES ('5', 'Рогожский Вал ул., 9/2, Москва, 109544', 'rental_station');
+-- прокат
+INSERT INTO public.location(
+            id, address, location_type)
+    VALUES ('6', 'Авиамоторная ул., 30А, Москва, 111024', 'rental_station');
+-- прокат
+INSERT INTO public.location(
+            id, address, location_type)
+    VALUES ('7', 'Крюковская ул., 23, Москва, 111020', 'rental_station');
 
 
 
