@@ -39,12 +39,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Report controoller.
@@ -152,7 +147,7 @@ public class ReportResource {
         } catch (JRException | SQLException e) {
             log.trace("SQL error", e);
             log.error(e.getMessage());
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
