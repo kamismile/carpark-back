@@ -40,7 +40,7 @@ public class UserInfoUtil {
         Long locationId;
         try {
             locationId = Long.valueOf(map.get("locationId").toString());
-        } catch (ClassCastException | NullPointerException | IndexOutOfBoundsException ex) {
+        } catch (NumberFormatException ex) {
             LOGGER.info(ex.getMessage(), ex);
             return new UserInfo(userName, role, null);
         }
