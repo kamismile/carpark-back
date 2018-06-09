@@ -37,9 +37,17 @@ import ru.vtb.microservices.carpark.report.repository.CarEventRepository;
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.GregorianCalendar;
+
+
+
+
 
 /**
  * Report controoller.

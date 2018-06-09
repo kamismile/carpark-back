@@ -41,6 +41,8 @@
             **/event/**/*,
             **/entity/**/*,
             **/model/**/*,
+            **/controller/**/*,
+            **/*Controller.java,
             **/*Application.java,
             **/SecureCookieFilter.java
         </sonar.exclusions>
