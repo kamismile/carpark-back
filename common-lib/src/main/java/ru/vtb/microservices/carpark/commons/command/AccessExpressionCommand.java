@@ -53,8 +53,11 @@ public class AccessExpressionCommand {
         return accessExpressionFeign.getAll();
     }
 
-
+    @SuppressWarnings("all")
     public AccessExpression defaultList(String operation) {
-        return DEFAULT_ACCESS_EXPR.get(0);
+        return DEFAULT_ACCESS_EXPR.stream()
+                .filter( o -> o.getOperation().equals(operation))
+                .findFirst().orElse(
+                        new AccessExpression(operation,"#userInfo.role != 'fake'"));
     }
 }
