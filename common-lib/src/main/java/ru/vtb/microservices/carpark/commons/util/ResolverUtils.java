@@ -31,7 +31,7 @@ public class ResolverUtils {
         if (StringUtils.isEmpty(nativeWebRequest.getParameter(parameterName))) {
             return null;
         }
-        return  Boolean.parseBoolean(nativeWebRequest.getParameter(parameterName));
+        return  Boolean.valueOf(nativeWebRequest.getParameter(parameterName));
     }
 
     /**
@@ -57,7 +57,7 @@ public class ResolverUtils {
         try {
             return new ISO8601DateFormat().parse(parameterName);
         } catch (ParseException e) {
-            throw new DateTimeParseException(e.getMessage(), parameterValue, 0);
+            throw new DateTimeParseException(e.getMessage(), parameterValue, 0, e);
         }
     }
 
@@ -80,7 +80,7 @@ public class ResolverUtils {
             return null;
         }
         try {
-            return Long.parseLong(stingVal);
+            return Long.valueOf(stingVal);
         } catch (NumberFormatException ex) {
             log.info(ex.getMessage());
             return null;
@@ -93,7 +93,7 @@ public class ResolverUtils {
             return null;
         }
         try {
-            return Double.parseDouble(stingVal);
+            return Double.valueOf(stingVal);
         } catch (NumberFormatException ex) {
             log.info(ex.getMessage());
             return null;
