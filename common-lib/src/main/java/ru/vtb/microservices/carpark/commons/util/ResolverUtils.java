@@ -67,7 +67,7 @@ public class ResolverUtils {
             return null;
         }
         try {
-            return Integer.parseInt(stingVal);
+            return Integer.valueOf(stingVal);
         } catch (NumberFormatException ex) {
             log.info(ex.getMessage());
             return null;
