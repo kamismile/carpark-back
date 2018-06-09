@@ -148,14 +148,11 @@ public class ReportResource {
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                                 jasperReport, parameters, dataSource.getConnection());
             return getReportBytes(jasperPrint);
-        } catch (JRException e) {
-            log.error(e.getMessage());
-            log.trace("Jasper error", e);
-            return e.getMessage().getBytes();
-        } catch (SQLException e) {
+
+        } catch (JRException | SQLException e) {
             log.trace("SQL error", e);
             log.error(e.getMessage());
-            return e.getMessage().getBytes();
+            throw new RuntimeException(e);
         }
     }
 
