@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="1300" pageHeight="595" orientation="Landscape" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="edc2c025-b660-4cf2-ac78-9a44c7156176">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="1300" pageHeight="595" orientation="Landscape" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="647"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="260"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="729"/>
@@ -16,6 +15,9 @@
 	<parameter name="dateFrom" class="java.util.Date">
 		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
 	</parameter>
+	<parameter name="locationId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select *, u.name ||' '|| u.surname || ' ' || u.patronymic  fio,
  l.address address,
@@ -28,8 +30,8 @@ left join location l on u.location_id = l.id
 left join dict_reference r on e.current_status = r.code
 left join dict_reference r1 on e.next_status = r1.code
 left join dict_reference r2 on e.mark = r2.code
-inner join ( select max(message_date) md, reg_number num from car_event group by reg_number) tm on e.message_date = tm.md and e.reg_number = tm.num
-where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.location_id = $P{locationId}]]>
+inner join ( select max(message_date) md, reg_number num from car_event where message_date <= $P{dateTo} group by reg_number ) tm on e.message_date = tm.md and e.reg_number = tm.num
+where e.location_id = $P{locationId}]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="year" class="java.lang.Integer"/>
@@ -57,7 +59,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 	<columnHeader>
 		<band height="32" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="163" y="1" width="129" height="31" backcolor="#999999" uuid="6e31062c-0498-4e16-b26d-be6bf02639c2"/>
+				<reportElement mode="Opaque" x="163" y="1" width="129" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -68,7 +70,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[Гос. номер]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="292" y="1" width="100" height="31" backcolor="#999999" uuid="62050410-dd6f-4e01-96a0-afa3a6008e09"/>
+				<reportElement mode="Opaque" x="292" y="1" width="100" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -79,7 +81,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[Год выпуска]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="392" y="1" width="100" height="31" backcolor="#999999" uuid="99f1a15e-8afa-45ed-8cf5-f508e47f28df"/>
+				<reportElement mode="Opaque" x="392" y="1" width="100" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -90,7 +92,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[Пробег]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="492" y="1" width="100" height="31" backcolor="#999999" uuid="d9bbe245-c2cc-4aa0-9604-04fd5724e561"/>
+				<reportElement mode="Opaque" x="492" y="1" width="100" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -101,7 +103,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[ Дата последнего ТО]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="592" y="1" width="100" height="31" backcolor="#999999" uuid="9cfb46fa-13b6-49af-8502-993dbda4d557"/>
+				<reportElement mode="Opaque" x="592" y="1" width="100" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -112,7 +114,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[ Дата следующего ТО]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="692" y="1" width="100" height="31" backcolor="#999999" uuid="863d680a-23a4-4fc5-88f9-409cd68e55ca"/>
+				<reportElement mode="Opaque" x="692" y="1" width="100" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -123,7 +125,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[ Текущий статус]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1091" y="1" width="169" height="31" backcolor="#999999" uuid="bfa1c8ca-7d71-4932-849e-5770fb258ed2"/>
+				<reportElement mode="Opaque" x="1091" y="1" width="169" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -134,7 +136,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[Плановая дата следующего статуса]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="957" y="1" width="134" height="31" backcolor="#999999" uuid="cfdd33e5-ab6e-41e8-8534-34382d864677"/>
+				<reportElement mode="Opaque" x="957" y="1" width="134" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -145,7 +147,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[Следующий статус]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="792" y="1" width="165" height="31" backcolor="#999999" uuid="9e88efc7-eb74-4bed-973f-431f685c41fd"/>
+				<reportElement mode="Opaque" x="792" y="1" width="165" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -156,7 +158,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<text><![CDATA[Дата перехода в текущий статус]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="1" width="163" height="31" backcolor="#999999" uuid="b4dc56fa-beb3-40d2-8e78-88608bde1838"/>
+				<reportElement mode="Opaque" x="0" y="1" width="163" height="31" backcolor="#999999"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.25"/>
 					<leftPen lineWidth="1.25"/>
@@ -171,7 +173,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 	<detail>
 		<band height="30" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="163" height="30" uuid="c2d7ea17-e3d6-4b0f-a434-71f1213d39b8"/>
+				<reportElement x="0" y="0" width="163" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -182,7 +184,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{mark_desc}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="163" y="0" width="129" height="30" uuid="e25e6a9e-b247-4c6f-b1ae-86d88eb98418"/>
+				<reportElement x="163" y="0" width="129" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -193,7 +195,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{reg_number}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="292" y="0" width="100" height="30" uuid="4a2e6f09-b326-4cfc-9ab7-34d077d97f92"/>
+				<reportElement x="292" y="0" width="100" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -204,7 +206,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="392" y="0" width="100" height="30" uuid="459837bd-257b-4318-b0c5-266ac1d9eaa3"/>
+				<reportElement x="392" y="0" width="100" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -215,7 +217,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{mileage}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
-				<reportElement x="492" y="0" width="100" height="30" uuid="fb8f0540-a88c-44e7-88a6-aa5e792c2a6b"/>
+				<reportElement x="492" y="0" width="100" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -226,7 +228,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{prev_maintenance_date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
-				<reportElement x="592" y="0" width="100" height="30" uuid="1c6ac53e-1b9b-4e14-8d69-823f941ae1a0"/>
+				<reportElement x="592" y="0" width="100" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -237,7 +239,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{next_maintenance_date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="692" y="0" width="100" height="30" uuid="c1550f5b-e688-45cb-8625-16f312914231"/>
+				<reportElement x="692" y="0" width="100" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -248,7 +250,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{curent_status_desc}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
-				<reportElement x="1091" y="0" width="169" height="30" uuid="971a20b1-4a0c-4815-9b5e-d874ac977d95"/>
+				<reportElement x="1091" y="0" width="169" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -259,7 +261,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{next_status_date}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="957" y="0" width="134" height="30" uuid="3a3976f4-25b5-4bfb-b65f-775eeabd271d"/>
+				<reportElement x="957" y="0" width="134" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -270,7 +272,7 @@ where message_date <= $P{dateTo} and message_date >= $P{dateFrom}   and e.locati
 				<textFieldExpression><![CDATA[$F{next_status_desc}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd.MM.yyyy" isBlankWhenNull="true">
-				<reportElement x="792" y="0" width="165" height="30" uuid="d8494f14-17ab-4301-adbf-5356bb3d0d91"/>
+				<reportElement x="792" y="0" width="165" height="30"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
