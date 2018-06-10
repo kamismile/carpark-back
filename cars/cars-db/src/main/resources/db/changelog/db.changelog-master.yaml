@@ -1,3 +1,7 @@
 databaseChangeLog:
-    - includeAll:
-        path: db/changelog/changes/
+    - include:
+            file: db/changelog/changes/01.create-tables.sql
+    - include:
+            file: db/changelog/changes/04.insert-cars.sql
+    - include:
+            file: db/changelog/changes/05.insert-transitions.sql
