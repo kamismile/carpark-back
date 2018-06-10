@@ -90,6 +90,12 @@
                 <sonar.host.url>
                     http://172.19.19.226:31705
                 </sonar.host.url>
+                <sonar.login>
+                    admin
+                </sonar.login>
+                <sonar.password>
+                   admin
+                </sonar.password>
             </properties>
             <build>
                 <plugins>
