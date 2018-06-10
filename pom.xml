@@ -76,7 +76,7 @@
             **/LocationSpecifications.java,
             **/EmployeeServiceImpl.java,
             **/CarEventSpecisications.java,
-            **/CarEventResourceService
+            **/CarEventResourceService.java
         </sonar.coverage.exclusions>
     </properties>
 
