@@ -49,7 +49,7 @@ public class PreorderServiceImpl implements PreorderService {
 
     @Override
     public Preorder getPreorder(Long id) {
-        return preorderRepository.getOne(id);
+        return preorderRepository.findOne(id);
     }
 
     @Override
