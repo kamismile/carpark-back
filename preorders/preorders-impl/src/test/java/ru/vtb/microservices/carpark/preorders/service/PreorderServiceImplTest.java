@@ -68,7 +68,7 @@ public class PreorderServiceImplTest {
 
     @Test
     public void testGetPreorder() {
-        when(preorderRepository.getOne(anyLong())).thenReturn(preorder);
+        when(preorderRepository.findOne(anyLong())).thenReturn(preorder);
         Preorder preorderTest = preorderService.getPreorder(preorder_id);
         assertEquals(preorderTest, preorder);
     }

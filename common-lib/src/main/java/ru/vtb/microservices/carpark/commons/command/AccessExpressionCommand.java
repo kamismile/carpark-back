@@ -30,7 +30,8 @@ public class AccessExpressionCommand {
     static {
         DEFAULT_ACCESS_EXPR = new ArrayList<>();
         DEFAULT_ACCESS_EXPR.add(new AccessExpression("getCars_filter",
-                " ( #userInfo.role == 'rental_manager' && ( #userInfo.locationId == #target.currentLocationId || #userInfo.locationId == #target.locationId ) ) "
+                " ( #userInfo.role == 'rental_manager' &&" +
+                        " ( #userInfo.locationId == #target.currentLocationId || #userInfo.locationId == #target.locationId ) ) "
                 + " || ( #userInfo.role == 'service_manager' && ( #target.currentStatus = 'in_service' ||  #target.nextStatus == 'in_service' )) "
                 + " || #userInfo.role == 'management' ||  #userInfo.role == 'administrator' "));
         DEFAULT_ACCESS_EXPR.add((new AccessExpression("getReferencesByRubric_filter", "#userInfo.role != 'test'")));
