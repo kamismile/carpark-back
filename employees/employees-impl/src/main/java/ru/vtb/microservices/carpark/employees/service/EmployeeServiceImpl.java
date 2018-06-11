@@ -104,7 +104,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee.getLocation() != null && employee.getLocation().getId() != null){
             Location location = locationService.getById(employee.getLocation().getId());
             employee.setLocation(location);
-            locationService.add(location);
         }
 
 
