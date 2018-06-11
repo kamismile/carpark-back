@@ -109,6 +109,9 @@ public class ReportResource {
 
     @GetMapping (value = "/history", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CarEvent> getHistory(UserInfo userInfo, @RequestParam (value = "date", required = false) Long date) {
+        if(date == null) {
+            return carEventRepository.findAll();
+        }
         Date reportDate = getDateReport(date);
         Calendar calendar = trimDate(reportDate);
         Date dateTo = calendar.getTime();
