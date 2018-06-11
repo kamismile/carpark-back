@@ -33,7 +33,7 @@ public class KafkaConsumer {
 
     private final PreorderService preorderService;
 
-    private final JavaMailSender emailSender;
+    //private final JavaMailSender emailSender;
 
     /**
      * Консьюмер для обновления информации об автомобилях.
@@ -53,12 +53,15 @@ public class KafkaConsumer {
             if (preorder != null && car.getCurrentLocationId() != null
                     && car.getCurrentLocationId().equals(preorder.getStartLocationId())) {
                 log.info("Sending email to: {}", preorder.getEmail());
-                SimpleMailMessage message = new SimpleMailMessage();
-                message.setTo(preorder.getEmail());
-                message.setSubject("Автомобиль ожидает Вас в пункте проката");
-                message.setText(String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
-                            preorder.getClientName(), preorder.getClientPatronymic()));
-                emailSender.send(message);
+                //SimpleMailMessage message = new SimpleMailMessage();
+                //message.setTo(preorder.getEmail());
+                log.info("Email subject: {}", "Автомобиль ожидает Вас в пункте проката");
+                //message.setSubject("Автомобиль ожидает Вас в пункте проката");
+                log.info("Email text: {}", String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
+                        preorder.getClientName(), preorder.getClientPatronymic()));
+                //message.setText(String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
+                //            preorder.getClientName(), preorder.getClientPatronymic()));
+                //emailSender.send(message);
             }
         }
         acknowledgment.acknowledge();
