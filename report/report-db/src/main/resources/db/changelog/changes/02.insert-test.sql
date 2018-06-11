@@ -1,3 +1,5 @@
+--liquibase formatted sql
+--changeset rmorenko:insert_tables
 
 delete from car_event;
 delete from employee;
@@ -167,24 +169,102 @@ INSERT INTO public.dict_reference(
     VALUES ('senior_service_manager', 'Старший менеджер обслуживания', true, 'position', true);
 
 
---
--- Data for Name: employee; Type: TABLE DATA; Schema: public; Owner: report
---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('1', 'Николай', 'Филиппов', 'Евгеньевич', '1624','326497' ,
+             '1986.10.12', 'administrator', current_date - 950, '1', '1');
+---
 
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (2, 'Станислав', 'Брагин', 'Гавриилович', '2945', '206534', '1979-05-04', 'management', '2017-09-30', 1, 2, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (3, 'Василий', 'Филиппов', 'Николаевич', '6426', '244653', '1995-05-02', 'administrator', '2017-12-19', 2, 3, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (4, 'Вячеслав', 'Самойлов', 'Андрейевич', '4653', '234875', '1979-03-01', 'rental_manager', '2017-08-11', 2, 4, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (5, 'Тимофей', 'Лобанов', 'Владимирович', '5976', '234751', '1979-12-13', 'administrator', '2017-08-21', 3, 5, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (6, 'Светлана', 'Меркушева', 'Олеговна', '2349', '234759', '1979-02-23', 'rental_manager', '2017-08-31', 3, 6, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (7, 'Игорь', 'Кононов', 'Борисович', '4628', '125470', '1988-12-13', 'administrator', '2017-11-29', 4, 7, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (8, 'Павел', 'Стрелков', 'Вячеславович', '2580', '120579', '1982-03-03', 'rental_manager', '2017-10-30', 4, 8, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (9, 'Марина', 'Стрелкова', 'Станиславовна', '2580', '349520', '1998-12-12', 'administrator', '2018-05-08', 5, 9, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (10, 'Людмила', 'Ларионова', 'Ярославовна', '2584', '659120', '1979-11-11', 'rental_manager', '2017-10-30', 5, 10, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (11, 'Артём', 'Лаврентьев', 'Эдуардович', '3490', '259459', '1988-03-02', 'administrator', '2017-12-29', 6, 11, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (12, 'Святослав', 'Дроздов', 'Владиславович', '5640', '594387', '1984-12-02', 'rental_manager', '2017-11-09', 6, 12, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (13, 'Гавриил', 'Соболев', 'Станиславович', '9564', '234590', '1991-03-01', 'administrator', '2017-12-19', 7, 13, true);
-INSERT INTO public.employee (id, name, surname, patronymic, passport_series, passport_number, birthday, "position", appointment_date, location_id, user_id, active) VALUES (14, 'Аркадий', 'Уваров', 'Валентинович', '4851', '349501', '1990-01-04', 'rental_manager', '2018-02-17', 7, 14, true);
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('2', 'Станислав', 'Брагин', 'Гавриилович', '2945','206534' ,
+             '1979.05.04', 'management', current_date - 250, '1', '2');
+---
 
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('3', 'Василий', 'Филиппов', 'Николаевич', '6426','244653' ,
+             '1995.05.02', 'administrator', current_date - 170, '2', '3');
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('4', 'Вячеслав', 'Самойлов', 'Андрейевич', '4653','234875' ,
+             '1979.03.01', 'rental_manager', current_date - 300, '2', '4');
+---
+
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('5', 'Тимофей', 'Лобанов', 'Владимирович', '5976','234751' ,
+             '1979.12.13', 'administrator', current_date - 290, '3', '5');
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('6', 'Светлана', 'Меркушева', 'Олеговна', '2349','234759' ,
+             '1979.02.23', 'rental_manager', current_date - 280, '3', '6');
+---
+
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('7', 'Игорь', 'Кононов', 'Борисович', '4628','125470' ,
+             '1988.12.13', 'administrator', current_date - 190, '4', '7');
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('8', 'Павел', 'Стрелков', 'Вячеславович', '2580','120579' ,
+             '1982.03.03', 'rental_manager', current_date - 220, '4', '8');
+---
+
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('9', 'Марина', 'Стрелкова', 'Станиславовна', '2580','349520' ,
+             '1998.12.12', 'administrator', current_date - 30, '5', '9');
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('10', 'Людмила', 'Ларионова', 'Ярославовна', '2584','659120' ,
+              '1979.11.11', 'rental_manager', current_date - 220, '5', '10');
+---
+
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('11', 'Артём', 'Лаврентьев', 'Эдуардович', '3490','259459' ,
+              '1988.03.02', 'administrator', current_date - 160, '6', '11');
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('12', 'Святослав', 'Дроздов', 'Владиславович', '5640','594387' ,
+              '1984.12.02', 'rental_manager', current_date - 210, '6', '12');
+---
+
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('13', 'Гавриил', 'Соболев', 'Станиславович', '9564','234590' ,
+              '1991.03.01', 'administrator', current_date - 170, '7', '13');
+---
+INSERT INTO public.employee(
+  id, name, surname, patronymic, passport_series, passport_number,
+  birthday, "position", appointment_date, location_id, user_id)
+VALUES ('14', 'Аркадий', 'Уваров', 'Валентинович', '4851','349501' ,
+              '1990.01.04', 'rental_manager', current_date - 110, '7', '14');
 --
 -- Data for Name: car_event; Type: TABLE DATA; Schema: public; Owner: report
 --
@@ -298,3 +378,8 @@ ALTER SEQUENCE location_id_seq RESTART WITH 500;
 
 UPDATE employee set active = true;
 update public.car_event set message_date = current_date -1;
+
+update public.car_event set employee_id = 1;
+
+--changeset rmorenko:insert_tables2
+update public.car_event set user_name = 'administrator1';
