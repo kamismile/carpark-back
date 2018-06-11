@@ -61,7 +61,7 @@ UPDATE  ACCESS_EXPRESSIONS  SET expression =
 '|| ( #userInfo.role == ''service_manager'' &&  #stringEvent == ''SERVICE'')'
 WHERE operation_name = 'changeCarState';
 
---changeset rmorenko:2018-06-11-2
+--changeset rmorenko:2018-06-11-3
 UPDATE  ACCESS_EXPRESSIONS  SET expression =
 '( #userInfo.role == ''rental_manager'' && ( #userInfo.locationId == #target.currentLocationId || #userInfo.locationId == #target.locationId ))||'||
 '(#userInfo.role == ''service_manager'' && ( #target.currentStatus == ''in_service'' ||  #target.nextStatus == ''in_service'' )) ||'||
