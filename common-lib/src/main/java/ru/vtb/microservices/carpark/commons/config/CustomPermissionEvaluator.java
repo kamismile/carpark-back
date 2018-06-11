@@ -54,8 +54,8 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         DEFAULT_EXPRESSIONS.put("getReferencesByRubric_filter", "#userInfo.role != 'test'");
         DEFAULT_EXPRESSIONS.put("changeCarState", "#userInfo.role == 'administrator' || #userInfo.role == 'management' "
                 + "|| ( #userInfo.role == 'rental_manager' "
-                + "&&  ( #stringEvent == 'READY' || #stringEvent == 'IN_USE' ) )|| ( #userInfo.role == 'service_manager' "
-                + "&&  #stringEvent == 'IN_SERVICE')");
+                + "&&  ( #stringEvent == 'READY' || #stringEvent == 'RETURN' ) )|| ( #userInfo.role == 'service_manager' "
+                + "&&  #stringEvent == 'SERVICE')");
         DEFAULT_EXPRESSIONS.put("deleteCar", USER_INFO_ROLE_ADMINISTRATOR1);
         DEFAULT_EXPRESSIONS.put("createCar", USER_INFO_ROLE_ADMINISTRATOR1);
         DEFAULT_EXPRESSIONS.put("updateCar", USER_INFO_ROLE_ADMINISTRATOR);
