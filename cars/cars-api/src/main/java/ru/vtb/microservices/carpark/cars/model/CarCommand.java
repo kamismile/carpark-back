@@ -13,6 +13,5 @@ import ru.vtb.microservices.carpark.commons.model.KafkaCommand;
  *
  * @author Denis_Begun
  */
-@AllArgsConstructor
 public class CarCommand extends KafkaCommand<Car> {
 }
