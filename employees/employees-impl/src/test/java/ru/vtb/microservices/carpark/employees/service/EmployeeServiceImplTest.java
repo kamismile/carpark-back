@@ -112,6 +112,7 @@ public class EmployeeServiceImplTest {
     @Test
     public void testAdd() {
         when(employeeRepository.save(employee)).thenReturn(employee);
+        when(userInfoService.addUserInfo(employee.getUser())).thenReturn(userInfo);
         doNothing().when(sender).send(isA(String.class), isA(EmployeeCommand.class));
 
         employeeService.add(employee);
@@ -123,7 +124,7 @@ public class EmployeeServiceImplTest {
     public void testUpdate() {
         when(employeeRepository.findOne(anyLong())).thenReturn(employee);
         when(employeeRepository.save(employee)).thenReturn(employee);
-
+        when(userInfoService.addUserInfo(employee.getUser())).thenReturn(userInfo);
         employeeService.update(employee);
 
         verify(employeeRepository, atLeastOnce()).save(eq(employee));
