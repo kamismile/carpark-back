@@ -16,9 +16,9 @@ import ru.vtb.microservices.carpark.commons.model.KafkaCommand;
 @NoArgsConstructor
 public class CarCommand extends KafkaCommand<Car> {
 
-    private Number num;
+    protected int num;
 
-    public CarCommand(Number num){
+    public CarCommand(int num){
         super();
         this.num = num;
     }
