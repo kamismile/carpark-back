@@ -21,6 +21,21 @@ spring:
           time_zone: UTC
         temp:
           use_jdbc_metadata_defaults: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: vtb.carpark
+    password: 370fd0511
+    properties:
+      mail:
+        smtp:
+          auth : true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+
+
 
 eureka:
   instance:
@@ -66,7 +81,7 @@ kafka:
 
 ---
 spring:
-  profiles: dev
+  profiles: dev1
   datasource:
     url: jdbc:postgresql://172.19.19.226:31564/preorders
     username: preorders
