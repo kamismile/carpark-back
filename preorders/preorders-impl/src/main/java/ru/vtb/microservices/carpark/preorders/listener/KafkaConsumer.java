@@ -7,11 +7,8 @@ package ru.vtb.microservices.carpark.preorders.listener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.NestedRuntimeException;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -41,14 +38,12 @@ public class KafkaConsumer {
      * Консьюмер для обновления информации об автомобилях.
      *
      * @param cr             Обертка для объекта.
-     * @param acknowledgment Объект для коммита оффсетов.
      */
-    @KafkaListener(id = "preorders", topics = "${kafka.cars.topic}",
-            containerFactory = "kafkaListenerContainerFactory")
-    public void listen(ConsumerRecord<String, CarCommand> cr, Acknowledgment acknowledgment) {
+    @KafkaListener(id = "preorders", topics = "${kafka.cars.topic}")
+    public void listen(CarCommand cr) {
 
         log.info("received command='{}'", cr);
-        Car car = cr.value().getEntity();
+        Car car = cr.getEntity();
 
         if (States.READY == car.getState()) {
             Preorder preorder = preorderService.getEarliestPreorderByType(car.getId(), PreorderType.BOOKING);
@@ -71,7 +66,6 @@ public class KafkaConsumer {
                 }
             }
         }
-        acknowledgment.acknowledge();
     }
 
 }
