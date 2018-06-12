@@ -5,6 +5,7 @@
 
 package ru.vtb.microservices.carpark.cars.model;
 
+import lombok.NoArgsConstructor;
 import ru.vtb.microservices.carpark.commons.model.KafkaCommand;
 
 /**
@@ -12,6 +13,7 @@ import ru.vtb.microservices.carpark.commons.model.KafkaCommand;
  *
  * @author Denis_Begun
  */
+@NoArgsConstructor
 public class CarCommand extends KafkaCommand<Car> {
     private Number num;
     public CarCommand(Number num){
