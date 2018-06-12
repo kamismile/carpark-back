@@ -37,7 +37,7 @@ public class KafkaConsumer {
     /**
      * Консьюмер для обновления информации об автомобилях.
      *
-     * @param cr             Обертка для объекта.
+     * @param cr Объект с информацией об изменении данных
      */
     @KafkaListener(id = "preorders", topics = "${kafka.cars.topic}")
     public void listen(CarCommand cr) {
@@ -52,20 +52,20 @@ public class KafkaConsumer {
                 log.info("Sending email to: {}", preorder.getEmail());
                 SimpleMailMessage message = new SimpleMailMessage();
                 message.setTo(preorder.getEmail());
-                log.info("Email subject: {}", "Автомобиль ожидает Вас в пункте проката");
-                message.setSubject("Автомобиль ожидает Вас в пункте проката");
-                log.info("Email text: {}", String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
-                        preorder.getClientName(), preorder.getClientPatronymic()));
-                message.setText(String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
-                            preorder.getClientName(), preorder.getClientPatronymic()));
+                String eSubj = "Автомобиль ожидает Вас в пункте проката";
+                log.info("Email subject: {}", eSubj);
+                message.setSubject(eSubj);
+                String eMessage = String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
+                        preorder.getClientName(), preorder.getClientPatronymic());
+                log.info("Email text: {}", eMessage);
+                message.setText(eMessage);
                 try {
                     emailSender.send(message);
                 } catch (MailException ex) {
-                   log.info("Message not send", ex);
-                   throw new IllegalArgumentException(ex);
+                    log.info("Message not send", ex);
+                    throw new IllegalArgumentException(ex);
                 }
             }
         }
     }
-
 }
