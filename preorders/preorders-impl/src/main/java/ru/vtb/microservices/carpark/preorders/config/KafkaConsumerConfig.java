@@ -50,7 +50,6 @@ public class KafkaConsumerConfig {
                 StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new StringDeserializer());
     }
 

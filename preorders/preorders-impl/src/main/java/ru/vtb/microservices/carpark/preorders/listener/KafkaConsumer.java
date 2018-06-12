@@ -44,9 +44,9 @@ public class KafkaConsumer {
 
         log.info("received command='{}'", cr);
         Car car = cr.getEntity();
-        log.info("Entitity '{}'", car);
         if (States.READY == car.getState()) {
             Preorder preorder = preorderService.getEarliestPreorderByType(car.getId(), PreorderType.BOOKING);
+            log.info("Earliset preorder '{}'", car);
             if (preorder != null && car.getCurrentLocationId() != null
                     && car.getCurrentLocationId().equals(preorder.getStartLocationId())) {
                 log.info("Sending email to: {}", preorder.getEmail());
@@ -67,7 +67,6 @@ public class KafkaConsumer {
                 }
 
             }
-            log.info("Main not send state is not READY: ");
         }
     }
 }
