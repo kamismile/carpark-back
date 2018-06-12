@@ -46,7 +46,7 @@ public class KafkaConsumer {
         Car car = cr.getEntity();
         if (States.READY == car.getState()) {
             Preorder preorder = preorderService.getEarliestPreorderByType(car.getId(), PreorderType.BOOKING);
-            log.info("Earliset preorder '{}'", car);
+            log.info("Earliset preorder '{}'", preorder);
             if (preorder != null && car.getCurrentLocationId() != null
                     && car.getCurrentLocationId().equals(preorder.getStartLocationId())) {
                 log.info("Sending email to: {}", preorder.getEmail());
