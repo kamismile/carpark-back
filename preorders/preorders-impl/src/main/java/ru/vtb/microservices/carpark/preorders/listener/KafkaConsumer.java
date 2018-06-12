@@ -9,8 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -61,7 +63,12 @@ public class KafkaConsumer {
                         preorder.getClientName(), preorder.getClientPatronymic()));
                 message.setText(String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
                             preorder.getClientName(), preorder.getClientPatronymic()));
-                emailSender.send(message);
+                try {
+                    emailSender.send(message);
+                } catch (MailException ex) {
+                   log.info("Message not send", ex);
+                   throw new IllegalArgumentException(ex);
+                }
             }
         }
         acknowledgment.acknowledge();
