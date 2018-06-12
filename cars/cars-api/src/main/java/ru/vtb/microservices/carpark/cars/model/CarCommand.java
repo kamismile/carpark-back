@@ -5,7 +5,6 @@
 
 package ru.vtb.microservices.carpark.cars.model;
 
-import lombok.AllArgsConstructor;
 import ru.vtb.microservices.carpark.commons.model.KafkaCommand;
 
 /**
