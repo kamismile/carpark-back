@@ -24,11 +24,16 @@ import org.springframework.web.filter.CorsFilter;
 @EnableResourceServer
 public class SecurityConfig extends ResourceServerConfigurerAdapter {
 
+    public  static final String[] SECURITY_ANT_MATCHERS = {
+            "/v2/api-docs", "/swagger-resources/**", "/documentation/**", "/swagger-ui.html"
+    };
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
           .authorizeRequests()
+          .antMatchers(SECURITY_ANT_MATCHERS).permitAll()
           .anyRequest().authenticated();
         // @formatter:on
     }
