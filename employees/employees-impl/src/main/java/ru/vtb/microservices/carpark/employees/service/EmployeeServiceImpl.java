@@ -97,14 +97,17 @@ public class EmployeeServiceImpl implements EmployeeService {
             Long employeeId = userInfoService.addUserInfo(employee.getUser()).getId();
             employee.getUser().setId(employeeId);
         }
+        if (employee.getUser() != null && employee.getUser().getId() != null) {
+            Long employeeId = userInfoService.addUserInfo(employee.getUser()).getId();
+            employee.getUser().setId(employeeId);
+        }
         if (employee.getLocation() != null && employee.getLocation().getId() == null) {
             Long locationId = locationService.add(employee.getLocation()).getId();
             employee.getLocation().setId(locationId);
         }
         if (employee.getLocation() != null && employee.getLocation().getId() != null){
-           Location location = locationService.getById(employee.getLocation().getId());
-           employee.setLocation(location);
-           locationService.add(location);
+            Location location = locationService.getById(employee.getLocation().getId());
+            employee.setLocation(location);
         }
 
 
@@ -113,6 +116,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void update(Employee employee) {
         Employee oldEmployee = employeeRepository.findOne(employee.getId());
+        saveUserAndLocation(employee);
         employeeRepository.save(employee);
         EmployeeCommand employeeCommand = new EmployeeCommand();
         employeeCommand.setOldEntity(oldEmployee);

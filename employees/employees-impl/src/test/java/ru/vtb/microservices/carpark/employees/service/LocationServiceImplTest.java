@@ -57,8 +57,8 @@ public class LocationServiceImplTest {
 
     @Test
     public void testGetById() {
-        when(locationRepository.getOne(anyLong())).thenReturn(location);
-        when(locationRepository.getOne(null)).thenReturn(null);
+        when(locationRepository.findOne(anyLong())).thenReturn(location);
+        when(locationRepository.findOne((Long)null)).thenReturn(null);
         when(locationService.getById(anyLong())).thenReturn(location);
         when(locationService.getById(null)).thenReturn(null);
 
@@ -68,8 +68,8 @@ public class LocationServiceImplTest {
         assertNotNull(locationAny);
         assertNull(locationNull);
         assertEquals(locationAny.getAddress(), LOCATION_ADDRESS);
-        verify(locationRepository, atLeastOnce()).getOne(eq(LOCATION_ID));
-        verify(locationRepository, atMost(1)).getOne(eq(null));
+        verify(locationRepository, atLeastOnce()).findOne(eq(LOCATION_ID));
+        verify(locationRepository, atMost(1)).findOne((Long) eq(null));
     }
 
     @Test

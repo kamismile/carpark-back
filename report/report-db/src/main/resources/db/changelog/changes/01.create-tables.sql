@@ -65,7 +65,7 @@ CREATE TABLE user_info (
 );
 
 ALTER TABLE user_info
- ADD COLUMN LOCATION_ID BIGINT;
+ ADD COLUMN LOCATION_ID INTEGER;
 
 
 --changeset rmorenko:2018-06-06-15

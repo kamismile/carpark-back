@@ -109,10 +109,13 @@ public class ReportResource {
 
     @GetMapping (value = "/history", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<CarEvent> getHistory(UserInfo userInfo, @RequestParam (value = "date", required = false) Long date) {
+        if(date == null) {
+            return carEventRepository.findAll();
+        }
         Date reportDate = getDateReport(date);
         Calendar calendar = trimDate(reportDate);
         Date dateTo = calendar.getTime();
-        Date dateFrom = shiftDay(calendar);
+        Date dateFrom = shiftDay(calendar, 1);
 
         if (isRentalRole(userInfo)) {
             return  carEventRepository.findByMessageDateAndLocationId(reportDate, userInfo.getLocationId());
@@ -140,8 +143,8 @@ public class ReportResource {
         Date reportDate = getDateReport(date);
 
         Calendar calendar = trimDate(reportDate);
-        Date dateTo = calendar.getTime();
-        Date dateFrom = shiftDay(calendar);
+        Date dateTo = shiftDay(calendar, 1);
+        Date dateFrom = shiftDay(calendar, -2);
         Map<String, Object> parameters = fillParameters(userInfo, dateFrom, dateTo);
         try {
             InputStream employeeReportStream
@@ -159,15 +162,15 @@ public class ReportResource {
         }
     }
 
-    private Date shiftDay(Calendar calendar) {
-        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) - 1);
+    private Date shiftDay(Calendar calendar, int day) {
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + day);
         return calendar.getTime();
     }
 
     private Calendar trimDate(Date reportDate) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(reportDate);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         return calendar;

@@ -35,6 +35,8 @@ spring:
           ssl:
             trust: smtp.gmail.com
 
+
+
 eureka:
   instance:
     preferIpAddress: true
@@ -79,7 +81,7 @@ kafka:
 
 ---
 spring:
-  profiles: dev
+  profiles: dev1
   datasource:
     url: jdbc:postgresql://172.19.19.226:31564/preorders
     username: preorders

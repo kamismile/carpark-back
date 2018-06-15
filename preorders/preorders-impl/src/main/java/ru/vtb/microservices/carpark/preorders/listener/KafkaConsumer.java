@@ -7,10 +7,9 @@ package ru.vtb.microservices.carpark.preorders.listener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -38,30 +37,36 @@ public class KafkaConsumer {
     /**
      * Консьюмер для обновления информации об автомобилях.
      *
-     * @param cr             Обертка для объекта.
-     * @param acknowledgment Объект для коммита оффсетов.
+     * @param cr Объект с информацией об изменении данных
      */
-    @KafkaListener(id = "preorders", topics = "${kafka.cars.topic}",
-            containerFactory = "kafkaListenerContainerFactory")
-    public void listen(ConsumerRecord<String, CarCommand> cr, Acknowledgment acknowledgment) {
+    @KafkaListener(id = "preorders", topics = "${kafka.cars.topic}")
+    public void listen(CarCommand cr) {
 
         log.info("received command='{}'", cr);
-        Car car = cr.value().getEntity();
-
+        Car car = cr.getEntity();
         if (States.READY == car.getState()) {
             Preorder preorder = preorderService.getEarliestPreorderByType(car.getId(), PreorderType.BOOKING);
+            log.info("Earliset preorder '{}'", preorder);
             if (preorder != null && car.getCurrentLocationId() != null
                     && car.getCurrentLocationId().equals(preorder.getStartLocationId())) {
                 log.info("Sending email to: {}", preorder.getEmail());
                 SimpleMailMessage message = new SimpleMailMessage();
                 message.setTo(preorder.getEmail());
-                message.setSubject("Автомобиль ожидает Вас в пункте проката");
-                message.setText(String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
-                            preorder.getClientName(), preorder.getClientPatronymic()));
-                emailSender.send(message);
+                String eSubj = "Автомобиль ожидает Вас в пункте проката";
+                log.info("Email subject: {}", eSubj);
+                message.setSubject(eSubj);
+                String eMessage = String.format("%s %s, здравствуйте! Выбранный Вами автомобиль ожидает в пункте проката.",
+                        preorder.getClientName(), preorder.getClientPatronymic());
+                log.info("Email text: {}", eMessage);
+                message.setText(eMessage);
+                try {
+                    emailSender.send(message);
+                } catch (MailException ex) {
+                    log.info("Message not send", ex);
+                    throw new IllegalArgumentException(ex);
+                }
+
             }
         }
-        acknowledgment.acknowledge();
     }
-
 }

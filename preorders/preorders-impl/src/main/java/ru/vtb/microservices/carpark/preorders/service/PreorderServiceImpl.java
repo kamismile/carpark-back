@@ -6,6 +6,7 @@
 package ru.vtb.microservices.carpark.preorders.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
  * @author Denis_Begun
  */
 @Service
+@Slf4j
 @Transactional
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PreorderServiceImpl implements PreorderService {
@@ -49,7 +51,7 @@ public class PreorderServiceImpl implements PreorderService {
 
     @Override
     public Preorder getPreorder(Long id) {
-        return preorderRepository.getOne(id);
+        return preorderRepository.findOne(id);
     }
 
     @Override
@@ -75,6 +77,7 @@ public class PreorderServiceImpl implements PreorderService {
     public Preorder getEarliestPreorder(Long carId) {
         List<Preorder> existingList = preorderRepository.findByCarId(carId);
         Date now = getTodayStart();
+        log.info("list of preorders='{}', compare to date {}", existingList.size(), now);
         if (existingList.isEmpty()) {
             return null;
         } else {

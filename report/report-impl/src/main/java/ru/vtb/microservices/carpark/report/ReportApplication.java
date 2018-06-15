@@ -17,6 +17,9 @@ import ru.vtb.microservices.carpark.commons.config.FeignConfig;
 import ru.vtb.microservices.carpark.commons.config.MethodSecurityConfig;
 import ru.vtb.microservices.carpark.commons.config.JwtConfig;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 /**
  * Main class.
  *
@@ -31,6 +34,11 @@ public class ReportApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ReportApplication.class, args);
+    }
+
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 
 }
